@@ -1,0 +1,74 @@
+Online podnikový reporting systém generický - Business Inteligence - Agile Business Intelligence
+- Jednoduchý způsob připojení a konfigurace vstupních dat.
+	- Využití .NET entity frameworku.
+- Vytvoření reportů s možností doupravení.
+- GUI 
+	- Metabase
+	- Jednoduché, hlavní dobré propojení s backendem
+- Hledání chyb v datech 
+
+Vývoj:
+	1. prototyp
+		Pro konkrétního zákazníka, ukázka reportovacích možností.
+	
+	2. Rešerše na požadavky
+		Mezi více firmami, jaké by měly na systém požadavky a jaký mají formát dat.
+	↓↓↓↓↓	
+	3. zobecnění
+
+
+Potenciální komplikace:
+	Reportovací období - různá 
+	Různé měny a zdroje kurzů atd.
+
+
+Features
+	Funkcionalita na převod a čištění dat.
+	Definování vazeb mezi datovými entitami reporting systému a ERP systému
+	Generování konfigurací pro metabase 
+
+
+doménové jazyky možnost rozšíření
+	- validita dat
+	- různé technologie
+	datové kostky atd. pro velké množství dat
+
+ 
+Možné alternativy Metabase:
+- Apache Superset 
+	- uživatelsky složité úpravy reportů, nutná znalost SQL
+	: 
+		Richer data visualization features
+		More chart types available inc. geospatial
+		More granular security settings
+		Access-restrictions for embedded dashboards
+		Semantic layering
+
+- Lightdash
+	- no code option to create reports
+	
+- Redash - better sql editor
+		 - more data sources
+			- možnost udělat join nad dvěma zdroji dat.
+			
+- Knowage - zajímavé, nové, ale asi příliš málo rozšířené			
+			
+- Tubleau Public - vypadá zajímavě - TODO: prozkoumat
+
+- Trevor, Tableau Server, Looker, Holistics - placené, uzavřené.
+
+Porovnání user friendly:
+In terms of user's ability to create and modify reports without coding, all four tools provide a user-friendly interface for creating and modifying reports. However, there are some differences in the level of customization and ease of use. Here's a breakdown of the differences between Lightdash, Metabase, Redash, and Apache Superset in this regard:
+
+Lightdash: Lightdash provides a user-friendly interface for creating and modifying reports without coding. It offers a drag-and-drop interface for building queries and visualizations, which makes it easy for non-technical users to create reports. Additionally, Lightdash provides pre-built templates and examples to help users get started quickly.
+
+Metabase: Metabase also provides a user-friendly interface for creating and modifying reports without coding. Its drag-and-drop interface allows users to create queries and visualizations without needing to write any code. However, Metabase's customization options are limited compared to some of the other tools on this list, which may make it less suitable for advanced users.
+
+Redash: Redash provides a similar drag-and-drop interface for creating and modifying reports, but also allows users to create custom SQL queries using its query editor. This can be useful for advanced users who need more control over their queries and visualizations.
+
+Apache Superset: Apache Superset offers a more advanced interface for creating and modifying reports, which may be less user-friendly for non-technical users. However, it also provides a wide range of customization options for reports and dashboards, which can be useful for advanced users who need more control over their visualizations.
+
+Overall, Lightdash and Metabase are more focused on providing a user-friendly interface for creating and modifying reports without coding, while Redash and Apache Superset offer more advanced customization options for advanced users. Choosing the right tool depends on the specific needs and requirements of the organization or user.
+
+
+Nejvíce user friendly jsou asi Metabase a Lightdash
