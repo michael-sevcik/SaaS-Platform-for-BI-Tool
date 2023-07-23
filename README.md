@@ -10,7 +10,7 @@ Výše zmíněné firmy již většinou používají nějaký ERP systém, ale �
 
 Níže je základní přehled témat, s kterými jsem se setkal při práci na tomto projektu, či se jim v brzké budoucnosti budu věnovat:
 
-- Srovnání nástrojů pro vizualizaci TODO: Můžu zůžit výběr na Open source?
+- Srovnání nástrojů pro vizualizaci
     - Vybrán metabase
 - Srovnání možností importu dat s důrazem na jednoduchost
     - ETL nástroje
