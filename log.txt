@@ -34,6 +34,10 @@ doménové jazyky možnost rozšíření
 	datové kostky atd. pro velké množství dat
 
  
+ 
+ 
+ 
+ 
 Možné alternativy Metabase:
 - Apache Superset 
 	- uživatelsky složité úpravy reportů, nutná znalost SQL
@@ -72,3 +76,163 @@ Overall, Lightdash and Metabase are more focused on providing a user-friendly in
 
 
 Nejvíce user friendly jsou asi Metabase a Lightdash
+
+
+Vítěz Metabase
+
+Otázky:
+	- .NET 7 vs 6
+	
+====Scaffolding	
+	Scaffold-DbContext "server=mrzout.ad.merica.cz;Initial Catalog=HeliosMilos;User ID=heliosMilos;Password==********;;database=heliosMilos;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False" Microsoft.EntityFrameworkCore.SqlServer -ContextDir data -OutputDir HeliosContext2 -Tables TabPrikazMzdyAZmetky,TabCisZam,TabKmenZbozi_EXT,TabKmenZbozi
+	
+	====Model se spotřebou materiálu
+		Scaffold-DbContext "server=mrzout.ad.merica.cz;Initial Catalog=HeliosMilos;User ID=heliosMilos;Password=********;database=heliosMilos;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False" Microsoft.EntityFrameworkCore.SqlServer -OutputDir HeliosContext -Tables TabPrikazMzdyAZmetky,TabCisZam,TabKmenZbozi_EXT,TabKmenZbozi,TabDokladyZbozi,TabPohybyZbozi,TabNC,TabCisOrg,TabCPraco
+
+Connection string
+Data Source=mrzout.ad.merica.cz;Initial Catalog=HeliosMilos;User ID=heliosMilos;Password=********;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
+
+Podívat se na vytváření metabase z configuračního souboru.
+
+"Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=HeliosBIData;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False"
+
+Data Source=localhost;Integrated Security=True;Initial Catalog=HeliosBI;MultipleActiveResultSets=true;Connect Timeout=300;User ID=test;pwd=abc123;Enlist=false;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
+
+
+docker run -d -p 3000:3000 \
+  -e "MB_DB_TYPE=sqlserver" \
+  -e "MB_DB_DBNAME=metabaseappdb" \
+  -e "MB_DB_PORT=5432" \
+  -e "MB_DB_USER=name" \
+  -e "MB_DB_PASS=password" \
+  -e "MB_DB_HOST=my-database-host" \
+   --name metabase metabase/metabase
+
+https://www.automacaodedados.com.br/en/stories/configurando-metabase-e-postgresql-no-docker/
+
+https://stackoverflow.com/questions/17770902/forward-host-port-to-docker-container
+
+
+https://stackoverflow.com/questions/18981279/the-tcp-ip-connection-to-the-host-localhost-port-1433-has-failed
+TCP/IP was not allowed
+
+This can be an intereting idea https://www.metabase.com/learn/data-modeling/models
+
+Might be useful for syncing https://learn.microsoft.com/en-us/ef/core/logging-events-diagnostics/events
+
+
+Spojování - data migration tool
+: načtou se datové struktury a vytvoří grafická reprezentace, poté bude člověk schopný pospojovat určité datové položky dohromady a definovat typ
+Program automaticky vytvoří nutné datové typy pro převod.
+
+člověk si vybere typy 
+https://www.integrate.io/
+SSIS
+https://blog.devart.com/how-to-compare-multiple-databases-from-the-command-line.html
+
+
+Replication
+ETL tool - extract, transform, load
+
+Real-time (or streaming) ETL pipelines
+APACHE KAFKA
+
+kafka for C# nuget
+
+Kafka Connect -> generic model -> Data check -> Reporting data abnormalities -> zobrazení pro Metabase
+
+https://chat.openai.com/share/bcc51c26-cc9d-4335-8767-344df61c0851
+
+Change Data Capture (CDC) Tools
+
+Debezium Change Data Capture
+
+
+https://paillave.github.io/Etl.Net/
+
+Postup použít ETL na přenos dat a CDC na údržbu
+
+potom automatický sutup metabase v kubernates
+
+python library která převádí grafy z metabase do další metabase instance
+
+
+V rámci vývoje dosavadního dema jsme identifikovali nejčastější operace, které jsou potřeba k importu dat do generického modelu. Těmito operacemi jsou join dat - tvorba vazeb a filtrování podle určitých kritérii pro tvorbu typů pracovníků, produktů a tak dále.
+
+
+Připravit prezentaci
+	Use case diagram
+		- firma zákazník - Připojení databáze, definování vazeb -> import + kontinuální synchronizace
+							Změna dat -> aktualizace finální databáze
+							
+	Architektura
+		Moduly:
+			ETL + CDC = data synchronizace
+			Definovač vazeb = 
+				- TODO: ilustrace grafického rozhraní
+					- Zobrazí se seznam struktur, ke kterým je nutné definovat zdroj dat, postupně po jednotlivých typech a jejich atributem uživatel definuje zdroj.
+					- Pro zdroj je možné vytvořit nějakou agregaci
+					
+					
+https://www.youtube.com/watch?v=QYbXDp4Vu-8&list=PLePly4aug3iq98qw1GH8ogXSSJPE2uRr6
+
+
+Use an ETL tool or custom code to extract data from the source database, apply transformations, and publish the transformed data as messages to Kafka topics during the initial migration phase.
+
+Integrate a CDC tool with Kafka, such as Debezium, to capture real-time changes from the source database. The CDC tool would publish these changes as events to Kafka topics.
+
+Develop a consumer application or use an ETL tool to consume the messages/events from Kafka, apply any necessary transformations, and load the data into the final database.
+
+https://www.youtube.com/watch?v=5E9aUXQCsGA
+
+GUI design: https://www.figma.com/file/vXvTdjnP2RiJ3xpUwMxKIc/HeliosBI?type=design&node-id=0-1&mode=design&t=8Yli8qOojk4me2E0-0
+
+bylo by tak potřeba - Data Transformation Graphical Editor - https://www.youtube.com/watch?v=R5nxTQjWdCA
+														- https://www.youtube.com/watch?v=37m6QLyZymA - Talend má dokonce i CDC - je potřeba něco podobného, jen jednodušší
+														
+Ukázka CDC v KAFKA - https://www.youtube.com/watch?v=T6PAcWtoHTo
+
+https://www.jointjs.com/demos/data-mapping
+
+https://www.google.com/search?q=JavaScript+diagramming+library+data+mapping&sxsrf=AB5stBjW6Q57pEy1VP5nixS20mIMS7gBbA%3A1688893080954&ei=mHaqZKHmOb2M9u8PvYK5mAQ&ved=0ahUKEwihkp2BoYGAAxU9hv0HHT1BDkMQ4dUDCBA&uact=5&oq=JavaScript+diagramming+library+data+mapping&gs_lcp=Cgxnd3Mtd2l6LXNlcnAQAzIFCCEQoAE6CggAEEcQ1gQQsAM6BggAEBYQHjoICCEQFhAeEB06BwghEKABEAo6CgghEBYQHhAPEB06BQgAEKIESgQIQRgAULQIWMJvYLJwaApwAXgAgAHyA4gBkBKSAQg1LjEyLjQtMZgBAKABAcABAcgBCA&sclient=gws-wiz-serp
+
+https://gojs.net/latest/index.html?gclid=Cj0KCQjwtamlBhD3ARIsAARoaEz29ix7CfHX-79btup5P-MzqOOQx_rRmvqkSNsynIBLKAiOlWQIIB4aAi2sEALw_wcB
+
+Pig Latin - The Pig Latin is a data flow language used by Apache Pig to analyze the data in Hadoop. It is a textual language that abstracts the programming from the Java MapReduce idiom into a notation
+
+C# script language - roslyn
+
+Návrh na změnu ferp data model	- k partner ExternalId/ nějakou poznámku - lepší asi nějaká tabulka
+								- WorkReport by měl jít pravděpodobně poskládat z dostupných informací z ferp
+								- EmployeesHoursWorked
+								
+JointJS vypadá nejlépe
+
+
+https://hevodata.com/learn/data-mapping-tools/#opensourcetools
+https://hackernoon.com/my-top-13-javascript-diagram-libraries-g2a53z6u
+
+
+Bakalářka 	- srovnání nástrojů pro vizualizaci TODO: Můžu zůžit výběr na Open source?
+				- Vybrán metabase
+			- srovnání možností importu dat s důrazem na jednoduchost
+				- ETL nástroje
+				- vlastní mapper
+				- vybráno vlastní jednoché řešení zaměřené na úzkou doménu
+			- Datový medel
+				- Příklady datových modelů zákazníků
+				- generalizace
+			- Vlastního mapperu
+				- Knihovny pro mapování
+				- Implementace
+			- Kontrola dat - spíše implementace
+			- Generické nástěnky
+			- Deploy metabase v Kubernets
+			
+Možné rozšíření o metabase buttons, nějaká funkcionalita pro lepší práci s daty.
+			
+Nový dashboard, který znázorňuje vývoj poptávky častých zákazníků.
+
+Pokračovat v demu list a pokusit se upravit do použitelné podoby	
+	- vygenerovat ze seznamu vlastností 
+	- zjistit jak získat mapování konektorů.
