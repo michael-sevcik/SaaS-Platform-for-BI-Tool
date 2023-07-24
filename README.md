@@ -16,7 +16,7 @@ Níže je základní přehled témat, s kterými jsem se setkal při práci na t
     - ETL nástroje
     - Vlastní mapper a ETL infrastruktura
     - Pravděpodobně vlastní řešení s ohledeme na jednoduchost použití. 
-- Generický datový medel výrobce
+- Generický datový model výrobce
     - Datové modely zákazníků
     - Generalizace
 - Vlastní mapper
