@@ -174,7 +174,7 @@ Připravit prezentaci
 					- Pro zdroj je možné vytvořit nějakou agregaci
 					
 					
-https://www.youtube.com/watch?v=QYbXDp4Vu-8&list=PLePly4aug3iq98qw1GH8ogXSSJPE2uRr6
+https://www.youtube.com/watch?v=QYbXDp4Vu-8&list=PLePly4aug3iq98qw1GH8ogXSSJPE2uRr6  - apache kafka + dabezium connecter
 
 
 Use an ETL tool or custom code to extract data from the source database, apply transformations, and publish the transformed data as messages to Kafka topics during the initial migration phase.
@@ -183,7 +183,7 @@ Integrate a CDC tool with Kafka, such as Debezium, to capture real-time changes 
 
 Develop a consumer application or use an ETL tool to consume the messages/events from Kafka, apply any necessary transformations, and load the data into the final database.
 
-https://www.youtube.com/watch?v=5E9aUXQCsGA
+https://www.youtube.com/watch?v=5E9aUXQCsGA - Ado.net
 
 GUI design: https://www.figma.com/file/vXvTdjnP2RiJ3xpUwMxKIc/HeliosBI?type=design&node-id=0-1&mode=design&t=8Yli8qOojk4me2E0-0
 
@@ -229,6 +229,23 @@ Bakalářka 	- srovnání nástrojů pro vizualizaci TODO: Můžu zůžit výbě
 			- Generické nástěnky
 			- Deploy metabase v Kubernets
 			
+Bakalářská práce 
+	- Srovnání nástrojů pro vizualizaci
+		- Vybrán metabase
+	- Srovnání možností importu dat s důrazem na jednoduchost
+		- ETL nástroje
+		- vlastní mapper
+		- vybráno vlastní jednoché řešení zaměřené na úzkou doménu
+	- Datový medel
+		- Příklady datových modelů zákazníků
+		- generalizace
+	- Vlastního mapperu
+		- Knihovny pro mapování
+		- Implementace
+	- Kontrola dat - spíše implementace
+	- Generické nástěnky
+	- Deploy metabase v Kubernets
+			
 Možné rozšíření o metabase buttons, nějaká funkcionalita pro lepší práci s daty.
 			
 Nový dashboard, který znázorňuje vývoj poptávky častých zákazníků.
@@ -236,3 +253,289 @@ Nový dashboard, který znázorňuje vývoj poptávky častých zákazníků.
 Pokračovat v demu list a pokusit se upravit do použitelné podoby	
 	- vygenerovat ze seznamu vlastností 
 	- zjistit jak získat mapování konektorů.
+
+	
+Mapper -> průvodce postupně po nutných entitách zobrazí danou entitu vpravo v podobě tabulky s porty odpovídajícími vlastnostem entity.
+			Pomocí tlačítka `Přidat zdroj` a následně propojit zdroje a připojit je k cílovým portům
+			Před pokračováním k ozdrojování další entity je provedena kontrola úplnosti propojení
+			Po nastavení všech entit je vygenerováno json mapování.
+
+2 odstavce shrnutí
+
+Bakalářka text
+Analýza 1 řešení 3 str. 4-5 nejzákladnějších
+
+a specifikace - 25-30
+
+Napsat formální zadání cca 2 odtavce - motivační
+4-5 reference - na technogie, metabase
+
+
+
+podívat se na bakalářky v SIS zadání
+
+¨1 odstavec motivační
+2. odstavec cíl - skoro přes kopírák
+
+4-5 zdrojů
+
+
+vytvořit koncept specifikace
+- části a jejich cíle
+- pro porovnání
+
+Technologie
+
+Specifikace
+- funkční nefunční požadavky
+- Entity, procesy - UML
+
+Jak naprogramovat - z letadla - nejzákladnější přehled - 2-3 str
+Use cases
+
+Deployment
+
+Dokumetace - programátorská
+			- deloyment dokumentace - nasazení
+			- uživatelská dokumentace
+			
+Feedback od zákazníků - uživatelské testování
+
+bibtex
+
+V metabse problém s Employees celé jméno vs co poskytuje metabase
+
+https://learn.microsoft.com/en-us/answers/questions/364258/how-should-i-get-a-list-of-table-names-and-field-n
+
+https://learn.microsoft.com/cs-CZ/dotnet/api/system.data.datatablereader.getschematable?view=netcore-3.1
+
+https://medium.com/@zaikinsr/roslyn-ef-core-runtime-dbcontext-constructing-285a9d67bc87
+
+
+Get the database schema
+	- https://www.c-sharpcorner.com/UploadFile/mahesh/getting-a-database-schema/
+	- sql queries https://learn.microsoft.com/en-us/answers/questions/364258/how-should-i-get-a-list-of-table-names-and-field-n
+	
+postup: 
+1. look at the Talend code - can be the spark used?
+2. Further describe the objects for representing the etl process
+
+Efektivita je třeba vyřešit jak nahrávat jen určité data z tabulek - dělat SELECT
+
+Pro každou zdrojovou tabulku lze udělat IDataSource, který zabudovává daný select, ale co lazy enumerace atd.
+	- potřeba nechávat jen určité data - možná nový ef core
+	
+Zadefinovat objekty ISourceEntity<RowType> - může dávat ef core struct? . podívat se na Ado.net
+IProcessor<InputRowType, Outpt>...
+
+Výše zmíněné objekty implementovat pomocí nějaké 
+
+Bude potřeba dělat i ten config např. ExcludedResourceTypeIds
+
+Stránkování ef core - https://stackoverflow.com/questions/54909758/entity-framework-core-2-2-compiled-query-struct-parameter-evaluating-locally#:~:text=I%20believe%20its,of%20the%20logic)
+
+Otázky - Chceme vytvořit jen něco, co zprostředkuje jakoby to sql view, nebo přímo celý loader?
+		- Co config? Bude potřeba dělat i ten config např. ExcludedResourceTypeIds?
+		
+Vygenerovat databázové view
+
+An Integrated Materialized View based Approach in ETL with DSS to Achieve Fast Data Transformation and Better Query Optimization
+
+
+
+Mimo - https://timelydataflow.github.io/differential-dataflow/
+https://github.com/timelydataflow/differential-dataflow#differential-dataflow
+https://www.iambobur.com/post/how-change-data-capture-cdc-works-with-streaming-database
+
+Vytvořit graf objektů, z nich se vytvoří view
+
+CDS on materialized views
+https://www.google.com/search?q=materialized+view+cdc&oq=materialized+view+cdc&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIICAEQABgWGB4yCAgCEAAYFhge0gEJMTA0NjNqMGo3qAIAsAIA&sourceid=chrome&{google:instantExtendedEnabledParameter}ie=UTF-8
+https://www.linkedin.com/pulse/hacking-materialized-view-logs-change-data-capture-part-art-trifonov/ 
+
+Pro traverzi Jsonu
+https://learn.microsoft.com/en-us/dotnet/api/system.text.json.nodes.jsonnode?view=net-7.0
+
+Rozhodnout jak reprezentovat join condition - the or, and, ...
+
+Storing a condition as a chain of conditions
+
+interface converter - used and modified - https://github.com/vpekarek/InterfaceConverter.SystemTextJson/tree/master
+
+preserve references https://learn.microsoft.com/en-us/dotnet/standard/serialization/system-text-json/preserve-references?pivots=dotnet-7-0
+
+JS library for generating JSON references, but only as a pointer - https://github.com/fastify/fast-json-stringify#ref
+
+TODO:
+- add source db model - we should use the model for both databases
+	- create an example model
+- add 'Add source table' button - that creates the source entity table 
+- Add an join entity - joinLink 
+	- join link has join entity and join modal
+	- join entity has join modal which 
+		- on joinLink double click `handleClick` method is called.
+		- 
+- finish the JoinModal
+	- defining join condition 
+- Change the namespaces and project names to start with Merica.Demos.HeliosBI
+- add to documentation:
+	- mapování probíhá po jednotlivých položkách targetMappings a po jednotlivých columnMappings mapovaných objektů. Dokud nejsou namapovány všechny sloupce mapované cílové entity, nelze pokračovat dál (TODO: nebo lze přeskočit/uložit a vrátit se k tomu později?)
+- try the adding
+- use manhatten router or sth for the join link
+- are we using join link - add double click listerner.
+
+
+- Check the column types
+- consider using a library for the modals, they should be accessible - https://micromodal.vercel.app/
+- Consider using angular for syncing the components - maybe its not needed
+- Most probably the type names in the sql view generator will have to be updated
+- Consider using for serialization and deserialization ids without refs and only on deserialization cache the objects by ids.
+- Consider using wasm (the C# code) and typescript - https://blog.bitsrc.io/typescript-to-webassembly-the-what-the-how-and-the-why-3916a2561d37
+	- probably not
+- Consider moving sth to somewhere ...
+
+debugging = https://intellij-support.jetbrains.com/hc/en-us/community/posts/4407736246802-Debugging-Typescript-Webpack-Project-Breakpoints-are-ignored-Help-Advise-needed
+
+Potenciální problémy:
+	- classConvertor neháže výjimky v případě missmatch, daná property je pouze undefined - možná nutnost použít classValidator
+	- načítání v C# funguje jen pokud pole sourceEntities předchází poli v EntityMapping ostatním.
+	- Při generování sql view mohou mít různé entity sloupce se stejnými jmény, které jsou mapovány na různé vlastnosti stejné entity v případě join - nutno přejmenovat
+	
+stored procedures in ETL - https://www.youtube.com/watch?v=LDMU7Oslf34
+
+
+Pro Toma
+- ukázat na čem pracuju, zeptat se na využití frameworků na vytvoření UI - Angular
+- Přihlašování atd., máš zkušenosti?
+- Vývojové prostředí, co používáš?
+- Debugging
+- WASM - web assembly
+- Testing?
+
+Odpovědi: použít React ve formě next js - prozkoumat C# + react
+možnost psát přímo styled components 
+a použít pro některé komponenty state
+
+
+- Describe the algorithm in a better way
+	- High level algorithm
+		- On addition of a connection, propagate the message about newly of selected column
+		- On removal of a connection , propagate the message about removal of a selected column
+		- On Deserialization call CreateBackwardConnections
+
+překopat lehce inicializaci, potřebujeme 
+		- foreach target entity create targetEntityShape and for each of its source entities create sourceEntityShape
+		- this will be called createGraphFromModel() or foreach entity mapping sth. as showEntityMapping(EntityMapping )
+
+- done 	- add autolayout - https://www.jointjs.com/demos/directed-graph-layout
+		- fix the labels of table shapes, they should display the table's name
+		- refactor creating of property links
+		- fix the diffrent color of property links created from previous model
+		- create handle function for the adding and deleting of property links
+			- create a common predecessor for the sourceEntityShapes
+			- element remove removes also associated links
+			- change the main source entity if it is deleted in mapping editor
+				- we could use owner structure for this
+					- new interface owner, that both sourceEntity and EntityMapping implements. It defines a way to keep the sourceEntity of entityMapping valid, propagate changes in ownership
+		- create handle function for the adding
+		- figure out how to remove mapping and add mapping in property link	
+			- target entity is responsible for its mappings -> add entity mapping to the target entity shape
+		- update check connection to recline connection between incopatible types
+		- change the serialization, so it creates an array of elements ordered in a way that there are no forward references
+			- Use the mapping convertor visitor, it has all the methods needed for the serialization
+			- in source Column first serialize owner to ensure consistency of references	
+			- Extend it with the sourceEntities array
+			
+		- add references to sourceColumns - all entities pointing at them	
+			- what's the use case of that?
+				- keeping the number of selected accuratly minimal
+					- if the column was used e.g. for join condition, but the condition changes, we want to deselected
+					- in the source table column selection, enable deselection of only unused column
+		- initiate the sourceColumn reference holders when calling createBackwardConnections
+			- problem with the join condition entity its does not implement the Owner interface
+				- define Initiatable interface that requires createBackwardConnections() method
+		- create a base modal 
+			- with a save button and cancel button
+			- consider defining it as a abstract class with helper methods
+			- requires isReadyToSave method that indicates wherther the speciffic modal is in a valid sevable state
+		- create a pick element generator
+			- its called searchable dropdown
+			- finish search functionality to the SearchableDropdown
+		- joinModal and sourceTableModal should only define the content
+				- prepare infrastructure - base modal
+		- join modal
+			- content for joinModal
+				- store the dropdowns in JoinModal fields
+				- store the temporary values in JoinModal fields
+				- set default values - use the values from the join condition
+					- if it is defined probably changing the joins field condition to nullable would be the right solution
+					- use the placeholder field on the dropdown and set it to the default option and also set the corresponding temporery value holder to the default value
+				- finish the correctness checking
+					- SearchableDropdown finish show incorrect
+				- the temporary picked options should be saved until the save action is not called
+				- add cancel button 
+			- add save callback
+				- it will be used by the mapping editor when adding sourceentity to finish adding of the shapes
+		- adding source table
+			- add button for it
+		- create a sourceTable picker modal
+		- uses the searchable dropdown for letting the user pick the desired table
+			- creates the entity and registrs it
+				- initialization add all available columns to the selected columns
+					- temporary solution - it would be better if join modal would be able to access all the available columns
+			- fix overlay not displaying on modal switch 
+		- add delete button to modal
+		- add the top bar to the editor class
+			- create a button for exporting mapping
+			- button for adding sourceTables
+now - Fill the shape description with something
+		- source table column selection		
+		
+		
+		- update tests
+		- experiment with the types of lines
+		- fix creating of new property mappings somehow new SourceColumns are created repretedly for the same column
+		
+todo: where clause, default value blackbox, chema change check 
+
+- consider adding -             // HACK: ensures that the owner source entity is already serialized
+            // if (!this.plainSourceEntitiesByOriginal.has(sourceColumn.owner)) {
+            //     sourceColumn.owner.accept(this);
+            //     this.intermediateResult.pop();
+            //     result = this.getSourceColumnRef(sourceColumn);
+            // } 
+            // else {
+		to the mapping convertor
+- Check that the table that is being added is not already added
+- Consider removing the sourceEntities property from the EntityMapping
+- consider optional mapping of some target columns
+- consider adding are you sure you want to remove the joinlink pop up
+- update the documentation
+- pair the model with shapes
+- mapping is managed by the target entity	
+- go through mapping of different entities
+- add logo of merica
+- add port description to ports displaying whole name after mouse pointer left on the port for some time
+- add concat functionality
+	- if the combined names are under 128 chars, use it, otherwise create a new name (shortcut)
+- ctrl Z functionality
+- consider using the abstract get selected columns for the join entity, so the join when get selected columns makes array of the two joined entities
+- consider removing the selected columns from the join entity - other entities than the sourceConcreteEntities
+
+
+the mapping editor either receives entity mapping which is supposed to be edited or it receives table entity representing a tablefrom the target database and the mapping editor creates empty mapping entity 
+
+Inicializace:
+- Frontend receives mapping from the server and also the current scrape of the source and target database schema
+- If the mapping is not new, it will be checked for any deviations from the new schemas, newly invalid connections will be displayed to the user and later removed to ensure, that the mapping must be fixed befero approving it.
+- User picks terget entity, whose mapping he wants to edit.
+- mapping editor is called to display the entity's mapping, it creates entity shapes, and join and property links.
+- when the user is adding new source table or duble clicks on the SourceEntityShape header an column/attribute selection modal pops up
+
+Changes in the model:
+- in join outputColumns -> selectedColumns
+- columnMapping in to sourceColumn
+
+
+For defining join condition
+- user must add the columns that are needed for the 
