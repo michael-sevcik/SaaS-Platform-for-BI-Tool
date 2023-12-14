@@ -28,7 +28,8 @@ Níže je základní přehled témat, s kterými jsem se setkal při práci na t
 
 ## Obsah repozitáře
 
-Tento repozitář zatím obsahuje pouze:
+Tento repozitář zatím obsahuje:
 
-- toto readme
-- a [log](log.txt) využívaný jako prostor pro uchovávání různých poznámek a odkazů souvisejících s vývojem. Obsah není struktovaný, ani příliš okomentovaný, slouží pouze pro interní organizaci práce.
+- toto readme,
+- [log](log.txt) využívaný jako prostor pro uchovávání různých poznámek a odkazů souvisejících s vývojem. Obsah není struktovaný, ani příliš okomentovaný, slouží pouze pro interní organizaci práce
+- a komponentu [mapper](Mapper), která složí pro vytvoření mapování mezi zdrojovou a cílovou databází.
