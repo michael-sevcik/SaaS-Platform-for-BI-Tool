@@ -1,0 +1,456 @@
+{
+  "id" : 1,
+  "name" : "MericaBI",
+  "description" : "This workspace documents the architecture of the MericaBI system which enables managing of mapping customer database models to a given generic model, tranforming the data and menaging instances of Metabse",
+  "lastModifiedDate" : "2023-12-14T22:31:12Z",
+  "lastModifiedAgent" : "structurizr-javascript",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlICJNZXJpY2FCSSIgIlRoaXMgd29ya3NwYWNlIGRvY3VtZW50cyB0aGUgYXJjaGl0ZWN0dXJlIG9mIHRoZSBNZXJpY2FCSSBzeXN0ZW0gd2hpY2ggZW5hYmxlcyBtYW5hZ2luZyBvZiBtYXBwaW5nIGN1c3RvbWVyIGRhdGFiYXNlIG1vZGVscyB0byBhIGdpdmVuIGdlbmVyaWMgbW9kZWwsIHRyYW5mb3JtaW5nIHRoZSBkYXRhIGFuZCBtZW5hZ2luZyBpbnN0YW5jZXMgb2YgTWV0YWJzZSIgewogICAgIWlkZW50aWZpZXJzIGhpZXJhcmNoaWNhbAoKICAgIG1vZGVsIHsKICAgICAgICBjdXN0dW1lciA9IHBlcnNvbiAiQ3VzdG9tZXIiICJNYW5hZ2VyIG9mIGEgbWFudWZhY3R1cmluZyBjb21wYW55IgogICAgICAgIGFkbWluaXN0cmF0b3IgPSBwZXJzb24gIkJJIEFkbWluaXN0cmF0b3IiICJQZXJzb24gcmVzcG9uc2libGUgZm9yIG1hbmFnaW5nIHRoZSBCSSBzeXN0ZW0gLSBjcmVhdGluZyBuZXcgcHJvamVjdHMsIG1hbmFnaW5nIHVzZXJzLCBldGMuIgoKICAgICAgICAvLyBNYXBwZXIKICAgICAgICBtYXBwZXIgPSBzb2Z0d2FyZVN5c3RlbSAiTWFwcGVyIiAiRW5hYmxlcyBtYXBwaW5nIG9mIGN1c3RvbWVyIGRhdGFiYXNlIG1vZGVscyB0byBhIGdpdmVuIGdlbmVyaWMgbW9kZWwiIHsKICAgICAgICAgICAgbWFwcGVyQXBwID0gY29udGFpbmVyICJNYXBwZXIgc2luZ2xlIHBhZ2UgYXBwbGljYXRpb24iICJQcm92aWRlcyB0b29scyBmb3IgbWFwcGluZyBkYXRhIG1vZGVscyIgIlR5cGVTY3JpcHQiIHsKICAgICAgICAgICAgfQoKICAgICAgICAgICAgbWFwcGVyQXBpID0gY29udGFpbmVyICJNYXBwZXIgQVBJIiAiUHJvdmlkZXMgQVBJIGZvciBtYXBwaW5nIGRhdGEgbW9kZWxzIiAiQyMiIHsKICAgICAgICAgICAgICAgIG1hcHBlckNvbnRyb2xsZXIgPSBjb21wb25lbnQgIk1hcHBlciBDb250cm9sbGVyIiAiSGFuZGxlcyBtYXBwaW5nIHJlcXVlc3RzIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiQ29udHJvbGxlciIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBtYXBwZXJTZXJ2aWNlID0gY29tcG9uZW50ICJNYXBwZXIgU2VydmljZSIgIkhhbmRsZXMgbWFwcGluZyBsb2dpYyIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIG1hcHBlckRhdGFiYXNlID0gY29udGFpbmVyICJNYXBwaW5nIERhdGFiYXNlIiAiUHJvdmlkZXMgZGF0YSBwZXJzaXN0ZW5jZSBmb3IgbWFwcGluZyBkYXRhIiAiVE9ETyIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCgogICAgICAgICAgICB9CgogICAgICAgICAgICAjIGFwaV9nYXRld2F5ID0gY29udGFpbmVyICJBUEkgR2F0ZXdheSIgIlByb3ZpZGVzIFJlc3QgQVBJIGVuZHBvaW50cyIgIiIgIkJhY2tFbmQiIHsKICAgICAgICAgICAgIyAgICAgLy8gaGFuZGxlcyByZXF1ZXN0cyBmcm9tIFVJCiAgICAgICAgICAgICMgICAgIHJlcXVlc3RfY29udHJvbGxlciA9IGNvbXBvbmVudCAiUmVxdWVzdCBIYW5kbGVyIiAiSGFuZGxlcyBBUEkgcmVxdWVzdHMiCiAgICAgICAgICAgICMgICAgIC8vIHJvdXRlcyByZXF1ZXN0cyBmcm9tIFVJIHRvIFJlc3QgQVBJCiAgICAgICAgICAgICMgICAgIHJvdXRpbmdfY29udHJvbGxlciA9IGNvbXBvbmVudCAiUm91dGluZyBDb250cm9sbGVyIiAiSGFuZGxlcyBBUEkgZW5kcG9pbnQgcm91dGluZyIKICAgICAgICAgICAgIyAgICAgLy8gaGFuZGxlcyByZWFsLXRpbWUgbWVzc2FnaW5nIHVzaW5nIFdlYlNvY2tldAogICAgICAgICAgICAjICAgICB3ZWJfc29ja2V0X2NvbnRyb2xsZXIgPSBjb21wb25lbnQgIldlYlNvY2tldCIgIlByb3ZpZGVzIFdlYlNvY2tldCBmb3IgcmVhbC10aW1lIG1lc3NhZ2UgaGFuZGxpbmciCgogICAgICAgICAgICAjICAgICByZXF1ZXN0X2NvbnRyb2xsZXIgLT4gcm91dGluZ19jb250cm9sbGVyICJUcmFuc21pdHMgQVBJIHJlcXVlc3RzIgoKICAgICAgICAgICAgIyB9CgogICAgICAgICAgICAjIHJlc3RfYXBpID0gY29udGFpbmVyICJSZXN0IEFQSSIgIkhhbmRsZXMgUmVzdCBBUEkgZW5kcG9pbnRzIiB7CiAgICAgICAgICAgICMgICAgIC8vIHByb3ZpZGVzIGludGVyZmFjZSB0byBxdWVyeSB0aGUgZGF0YWJhc2UKICAgICAgICAgICAgIyAgICAgZGF0YWJhc2VfcXVlcnlfaW50ZXJmYWNlID0gY29tcG9uZW50ICJEYXRhYmFzZSBRdWVyeSBJbnRlcmZhY2UiICJIYW5kbGVzIGRhdGFiYXNlIHF1ZXJpZXMiCiAgICAgICAgICAgICMgICAgIC8vIHZhbGlkYXRlcyB0aGUgaW50ZWdyaXR5IG9mIGRhdGEgcHJvdmlkZWQgdG8gZGF0YWJhc2UKICAgICAgICAgICAgIyAgICAgdmFsaWRhdG9yID0gY29tcG9uZW50ICJEYXRhIFZhbGlkYXRvciIgIlByb3ZpZGVzIGRhdGEgdmFsaWRhdGlvbiBhbmQgaW50ZWdyaXR5IgoKICAgICAgICAgICAgIyAgICAgLy8gaGFuZGxlcyBwcm9qZWN0IEFQSSByZXF1ZXN0cwogICAgICAgICAgICAjICAgICBwcm9qZWN0X2NvbnRyb2xsZXIgPSBjb21wb25lbnQgIlByb2plY3QgQ29udHJvbGxlciIgIkhhbmRsZXMgcHJvamVjdC1yZWxhdGVkIHJlcXVlc3RzIiB7CiAgICAgICAgICAgICMgICAgICAgICB0YWdzICJDb250cm9sbGVyIgogICAgICAgICAgICAjICAgICB9CiAgICAgICAgICAgICMgICAgIC8vIGhhbmRsZXMgdXNlciBBUEkgcmVxdWVzdHMKICAgICAgICAgICAgIyAgICAgdXNlcl9jb250cm9sbGVyID0gY29tcG9uZW50ICJVc2VyIENvbnRyb2xsZXIiICJIYW5kbGVzIHVzZXItcmVsYXRlZCByZXF1ZXN0cyIgewogICAgICAgICAgICAjICAgICAgICAgdGFncyAiQ29udHJvbGxlciIKICAgICAgICAgICAgIyAgICAgfQogICAgICAgICAgICAjICAgICAvLyBoYW5kbGVzIG1hcHBpbmcgQVBJIHJlcXVlc3RzCiAgICAgICAgICAgICMgICAgIG1hcHBpbmdfY29udHJvbGxlciA9IGNvbXBvbmVudCAiTWFwcGluZyBDb250cm9sbGVyIiAiSGFuZGxlcyBtYXBwaW5nLXJlbGF0ZWQgcmVxdWVzdHMiIHsKICAgICAgICAgICAgIyAgICAgICAgIHRhZ3MgIkNvbnRyb2xsZXIiCiAgICAgICAgICAgICMgICAgIH0KICAgICAgICAgICAgIyAgICAgLy8gaGFuZGxlcyBpbnN0YW5jZSBBUEkgcmVxdWVzdHMKICAgICAgICAgICAgIyAgICAgaW5zdGFuY2VfY29udHJvbGxlciA9IGNvbXBvbmVudCAiSW5zdGFuY2UgQ29udHJvbGxlciIgIkhhbmRsZXMgaW5zdGFuY2UtcmVsYXRlZCByZXF1ZXN0cyIgewogICAgICAgICAgICAjICAgICAgICAgdGFncyAiQ29udHJvbGxlciIKICAgICAgICAgICAgIyAgICAgfQogICAgICAgICAgICAjIH0gCgogICAgICAgICAgICBub3RpZmljYXRpb25fc2VydmljZSA9IGNvbnRhaW5lciAiTm90aWZpY2F0aW9uIFNlcnZpY2UiICJQcm92aWRlcyBub3RpZmljYXRpb24gbWFuYWdlbWVudCIgewogICAgICAgICAgICAgICAgdGFncyAiU2VydmljZSIKCiAgICAgICAgICAgICAgICAvLyBoYW5kbGVzIG1hbnVhbCBub3RpZmljYXRpb24gcmVxdWVzdHMgZnJvbSBVSSAoYWRtaW5pc3RyYXRvciB3YW50cyB0byBtYW51YWxseSBzZW5kIGEgbWVzc2FnZSkKICAgICAgICAgICAgICAgIG5vdGlmaWNhdGlvbl9yZXF1ZXN0X2hhbmRsZXIgPSBjb21wb25lbnQgIlJlcXVlc3QgSGFuZGxlciIgIkhhbmRsZXMgbm90aWZpY2F0aW9uIHJlcXVlc3RzIgogICAgICAgICAgICAgICAgLy8gbGlzdGVucyB0byBkYXRhYmFzZSBjaGFuZ2VzIGZvciBub3RpZmljYXRpb24gc2VuZGluZwogICAgICAgICAgICAgICAgZGF0YWJhc2VfbGlzdGVuZXIgPSBjb21wb25lbnQgIkRhdGFiYXNlIExpc3RlbmVyIiAiTGlzdGVucyB0byBkYXRhYmFzZSBkYXRhIGNoYW5nZXMiCiAgICAgICAgICAgICAgICAvLyBoYW5kbGVzIG5vdGlmaWNhdGlvbnMgKHByb2Nlc3NpbmcsIG1vZGVsKQogICAgICAgICAgICAgICAgbm90aWZpY2F0aW9uX2hhbmRsZXIgPSBjb21wb25lbnQgIk5vdGlmaWNhdGlvbiBIYW5kbGVyIiAiSGFuZGxlcyBub3RpZmljYXRpb25zIgogICAgICAgICAgICAgICAgLy8gZW1pdHMgdGhlIG5vdGlmaWNhdGlvbiB0bwogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICAvLyBCSSBtYW5hZ2VtZW50IHN5c3RlbQogICAgICAgIGJpX21hbmFnZW1lbnQgPSBzb2Z0d2FyZVN5c3RlbSAiQkkgTWFuYWdlbWVudCBTeXN0ZW0iICJFbmFibGVzIG1hbmFnZW1lbnQgb2YgQkkgcHJvamVjdHMgKGRhdGEgbWFwcGluZywgc3Bpbm5pbmcgdXAgbmV3IGluc3RhbmNlcyBvZiBNZXRhYmFzZSkiIHsKCiAgICAgICAgfQogICAgICAgIAoKICAgICAgICBsaXZlID0gZGVwbG95bWVudEVudmlyb25tZW50ICJMaXZlIiB7CiAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJDbGllbnQgQ29tcHV0ZXIiIHsKICAgICAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJXZWIgQnJvd3NlciIgewogICAgICAgICAgICAgICAgICAgIHNwYSA9IGluZnJhc3RydWN0dXJlTm9kZSAiU2luZ2xlIFBhZ2UgQXBwbGljYXRpb24iIHsKICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIlByb3ZpZGVzIGV4YW0gc3lzdGVtIGZ1bmN0aW9uYWxpdHkgdmlhIHdlYiBicm93c2VyIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgfQoKICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIldob2xlIGFyY2hpdGVjdHVyZSIgewogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiQmFja2VuZCBTZXJ2ZXIiIHsKICAgICAgICAgICAgICAgICAgICBsYk5vZGUgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkxvYWQgQmFsYW5jZXIiIHsKICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIkJhbGFuY2VzIGluY29taW5nIGNhbGxzIgogICAgICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAgICAgYXBpTm9kZSA9IGluZnJhc3RydWN0dXJlTm9kZSAiUmVzdCBBUEkgSW5mcmFzdHJ1Y3R1cmUiIHsKICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIlByb3ZpZGVzIFJlc3QgQVBJIGVuZHBvaW50cyIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJEYXRhYmFzZSBFbnZpcm9tZW50IiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGRhdGFiYXNlTm9kZSA9IGluZnJhc3RydWN0dXJlTm9kZSAiRGF0YWJhc2UiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIlByb3ZpZGVzIGRhdGEgcGVyc2lzdGVuY2UiCiAgICAgICAgICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICAgICAgICAgIG1lc3NhZ2VEYXRhYmFzZU5vZGUgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIk1lc3NhZ2UgRGF0YWJhc2UiIHsKICAgICAgICAgICAgICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIlByb3ZpZGVzIG1lc3NhZ2UgaGlzdG9yeSBwZXJzaXN0ZW5jZSIKICAgICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiU2VydmljZSBJbmZyYXN0cnVjdHVyZSIgewogICAgICAgICAgICAgICAgICAgIG5vdGlmaWNhdGlvbk5vZGUgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIk5vdGlmaWNhdGlvbiBTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJQcm92aWRlcyBub3RpZmljYXRpb24gaGFuZGxlciIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIG1lc3NhZ2VOb2RlID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJNZXNzYWdlIFNlcnZpY2UiIHsKICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIlByb3ZpZGVzIG1lc3NhZ2UgaGFuZGxlciIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIkF1dGggU2VydmVyIiB7CiAgICAgICAgICAgICAgICAgICAgYXV0aE5vZGUgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkF1dGggU2VydmljZSIgewogICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbiAiUHJvdmlkZXMgYXV0aGVudGljYXRpb24gYW5kIGF1dGhvcml6YXRpb24gZnVuY3Rpb25hbGl0eSIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CQogICAgICAgICAgICB9CgogICAgICAgICAgICAjIGFwaU5vZGUgLT4gYXV0aE5vZGUgIlNlbmRzIGF1dGggcmVxdWVzdHMiCiAgICAgICAgICAgICMgYXV0aE5vZGUgLT4gYXBpTm9kZSAiU2VuZHMgYmFjayBhdXRoIGRhdGEiCgogICAgICAgICAgICAjIHNwYSAtPiBsYk5vZGUgIkNhbGxzIEFQSSByZXF1ZXN0cyIKICAgICAgICAgICAgIyBhcGlOb2RlIC0+IHNwYSAiU2VuZHMgYmFjayByZXF1ZXN0ZWQgZGF0YSIKICAgICAgICAgICAgIyBsYk5vZGUgLT4gYXBpTm9kZSAiRm9yd2FyZHMgQVBJIHJlcXVlc3RzIgoKICAgICAgICAgICAgIyBhcGlOb2RlIC0+IGRhdGFiYXNlTm9kZSAiU2VuZHMgZGF0YSB0byBwZXJzaXN0IgogICAgICAgICAgICAjIGFwaU5vZGUgLT4gbWVzc2FnZURhdGFiYXNlTm9kZSAiU2VuZHMgbWVzc2FnZSBoaXN0b3J5IgoKICAgICAgICAgICAgIyBkYXRhYmFzZU5vZGUgLT4gYXBpTm9kZSAiU2VuZHMgYmFjayByZXF1ZXN0ZWQgZGF0YSIKICAgICAgICAgICAgIyBtZXNzYWdlRGF0YWJhc2VOb2RlIC0+IGFwaU5vZGUgIlNlbmRzIGJhY2sgbWVzc2FnZSBkYXRhIgoKICAgICAgICAgICAgIyBhcGlOb2RlIC0+IG5vdGlmaWNhdGlvbk5vZGUgIlJlcXVlc3Qgbm90aWZpY2F0aW9uIgogICAgICAgICAgICAjIG5vdGlmaWNhdGlvbk5vZGUgLT4gZGF0YWJhc2VOb2RlICJTdWJzY3JpYmUgdG8gZGF0YSBjaGFuZ2VzIgoKICAgICAgICAgICAgIyBtZXNzYWdlTm9kZSAtPiBtZXNzYWdlRGF0YWJhc2VOb2RlICJTdG9yZSBtZXNzYWdlIGRhdGEiCiAgICAgICAgICAgICMgbWVzc2FnZURhdGFiYXNlTm9kZSAtPiBtZXNzYWdlTm9kZSAiU2VuZCBiYWNrIG1lc3NhZ2UgaGlzdG9yeSIKICAgICAgICB9CiAgICB9CgogICAgdmlld3MgewogICAgICAgIHN5c3RlbUNvbnRleHQgbWFwcGVyICJleGFtU3lzdGVtU3lzdGVtQ29udGV4dERpYWdyYW0iIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9MYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBtYXBwZXIgImV4YW1TeXN0ZW1Db250YWluZXJEaWFncmFtIiB7CiAgICAgICAgICAgIGF1dG9MYXlvdXQKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQoKICAgICAgICBkZXBsb3ltZW50IG1hcHBlciAiTGl2ZSIgIkFtYXpvbldlYlNlcnZpY2VzRGVwbG95bWVudCIgewogICAgICAgICAgICBhdXRvTGF5b3V0CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KCiAgICAgICAgc3R5bGVzIHsKICAgICAgICAgICAgZWxlbWVudCAiUGVyc29uIiB7CiAgICAgICAgICAgICAgICBjb2xvciAjMDg0MjdiCiAgICAgICAgICAgICAgICBmb250U2l6ZSAyMgogICAgICAgICAgICAgICAgc2hhcGUgUGVyc29uCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIlNvZnR3YXJlIFN5c3RlbSIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjMTE2OGJkCiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiQ29udGFpbmVyIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM0MzhkZDUKICAgICAgICAgICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICAgICAgZWxlbWVudCAiQ29tcG9uZW50IiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNjNGM0YzQKICAgICAgICAgICAgICAgIGNvbG9yICMwMDAwMDAKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiU2VydmljZSIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjZDQ2NTVkCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiRGF0YWJhc2UiIHsKICAgICAgICAgICAgICAgIHNoYXBlIEN5bGluZGVyCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICMzMDQ2OWMKICAgICAgICAgICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJDb250cm9sbGVyIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICAjNTdiNTg2CiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiRXh0ZXJuYWwiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgICM2MzYzNjMKICAgICAgICAgICAgfQogICAgICAgIH0KICAgIH0KfQo="
+  },
+  "configuration" : { },
+  "model" : {
+    "people" : [ {
+      "id" : "1",
+      "tags" : "Element,Person",
+      "properties" : {
+        "structurizr.dsl.identifier" : "custumer"
+      },
+      "name" : "Customer",
+      "description" : "Manager of a manufacturing company",
+      "location" : "Unspecified"
+    }, {
+      "id" : "2",
+      "tags" : "Element,Person",
+      "properties" : {
+        "structurizr.dsl.identifier" : "administrator"
+      },
+      "name" : "BI Administrator",
+      "description" : "Person responsible for managing the BI system - creating new projects, managing users, etc.",
+      "location" : "Unspecified"
+    } ],
+    "softwareSystems" : [ {
+      "id" : "3",
+      "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "mapper"
+      },
+      "name" : "Mapper",
+      "description" : "Enables mapping of customer database models to a given generic model",
+      "location" : "Unspecified",
+      "containers" : [ {
+        "id" : "4",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "mapper.mapperapp"
+        },
+        "name" : "Mapper single page application",
+        "description" : "Provides tools for mapping data models",
+        "technology" : "TypeScript",
+        "documentation" : { }
+      }, {
+        "id" : "5",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "mapper.mapperapi"
+        },
+        "name" : "Mapper API",
+        "description" : "Provides API for mapping data models",
+        "technology" : "C#",
+        "components" : [ {
+          "id" : "6",
+          "tags" : "Element,Component,Controller",
+          "properties" : {
+            "structurizr.dsl.identifier" : "mapper.mapperapi.mappercontroller"
+          },
+          "name" : "Mapper Controller",
+          "description" : "Handles mapping requests",
+          "documentation" : { }
+        }, {
+          "id" : "7",
+          "tags" : "Element,Component,Service",
+          "properties" : {
+            "structurizr.dsl.identifier" : "mapper.mapperapi.mapperservice"
+          },
+          "name" : "Mapper Service",
+          "description" : "Handles mapping logic",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "9",
+        "tags" : "Element,Container,Service",
+        "properties" : {
+          "structurizr.dsl.identifier" : "mapper.notification_service"
+        },
+        "name" : "Notification Service",
+        "description" : "Provides notification management",
+        "components" : [ {
+          "id" : "11",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "mapper.notification_service.database_listener"
+          },
+          "name" : "Database Listener",
+          "description" : "Listens to database data changes",
+          "documentation" : { }
+        }, {
+          "id" : "10",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "mapper.notification_service.notification_request_handler"
+          },
+          "name" : "Request Handler",
+          "description" : "Handles notification requests",
+          "documentation" : { }
+        }, {
+          "id" : "12",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "mapper.notification_service.notification_handler"
+          },
+          "name" : "Notification Handler",
+          "description" : "Handles notifications",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      }, {
+        "id" : "8",
+        "tags" : "Element,Container,Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "mapper.mapperdatabase"
+        },
+        "name" : "Mapping Database",
+        "description" : "Provides data persistence for mapping data",
+        "technology" : "TODO",
+        "documentation" : { }
+      } ],
+      "documentation" : { }
+    }, {
+      "id" : "13",
+      "tags" : "Element,Software System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "bi_management"
+      },
+      "name" : "BI Management System",
+      "description" : "Enables management of BI projects (data mapping, spinning up new instances of Metabase)",
+      "location" : "Unspecified",
+      "documentation" : { }
+    } ],
+    "deploymentNodes" : [ {
+      "id" : "14",
+      "tags" : "Element,Deployment Node",
+      "properties" : {
+        "structurizr.dsl.identifier" : "live.90e8771a-41a1-4a08-b5d3-c745baf58c24"
+      },
+      "name" : "Client Computer",
+      "environment" : "Live",
+      "instances" : "1",
+      "children" : [ {
+        "id" : "15",
+        "tags" : "Element,Deployment Node",
+        "properties" : {
+          "structurizr.dsl.identifier" : "live.90e8771a-41a1-4a08-b5d3-c745baf58c24.5afd15bc-b2ba-456f-8b43-cf1ba835daf1"
+        },
+        "name" : "Web Browser",
+        "environment" : "Live",
+        "instances" : "1",
+        "infrastructureNodes" : [ {
+          "id" : "16",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.90e8771a-41a1-4a08-b5d3-c745baf58c24.5afd15bc-b2ba-456f-8b43-cf1ba835daf1.spa"
+          },
+          "name" : "Single Page Application",
+          "description" : "Provides exam system functionality via web browser",
+          "environment" : "Live"
+        } ]
+      } ]
+    }, {
+      "id" : "17",
+      "tags" : "Element,Deployment Node",
+      "properties" : {
+        "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5"
+      },
+      "name" : "Whole architecture",
+      "environment" : "Live",
+      "instances" : "1",
+      "children" : [ {
+        "id" : "27",
+        "tags" : "Element,Deployment Node",
+        "properties" : {
+          "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.1210caae-0af5-48b3-bacc-9a83ed373f6c"
+        },
+        "name" : "Auth Server",
+        "environment" : "Live",
+        "instances" : "1",
+        "infrastructureNodes" : [ {
+          "id" : "28",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.1210caae-0af5-48b3-bacc-9a83ed373f6c.authnode"
+          },
+          "name" : "Auth Service",
+          "description" : "Provides authentication and authorization functionality",
+          "environment" : "Live"
+        } ]
+      }, {
+        "id" : "24",
+        "tags" : "Element,Deployment Node",
+        "properties" : {
+          "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.05903d62-291f-437a-a922-bf9f2de139fa"
+        },
+        "name" : "Service Infrastructure",
+        "environment" : "Live",
+        "instances" : "1",
+        "infrastructureNodes" : [ {
+          "id" : "25",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.05903d62-291f-437a-a922-bf9f2de139fa.notificationnode"
+          },
+          "name" : "Notification Service",
+          "description" : "Provides notification handler",
+          "environment" : "Live"
+        }, {
+          "id" : "26",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.05903d62-291f-437a-a922-bf9f2de139fa.messagenode"
+          },
+          "name" : "Message Service",
+          "description" : "Provides message handler",
+          "environment" : "Live"
+        } ]
+      }, {
+        "id" : "18",
+        "tags" : "Element,Deployment Node",
+        "properties" : {
+          "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.48675e67-172c-4f5f-9827-60e2403b5558"
+        },
+        "name" : "Backend Server",
+        "environment" : "Live",
+        "instances" : "1",
+        "children" : [ {
+          "id" : "21",
+          "tags" : "Element,Deployment Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.48675e67-172c-4f5f-9827-60e2403b5558.f1ed7a96-46cf-491f-a67a-7888c43bc7af"
+          },
+          "name" : "Database Enviroment",
+          "environment" : "Live",
+          "instances" : "1",
+          "infrastructureNodes" : [ {
+            "id" : "22",
+            "tags" : "Element,Infrastructure Node,Database",
+            "properties" : {
+              "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.48675e67-172c-4f5f-9827-60e2403b5558.f1ed7a96-46cf-491f-a67a-7888c43bc7af.databasenode"
+            },
+            "name" : "Database",
+            "description" : "Provides data persistence",
+            "environment" : "Live"
+          }, {
+            "id" : "23",
+            "tags" : "Element,Infrastructure Node,Database",
+            "properties" : {
+              "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.48675e67-172c-4f5f-9827-60e2403b5558.f1ed7a96-46cf-491f-a67a-7888c43bc7af.messagedatabasenode"
+            },
+            "name" : "Message Database",
+            "description" : "Provides message history persistence",
+            "environment" : "Live"
+          } ]
+        } ],
+        "infrastructureNodes" : [ {
+          "id" : "19",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.48675e67-172c-4f5f-9827-60e2403b5558.lbnode"
+          },
+          "name" : "Load Balancer",
+          "description" : "Balances incoming calls",
+          "environment" : "Live"
+        }, {
+          "id" : "20",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.ef031691-34d3-4ff8-8ecf-bfa528dda0d5.48675e67-172c-4f5f-9827-60e2403b5558.apinode"
+          },
+          "name" : "Rest API Infrastructure",
+          "description" : "Provides Rest API endpoints",
+          "environment" : "Live"
+        } ]
+      } ]
+    } ]
+  },
+  "documentation" : { },
+  "views" : {
+    "systemContextViews" : [ {
+      "key" : "examSystemSystemContextDiagram",
+      "order" : 1,
+      "softwareSystemId" : "3",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "enterpriseBoundaryVisible" : true,
+      "elements" : [ {
+        "id" : "3",
+        "x" : 0,
+        "y" : 0
+      } ]
+    } ],
+    "containerViews" : [ {
+      "key" : "examSystemContainerDiagram",
+      "order" : 2,
+      "softwareSystemId" : "3",
+      "dimensions" : {
+        "width" : 3140,
+        "height" : 811
+      },
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "externalSoftwareSystemBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "4",
+        "x" : 2470,
+        "y" : 219
+      }, {
+        "id" : "5",
+        "x" : 1720,
+        "y" : 219
+      }, {
+        "id" : "8",
+        "x" : 970,
+        "y" : 219
+      }, {
+        "id" : "9",
+        "x" : 220,
+        "y" : 219
+      } ]
+    } ],
+    "deploymentViews" : [ {
+      "key" : "AmazonWebServicesDeployment",
+      "order" : 3,
+      "softwareSystemId" : "3",
+      "automaticLayout" : {
+        "implementation" : "Graphviz",
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "nodeSeparation" : 300,
+        "edgeSeparation" : 0,
+        "vertices" : false
+      },
+      "environment" : "Live",
+      "elements" : [ {
+        "id" : "22",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "23",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "24",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "14",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "25",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "15",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "26",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "16",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "27",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "28",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "17",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "18",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "19",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "20",
+        "x" : 0,
+        "y" : 0
+      }, {
+        "id" : "21",
+        "x" : 0,
+        "y" : 0
+      } ]
+    } ],
+    "configuration" : {
+      "branding" : { },
+      "styles" : {
+        "elements" : [ {
+          "tag" : "Person",
+          "color" : "#08427b",
+          "fontSize" : 22,
+          "shape" : "Person"
+        }, {
+          "tag" : "Software System",
+          "background" : "#1168bd",
+          "color" : "#ffffff"
+        }, {
+          "tag" : "Container",
+          "background" : "#438dd5",
+          "color" : "#ffffff"
+        }, {
+          "tag" : "Component",
+          "background" : "#c4c4c4",
+          "color" : "#000000"
+        }, {
+          "tag" : "Service",
+          "background" : "#d4655d"
+        }, {
+          "tag" : "Database",
+          "background" : "#30469c",
+          "color" : "#ffffff",
+          "shape" : "Cylinder"
+        }, {
+          "tag" : "Controller",
+          "background" : "#57b586"
+        }, {
+          "tag" : "External",
+          "background" : "#636363"
+        } ]
+      },
+      "terminology" : { },
+      "metadataSymbols" : "SquareBrackets",
+      "lastSavedView" : "examSystemContainerDiagram"
+    }
+  }
+}
