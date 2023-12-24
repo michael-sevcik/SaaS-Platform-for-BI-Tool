@@ -12,7 +12,6 @@ import {
     
 
  } from '../../constants';
-import { SourceColumn } from '../../mappingModel/sourceColumn';
 import { Column } from '../../dbModel/database';
 import { PropertyPort } from './propertyPort';
 
@@ -98,4 +97,6 @@ export abstract class BaseEntityShape extends dia.Element {
     public getPortByColumn(column: Column): PropertyPort | undefined {
         return this._portsByColumns.get(column);
     }
+
+    abstract handleDoubleClick(): void;
 }

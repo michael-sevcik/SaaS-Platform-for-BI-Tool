@@ -43,8 +43,8 @@ const tabPohybyZboziProperties = [
 ];
 
 const table1 = new Table("TabMzdList", [
-    new Column("ZamestnanecId", ColumnType.int),
-    new Column("OdpracHod", ColumnType.decimal),
+    new Column("ZamestnanecId", ColumnType.int, "Id zamestnance"),
+    new Column("OdpracHod", ColumnType.decimal, "Odpracované hodiny"),
     new Column("HodSaz", ColumnType.decimal),
     new Column("IdObdobi", ColumnType.int)
 ]);
@@ -75,11 +75,11 @@ const join = new Join(
 );
 
 const targetColumns = [
-    new Column("PersonalId", ColumnType.int),
-    new Column("HoursCount", ColumnType.decimal),
-    new Column("DateFrom", ColumnType.date),
-    new Column("DateTo", ColumnType.date),
-    new Column("note", ColumnType.string),
+    new Column("PersonalId", ColumnType.int, "Id zamestnance"),
+    new Column("HoursCount", ColumnType.decimal, "Odpracované hodiny"),
+    new Column("DateFrom", ColumnType.date, "Začátek období"),
+    new Column("DateTo", ColumnType.date, "Konec období"),
+    new Column("note", ColumnType.string, "Poznámka"),
 ]
 
 const targetTable = new Table("EmployeeHoursWorked", targetColumns);

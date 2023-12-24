@@ -40,8 +40,7 @@ public constructor(
         public type : JoinType,
         public leftSourceEntity : SourceEntity,
         public rightSourceEntity : SourceConcreteEntity,
-        public condition : JoinCondition | null = null)
-    {
+        public condition : JoinCondition | null = null) {
         super(name);
     }
 

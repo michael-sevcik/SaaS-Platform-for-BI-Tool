@@ -1,13 +1,13 @@
 import { EntityMapping } from "../entityMapping";
 import { SourceColumn } from "../sourceColumn";
 import { SourceEntity } from "../sourceEntity";
-import { MappingConverterVisiter } from "./mappingConverterVisitor";
+import { MappingToPlainConverterVisiter } from "./mappingToPlainConverterVisitor";
 import { PlainToSourceEntityConvertor } from "./plainToSourceEntityConvertor";
 
 export class EntityMappingConvertor {
     static convertEntityMappingToPlain(entityMapping: EntityMapping) : any {
         entityMapping.createBackwardConnections(); // TODO: is this needed?
-        const visitor = new MappingConverterVisiter();
+        const visitor = new MappingToPlainConverterVisiter();
         entityMapping.sourceEntity.accept(visitor);
         const plainSourceEntities = visitor.sortedSourceEntities;
         visitor.getResult();

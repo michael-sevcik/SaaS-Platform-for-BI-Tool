@@ -8,10 +8,11 @@ import { Column } from '../dbModel/database';
 
 export class EntityMapping implements Owner{
     public constructor(
-        public name : string,
+        public readonly name : string,
         public sourceEntity : SourceEntity | null,
         public sourceEntities : SourceEntity[],
-        public columnMappings : Map<string, SourceColumn | null>) { }
+        public columnMappings : Map<string, SourceColumn | null>,
+        public readonly description : string | null = null) { }
     
     public createBackwardConnections(): void {
         if (this.sourceEntity !== null) {

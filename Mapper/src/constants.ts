@@ -15,7 +15,9 @@ export const HEADER_HEIGHT = 80;
 
 export const DATABASE_ENTITY_MAX_PORT_COUNT = 20;
 export const SOURCE_DATABASE_ENTITY_GROUP_NAME = 'sourceDbEntity';
+export const DEFAULT_SOURCE_ENTITY_DESCRIPTION = 'Represents a table from the source database.';
 export const TARGET_DATABASE_ENTITY_GROUP_NAME = 'targetDbEntity';
+export const DEFAULT_TARGET_ENTITY_DESCRIPTION = 'Represents a table from the target database.';
 export const DATABASE_ENTITY_PROPERTY_HEIGHT = 32;
 export const DATABASE_ENTITY_PROPERTY_WIDTH = GRID_SIZE * 35;
 export const DATABASE_ENTITY_PROPERTY_GAP = 1;
