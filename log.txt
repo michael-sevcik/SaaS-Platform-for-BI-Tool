@@ -253,7 +253,6 @@ Nový dashboard, který znázorňuje vývoj poptávky častých zákazníků.
 Pokračovat v demu list a pokusit se upravit do použitelné podoby	
 	- vygenerovat ze seznamu vlastností 
 	- zjistit jak získat mapování konektorů.
-
 	
 Mapper -> průvodce postupně po nutných entitách zobrazí danou entitu vpravo v podobě tabulky s porty odpovídajícími vlastnostem entity.
 			Pomocí tlačítka `Přidat zdroj` a následně propojit zdroje a připojit je k cílovým portům
@@ -488,15 +487,22 @@ překopat lehce inicializaci, potřebujeme
 		- add the top bar to the editor class
 			- create a button for exporting mapping
 			- button for adding sourceTables
-now - Fill the shape description with something
-		- source table column selection		
+		- Fill the shape description with something
+			
+now - source table column selection	-
+			- add hadleDoubleClick method
+			- create columnSelectionModal
+		- where clause representation
+		- default value blackbox
+		- schema change back check
 		
-		
+		- add are you sure you want to remove the joinlink pop up etc.
 		- update tests
 		- experiment with the types of lines
-		- fix creating of new property mappings somehow new SourceColumns are created repretedly for the same column
-		
-todo: where clause, default value blackbox, chema change check 
+		- fix creation of new property mappings - somehow new SourceColumns are created repretedly for the same column
+		- document the formats (database schema scrapes and mapping)- consider the visual way with plantUML or sth.
+		- Check that the table that is being added is not already added
+		- check if some events can be registered directly from the constructor - pointerdblclick is unfortunately not one of them
 
 - consider adding -             // HACK: ensures that the owner source entity is already serialized
             // if (!this.plainSourceEntitiesByOriginal.has(sourceColumn.owner)) {
@@ -506,10 +512,9 @@ todo: where clause, default value blackbox, chema change check
             // } 
             // else {
 		to the mapping convertor
-- Check that the table that is being added is not already added
+		
 - Consider removing the sourceEntities property from the EntityMapping
 - consider optional mapping of some target columns
-- consider adding are you sure you want to remove the joinlink pop up
 - update the documentation
 - pair the model with shapes
 - mapping is managed by the target entity	
