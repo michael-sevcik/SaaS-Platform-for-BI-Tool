@@ -526,6 +526,13 @@ now - source table column selection	-
 - ctrl Z functionality
 - consider using the abstract get selected columns for the join entity, so the join when get selected columns makes array of the two joined entities
 - consider removing the selected columns from the join entity - other entities than the sourceConcreteEntities
+- consider using blazor for the management app and maybe also for the mapper file for all the communication with server
+	- how to use blazor https://www.youtube.com/watch?v=walv3nLTJ5g
+	-> blazor makes it pretty simple
+	- Cooperation of blazor and Typescript - https://www.youtube.com/watch?v=I_zFlBKgl5s
+		- We might need to use WebPack instead of the MsBuild package for typescript
+- consider using bootstrap for styling the html components - there is also modal example etc.
+	- https://www.youtube.com/watch?v=eow125xV5-c
 
 
 the mapping editor either receives entity mapping which is supposed to be edited or it receives table entity representing a tablefrom the target database and the mapping editor creates empty mapping entity 
@@ -544,3 +551,22 @@ Changes in the model:
 
 For defining join condition
 - user must add the columns that are needed for the 
+
+- Architektura - použité technologie: 
+	- propojení backend a frontend: 
+		- https://stackoverflow.com/questions/46537108/mvc-for-a-single-page - this could be interesting for integrating the mapper with other parts, the mapper would be a javascript servise for an asp.net app, this service would get a service for communicating with the server.	
+			- https://learn.microsoft.com/en-us/aspnet/core/client-side/spa-services?view=aspnetcore-3.0
+	- login idnetity on ASP.NET core:
+		- https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-8.0&tabs=visual-studio
+		https://www.youtube.com/watch?v=wzaoQiS_9dI
+	- how to route users to the right metabase instance 
+		- deploy automatically new instances of metabase:
+			- use kubernetes - it has api which can be called from c#, so we can configure everything needed and deploy the image of metabase as a docker image
+				- find a right C# K8s client to enable the metabase deployment
+					- how to connect to the cluster?
+						- Is there a universal API or we need something more?
+							- yes, there is also official K8s client for C#
+								- test whether new instance can be easily deployed - use docker desktop K8s
+						- look through the bechelars theses from Matfyz to find something with kubernetes
+					- https://learn.microsoft.com/en-us/training/modules/dotnet-deploy-microservices-kubernetes/
+					
