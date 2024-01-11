@@ -559,14 +559,54 @@ For defining join condition
 	- login idnetity on ASP.NET core:
 		- https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-8.0&tabs=visual-studio
 		https://www.youtube.com/watch?v=wzaoQiS_9dI
+		- create user activation links 
+			- https://coding.abel.nu/2015/05/secure-account-activation-with-asp-net-identity/
+			- also we should increase the token lifespan
+				- https://stackoverflow.com/a/53196846
 	- how to route users to the right metabase instance 
 		- deploy automatically new instances of metabase:
 			- use kubernetes - it has api which can be called from c#, so we can configure everything needed and deploy the image of metabase as a docker image
-				- find a right C# K8s client to enable the metabase deployment
 					- how to connect to the cluster?
+				- find a right C# K8s client to enable the metabase deployment
 						- Is there a universal API or we need something more?
 							- yes, there is also official K8s client for C#
 								- test whether new instance can be easily deployed - use docker desktop K8s
 						- look through the bechelars theses from Matfyz to find something with kubernetes
 					- https://learn.microsoft.com/en-us/training/modules/dotnet-deploy-microservices-kubernetes/
-					
+
+- Práce ve spolupráci s firmou https://dspace.cuni.cz/handle/20.500.11956/119194
+- Tento softwarový projekt je určen pro specifické použití ve firmě Merica
+- Jedná se o management systém pro SaaS	(software as a service) BI (bussiness inteligence -  )nástroj
+
+
+struktura zasazení do kontextu:
+	- další SaaS aplikace - chceme vlastní implementaci
+	- SaaS management téměř žádné open-source, KuberLogic nedokončený
+
+Use case diagramy ve stylu: https://dspace.cuni.cz/bitstream/handle/20.500.11956/148395/130308354.pdf?sequence=1&isAllowed=y
+	- figure 3.1 a 3.2
+
+vzor formátu https://dspace.cuni.cz/handle/20.500.11956/119194 upraven pro potřeby této práce
+https://dspace.cuni.cz/bitstream/handle/20.500.11956/119194/120362350.pdf?sequence=1&isAllowed=y
+
+formát: User requirements
+
+- TODO: Look for software for managing SaaS cloud applications
+	- usually features a lot of unnecessary features such as payment management etc.
+	- https://github.com/kuberlogic/kuberlogic
+	https://www.youtube.com/watch?v=R-pLyKWYXIM
+	https://portworx.com/software-as-a-service/
+	
+	popsat SaaS
+	
+	https://www.quora.com/Where-can-I-get-free-domain-names-for-learning-and-testing-purposes
+	https://medium.com/@prashantsde/setup-path-based-routing-ingress-in-kubernetes-by-helm-chart-e7147a15dfcd
+	https://chat.openai.com/share/68b26708-fc7f-4d61-8a9f-732f22078917
+	https://www.youtube.com/results?search_query=kong+kubernetes
+	
+	and maybe check https://kuberlogic.com/docs/getting-started/ for tips
+	https://www.helpnetsecurity.com/2021/10/13/kuberlogic-paas/
+	maybe https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-1-an-introduction-to-kubernetes/#ingresses
+	
+look at this https://www.startersaas.com/
+https://www.rancher.com/
