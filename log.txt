@@ -575,7 +575,6 @@ For defining join condition
 					- https://learn.microsoft.com/en-us/training/modules/dotnet-deploy-microservices-kubernetes/
 
 - Práce ve spolupráci s firmou https://dspace.cuni.cz/handle/20.500.11956/119194
-- Tento softwarový projekt je určen pro specifické použití ve firmě Merica
 - Jedná se o management systém pro SaaS	(software as a service) BI (bussiness inteligence -  )nástroj
 
 
@@ -610,3 +609,7 @@ formát: User requirements
 	
 look at this https://www.startersaas.com/
 https://www.rancher.com/
+https://learn.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-8.0 - zajímavé propojení modulů/containerů
+https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-4-creating-a-helm-chart-for-an-aspnetcore-app/
+
+Use C4 dynamic diagrams for discribing high-level processes
