@@ -1,31 +1,30 @@
-Mapper/build/spec/deserialization.spec.js
-Mapper/build/spec/serialization.spec.js
-Mapper/build/src/constants.js
-Mapper/build/src/index.js
-Mapper/build/src/Serialization/entityMappingConvertor.js
-Mapper/build/src/Serialization/mappingConverterVisitor.js
-Mapper/build/src/Serialization/mappingConvertorVisitor.js
-Mapper/build/src/Serialization/mappingModelConverter.js
-Mapper/build/src/Serialization/mappingModelConvertor.js
-Mapper/build/src/Serialization/mappingVisitor.js
-Mapper/build/src/Serialization/plainToSourceEntityConvertor.js
-Mapper/build/src/Serialization/visitable.js
-Mapper/build/src/entities/baseEntityShape.js
-Mapper/build/src/entities/joinModal.js
-Mapper/build/src/entities/sourceDatabaseEntityShape.js
-Mapper/build/src/entities/targetDatabaseEntityShape.js
-Mapper/build/src/mappingModel/columnMapping.js
-Mapper/build/src/mappingModel/dbConnectionConfig.js
-Mapper/build/src/mappingModel/entityMapping.js
-Mapper/build/src/mappingModel/mappingConfig.js
-Mapper/build/src/mappingModel/sourceEntity.js
-Mapper/build/src/mappingModel/sourceTable.js
-Mapper/build/src/mappingModel/Agregators/Join.js
-Mapper/build/src/mappingModel/Agregators/Conditions/conditionLink.js
-Mapper/build/src/mappingModel/Agregators/Conditions/joinCondition.js
-Mapper/build/src/mappingModel/serialization/entityMappingConvertor.js
-Mapper/build/src/mappingModel/serialization/mappingConverterVisitor.js
-Mapper/build/src/mappingModel/serialization/mappingModelConverter.js
-Mapper/build/src/mappingModel/serialization/mappingVisitor.js
-Mapper/build/src/mappingModel/serialization/plainToSourceEntityConvertor.js
-Mapper/build/src/mappingModel/serialization/visitable.js
+# ------- Binary --------
+
+bin/
+obj/
+*.exe
+
+# ------- Other ---------
+
+*.opensdf
+*.sdf
+.filters
+
+
+*.user
+*.dll.metagen
+*.Cache
+*.suo
+
+# VISUAL STUDIO 2016+
+/**/.vs
+
+# NODE JS MODULES
+/**/node_modules/
+
+# Typescript
+/**/Generated/*.js
+/**/Generated/*.ts
+/DatabaseConnection/Migrations
+/DatabaseConnection.zip
+
