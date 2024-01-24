@@ -1,0 +1,82 @@
+@startuml "Use Case Diagram - Správce systému"
+left to right direction
+
+actor "Správce systému" as admin
+
+' Použijeme syntaxi package NÁZEV { ... } pro označení modulů
+package "Správa zákazníků" {
+    (Přidat nového zákazníka) as add_customer
+    (Smazat bývalého zákazníka) as delete_customer
+    (Ukončit instanci nástroje Metabase) as stop_metabase
+    (Nastavit oprávnění\na role pro uživatele) as set_permissions
+    (Přihlásit se) as login
+    (Ověřit uživatelské jméno a heslo) as verify_credentials
+    (Nahlédnout do mapovacího \n projektu zákazníka) as view_customers_mapping
+    (Nasadit novou instanci \n nástroje Metabase) as start_metabase
+    (Zaslat email s odkazem\n na obnovení hesla) as send_password_reset_email
+    (zaslat email s odkazem \n na novou instanci Metabase) as send_metabase_link
+    login ..> verify_credentials : <<include>>
+    add_customer ..> send_password_reset_email : <<include>>
+    delete_customer ..> stop_metabase : <<include>>
+    start_metabase .r.> send_metabase_link : <<include>>
+}
+
+package "Správa dat" {
+    (Zobrazit mapování dat) as view_data_mapping
+    (Upravit\n mapování dat) as edit_data_mapping
+    (vytvořit SQL views) as create_views
+    edit_data_mapping .r.> view_data_mapping : <<extend>>
+}
+
+view_customers_mapping .d.> view_data_mapping : <<include>>
+start_metabase .d.> create_views : <<include>>
+
+' Zachováme vztahy mezi use casy a aktéry
+admin -u- login
+admin -- add_customer
+admin -- delete_customer
+admin -d- view_customers_mapping
+admin -d- start_metabase
+admin -d- set_permissions
+
+@enduml
+
+
+@startuml "Use Case diagram - Zákazník"
+left to right direction
+
+actor "Zákazník" as customer
+
+' Použijeme syntaxi package NÁZEV { ... } pro označení modulů
+package "Správa zákazníků" {
+    (Obnovit heslo) as reset_password
+    (Přihlásit se) as login
+    (Ověřit uživatelské jméno a heslo) as verify_credentials
+    login .r.> verify_credentials : <<include>>
+}
+
+package "Správa dat" {
+    (Připojit svoji databázi ERP systému) as connect_erp
+    (Použít nástroj pro mapování dat) as use_mapping_tool
+    (Upravit nebo změnit mapování dat) as edit_data_mapping
+    (Poskytnout zpětnou vazbu nebo požádat o podporu) as provide_feedback
+    connect_erp .l.> use_mapping_tool : <<include>>
+    edit_data_mapping .r.> use_mapping_tool : <<include>>
+}
+
+package "Vizualizace dat" {
+    (Přistoupit k nástroji Metabase) as access_metabase
+    (Vytvořit, sdílet, exportovat, nebo porovnávat reporty a dashboardy) as use_metabase
+    access_metabase <.r. use_metabase : <<extend>>
+
+}
+
+customer -- reset_password
+customer -- login
+customer -- connect_erp
+customer -- edit_data_mapping
+customer -- access_metabase
+customer -- provide_feedback
+
+
+@enduml

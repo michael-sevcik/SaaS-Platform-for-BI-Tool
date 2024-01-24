@@ -28,3 +28,5 @@ obj/
 /DatabaseConnection/Migrations
 /DatabaseConnection.zip
 
+out/Architecture/usecases/Use Case Diagram - Správce systému.svg
+out/Architecture/usecases/Use Case diagram - Zákazník.svg
