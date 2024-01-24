@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.5.002.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlViewGenerator", "SqlViewGenerator\SqlViewGenerator.csproj", "{2CC5775F-F044-4F55-A8E6-97926B674A43}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlViewGeneratorTests", "SqlViewGeneratorTests\SqlViewGeneratorTests.csproj", "{1F592B34-C8B1-4277-984E-DDB74AC53F0E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2CC5775F-F044-4F55-A8E6-97926B674A43}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CC5775F-F044-4F55-A8E6-97926B674A43}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CC5775F-F044-4F55-A8E6-97926B674A43}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CC5775F-F044-4F55-A8E6-97926B674A43}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F592B34-C8B1-4277-984E-DDB74AC53F0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F592B34-C8B1-4277-984E-DDB74AC53F0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F592B34-C8B1-4277-984E-DDB74AC53F0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F592B34-C8B1-4277-984E-DDB74AC53F0E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1954CCB7-4EB5-4651-9A8A-1FE50A343FE4}
+	EndGlobalSection
+EndGlobal
