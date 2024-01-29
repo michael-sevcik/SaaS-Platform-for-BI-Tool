@@ -1,0 +1,68 @@
+\chapter{Úvod}\label{chap:intro}
+\addcontentsline{toc}{chapter}{Úvod}
+
+
+Pro jakoukoliv firmu nabízející vzájemně provázané služby je důležité mít v~rámci svého ekosystému takový produkt, který usnadní potenciálním zákazníkům cestu k~využití dalších produktů.
+V~případě zadavatelské firmy, kterou pro jednoduchost budeme nazývat \textit{Firma}, by měl být zmíněným produktem výsledek této práce.
+
+\textit{Firma}, jejíž zákazníci jsou z většiny výrobní společnosti, se zabývá optimalizací výroby a~její hlavní produkty jsou postaveny kolem tohoto problému, proto je pro ni důležité mít přístup ke kvalitním zákaznickým datům.
+Potenciální zákazníci již většinou využívají nějaký ERP systém\footnote{Plánování podnikových zdrojů (ve zkratce ERP z anglického enterprise resource planning) je označení systému, jímž podnik (nebo jiná organizace) za pomoci počítače řídí a integruje všechny nebo většinu oblastí své činnosti, jako jsou plánování, zásoby, nákup, prodej, marketing, finance, personalistika, atd. \cite{ERP}.},
+tudíž jsou i~jejich vnitřní procesy zmapované a~uložené v~jejich databázi.
+
+Zpřístupnění dat zákazníka bylo původně řešeno vytvářením importovacích skriptů na míru zákazníkovi, což bylo časově náročné a~obtížně škálovatelné.
+Dnes je pro nové zákazníky zadefinována sada SQL views (\textbf{TODO}: vysvětlení), které si musí sami naimplementovat a poskytnout \textit{Firmě}, která na ně napojí nabízené nástroje pro plánování a~optimalizaci.
+Tento proces v~reálných situacích mnohdy ústí ve dva problematické scénáře:
+
+\begin{enumerate}
+    \item {
+        Nový zákazník nemá odborné znalosti potřebné k~vytvoření zmíněných SQL views, proto osloví dodavatele jejich ERP systému s~žádostí o~nacenění potřebné úpravy.
+        Odhadovaná cena za úpravy dodavatelem je příliš vysoká a zákazník o~\textit{Firmou} nabízený produkt ztrácí zájem.
+    }
+    \item {
+        Nový zákazník SQL views naimplementuje, ale v~datech má velké množství chyb, ať už z~důvodu chybně nastavených vnitřních procesů či chybné implementace SQL views.
+        Tyto chyby jsou v~rozporu s~výše uvedeným požadavkem na kvalitní zákaznická data, a~tím pádem musí být nejprve odstraněny, což vytváří zdržení v~nasazování produktů \textit{Firmy}.
+    }
+\end{enumerate}
+
+Pro omezení negativních důsledků výše zmíněných scénářů se firma rozhodla vytvořit nový produkt, který by usnadnil  vytváření potřebné sady SQL views pro import dat, umožnil vizualizaci takto importovaných dat a zároveň poskytl zákazníkovi okamžitou přidanou hodnotu.
+
+Těmto požadavkům nejlépe odpovídala kombinace nástrojů pro mapování dat a~BI\footnote{
+Souhrné označení pro dovednosti, znalosti, technologie, aplikace, kvalita, rizika, bezpečnostní otázky a~postupy používané v podnikání pro získání lepšího pochopení chování na trhu a~obchodních souvislostech.
+Za tímto účelem provádí sběr, integraci, analýzu, interpretaci a prezentaci obchodních informací.
+}.
+Odtud vychází zadání této bakalářské práce, jejíž cílem je, dle požadavků \textit{Firmy}, navržení a~implementace systému, který umožní poskytování předkonfigurovaného webového BI nástroje \textit{Metabase}\footnote{
+Open-source BI nástroj umožňující jednoduchou vizualizaci dat, vytváření nástěnek a reportů. Více informací na \url{https://www.metabase.com/docs/latest/}
+} 
+formou SaaS (Software jako služba, anglicky Software as a~Service). 
+
+Nástroj bude používat generický datový model vhodný pro většinu zákazníků, což umožní vytvoření základních reportů, které zrychlý adaptaci nástroje zákazníkem. Systém zákazníkům poskytne uživatelsky přívětivý nástroj pro mapování dat z~databáze jejich ERP systému na generický datový model a~přístup k~BI nástroji.
+Správci systému umožní správu zákazníků, kontrolu mapování jejich dat a~snadný deploy instancí nástroje v Kubernetes klastru\footnote{Více informací v podsekci \ref{subsec:k8s} nebo na \url{https://kubernetes.io/docs/concepts/architecture/}.}. 
+
+\section{Struktura práce}
+
+Abychom dále popsali design, funkcionalitu a vývoj námi vytvářeného systému, rozdělíme dále práci na následujících 7 kapitol:
+
+\subsubsection{Kapitola \ref{chap:analysis}: \nameref{chap:analysis}}
+Zde si zasadíme námi vyvíjeny systém do kontextu již existujícího software.
+
+\subsubsection{Kapitola \ref{chap:requirements}: \nameref{chap:requirements}}
+V této kapitole si shrneme funkční a~nefunkční požadavky na tento systém.
+
+\subsubsection{Kapitola \ref{chap:design}: \nameref{chap:design}}
+Kapitola \ref{chap:design} popisuje, jak probíhal design tohoto systému, jaké rozhodnutí ho ovlivnili a jak reflektuje požadavky, které jsou na systém kladené.
+Představujeme architekturu systému a~jednotlivých modulů, a~konečně představujeme zohlednění aspektů jako bezpečnost, použitelnost, škálovatelnost a~udržovatelnost systému.
+
+\subsubsection{Kapitola \ref{chap:functionality}: \nameref{chap:functionality}}
+V této kapitole ukazujeme funkcionality vyvíjeného systému, a~jak ji mohou zainteresované strany využít
+
+\subsubsection{Kapitola \ref{chap:implementation}: \nameref{chap:implementation}}
+Tato kapitola nastiňuje, jak jsme implementovali systém podle navrženého designu a požadavků.
+Představujeme zde použité technologie, nástroje a~postupy, kterých jsme využili při vývoji systému.
+Také popisujeme, jak jsme řešili některé problémy a~výzvy, na které jsme narazili během implementace.
+
+\subsubsection{Kapitola \ref{chap:testing}: \nameref{chap:testing}}
+Zde prezentujeme způsob testování funkčnosti, spolehlivosti a~kvality systému.
+
+\subsubsection{Poslední kapitola: \nameref{chap:sum}}
+V poslední části shrnujeme hlavní přínosy a~příspěvky naší práce. Zkoumáme, jak jsme splnili cíle a~požadavky na systém, a~jak jsme překonali některé omezení a~nedostatky.
+Také diskutujeme o~možných budoucích rozšířeních a~vylepšeních systému, a~navrhujeme některé směry pro další výzkum.
