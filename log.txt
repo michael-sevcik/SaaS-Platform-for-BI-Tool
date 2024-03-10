@@ -563,6 +563,12 @@ For defining join condition
 			- https://coding.abel.nu/2015/05/secure-account-activation-with-asp-net-identity/
 			- also we should increase the token lifespan
 				- https://stackoverflow.com/a/53196846
+		- https://medium.com/@ahmed.gaduo_93938/how-to-implement-keycloak-authentication-in-a-net-core-application-ce8603698f24
+			- implementace přes "identity server"
+		- ASP.NET Core Authentication Simplified | .NET Conf 2023
+			- https://www.youtube.com/watch?v=c__Sf9j_Q2Y
+			- mentions blazor case
+			
 	- how to route users to the right metabase instance 
 		- deploy automatically new instances of metabase:
 			- use kubernetes - it has api which can be called from c#, so we can configure everything needed and deploy the image of metabase as a docker image
@@ -613,3 +619,59 @@ https://learn.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-8.0 - zajím
 https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-4-creating-a-helm-chart-for-an-aspnetcore-app/
 
 Use C4 dynamic diagrams for discribing high-level processes
+
+way to include kubernetes components into plantUML	https://github.com/dcasati/kubernetes-PlantUML
+
+ELT odpovídá vytváření views
+
+Otázky: při odkazi na citaci má být mezera mezi koncem textu a citací
+
+schema mapping might be better instead of data mapping
+
+How it would work?
+
+	Mapper is closed Typescript app that receives scraped tables schema, based on that enables data mapping and its serialization
+
+	The ASP.NET around that will provide the client server communication
+	
+	modularized monolith https://www.youtube.com/watch?v=z3piPJ7x4WU 
+	- will be split into compenents - TODO: CHECK with slides of Nečaský
+	
+	Structuring of the project
+	https://www.ezzylearning.net/tutorial/building-blazor-server-apps-with-clean-architecture#Common_Folder
+	
+
+For bigger tasks try to use Railway-oriented programming with the result success classes desribed here: https://www.youtube.com/watch?v=vGkgsduwnc4
+
+Structure of specification:
+	- domain description
+	- conceptual model
+	- domain events/processes - maybe event storming
+	- 
+Then architecture
+
+
+1. projít si githyb a zkusit napasovat tento projekt
+https://github.com/kgrzybek/modular-monolith-with-ddd
+
+Zajímavé použití Domain eventů s MediatR
+https://www.youtube.com/watch?v=AHzWJ_SMqLo
+
+CQES commands https://www.youtube.com/watch?v=85YbMEb1qkQ
+
+Zvážit implementaci: https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+
+Zvážit použití ilograph pro generování grafů
+
+Deploy blazor app s docker compose https://www.youtube.com/watch?v=uDZHSWfNVao
+
+structure of the project https://github.com/shahedc/NetLearnerApp/
+
+SQLite in memory databaze for testing
+
+Unit of work that publishes domain event after succesful saveChanges https://github.com/ardalis/CleanArchitecture
+
+The structure will use vertical slices with the MODULAR separation e.g. https://github.com/DavidEggenberger/ModularMonolith.SaaS.Template 
+
+inspiration for kubernetes deployment
+	https://github.com/DevExpress/XAF-Blazor-Kubernetes-example/tree/main
