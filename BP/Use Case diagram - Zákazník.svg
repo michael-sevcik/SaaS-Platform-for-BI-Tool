@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css" height="1034px" preserveAspectRatio="none" style="width:591px;height:1034px;background:#FFFFFF;" version="1.1" viewBox="0 0 591 1034" width="591px" zoomAndPan="magnify"><defs/><g><rect fill="none" height="27.6094" id="_title" style="stroke:none;stroke-width:1.0;" width="215" x="181" y="5"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="205" x="186" y="24.5332">Use Case Diagram for System</text><!--MD5=[960a5ed827869d380071cbee9ff7b317]
+cluster Správa zákazníků--><g id="cluster_Správa zákazníků"><path d="M213.5,44.6094 L335.5,44.6094 A3.75,3.75 0 0 1 338,47.1094 L345,68.2188 L478.5,68.2188 A2.5,2.5 0 0 1 481,70.7188 L481,298.1094 A2.5,2.5 0 0 1 478.5,300.6094 L213.5,300.6094 A2.5,2.5 0 0 1 211,298.1094 L211,47.1094 A2.5,2.5 0 0 1 213.5,44.6094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="211" x2="345" y1="68.2188" y2="68.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="121" x="215" y="61.1426">Správa zákazníků</text></g><!--MD5=[e0d690c6c7cc1bdeea698a2a51cbc5ea]
+cluster Správa dat--><g id="cluster_Správa dat"><path d="M156,324.6094 L232,324.6094 A3.75,3.75 0 0 1 234.5,327.1094 L241.5,348.2188 L536,348.2188 A2.5,2.5 0 0 1 538.5,350.7188 L538.5,753.1094 A2.5,2.5 0 0 1 536,755.6094 L156,755.6094 A2.5,2.5 0 0 1 153.5,753.1094 L153.5,327.1094 A2.5,2.5 0 0 1 156,324.6094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="153.5" x2="241.5" y1="348.2188" y2="348.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="75" x="157.5" y="341.1426">Správa dat</text></g><!--MD5=[b79439dc90c384ecd034861275372ad7]
+cluster Vizualizace dat--><g id="cluster_Vizualizace dat"><path d="M110.5,779.6094 L214.5,779.6094 A3.75,3.75 0 0 1 217,782.1094 L224,803.2188 L581.5,803.2188 A2.5,2.5 0 0 1 584,805.7188 L584,1025.1094 A2.5,2.5 0 0 1 581.5,1027.6094 L110.5,1027.6094 A2.5,2.5 0 0 1 108,1025.1094 L108,782.1094 A2.5,2.5 0 0 1 110.5,779.6094 " fill="none" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="108" x2="224" y1="803.2188" y2="803.2188"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="103" x="112" y="796.1426">Vizualizace dat</text></g><g id="elem_reset_password"><ellipse cx="345.8041" cy="267.4702" fill="#F1F1F1" rx="69.8041" ry="16.3608" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="87" x="299.3041" y="271.9868">Obnovit heslo</text></g><g id="elem_login"><ellipse cx="345.9074" cy="200.6984" fill="#F1F1F1" rx="60.9074" ry="15.5891" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="69" x="308.4074" y="205.215">Přihlásit se</text></g><g id="elem_verify_credentials"><ellipse cx="346.165" cy="106.8424" fill="#F1F1F1" rx="119.165" ry="26.233" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="203" x="244.665" y="110.5709">Ověřit uživatelské jméno a heslo</text></g><g id="elem_connect_erp"><ellipse cx="346.0728" cy="388.4239" fill="#F1F1F1" rx="127.0728" ry="27.8146" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="220" x="236.0728" y="392.1525">Připojit svoji databázi ERP systému</text></g><g id="elem_use_mapping_tool"><ellipse cx="345.8167" cy="495.4727" fill="#F1F1F1" rx="117.3167" ry="25.8633" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="199" x="246.3167" y="499.2012">Použít nástroj pro mapování dat</text></g><g id="elem_edit_data_mapping"><ellipse cx="345.8069" cy="601.7708" fill="#F1F1F1" rx="123.8069" ry="27.1614" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="213" x="239.3069" y="605.4993">Upravit nebo změnit mapování dat</text></g><g id="elem_provide_feedback"><ellipse cx="346.1723" cy="701.8438" fill="#F1F1F1" rx="176.6723" ry="37.7345" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="324" x="184.1723" y="705.5723">Poskytnout zpětnou vazbu nebo požádat o podporu</text></g><g id="elem_access_metabase"><ellipse cx="345.847" cy="986.7788" fill="#F1F1F1" rx="111.347" ry="24.6694" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="186" x="252.847" y="990.5073">Přistoupit k nástroji Metabase</text></g><g id="elem_use_metabase"><ellipse cx="345.971" cy="862.4036" fill="#F1F1F1" rx="221.971" ry="46.7942" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="417" x="137.471" y="866.1321">Vytvořit, sdílet, exportovat, nebo porovnávat reporty a dashboardy</text></g><!--MD5=[92848cbaf65985a669855153c5362c37]
+entity customer--><g id="elem_customer"><ellipse cx="33.5" cy="524.1094" fill="#F1F1F1" rx="8" ry="8" style="stroke:#181818;stroke-width:0.5;"/><path d="M33.5,532.1094 L33.5,559.1094 M20.5,540.1094 L46.5,540.1094 M33.5,559.1094 L20.5,574.1094 M33.5,559.1094 L46.5,574.1094 " fill="none" style="stroke:#181818;stroke-width:0.5;"/><text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="55" x="6" y="590.1426">Zákazník</text></g><!--MD5=[8d7b9c9530adf818ad608acbdffe67f3]
+link login to verify_credentials--><g id="link_login_verify_credentials"><path d="M346,185.0894 C346,172.3394 346,153.8894 346,138.0694 " fill="none" id="login-to-verify_credentials" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="346,132.8294,342,141.8294,346,137.8294,350,141.8294,346,132.8294" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="306.5" y="164.3545">«include»</text></g><!--MD5=[ccf82c16a6d1985a4ac574771efee799]
+reverse link use_mapping_tool to connect_erp--><g id="link_use_mapping_tool_connect_erp"><path d="M346,464.0494 C346,449.0594 346,431.2894 346,416.7594 " fill="none" id="use_mapping_tool-backto-connect_erp" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="346,469.4294,350,460.4294,346,464.4294,342,460.4294,346,469.4294" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="306.5" y="448.6045">«include»</text></g><!--MD5=[6ab816f33cbeea2f2fb48e85969c0cd2]
+link edit_data_mapping to use_mapping_tool--><g id="link_edit_data_mapping_use_mapping_tool"><path d="M346,574.5894 C346,560.0394 346,542.0194 346,526.8694 " fill="none" id="edit_data_mapping-to-use_mapping_tool" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="346,521.8494,342,530.8494,346,526.8494,350,530.8494,346,521.8494" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="55" x="306.5" y="553.6045">«include»</text></g><!--MD5=[148372ac6f92fa7c27bd32778a2adb41]
+reverse link access_metabase to use_metabase--><g id="link_access_metabase_use_metabase"><path d="M346,956.7694 C346,942.6594 346,925.4894 346,909.6894 " fill="none" id="access_metabase-backto-use_metabase" style="stroke:#181818;stroke-width:1.0;stroke-dasharray:7.0,7.0;"/><polygon fill="#181818" points="346,961.8094,350,952.8094,346,956.8094,342,952.8094,346,961.8094" style="stroke:#181818;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="53" x="307.5" y="941.3545">«extend»</text></g><!--MD5=[1b6992f67c501fa64f2e24cb8495fa45]
+link customer to reset_password--><g id="link_customer_reset_password"><path d="M36.15,515.4094 C40.22,468.5494 54.01,390.6994 100,344.6094 C147.32,297.1894 223.49,278.9094 278.34,271.8994 " fill="none" id="customer-reset_password" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[6e846b49b3206939bc1c2e5dcdb89da0]
+link customer to login--><g id="link_customer_login"><path d="M36.96,515.3694 C42.65,438.3294 59.44,271.5294 100,233.6094 C152.2,184.8094 240.14,185.5294 295.24,191.9994 " fill="none" id="customer-login" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[f8210c53d58bb88910ff57b42f2a5156]
+link customer to connect_erp--><g id="link_customer_connect_erp"><path d="M50.53,515.5694 C61.42,493.6994 77.88,467.6694 100,451.6094 C137.58,424.3194 185.92,408.8294 229.72,400.0394 " fill="none" id="customer-connect_erp" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[cc44cffa3b7f5599c6b99dad5ac55dc0]
+link customer to edit_data_mapping--><g id="link_customer_edit_data_mapping"><path d="M61.24,558.6594 C101.47,564.7494 179.69,576.5894 243.84,586.2994 " fill="none" id="customer-edit_data_mapping" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[1f9be02373fb0f46a17e385879c3e7b4]
+link customer to access_metabase--><g id="link_customer_access_metabase"><path d="M36.09,593.7894 C40.36,679.4894 55.04,879.7494 100,927.6094 C134.22,964.0394 186.7,979.7094 234.32,985.8794 " fill="none" id="customer-access_metabase" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[0390038d848c12d8582b34a77bdd33bc]
+link customer to provide_feedback--><g id="link_customer_provide_feedback"><path d="M54.11,593.8994 C65.19,612.2394 80.7,632.7994 100,645.6094 C126.81,663.3994 158.51,675.5894 190.05,683.9294 " fill="none" id="customer-provide_feedback" style="stroke:#181818;stroke-width:1.0;"/></g><!--MD5=[2f76fa5767337a8a9056d29bfb3407e5]
+@startuml "Use Case diagram - Zákazník"
+left to right direction
+title Use Case Diagram for System
+
+actor "Zákazník" as customer
+
+' Použijeme syntaxi package NÁZEV { ... } pro označení modulů
+package "Správa zákazníků" {
+    (Obnovit heslo) as reset_password
+    (Přihlásit se) as login
+    (Ověřit uživatelské jméno a heslo) as verify_credentials
+    login .r.> verify_credentials : <<include>>
+}
+
+package "Správa dat" {
+    (Připojit svoji databázi ERP systému) as connect_erp
+    (Použít nástroj pro mapování dat) as use_mapping_tool
+    (Upravit nebo změnit mapování dat) as edit_data_mapping
+    (Poskytnout zpětnou vazbu nebo požádat o podporu) as provide_feedback
+    connect_erp .l.> use_mapping_tool : <<include>>
+    edit_data_mapping .r.> use_mapping_tool : <<include>>
+}
+
+package "Vizualizace dat" {
+    (Přistoupit k nástroji Metabase) as access_metabase
+    (Vytvořit, sdílet, exportovat, nebo porovnávat reporty a dashboardy) as use_metabase
+    access_metabase <.r. use_metabase : <<extend>>
+
+}
+
+customer - - reset_password
+customer - - login
+customer - - connect_erp
+customer - - edit_data_mapping
+customer - - access_metabase
+customer - - provide_feedback
+
+
+@enduml
+
+@startuml "Use Case diagram - Zákazník"
+left to right direction
+title Use Case Diagram for System
+
+actor "Zákazník" as customer
+
+package "Správa zákazníků" {
+    (Obnovit heslo) as reset_password
+    (Přihlásit se) as login
+    (Ověřit uživatelské jméno a heslo) as verify_credentials
+    login .r.> verify_credentials : <<include>>
+}
+
+package "Správa dat" {
+    (Připojit svoji databázi ERP systému) as connect_erp
+    (Použít nástroj pro mapování dat) as use_mapping_tool
+    (Upravit nebo změnit mapování dat) as edit_data_mapping
+    (Poskytnout zpětnou vazbu nebo požádat o podporu) as provide_feedback
+    connect_erp .l.> use_mapping_tool : <<include>>
+    edit_data_mapping .r.> use_mapping_tool : <<include>>
+}
+
+package "Vizualizace dat" {
+    (Přistoupit k nástroji Metabase) as access_metabase
+    (Vytvořit, sdílet, exportovat, nebo porovnávat reporty a dashboardy) as use_metabase
+    access_metabase <.r. use_metabase : <<extend>>
+
+}
+
+customer - - reset_password
+customer - - login
+customer - - connect_erp
+customer - - edit_data_mapping
+customer - - access_metabase
+customer - - provide_feedback
+
+
+@enduml
+
+PlantUML version 1.2022.7(Mon Aug 22 19:01:30 CEST 2022)
+(GPL source distribution)
+Java Runtime: Java(TM) SE Runtime Environment
+JVM: Java HotSpot(TM) 64-Bit Server VM
+Default Encoding: UTF-8
+Language: cs
+Country: CZ
+--></g></svg>

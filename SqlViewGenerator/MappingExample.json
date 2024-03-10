@@ -1,0 +1,114 @@
+{
+    "sourceConnection" : {
+        "databaseProvider" : "SQL Server",
+        "server" : "server",
+        "initialCatalogue" : "db"
+    },
+
+    "targetMappings" : [
+        {
+            "name" : "EmployeeHoursWorked",
+            "SourceEntities" : [
+                {
+                    "$id" : "1",
+                    "type" : "sourceTable",
+                    "name" : "TabMzdList",
+                    "selectedColumns" : [
+                        "ZamestnanecId", "OdpracHod", "IdObdobi"
+                    ]
+                },
+                {
+                    "$id" : "2",
+                    "type" : "sourceTable",
+                    "name" : "TabMzdObd",
+                    "selectedColumns" : [
+                        "MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi"
+                    ]
+                },
+                {
+                    "$id" : "3",
+                    "type" : "join",
+                    "name" : "3",
+                    "joinType" : "inner",
+                    "leftSourceEntity" : {
+                        "$ref" : "1"
+                    },
+                    "rightSourceEntity" : {
+                        "$ref" : "2"
+                    },
+                    "joinCondition" : {
+                            "leftColumn" : {
+                                "sourceEntity" : {
+                                    "$ref" : "1"
+                                },
+                                "sourceColumn" : "IdObdobi"
+                            },
+                            "rightColumn" : {
+                                "sourceEntity" : {
+                                    "$ref" : "2"
+                                },
+                                "sourceColumn" : "IdObdobi"
+                            },
+                            "relation" : "equal",
+                            "linkedCondition" : null
+                    },
+                    "outputColumns" : [
+                        {
+                            "sourceEntity" : {
+                                "$ref" : "1"
+                            },
+                            "sourceColumn" : "ZamestnanecId"
+                        },
+                        {
+                            "sourceEntity" : {
+                                "$ref" : "1"
+                            },
+                            "sourceColumn" : "OdpracHod"
+                        },
+                        {
+                            "sourceEntity" : {
+                                "$ref" : "2"
+                            },
+                            "sourceColumn" : "MzdObd_DatumOd"
+                        },
+                        {
+                            "sourceEntity" : {
+                                "$ref" : "2"
+                            },
+                            "sourceColumn" : "MzdObd_DatumDo"
+                        }
+                    ]
+                }
+            ],
+            "sourceEntity" : {
+                "$ref" : "3"
+            },
+            "columnMappings" : {
+                "PersonalId" : {
+                    "sourceEntity" : {
+                        "$ref" : "1"
+                    },
+                    "sourceColumn" : "ZamestnanecId"
+                },
+                "HoursCount" : {
+                    "sourceEntity" : {
+                        "$ref" : "1"
+                    },
+                    "sourceColumn" : "OdpracHod"
+                },
+                "DateFrom" : {
+                    "sourceEntity" : {
+                        "$ref" : "2"
+                    },
+                    "sourceColumn" : "MzdObd_DatumOd"
+                },
+                "DateTo" : {
+                    "sourceEntity" : {
+                        "$ref" : "2"
+                    },
+                    "sourceColumn" : "MzdObd_DatumDo"
+                }
+            }
+        }
+    ]
+}

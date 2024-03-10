@@ -4,8 +4,9 @@ export class Database {
 }
 
 export class Table {
-    constructor(public name: string, public columns: Column[]) {
-    }
+    constructor(public readonly name: string,
+        public columns: Column[],
+        public readonly description: string | null = null) { }
 }
 
 export enum ColumnType {
@@ -25,7 +26,10 @@ export class Column {
      * @param name The name of the column.
      * @param type The type of the column.
      */
-    constructor(public name: string, public type: ColumnType) {
+    constructor(
+        public readonly name: string,
+        public readonly type: ColumnType,
+        public readonly description: string | null = null) {
     }
 
     /**

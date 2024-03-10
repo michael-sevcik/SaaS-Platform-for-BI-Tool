@@ -155,6 +155,10 @@ export class MappingEditor {
         this.paper.on({
             'element:mouseenter': MappingEditor.onPaperElementMouseEnter,
             'element:mouseleave': MappingEditor.onPaperElementMouseLeave,
+            'element:pointerdblclick': (cellView) => {
+                const baseEntityShape = cellView.model as BaseEntityShape;
+                baseEntityShape.handleDoubleClick();
+            },
             'link:mouseenter': MappingEditor.onPaperLinkMouseEnter,
             'link:mouseleave': MappingEditor.onPaperLinkMouseLeave,
             'link:pointerdblclick': (cellView) => { // TODO: REMOVE and use this for the joinLink to open the modal 
@@ -335,7 +339,7 @@ export class MappingEditor {
     private static onPaperLinkMouseEnter(linkView: dia.LinkView) {
         const link = linkView.model as Link;
 
-        // TODO: OPTIMIZE - do not create a new tools everytime 
+        // TODO: OPTIMIZE - do not create new tools everytime 
         const toolsView = new dia.ToolsView({
             tools: [new linkTools.Remove( { action: () => {
                 console.log('Removing a link');

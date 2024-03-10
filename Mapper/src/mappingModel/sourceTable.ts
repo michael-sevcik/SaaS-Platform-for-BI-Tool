@@ -34,7 +34,9 @@ export class SourceTable extends SourceConcreteEntity {
         this._selectedColumns = this._selectedColumns.splice(index, 1);
     } 
 
-    public constructor(name: string, selectedColumns: SourceColumn[] = []) {
+    public constructor(name: string,
+        selectedColumns: SourceColumn[] = [],
+        public readonly description: string | null = null) {
         super(name);
         this._selectedColumns = selectedColumns;
         // this.createBackwardConnections(); // TODO: Is this needed?

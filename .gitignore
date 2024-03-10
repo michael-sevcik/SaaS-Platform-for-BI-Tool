@@ -1,0 +1,32 @@
+# ------- Binary --------
+
+bin/
+obj/
+*.exe
+
+# ------- Other ---------
+
+*.opensdf
+*.sdf
+.filters
+
+
+*.user
+*.dll.metagen
+*.Cache
+*.suo
+
+# VISUAL STUDIO 2016+
+/**/.vs
+
+# NODE JS MODULES
+/**/node_modules/
+
+# Typescript
+/**/Generated/*.js
+/**/Generated/*.ts
+/DatabaseConnection/Migrations
+/DatabaseConnection.zip
+
+out/Architecture/usecases/Use Case Diagram - Správce systému.svg
+out/Architecture/usecases/Use Case diagram - Zákazník.svg

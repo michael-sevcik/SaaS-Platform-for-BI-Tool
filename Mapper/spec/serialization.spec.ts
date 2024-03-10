@@ -1,6 +1,6 @@
 import { instanceToPlain } from "class-transformer";
 import { EntityMappingConvertor } from "../src/mappingModel/serialization/entityMappingConvertor";
-import { MappingConverterVisiter } from "../src/mappingModel/serialization/mappingConverterVisitor";
+import { MappingToPlainConverterVisiter } from "../src/mappingModel/serialization/mappingToPlainConverterVisitor";
 import { MappingModelConvertor } from "../src/mappingModel/serialization/mappingModelConverter";
 import { JoinCondition, Operator } from "../src/mappingModel/Agregators/Conditions/joinCondition";
 import { SourceTable } from "../src/mappingModel/sourceTable";
@@ -83,7 +83,7 @@ const mappingConfig = new MappingConfig(dbConnectionConfig, [entityMapping]);
 fdescribe('Join serialization', () => {
     it('should serialize a join', () => {
         // Serialize
-        const visitor = new MappingConverterVisiter();
+        const visitor = new MappingToPlainConverterVisiter();
         join.accept(visitor);
         const stringifiedResult = JSON.stringify(visitor.getResult(), null, 4);
 

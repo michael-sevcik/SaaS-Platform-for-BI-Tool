@@ -253,7 +253,6 @@ Nový dashboard, který znázorňuje vývoj poptávky častých zákazníků.
 Pokračovat v demu list a pokusit se upravit do použitelné podoby	
 	- vygenerovat ze seznamu vlastností 
 	- zjistit jak získat mapování konektorů.
-
 	
 Mapper -> průvodce postupně po nutných entitách zobrazí danou entitu vpravo v podobě tabulky s porty odpovídajícími vlastnostem entity.
 			Pomocí tlačítka `Přidat zdroj` a následně propojit zdroje a připojit je k cílovým portům
@@ -488,15 +487,22 @@ překopat lehce inicializaci, potřebujeme
 		- add the top bar to the editor class
 			- create a button for exporting mapping
 			- button for adding sourceTables
-now - Fill the shape description with something
-		- source table column selection		
+		- Fill the shape description with something
+			
+now - source table column selection	-
+			- add hadleDoubleClick method
+			- create columnSelectionModal
+		- where clause representation
+		- default value blackbox
+		- schema change back check
 		
-		
+		- add are you sure you want to remove the joinlink pop up etc.
 		- update tests
 		- experiment with the types of lines
-		- fix creating of new property mappings somehow new SourceColumns are created repretedly for the same column
-		
-todo: where clause, default value blackbox, chema change check 
+		- fix creation of new property mappings - somehow new SourceColumns are created repretedly for the same column
+		- document the formats (database schema scrapes and mapping)- consider the visual way with plantUML or sth.
+		- Check that the table that is being added is not already added
+		- check if some events can be registered directly from the constructor - pointerdblclick is unfortunately not one of them
 
 - consider adding -             // HACK: ensures that the owner source entity is already serialized
             // if (!this.plainSourceEntitiesByOriginal.has(sourceColumn.owner)) {
@@ -506,10 +512,9 @@ todo: where clause, default value blackbox, chema change check
             // } 
             // else {
 		to the mapping convertor
-- Check that the table that is being added is not already added
+		
 - Consider removing the sourceEntities property from the EntityMapping
 - consider optional mapping of some target columns
-- consider adding are you sure you want to remove the joinlink pop up
 - update the documentation
 - pair the model with shapes
 - mapping is managed by the target entity	
@@ -521,6 +526,13 @@ todo: where clause, default value blackbox, chema change check
 - ctrl Z functionality
 - consider using the abstract get selected columns for the join entity, so the join when get selected columns makes array of the two joined entities
 - consider removing the selected columns from the join entity - other entities than the sourceConcreteEntities
+- consider using blazor for the management app and maybe also for the mapper file for all the communication with server
+	- how to use blazor https://www.youtube.com/watch?v=walv3nLTJ5g
+	-> blazor makes it pretty simple
+	- Cooperation of blazor and Typescript - https://www.youtube.com/watch?v=I_zFlBKgl5s
+		- We might need to use WebPack instead of the MsBuild package for typescript
+- consider using bootstrap for styling the html components - there is also modal example etc.
+	- https://www.youtube.com/watch?v=eow125xV5-c
 
 
 the mapping editor either receives entity mapping which is supposed to be edited or it receives table entity representing a tablefrom the target database and the mapping editor creates empty mapping entity 
@@ -539,3 +551,127 @@ Changes in the model:
 
 For defining join condition
 - user must add the columns that are needed for the 
+
+- Architektura - použité technologie: 
+	- propojení backend a frontend: 
+		- https://stackoverflow.com/questions/46537108/mvc-for-a-single-page - this could be interesting for integrating the mapper with other parts, the mapper would be a javascript servise for an asp.net app, this service would get a service for communicating with the server.	
+			- https://learn.microsoft.com/en-us/aspnet/core/client-side/spa-services?view=aspnetcore-3.0
+	- login idnetity on ASP.NET core:
+		- https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity?view=aspnetcore-8.0&tabs=visual-studio
+		https://www.youtube.com/watch?v=wzaoQiS_9dI
+		- create user activation links 
+			- https://coding.abel.nu/2015/05/secure-account-activation-with-asp-net-identity/
+			- also we should increase the token lifespan
+				- https://stackoverflow.com/a/53196846
+		- https://medium.com/@ahmed.gaduo_93938/how-to-implement-keycloak-authentication-in-a-net-core-application-ce8603698f24
+			- implementace přes "identity server"
+		- ASP.NET Core Authentication Simplified | .NET Conf 2023
+			- https://www.youtube.com/watch?v=c__Sf9j_Q2Y
+			- mentions blazor case
+			
+	- how to route users to the right metabase instance 
+		- deploy automatically new instances of metabase:
+			- use kubernetes - it has api which can be called from c#, so we can configure everything needed and deploy the image of metabase as a docker image
+					- how to connect to the cluster?
+				- find a right C# K8s client to enable the metabase deployment
+						- Is there a universal API or we need something more?
+							- yes, there is also official K8s client for C#
+								- test whether new instance can be easily deployed - use docker desktop K8s
+						- look through the bechelars theses from Matfyz to find something with kubernetes
+					- https://learn.microsoft.com/en-us/training/modules/dotnet-deploy-microservices-kubernetes/
+
+- Práce ve spolupráci s firmou https://dspace.cuni.cz/handle/20.500.11956/119194
+- Jedná se o management systém pro SaaS	(software as a service) BI (bussiness inteligence -  )nástroj
+
+
+struktura zasazení do kontextu:
+	- další SaaS aplikace - chceme vlastní implementaci
+	- SaaS management téměř žádné open-source, KuberLogic nedokončený
+
+Use case diagramy ve stylu: https://dspace.cuni.cz/bitstream/handle/20.500.11956/148395/130308354.pdf?sequence=1&isAllowed=y
+	- figure 3.1 a 3.2
+
+vzor formátu https://dspace.cuni.cz/handle/20.500.11956/119194 upraven pro potřeby této práce
+https://dspace.cuni.cz/bitstream/handle/20.500.11956/119194/120362350.pdf?sequence=1&isAllowed=y
+
+formát: User requirements
+
+- TODO: Look for software for managing SaaS cloud applications
+	- usually features a lot of unnecessary features such as payment management etc.
+	- https://github.com/kuberlogic/kuberlogic
+	https://www.youtube.com/watch?v=R-pLyKWYXIM
+	https://portworx.com/software-as-a-service/
+	
+	popsat SaaS
+	
+	https://www.quora.com/Where-can-I-get-free-domain-names-for-learning-and-testing-purposes
+	https://medium.com/@prashantsde/setup-path-based-routing-ingress-in-kubernetes-by-helm-chart-e7147a15dfcd
+	https://chat.openai.com/share/68b26708-fc7f-4d61-8a9f-732f22078917
+	https://www.youtube.com/results?search_query=kong+kubernetes
+	
+	and maybe check https://kuberlogic.com/docs/getting-started/ for tips
+	https://www.helpnetsecurity.com/2021/10/13/kuberlogic-paas/
+	maybe https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-1-an-introduction-to-kubernetes/#ingresses
+	
+look at this https://www.startersaas.com/
+https://www.rancher.com/
+https://learn.microsoft.com/en-us/aspnet/core/grpc/?view=aspnetcore-8.0 - zajímavé propojení modulů/containerů
+https://andrewlock.net/deploying-asp-net-core-applications-to-kubernetes-part-4-creating-a-helm-chart-for-an-aspnetcore-app/
+
+Use C4 dynamic diagrams for discribing high-level processes
+
+way to include kubernetes components into plantUML	https://github.com/dcasati/kubernetes-PlantUML
+
+ELT odpovídá vytváření views
+
+Otázky: při odkazi na citaci má být mezera mezi koncem textu a citací
+
+schema mapping might be better instead of data mapping
+
+How it would work?
+
+	Mapper is closed Typescript app that receives scraped tables schema, based on that enables data mapping and its serialization
+
+	The ASP.NET around that will provide the client server communication
+	
+	modularized monolith https://www.youtube.com/watch?v=z3piPJ7x4WU 
+	- will be split into compenents - TODO: CHECK with slides of Nečaský
+	
+	Structuring of the project
+	https://www.ezzylearning.net/tutorial/building-blazor-server-apps-with-clean-architecture#Common_Folder
+	
+
+For bigger tasks try to use Railway-oriented programming with the result success classes desribed here: https://www.youtube.com/watch?v=vGkgsduwnc4
+
+Structure of specification:
+	- domain description
+	- conceptual model
+	- domain events/processes - maybe event storming
+	- 
+Then architecture
+
+
+1. projít si githyb a zkusit napasovat tento projekt
+https://github.com/kgrzybek/modular-monolith-with-ddd
+
+Zajímavé použití Domain eventů s MediatR
+https://www.youtube.com/watch?v=AHzWJ_SMqLo
+
+CQRS commands https://www.youtube.com/watch?v=85YbMEb1qkQ
+
+Zvážit implementaci: https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
+
+Zvážit použití ilograph pro generování grafů
+
+Deploy blazor app s docker compose https://www.youtube.com/watch?v=uDZHSWfNVao
+
+structure of the project https://github.com/shahedc/NetLearnerApp/
+
+SQLite in memory databaze for testing
+
+Unit of work that publishes domain event after succesful saveChanges https://github.com/ardalis/CleanArchitecture
+
+The structure will use vertical slices with the MODULAR separation e.g. https://github.com/DavidEggenberger/ModularMonolith.SaaS.Template 
+
+inspiration for kubernetes deployment
+	https://github.com/DevExpress/XAF-Blazor-Kubernetes-example/tree/main

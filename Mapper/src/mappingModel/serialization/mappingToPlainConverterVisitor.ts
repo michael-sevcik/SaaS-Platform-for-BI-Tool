@@ -13,7 +13,7 @@ import { MappingVisitor } from "./mappingVisitor";
  * This class is used to convert a SourceEntity to a plain JS object
  * with use of the visitor pattern and id / ref / type properties
  */
-export class MappingConverterVisiter extends MappingVisitor {
+export class MappingToPlainConverterVisiter extends MappingVisitor {
     /**
      * The source entities sorted in a way without forward references.
      */

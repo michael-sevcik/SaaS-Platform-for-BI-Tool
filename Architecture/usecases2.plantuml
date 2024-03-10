@@ -1,0 +1,27 @@
+@startuml
+
+header SayHello
+footer Page %page% of %lastpage%
+
+Bob -> Alice : hello
+
+newpage
+Bob -> Alice : hi
+
+' Bob -> Mark : Hi
+
+@enduml
+
+@startuml
+
+header SayHello
+footer Page %page% of %lastpage%
+
+Bob -> Alice : adsfs
+
+newpage
+Bob -> Alice : hi
+
+' Bob -> Mark : Hi
+
+@enduml
