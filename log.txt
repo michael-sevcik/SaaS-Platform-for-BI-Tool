@@ -657,7 +657,7 @@ https://github.com/kgrzybek/modular-monolith-with-ddd
 Zajímavé použití Domain eventů s MediatR
 https://www.youtube.com/watch?v=AHzWJ_SMqLo
 
-CQES commands https://www.youtube.com/watch?v=85YbMEb1qkQ
+CQRS commands https://www.youtube.com/watch?v=85YbMEb1qkQ
 
 Zvážit implementaci: https://github.com/Xabaril/AspNetCore.Diagnostics.HealthChecks
 
