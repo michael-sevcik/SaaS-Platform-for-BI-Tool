@@ -4,7 +4,7 @@
 
 Abychom navrhli a~implementovali v~praxi použitelný systém, musíme nejprve podrobněji rozebrat, jaké požadavky jsou na systém kladeny. 
 
-\section{Uživatelské příběhy}
+\section{Funkční požadavky}
 
 Jednotlivé funkční požadavky si představíme ve formě uživatelských příběhů (anglicky \textit{user stories}).
 Jak uvádí Fred Health, jedná se o~formu zaznamenávání funkčních požadavků na systém ve strukturované podobě krátkých příběhů většinou vypadajících následovně: 
@@ -17,7 +17,7 @@ Definujeme si 2 typy uživatelů systému:
 
 \begin{itemize}
     \item Zákazník — je uživatel využívající systém pro mapování a~vizualizaci dat.
-    \item Správce systému — je zaměstnanec provozovatele systému, který má na starost správu zákazníků asistenci s~jejich problémy.
+    \item Správce systému — je zaměstnanec provozovatele systému, který má na starost správu zákazníků a~poskytování asistence s~jejich problémy.
 \end{itemize}
 
 Dále si upřesníme některé pojmy, jež budeme v~příbězích užívat:
@@ -46,18 +46,17 @@ Uživatelské příběhy rozdělíme do dvou následujících podsekcí podle ty
 
 \begin{enumerate}
     \item Jako správce systému potřebuji přidávat \textit{nové zákazníky}, aby mohli začít používat systém.
-    \item Jako správce systému potřebuji mazat \textit{bývalé zákazníky}, aby jen \textbf{stávající} zákazníci měli přístup do systému.
+    \item Jako správce systému potřebuji mazat \textit{bývalé zákazníky}, aby jen \textit{stávající zákazníci} měli přístup do systému.
     \item Jako správce systému potřebuji nahlížet do \textit{mapovacích projektů} zákazníků, abych mohl poskytnout asistenci s mapováním nebo mohl provést kontrolu \textit{mapování}.
     \item Jako správce systému potřebuji zajistit spuštění nové instance nástroje \textit{Metabase} v \textit{klastru}, aby jej zákazník  mohl začít používat.
-    \item Jako správce systému potřebuji, aby systém v případě spuštění nové instance nástroje \textit{Metabase} systém automaticky provedl zpracování mapování a zpřístupnil vizualizaci dat daného zákazníka pomocí nové instance.
+    \item Jako správce systému potřebuji, aby systém v případě spuštění nové instance nástroje \textit{Metabase} automaticky provedl zpracování mapování a zpřístupnil vizualizaci dat daného zákazníka pomocí nové instance.
     \item Jako správce systému potřebuji, aby systém vyžadoval přihlášení po všech uživatelích, aby uživatelská data nebyla zpřístupněna neoprávněným osobám.
     \item Jako správce systému v případě, kdy zákazník odejde od firmy, potřebuji, aby systém ukončil instanci nástroje \textit{Metabase} příslušící danému uživateli, aby jej již nemohl používat.
-    \item Jako správce systému chci, aby systém mohli využívat jen autentizování uživatelé, aby zůstala uživatelská data chráněná.
     
 \end{enumerate}
 
 Příběhy správce jsou shrnuty formou use case diagramu\footnote{
-Diagram případů užití (anglicky \textit{use case diagram}) je v softwarovém inženýrství jeden z UML diagramů chování \cite{useCaseDiagWiki:online}.
+Diagram případů užití (anglicky \textit{use case diagram}) je v softwarovém inženýrství jeden z~UML diagramů chování \cite{useCaseDiagWiki:online}.
 }
 na obrázku \ref{fig:admin-use-cases}.
 \begin{figure}
@@ -76,7 +75,7 @@ na obrázku \ref{fig:admin-use-cases}.
     \item Jako zákazník potřebuji mít možnost upravovat nebo změnit mapování dat, abych mohl reagovat na změny v~mých datech nebo požadavcích.
     \item Jako zákazník potřebuji mít přístup k nástroji \textit{Metabase}, abych mohl vizualizovat a~analyzovat svoje data pomocí různých reportů a dashboardů.
     \item Jako zákazník potřebuji mít možnost sdílet nebo exportovat svoje reporty a~dashboardy, abych mohl prezentovat nebo sdílet svoje výsledky s~ostatními.
-    \item Jako zákazník potřebuji mít možnost poskytnout zpětnou vazbu nebo požádat o~podporu, abych mohl řešit případné problémy nebo potřeby s systémem.
+    \item Jako zákazník potřebuji mít možnost poskytnout zpětnou vazbu nebo požádat o~podporu, abych mohl řešit případné problémy nebo potřeby v rámci systému.
 \end{enumerate}
 
 Výše uvedené požadavky zjednodušeně ilustruje use case diagram \ref{fig:customer-use-cases}.
@@ -133,7 +132,7 @@ Jelikož pracujeme se zákaznickými daty, je naprosto zásadní, aby tato data 
 \subsection{Interoperabilita}
 \begin{itemize}
     \item Systém musí pro export mapování využívat formát JSON.
-    \item Systém musí podporovat databázoví systém \textit{Microsoft SQL Server} a být připraven na rozšíření podpory pro další databázové systémy.
+    \item Systém musí podporovat databázový systém \textit{Microsoft SQL Server} a být připraven na rozšíření podpory pro další databázové systémy.
 \end{itemize}
 
 \subsection{Škálovatelnost}
