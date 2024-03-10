@@ -3,7 +3,15 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
 
     model {
         costumer = person "Customer" "Manager of a manufacturing company"
-        administrator = person "BI Administrator" "Person responsible for managing the BI system - creating new projects, managing users, etc."
+        administrator = person "BI Administrator" "Person responsible for managing the BI system "
+        # administrator = person "BI Administrator" "Person responsible for managing the BI system - creating new projects, managing users, etc."
+
+        
+        email = softwaresystem "E-mail System" "" "Existing System" {
+            tags "External"
+            email -> costumer "Sends notifications to costumers"
+            email -> administrator "Sends notifications to administrators" 
+        }
 
         k8sCluster  = softwareSystem "Metabase Deployment System" "Provides infrastructure for deploying containers" {
             tags "External"
@@ -29,97 +37,44 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
 
         biManagementSystem = softwareSystem "BI Management Platform" "Enables management of BI projects (data mapping, spinning up new instances of Metabase)" {
             managementApp = container "BI Management App" "Enables management of BI projects (data mapping, spinning up new instances of Metabase)" "ASP.NET Core Blazor`" {
-                group management {            
-                managementApp = component "BI Management App" "Provides tools for managing BI projects" "ASP.NET Core Blazor`" {
-                }
-
-                managementApi = component "BI Management API" "Provides API for managing BI projects" "ASP.NET Core Blazor" {
-                    # projectManager = component "Project Manager" "Manages projects" {
-                    #     tags "Controller"
-                    # }
-                }
-
-                // relations
-                managementApp -> ManagementApi "Sends management requests"
-                managementApi -> ManagementApp "Provides project informtion"
-            } 
-
-            group mapping {
-                mapperApp = component "Mapper App" "Single page application that provides tools for mapping data models" "TypeScript" {
-                }
-
-                mapperApi = component "Mapper API" "Provides API for mapping data models" "C#" {
-                    # mappingManager = component "Mapper Manager" "Handles mapping requests" {
-                    #     tags "Controller"
-                    # }
-
-                    # mapperService = component "Mapper Service" "Handles mapping logic" {
-                    #     tags "Service"
-                    # }
-                }
-
-                // relations
-                mapperApp -> mapperApi "Sends mapping data"
-
-                 // TODO: Consider diffrent description
-                mapperApi -> mapperApp "Provides scaffolded data"
-            }
-
-            authentificationService = component "AuthentificationService" "C#" {
-                tags "Service"
-            
-                # // TODO: Consider splitting user management and authentification logic
-                # identityManager = component "Identity Manager" "Menages users and authentications" "ASP.NET Identity" {
-                #     tags "Controller"
-
-                # }
-            }
-
-            // TODO: Rename
-            metabaseDeploymentService = component "Metabase Deployment Service" "C#" {
-                tags "Service"
                 
-                # deploymentManager = component "Deployment Manager" "Manages Metabase deployments" {
-                #     tags "Controller"
-                # }
+                mediator = component "Mediator" "Provides communication between modules" "C#: MediatR"
 
+                userManagementModule = component "User Management Module" "Provides user management functionality" "C#"
+                dataIntegrationModule = component "Data Integration Module" "Provides data integration functionality" "C# + TypeScript" 
+                mapperLibrary = component "Mapper Library" "Provides mapping functionality" "TypeScript + JoinJS"
+                metabaseDeploymentModule = component "Metabase Deployment Module" "Menages Kubernetes deployment" "C#: "
+
+
+                metabaseDeploymentModule -> k8sCluster.k8sAPI "Deploys database and Metabase instances"
+
+                dataIntegrationModule -> mapperLibrary "Integrates mapping library"
+                userManagementModule -> mediator "Subscribes and publishes user events"
+                dataIntegrationModule -> mediator "Subscribes and publishes data integration events"
+                metabaseDeploymentModule -> mediator "Subscribes and publishes deployment events"
+                
+                userManagementModule -> email "Sends e-mails to users" "SMTP"
             }
 
-            metabaseDeploymentService -> k8sCluster.k8sAPI "Deploys data and Metabase instances"
-
-            // TODO: MOVE to container
-            projectDatabase = component "BI Management Database" "Provides data persistence for BI projects - data mappings, user infromation, project statuses" "MS SQL" {
+            
+            projectDatabase = container "BI Management Database" "Provides data persistence for BI projects - data mappings, user infromation, project statuses" "MS SQL" {
                 tags "Database"
             }
 
-            # // relations // TODO: add authentification service relations
-            # mapperApi.mappingManager -> managementApi.projectManager "Updates project status"
-            # mapperApi.mappingManager -> projectDatabase "Manages mapping data"
-            # managementApi.projectManager -> projectDatabase "Manages project data"
-            }
+            // relations
+            managementApp -> projectDatabase "Uses"
+            managementApp.dataIntegrationModule -> projectDatabase "Saves data mappings"
+            managementApp.userManagementModule -> projectDatabase "Saves user information"
+            managementApp.metabaseDeploymentModule -> projectDatabase "Saves project statuses"
 
-            
 
         }
         
+
         // relations 
-        costumer -> biManagementSystem.managementApp.mapperApp "Maps his data"
-        administrator -> biManagementSystem.managementApp.managementApp "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
+        costumer -> biManagementSystem.managementApp.dataIntegrationModule "Maps his data"
+        administrator -> biManagementSystem.managementApp.userManagementModule "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
 
-        // Mapper
-        mapper = softwareSystem "Mapper" "Enables mapping of customer database models to a given generic model" {
-            notification_service = container "Notification Service" "Provides notification management" {
-                tags "Service"
-
-                // handles manual notification requests from UI (administrator wants to manually send a message)
-                notification_request_handler = component "Request Handler" "Handles notification requests"
-                // listens to database changes for notification sending
-                database_listener = component "Database Listener" "Listens to database data changes"
-                // handles notifications (processing, model)
-                notification_handler = component "Notification Handler" "Handles notifications"
-                // emits the notification to
-            }
-        } 
 
         live = deploymentEnvironment "Live" {
             deploymentNode "Client Computer" {
@@ -193,19 +148,12 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
     }
 
     views {
-        # TODO: ADD system landscape view
-        systemLandscape biManagementSystem "systemLandscape" {
-            include *
-            autoLayout
-        }
         systemContext biManagementSystem "biManagementSystemSystemContextDiagram" {
             include *
-            autoLayout lr
         }
 
         container k8sCluster "k8sClusterSystemContextDiagram" {
             include *
-            autoLayout lr
         }
 
         container biManagementSystem "biManagementSystemContainerDiagram" {
@@ -218,20 +166,19 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
             include *
         }
         
-        # component biManagementSystem.mapperApi "biManagementSystemmapperApiComponentDiagram" {
-        #     autoLayout
-        #     include *
-        # }
-
-        deployment mapper "Live" "AmazonWebServicesDeployment" {
-            autoLayout
-            include *
-        }
 
         styles {
+            relationship "Relationship"{
+                fontSize 30
+            }   
+
+            element "Element" {
+                fontSize 30
+
+            }
             element "Person" {
                 color #08427b
-                fontSize 22
+                fontSize 24
                 shape Person
             }
 
@@ -245,8 +192,13 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
             }
             
             element "Component" {
-                background #c4c4c4
+                background #85bbf0
                 color #000000
+
+            }
+
+            element "Failover" {
+                opacity 25
             }
 
             element "Service" {
@@ -261,7 +213,7 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
                 background  #57b586
             }
             element "External" {
-                background  #636363
+                background  #737373
             }
         }
     }
