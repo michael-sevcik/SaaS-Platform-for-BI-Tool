@@ -675,3 +675,9 @@ The structure will use vertical slices with the MODULAR separation e.g. https://
 
 inspiration for kubernetes deployment
 	https://github.com/DevExpress/XAF-Blazor-Kubernetes-example/tree/main
+	
+Hezké vyobrazení clean architecture
+	https://bespoyasov.me/images/notes/clean-architecture-on-frontend/hex-pie.webp
+
+Modulární blazor
+	https://github.com/treefishuk/ModularBlazor
