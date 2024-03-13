@@ -1,0 +1,13 @@
+﻿@using ManagamentApp.Components.Account.Shared
+
+<Router AppAssembly="typeof(Program).Assembly">
+    @* AdditionalAssemblies="new[] { typeof(Component1).Assembly }"> TODO: add all the pages *@
+    <Found Context="routeData">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+            <NotAuthorized>
+                <RedirectToLogin />
+            </NotAuthorized>
+        </AuthorizeRouteView>
+        <FocusOnNavigate RouteData="routeData" Selector="h1" />
+    </Found>
+</Router>
