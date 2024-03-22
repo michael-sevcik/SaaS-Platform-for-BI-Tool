@@ -38,22 +38,31 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
         biManagementSystem = softwareSystem "BI Management Platform" "Enables management of BI projects (data mapping, spinning up new instances of Metabase)" {
             managementApp = container "BI Management App" "Enables management of BI projects (data mapping, spinning up new instances of Metabase)" "ASP.NET Core Blazor`" {
                 
-                mediator = component "Mediator" "Provides communication between modules" "C#: MediatR"
+                # mediator = component "Mediator" "Provides communication between modules" "C#: MediatR"
 
                 userManagementModule = component "User Management Module" "Provides user management functionality" "C#"
                 dataIntegrationModule = component "Data Integration Module" "Provides data integration functionality" "C# + TypeScript" 
                 mapperLibrary = component "Mapper Library" "Provides mapping functionality" "TypeScript + JoinJS"
+                notificationModule = component "Notification Module" "Provides notification functionality" "C#"
                 metabaseDeploymentModule = component "Metabase Deployment Module" "Menages Kubernetes deployment" "C#: "
 
 
-                metabaseDeploymentModule -> k8sCluster.k8sAPI "Deploys database and Metabase instances"
 
-                dataIntegrationModule -> mapperLibrary "Integrates mapping library"
-                userManagementModule -> mediator "Subscribes and publishes user events"
-                dataIntegrationModule -> mediator "Subscribes and publishes data integration events"
-                metabaseDeploymentModule -> mediator "Subscribes and publishes deployment events"
-                
-                userManagementModule -> email "Sends e-mails to users" "SMTP"
+                metabaseDeploymentModule -> k8sCluster.k8sAPI "Deploys database and Metabase instances"
+                # todo: aktualizovat  vztahy
+                # dataIntegrationModule ->  "Integrates mapping library"
+                # dataIntegrationModule ->  "Integrates notification library"
+
+                userManagementModule -> notificationModule "Sends notifications to users via"
+                metabaseDeploymentModule -> notificationModule "Sends notifications to users via"
+                # dataIntegrationModule -> mediator "Subscribes and publishes data integration events"
+                # metabaseDeploymentModule -> mediator "Subscribes and publishes deployment events"
+                dataIntegrationModule -> mapperLibrary "Integrates"
+                dataIntegrationModule -> metabaseDeploymentModule "Provides mapping for deployment"
+
+                notificationModule -> email "Sends e-mails to users via" "SMTP"
+
+
             }
 
             
