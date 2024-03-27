@@ -17,7 +17,7 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
             tags "External"
 
             metabaseInstance = container "Metabase" "Enables costumer to explore their data" "" {
-                tags "External"
+                tags "External" 
             }
 
             mssql = container "MS SQL" "Provides data persistence for Metabase" "MS SQL" {
@@ -25,7 +25,7 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
             }
 
             k8sAPI = container "Kubernetes API" "Provides API for managing Kubernetes cluster" "kube-apiserver" {
-                tags "Service"
+                tags "Service" "Kubernetes - api"
             }
 
             // relations
@@ -42,8 +42,12 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
             managementApp = container "BI Management App" "Enables management of BI projects (user management, data mapping, deploying Metabase)" "ASP.NET Core Blazor`" {
 
                 blazorServer = component "Blazor Server" "Renders the management UI and executes user requests" "C#"
-                managementHtml -> blazorServer "Sends requests to" "SignalR"
-                blazorServer -> managementHtml "Delivers content to" "HTTPS + SignalR"
+                managementHtml -> blazorServer "Sends requests to" "SignalR" {
+                    tags "excludeInDeployment"
+                }
+                blazorServer -> managementHtml "Delivers content to" "HTTPS + SignalR" {
+                    tags "excludeInDeployment"
+                }
                 
                 # mediator = component "Mediator" "Provides communication between modules" "C#: MediatR"
 
@@ -92,55 +96,59 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
         costumer -> biManagementSystem.managementHtml "Maps his data"
         administrator -> biManagementSystem.managementHtml "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
 
-        live = deploymentEnvironment "Live" {
-            deploymentNode "Client Computer" {
-                deploymentNode "Web Browser" {
-                    spa = infrastructureNode "Single Page Application" {
-                        description "Provides exam system functionality via web browser"
-                    }
+            deploymentEnvironment "Live" {
+            usersComputer = deploymentNode "User's Computer" {
+                webBrowser = deploymentNode "Web Browser" {
+                    liveManagementHtml = containerInstance biManagementSystem.managementHtml "Live Management HTML" "Manages BI projects in web browser"
                 }
             }
 
-            deploymentNode "Whole architecture" {
-                
-                deploymentNode "Backend Server" {
-                    lbNode = infrastructureNode "Load Balancer" {
-                        description "Balances incoming calls"
-                    }
+            kubernetesNode = deploymentNode "Kubernetes Cluster" {
+                tags "k8s cluster"
+                metabaseNode = deploymentNode "Metabase Instance" n {
+                    liveMetabaseInstance = containerInstance k8sCluster.metabaseInstance "Live Metabase Instance" "Metabase instance for costumer"
+                }
 
-                    apiNode = infrastructureNode "Rest API Infrastructure" {
-                        description "Provides Rest API endpoints"
-                    }
-
-                    deploymentNode "Database Enviroment" {
-                        databaseNode = infrastructureNode "Database" {
-                            tags "Database"
-                            description "Provides data persistence"
-                        }
-
-                        messageDatabaseNode = infrastructureNode "Message Database" {
-                            tags "Database"
-                            description "Provides message history persistence"
-                        }
+                gatewayNode = deploymentNode "Router" {
+                    tags "Kubernetes - pod"
+                    liveRouter = infrastructureNode "Router" "Nginx ingress controller" {
+                        tags "Kubernetes - ing"
+                        description "Routes incoming requests based on URL path"
                     }
                 }
 
-                deploymentNode "Service Infrastructure" {
-                    notificationNode = infrastructureNode "Notification Service" {
-                        description "Provides notification handler"
-                    }
+                gatewayNode.liveRouter -> metabaseNode.liveMetabaseInstance "Routes requests to"
 
-                    messageNode = infrastructureNode "Message Service" {
-                        description "Provides message handler"
-                    }
+                kubeApiNode = deploymentNode "Kubernetes API" {
+                    liveK8sAPI = containerInstance k8sCluster.k8sAPI "Live Kubernetes API" "API for managing Kubernetes cluster"
                 }
 
-                deploymentNode "Auth Server" {
-                    authNode = infrastructureNode "Auth Service" {
-                        description "Provides authentication and authorization functionality"
-                    }
-                }	
+                liveServerNode = deploymentNode "Backend Server" {
+                    tags "Kubernetes - pod"
+                    liveManagementApp = containerInstance biManagementSystem.managementApp "Management App" "Manages BI projects"
+                }
+
+                liveDBNode = deploymentNode "Database" {
+                    tags "Kubernetes - pod"
+                    liveDatabase = containerInstance biManagementSystem.projectDatabase "Live Database" "Database for Metabase"
+                }
+
+                gatewayNode.liveRouter -> liveServerNode.liveManagementApp "Routes requests to"
+
+                k8sClusterNode = deploymentNode "k8sCluster" {
+                    tags "External"
+                    liveCluster = softwareSystemInstance k8sCluster "E-mail Server" "SMTP server"
+                }
+
+                gatewayNode.liveRouter -> k8sClusterNode.liveCluster "Routes Metabase traffic to"
             }
+
+            deploymentNode "E-mail Server" {
+                tags "External"
+                liveEmail = softwareSystemInstance email "E-mail Server" "SMTP server"
+            }
+
+            usersComputer.webBrowser.liveManagementHtml -> kubernetesNode.gatewayNode.liveRouter "Sends requests to"
 
             # apiNode -> authNode "Sends auth requests"
             # authNode -> apiNode "Sends back auth data"
@@ -181,6 +189,11 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
             # autoLayout
             include *
         }
+
+        deployment biManagementSystem "Live" "liveDeploymentDiagram" {
+            include *
+            exclude "relationship.tag==excludeInDeployment"
+        }
         
 
         styles {
@@ -217,6 +230,10 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
                 opacity 25
             }
 
+            element "k8s cluster" {
+                icon "https://static-00.iconduck.com/assets.00/kubernetes-icon-2048x1995-r1q3f8n7.png"
+            }
+
             element "Service" {
                 background #d4655d
             }
@@ -232,6 +249,8 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
                 background  #737373
             }
         }
+
+        themes https://static.structurizr.com/themes/kubernetes-v0.3/theme.json
     }
 }
 
