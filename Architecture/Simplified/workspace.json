@@ -2,7 +2,8 @@
   "id" : 1,
   "name" : "SaaSBI",
   "description" : "This workspace documents the architecture of the SaaSBI system which enables managing of mapping customer database models to a given generic model, tranforming the data and managing instances of Metabse",
-  "lastModifiedDate" : "2024-03-27T10:23:59Z",
+  "lastModifiedDate" : "2024-03-27T10:28:50Z",
+  "lastModifiedAgent" : "structurizr-javascript",
   "properties" : {
     "structurizr.dsl" : "d29ya3NwYWNlICJTYWFTQkkiICJUaGlzIHdvcmtzcGFjZSBkb2N1bWVudHMgdGhlIGFyY2hpdGVjdHVyZSBvZiB0aGUgU2FhU0JJIHN5c3RlbSB3aGljaCBlbmFibGVzIG1hbmFnaW5nIG9mIG1hcHBpbmcgY3VzdG9tZXIgZGF0YWJhc2UgbW9kZWxzIHRvIGEgZ2l2ZW4gZ2VuZXJpYyBtb2RlbCwgdHJhbmZvcm1pbmcgdGhlIGRhdGEgYW5kIG1hbmFnaW5nIGluc3RhbmNlcyBvZiBNZXRhYnNlIiB7CiAgICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIGNvc3R1bWVyID0gcGVyc29uICJDdXN0b21lciIgIkVtcGxveWVlIG9mIGEgbWFudWZhY3R1cmluZyBjb21wYW55IgogICAgICAgIGFkbWluaXN0cmF0b3IgPSBwZXJzb24gIkJJIEFkbWluaXN0cmF0b3IiICJQZXJzb24gcmVzcG9uc2libGUgZm9yIG1hbmFnaW5nIHRoZSBCSSBzeXN0ZW0gIgogICAgICAgICMgYWRtaW5pc3RyYXRvciA9IHBlcnNvbiAiQkkgQWRtaW5pc3RyYXRvciIgIlBlcnNvbiByZXNwb25zaWJsZSBmb3IgbWFuYWdpbmcgdGhlIEJJIHN5c3RlbSAtIGNyZWF0aW5nIG5ldyBwcm9qZWN0cywgbWFuYWdpbmcgdXNlcnMsIGV0Yy4iCgogICAgICAgIAogICAgICAgIGVtYWlsID0gc29mdHdhcmVzeXN0ZW0gIkUtbWFpbCBTeXN0ZW0iICIiICJFeGlzdGluZyBTeXN0ZW0iIHsKICAgICAgICAgICAgdGFncyAiRXh0ZXJuYWwiCiAgICAgICAgICAgIGVtYWlsIC0+IGNvc3R1bWVyICJTZW5kcyBub3RpZmljYXRpb25zIHRvIGNvc3R1bWVycyIKICAgICAgICAgICAgZW1haWwgLT4gYWRtaW5pc3RyYXRvciAiU2VuZHMgbm90aWZpY2F0aW9ucyB0byBhZG1pbmlzdHJhdG9ycyIgCiAgICAgICAgfQoKICAgICAgICBrOHNDbHVzdGVyICA9IHNvZnR3YXJlU3lzdGVtICJNZXRhYmFzZSBEZXBsb3ltZW50IFN5c3RlbSIgIlByb3ZpZGVzIGluZnJhc3RydWN0dXJlIGZvciBkZXBsb3lpbmcgY29udGFpbmVycyIgewogICAgICAgICAgICB0YWdzICJFeHRlcm5hbCIKCiAgICAgICAgICAgIG1ldGFiYXNlSW5zdGFuY2UgPSBjb250YWluZXIgIk1ldGFiYXNlIiAiRW5hYmxlcyBjb3N0dW1lciB0byBleHBsb3JlIHRoZWlyIGRhdGEiICIiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkV4dGVybmFsIgogICAgICAgICAgICB9CgogICAgICAgICAgICBtc3NxbCA9IGNvbnRhaW5lciAiTVMgU1FMIiAiUHJvdmlkZXMgZGF0YSBwZXJzaXN0ZW5jZSBmb3IgTWV0YWJhc2UiICJNUyBTUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CgogICAgICAgICAgICBrOHNBUEkgPSBjb250YWluZXIgIkt1YmVybmV0ZXMgQVBJIiAiUHJvdmlkZXMgQVBJIGZvciBtYW5hZ2luZyBLdWJlcm5ldGVzIGNsdXN0ZXIiICJrdWJlLWFwaXNlcnZlciIgewogICAgICAgICAgICAgICAgdGFncyAiU2VydmljZSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgLy8gcmVsYXRpb25zCiAgICAgICAgICAgIGs4c0FQSSAtPiBtZXRhYmFzZUluc3RhbmNlICJNYW5hZ2VzIE1ldGFiYXNlIGluc3RhbmNlcyIKICAgICAgICAgICAgazhzQVBJIC0+IG1zc3FsICJNYW5hZ2VzIGRhdGFiYXNlcyIKICAgICAgICAgICAgbWV0YWJhc2VJbnN0YW5jZSAtPiBtc3NxbCAiVXNlcyIKICAgICAgICAgICAgY29zdHVtZXIgLT4gbWV0YWJhc2VJbnN0YW5jZSAiVXNlcyBNZXRhYmFzZSB0byBleHBsb3JlIGRhdGEiCiAgICAgICAgfQoKICAgICAgICBiaU1hbmFnZW1lbnRTeXN0ZW0gPSBzb2Z0d2FyZVN5c3RlbSAiQkkgTWFuYWdlbWVudCBQbGF0Zm9ybSIgIkVuYWJsZXMgbWFuYWdlbWVudCBvZiBCSSBwcm9qZWN0cyAoZGF0YSBtYXBwaW5nLCBkZXBsb3lpbmcgbmV3IGluc3RhbmNlcyBvZiBNZXRhYmFzZSkiIHsKICAgICAgICAgICAgbWFuYWdlbWVudEh0bWwgPSBjb250YWluZXIgIk1hbmFnZW1lbnQgSFRNTCIgIlByb3ZpZGVzIG1hbmFnZW1lbnQgZnVuY3Rpb25hbGl0eSBpbiB3ZWIgYnJvd3NlciIgIkhUTUwgKyBDU1MgKyBKYXZhU2NyaXB0IiAKCgogICAgICAgICAgICBtYW5hZ2VtZW50QXBwID0gY29udGFpbmVyICJCSSBNYW5hZ2VtZW50IEFwcCIgIkVuYWJsZXMgbWFuYWdlbWVudCBvZiBCSSBwcm9qZWN0cyAodXNlciBtYW5hZ2VtZW50LCBkYXRhIG1hcHBpbmcsIGRlcGxveWluZyBNZXRhYmFzZSkiICJBU1AuTkVUIENvcmUgQmxhem9yYCIgewoKICAgICAgICAgICAgICAgIGJsYXpvclNlcnZlciA9IGNvbXBvbmVudCAiQmxhem9yIFNlcnZlciIgIlJlbmRlcnMgdGhlIG1hbmFnZW1lbnQgVUkgYW5kIGV4ZWN1dGVzIHVzZXIgcmVxdWVzdHMiICJDIyIKICAgICAgICAgICAgICAgIG1hbmFnZW1lbnRIdG1sIC0+IGJsYXpvclNlcnZlciAiU2VuZHMgcmVxdWVzdHMgdG8iICJTaWduYWxSIgogICAgICAgICAgICAgICAgYmxhem9yU2VydmVyIC0+IG1hbmFnZW1lbnRIdG1sICJEZWxpdmVycyBjb250ZW50IHRvIiAiSFRUUFMgKyBTaWduYWxSIgogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAjIG1lZGlhdG9yID0gY29tcG9uZW50ICJNZWRpYXRvciIgIlByb3ZpZGVzIGNvbW11bmljYXRpb24gYmV0d2VlbiBtb2R1bGVzIiAiQyM6IE1lZGlhdFIiCgogICAgICAgICAgICAgICAgdXNlck1hbmFnZW1lbnRNb2R1bGUgPSBjb21wb25lbnQgIlVzZXIgTWFuYWdlbWVudCBNb2R1bGUiICJQcm92aWRlcyB1c2VyIG1hbmFnZW1lbnQgZnVuY3Rpb25hbGl0eSIgIkMjIgogICAgICAgICAgICAgICAgZGF0YUludGVncmF0aW9uTW9kdWxlID0gY29tcG9uZW50ICJEYXRhIEludGVncmF0aW9uIE1vZHVsZSIgIlByb3ZpZGVzIGRhdGEgaW50ZWdyYXRpb24gZnVuY3Rpb25hbGl0eSIgIkMjICsgVHlwZVNjcmlwdCIgCiAgICAgICAgICAgICAgICBtYXBwZXJMaWJyYXJ5ID0gY29tcG9uZW50ICJNYXBwZXIgTGlicmFyeSIgIlByb3ZpZGVzIG1hcHBpbmcgZnVuY3Rpb25hbGl0eSIgIlR5cGVTY3JpcHQgKyBKb2ludEpTIgogICAgICAgICAgICAgICAgbm90aWZpY2F0aW9uTW9kdWxlID0gY29tcG9uZW50ICJOb3RpZmljYXRpb24gTW9kdWxlIiAiUHJvdmlkZXMgbm90aWZpY2F0aW9uIGZ1bmN0aW9uYWxpdHkiICJDIyIKICAgICAgICAgICAgICAgIG1ldGFiYXNlRGVwbG95bWVudE1vZHVsZSA9IGNvbXBvbmVudCAiTWV0YWJhc2UgRGVwbG95bWVudCBNb2R1bGUiICJNYW5hZ2VzIEt1YmVybmV0ZXMgZGVwbG95bWVudCIgIkMjOiAiCgoKICAgICAgICAgICAgICAgIGJsYXpvclNlcnZlciAtPiB1c2VyTWFuYWdlbWVudE1vZHVsZSAiRXhlY3V0ZXMgdXNlciByZWxhdGVkIHJlcXVlc3RzIHVzaW5nIgogICAgICAgICAgICAgICAgYmxhem9yU2VydmVyIC0+IGRhdGFJbnRlZ3JhdGlvbk1vZHVsZSAiRXhlY3V0ZXMgZGF0YSBpbnRlZ3JhdGlvbiByZXF1ZXN0cyB1c2luZyIKICAgICAgICAgICAgICAgIGJsYXpvclNlcnZlciAtPiBub3RpZmljYXRpb25Nb2R1bGUgIkV4ZWN1dGVzIG5vdGlmaWNhdGlvbiByZXF1ZXN0cyB1c2luZyIKICAgICAgICAgICAgICAgIGJsYXpvclNlcnZlciAtPiBtZXRhYmFzZURlcGxveW1lbnRNb2R1bGUgIkV4ZWN1dGVzIGRlcGxveW1lbnQgcmVxdWVzdHMgdXNpbmciCgogICAgICAgICAgICAgICAgbWV0YWJhc2VEZXBsb3ltZW50TW9kdWxlIC0+IGs4c0NsdXN0ZXIuazhzQVBJICJEZXBsb3lzIGRhdGFiYXNlIGFuZCBNZXRhYmFzZSBpbnN0YW5jZXMiCiAgICAgICAgICAgICAgICAjIHRvZG86IGFrdHVhbGl6b3ZhdCAgdnp0YWh5CiAgICAgICAgICAgICAgICAjIGRhdGFJbnRlZ3JhdGlvbk1vZHVsZSAtPiAgIkludGVncmF0ZXMgbWFwcGluZyBsaWJyYXJ5IgogICAgICAgICAgICAgICAgIyBkYXRhSW50ZWdyYXRpb25Nb2R1bGUgLT4gICJJbnRlZ3JhdGVzIG5vdGlmaWNhdGlvbiBsaWJyYXJ5IgoKICAgICAgICAgICAgICAgIHVzZXJNYW5hZ2VtZW50TW9kdWxlIC0+IG5vdGlmaWNhdGlvbk1vZHVsZSAiU2VuZHMgbm90aWZpY2F0aW9ucyB0byB1c2VycyB2aWEiCiAgICAgICAgICAgICAgICBtZXRhYmFzZURlcGxveW1lbnRNb2R1bGUgLT4gbm90aWZpY2F0aW9uTW9kdWxlICJTZW5kcyBub3RpZmljYXRpb25zIHRvIHVzZXJzIHZpYSIKICAgICAgICAgICAgICAgICMgZGF0YUludGVncmF0aW9uTW9kdWxlIC0+IG1lZGlhdG9yICJTdWJzY3JpYmVzIGFuZCBwdWJsaXNoZXMgZGF0YSBpbnRlZ3JhdGlvbiBldmVudHMiCiAgICAgICAgICAgICAgICAjIG1ldGFiYXNlRGVwbG95bWVudE1vZHVsZSAtPiBtZWRpYXRvciAiU3Vic2NyaWJlcyBhbmQgcHVibGlzaGVzIGRlcGxveW1lbnQgZXZlbnRzIgogICAgICAgICAgICAgICAgZGF0YUludGVncmF0aW9uTW9kdWxlIC0+IG1hcHBlckxpYnJhcnkgIkludGVncmF0ZXMiCiAgICAgICAgICAgICAgICBkYXRhSW50ZWdyYXRpb25Nb2R1bGUgLT4gbWV0YWJhc2VEZXBsb3ltZW50TW9kdWxlICJQcm92aWRlcyBtYXBwaW5nIGZvciBkZXBsb3ltZW50IgoKICAgICAgICAgICAgICAgIG5vdGlmaWNhdGlvbk1vZHVsZSAtPiBlbWFpbCAiU2VuZHMgZS1tYWlscyB0byB1c2VycyB2aWEiICJTTVRQIgoKCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIAogICAgICAgICAgICBwcm9qZWN0RGF0YWJhc2UgPSBjb250YWluZXIgIkJJIE1hbmFnZW1lbnQgRGF0YWJhc2UiICJQcm92aWRlcyBkYXRhIHBlcnNpc3RlbmNlIGZvciBCSSBwcm9qZWN0cyIgIk1TIFNRTCIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIC8vIHJlbGF0aW9ucwogICAgICAgICAgICBtYW5hZ2VtZW50QXBwIC0+IHByb2plY3REYXRhYmFzZSAiVXNlcyIKICAgICAgICAgICAgbWFuYWdlbWVudEFwcC5kYXRhSW50ZWdyYXRpb25Nb2R1bGUgLT4gcHJvamVjdERhdGFiYXNlICJTYXZlcyBkYXRhIG1hcHBpbmdzIgogICAgICAgICAgICBtYW5hZ2VtZW50QXBwLnVzZXJNYW5hZ2VtZW50TW9kdWxlIC0+IHByb2plY3REYXRhYmFzZSAiU2F2ZXMgdXNlciBpbmZvcm1hdGlvbiIKICAgICAgICAgICAgbWFuYWdlbWVudEFwcC5tZXRhYmFzZURlcGxveW1lbnRNb2R1bGUgLT4gcHJvamVjdERhdGFiYXNlICJTYXZlcyBwcm9qZWN0IHN0YXR1c2VzIgoKCiAgICAgICAgfQogICAgICAgIAoKICAgICAgICAvLyByZWxhdGlvbnMgCiAgICAgICAgY29zdHVtZXIgLT4gYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRIdG1sICJNYXBzIGhpcyBkYXRhIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRIdG1sICJNYW5hZ2VzIEJJIHByb2plY3RzIC0gY3JlYXRlcyBuZXcsIHN0YXJ0cyBkZXBsb3ltZW50IG9mIE1ldGFiYXNlIGluc3RhbmNlcywgZXRjLiIKCiAgICAgICAgbGl2ZSA9IGRlcGxveW1lbnRFbnZpcm9ubWVudCAiTGl2ZSIgewogICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiQ2xpZW50IENvbXB1dGVyIiB7CiAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiV2ViIEJyb3dzZXIiIHsKICAgICAgICAgICAgICAgICAgICBzcGEgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIlNpbmdsZSBQYWdlIEFwcGxpY2F0aW9uIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJQcm92aWRlcyBleGFtIHN5c3RlbSBmdW5jdGlvbmFsaXR5IHZpYSB3ZWIgYnJvd3NlciIKICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJXaG9sZSBhcmNoaXRlY3R1cmUiIHsKICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIkJhY2tlbmQgU2VydmVyIiB7CiAgICAgICAgICAgICAgICAgICAgbGJOb2RlID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJMb2FkIEJhbGFuY2VyIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJCYWxhbmNlcyBpbmNvbWluZyBjYWxscyIKICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgIGFwaU5vZGUgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIlJlc3QgQVBJIEluZnJhc3RydWN0dXJlIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJQcm92aWRlcyBSZXN0IEFQSSBlbmRwb2ludHMiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBkZXBsb3ltZW50Tm9kZSAiRGF0YWJhc2UgRW52aXJvbWVudCIgewogICAgICAgICAgICAgICAgICAgICAgICBkYXRhYmFzZU5vZGUgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJQcm92aWRlcyBkYXRhIHBlcnNpc3RlbmNlIgogICAgICAgICAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgICAgICAgICBtZXNzYWdlRGF0YWJhc2VOb2RlID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJNZXNzYWdlIERhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJQcm92aWRlcyBtZXNzYWdlIGhpc3RvcnkgcGVyc2lzdGVuY2UiCiAgICAgICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIlNlcnZpY2UgSW5mcmFzdHJ1Y3R1cmUiIHsKICAgICAgICAgICAgICAgICAgICBub3RpZmljYXRpb25Ob2RlID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJOb3RpZmljYXRpb24gU2VydmljZSIgewogICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbiAiUHJvdmlkZXMgbm90aWZpY2F0aW9uIGhhbmRsZXIiCiAgICAgICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgICAgICBtZXNzYWdlTm9kZSA9IGluZnJhc3RydWN0dXJlTm9kZSAiTWVzc2FnZSBTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICAgICAgICAgIGRlc2NyaXB0aW9uICJQcm92aWRlcyBtZXNzYWdlIGhhbmRsZXIiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGRlcGxveW1lbnROb2RlICJBdXRoIFNlcnZlciIgewogICAgICAgICAgICAgICAgICAgIGF1dGhOb2RlID0gaW5mcmFzdHJ1Y3R1cmVOb2RlICJBdXRoIFNlcnZpY2UiIHsKICAgICAgICAgICAgICAgICAgICAgICAgZGVzY3JpcHRpb24gIlByb3ZpZGVzIGF1dGhlbnRpY2F0aW9uIGFuZCBhdXRob3JpemF0aW9uIGZ1bmN0aW9uYWxpdHkiCiAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgfQkKICAgICAgICAgICAgfQoKICAgICAgICAgICAgIyBhcGlOb2RlIC0+IGF1dGhOb2RlICJTZW5kcyBhdXRoIHJlcXVlc3RzIgogICAgICAgICAgICAjIGF1dGhOb2RlIC0+IGFwaU5vZGUgIlNlbmRzIGJhY2sgYXV0aCBkYXRhIgoKICAgICAgICAgICAgIyBzcGEgLT4gbGJOb2RlICJDYWxscyBBUEkgcmVxdWVzdHMiCiAgICAgICAgICAgICMgYXBpTm9kZSAtPiBzcGEgIlNlbmRzIGJhY2sgcmVxdWVzdGVkIGRhdGEiCiAgICAgICAgICAgICMgbGJOb2RlIC0+IGFwaU5vZGUgIkZvcndhcmRzIEFQSSByZXF1ZXN0cyIKCiAgICAgICAgICAgICMgYXBpTm9kZSAtPiBkYXRhYmFzZU5vZGUgIlNlbmRzIGRhdGEgdG8gcGVyc2lzdCIKICAgICAgICAgICAgIyBhcGlOb2RlIC0+IG1lc3NhZ2VEYXRhYmFzZU5vZGUgIlNlbmRzIG1lc3NhZ2UgaGlzdG9yeSIKCiAgICAgICAgICAgICMgZGF0YWJhc2VOb2RlIC0+IGFwaU5vZGUgIlNlbmRzIGJhY2sgcmVxdWVzdGVkIGRhdGEiCiAgICAgICAgICAgICMgbWVzc2FnZURhdGFiYXNlTm9kZSAtPiBhcGlOb2RlICJTZW5kcyBiYWNrIG1lc3NhZ2UgZGF0YSIKCiAgICAgICAgICAgICMgYXBpTm9kZSAtPiBub3RpZmljYXRpb25Ob2RlICJSZXF1ZXN0IG5vdGlmaWNhdGlvbiIKICAgICAgICAgICAgIyBub3RpZmljYXRpb25Ob2RlIC0+IGRhdGFiYXNlTm9kZSAiU3Vic2NyaWJlIHRvIGRhdGEgY2hhbmdlcyIKCiAgICAgICAgICAgICMgbWVzc2FnZU5vZGUgLT4gbWVzc2FnZURhdGFiYXNlTm9kZSAiU3RvcmUgbWVzc2FnZSBkYXRhIgogICAgICAgICAgICAjIG1lc3NhZ2VEYXRhYmFzZU5vZGUgLT4gbWVzc2FnZU5vZGUgIlNlbmQgYmFjayBtZXNzYWdlIGhpc3RvcnkiCiAgICAgICAgfQogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzeXN0ZW1Db250ZXh0IGJpTWFuYWdlbWVudFN5c3RlbSAiYmlNYW5hZ2VtZW50U3lzdGVtU3lzdGVtQ29udGV4dERpYWdyYW0iIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgazhzQ2x1c3RlciAiazhzQ2x1c3RlclN5c3RlbUNvbnRleHREaWFncmFtIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIGJpTWFuYWdlbWVudFN5c3RlbSAiYmlNYW5hZ2VtZW50U3lzdGVtQ29udGFpbmVyRGlhZ3JhbSIgewogICAgICAgICAgICAjIGF1dG9MYXlvdXQKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRBcHAgImJpTWFuYWdlbWVudFN5c3RlbU1hbmFnZW1lbnRBcGlDb21wb25lbnREaWFncmFtIiB7CiAgICAgICAgICAgICMgYXV0b0xheW91dAogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICB9CiAgICAgICAgCgogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIHJlbGF0aW9uc2hpcCAiUmVsYXRpb25zaGlwInsKICAgICAgICAgICAgICAgIGZvbnRTaXplIDMwCiAgICAgICAgICAgIH0gICAKCiAgICAgICAgICAgIGVsZW1lbnQgIkVsZW1lbnQiIHsKICAgICAgICAgICAgICAgIGZvbnRTaXplIDMwCgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgICAgICAgICAgY29sb3IgIzA4NDI3YgogICAgICAgICAgICAgICAgZm9udFNpemUgMjQKICAgICAgICAgICAgICAgIHNoYXBlIFBlcnNvbgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJTb2Z0d2FyZSBTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzExNjhiZAogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkNvbnRhaW5lciIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjNDM4ZGQ1CiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgICAgIGVsZW1lbnQgIkNvbXBvbmVudCIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjODViYmYwCiAgICAgICAgICAgICAgICBjb2xvciAjMDAwMDAwCgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJGYWlsb3ZlciIgewogICAgICAgICAgICAgICAgb3BhY2l0eSAyNQogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNkNDY1NWQKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgQ3lsaW5kZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzMwNDY5YwogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkNvbnRyb2xsZXIiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgICM1N2I1ODYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJFeHRlcm5hbCIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAgIzczNzM3MwogICAgICAgICAgICB9CiAgICAgICAgfQogICAgfQp9CgoKCg=="
   },
@@ -17,25 +18,10 @@
       "name" : "Customer",
       "description" : "Employee of a manufacturing company",
       "relationships" : [ {
-        "id" : "13",
-        "tags" : "Relationship",
-        "properties" : {
-          "structurizr.dsl.identifier" : "d16b8a9f-d5c6-4a45-8267-ee707b1a6816"
-        },
-        "sourceId" : "1",
-        "destinationId" : "7",
-        "description" : "Uses Metabase to explore data"
-      }, {
-        "id" : "14",
-        "sourceId" : "1",
-        "destinationId" : "6",
-        "description" : "Uses Metabase to explore data",
-        "linkedRelationshipId" : "13"
-      }, {
         "id" : "50",
         "tags" : "Relationship",
         "properties" : {
-          "structurizr.dsl.identifier" : "9fcb4c53-99f2-439d-a2bf-80aa4a68ded0"
+          "structurizr.dsl.identifier" : "2aa0561b-fcc1-40c6-95c7-c6c821de45da"
         },
         "sourceId" : "1",
         "destinationId" : "16",
@@ -46,6 +32,21 @@
         "destinationId" : "15",
         "description" : "Maps his data",
         "linkedRelationshipId" : "50"
+      }, {
+        "id" : "13",
+        "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "4282772e-0808-440e-b4b8-99d8db13224e"
+        },
+        "sourceId" : "1",
+        "destinationId" : "7",
+        "description" : "Uses Metabase to explore data"
+      }, {
+        "id" : "14",
+        "sourceId" : "1",
+        "destinationId" : "6",
+        "description" : "Uses Metabase to explore data",
+        "linkedRelationshipId" : "13"
       } ],
       "location" : "Unspecified"
     }, {
@@ -57,52 +58,24 @@
       "name" : "BI Administrator",
       "description" : "Person responsible for managing the BI system",
       "relationships" : [ {
-        "id" : "52",
-        "tags" : "Relationship",
-        "properties" : {
-          "structurizr.dsl.identifier" : "1ac94fb0-df2d-4048-afa4-9e9333b2e146"
-        },
-        "sourceId" : "2",
-        "destinationId" : "16",
-        "description" : "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
-      }, {
         "id" : "53",
         "sourceId" : "2",
         "destinationId" : "15",
         "description" : "Manages BI projects - creates new, starts deployment of Metabase instances, etc.",
         "linkedRelationshipId" : "52"
+      }, {
+        "id" : "52",
+        "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "7439c310-1209-4b38-bb59-196d7f9128d8"
+        },
+        "sourceId" : "2",
+        "destinationId" : "16",
+        "description" : "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
       } ],
       "location" : "Unspecified"
     } ],
     "softwareSystems" : [ {
-      "id" : "3",
-      "tags" : "Element,Software System,Existing System,External",
-      "properties" : {
-        "structurizr.dsl.identifier" : "email"
-      },
-      "name" : "E-mail System",
-      "relationships" : [ {
-        "id" : "4",
-        "tags" : "Relationship",
-        "properties" : {
-          "structurizr.dsl.identifier" : "6e072c40-ea25-41ea-861b-ff93e46bd82a"
-        },
-        "sourceId" : "3",
-        "destinationId" : "1",
-        "description" : "Sends notifications to costumers"
-      }, {
-        "id" : "5",
-        "tags" : "Relationship",
-        "properties" : {
-          "structurizr.dsl.identifier" : "62dce33b-eb03-40af-8dd6-aeaac2cb985e"
-        },
-        "sourceId" : "3",
-        "destinationId" : "2",
-        "description" : "Sends notifications to administrators"
-      } ],
-      "location" : "Unspecified",
-      "documentation" : { }
-    }, {
       "id" : "6",
       "tags" : "Element,Software System,External",
       "properties" : {
@@ -112,16 +85,6 @@
       "description" : "Provides infrastructure for deploying containers",
       "location" : "Unspecified",
       "containers" : [ {
-        "id" : "8",
-        "tags" : "Element,Container,Database",
-        "properties" : {
-          "structurizr.dsl.identifier" : "k8scluster.mssql"
-        },
-        "name" : "MS SQL",
-        "description" : "Provides data persistence for Metabase",
-        "technology" : "MS SQL",
-        "documentation" : { }
-      }, {
         "id" : "9",
         "tags" : "Element,Container,Service",
         "properties" : {
@@ -130,25 +93,35 @@
         "name" : "Kubernetes API",
         "description" : "Provides API for managing Kubernetes cluster",
         "relationships" : [ {
-          "id" : "10",
-          "tags" : "Relationship",
-          "properties" : {
-            "structurizr.dsl.identifier" : "24c27dc9-f7f3-4a41-b2e9-f1cf69d19f6e"
-          },
-          "sourceId" : "9",
-          "destinationId" : "7",
-          "description" : "Manages Metabase instances"
-        }, {
           "id" : "11",
           "tags" : "Relationship",
           "properties" : {
-            "structurizr.dsl.identifier" : "e7aca88d-c013-42f8-a1dd-a72f686b4056"
+            "structurizr.dsl.identifier" : "84e0ae2f-a981-47e6-b06a-1e142402a6e7"
           },
           "sourceId" : "9",
           "destinationId" : "8",
           "description" : "Manages databases"
+        }, {
+          "id" : "10",
+          "tags" : "Relationship",
+          "properties" : {
+            "structurizr.dsl.identifier" : "d5ab3423-36e1-4611-8b0c-0809b9c6e62d"
+          },
+          "sourceId" : "9",
+          "destinationId" : "7",
+          "description" : "Manages Metabase instances"
         } ],
         "technology" : "kube-apiserver",
+        "documentation" : { }
+      }, {
+        "id" : "8",
+        "tags" : "Element,Container,Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "k8scluster.mssql"
+        },
+        "name" : "MS SQL",
+        "description" : "Provides data persistence for Metabase",
+        "technology" : "MS SQL",
         "documentation" : { }
       }, {
         "id" : "7",
@@ -162,7 +135,7 @@
           "id" : "12",
           "tags" : "Relationship",
           "properties" : {
-            "structurizr.dsl.identifier" : "352641cf-774e-4b93-b0c2-b911ef174e2b"
+            "structurizr.dsl.identifier" : "f4129917-cb99-4c9e-a914-0216afb8b509"
           },
           "sourceId" : "7",
           "destinationId" : "8",
@@ -180,6 +153,13 @@
       "name" : "BI Management Platform",
       "description" : "Enables management of BI projects (data mapping, deploying new instances of Metabase)",
       "relationships" : [ {
+        "id" : "44",
+        "sourceId" : "15",
+        "destinationId" : "3",
+        "description" : "Sends e-mails to users via",
+        "technology" : "SMTP",
+        "linkedRelationshipId" : "42"
+      }, {
         "id" : "36",
         "sourceId" : "15",
         "destinationId" : "9",
@@ -191,13 +171,6 @@
         "destinationId" : "6",
         "description" : "Deploys database and Metabase instances",
         "linkedRelationshipId" : "32"
-      }, {
-        "id" : "44",
-        "sourceId" : "15",
-        "destinationId" : "3",
-        "description" : "Sends e-mails to users via",
-        "technology" : "SMTP",
-        "linkedRelationshipId" : "42"
       } ],
       "location" : "Unspecified",
       "containers" : [ {
@@ -212,7 +185,7 @@
           "id" : "19",
           "tags" : "Relationship",
           "properties" : {
-            "structurizr.dsl.identifier" : "1a671ed3-a859-4d40-81f9-ddcf96bc3045"
+            "structurizr.dsl.identifier" : "25606e99-421c-486c-87ca-eb7ca9f124de"
           },
           "sourceId" : "16",
           "destinationId" : "18",
@@ -229,6 +202,16 @@
         "technology" : "HTML + CSS + JavaScript",
         "documentation" : { }
       }, {
+        "id" : "45",
+        "tags" : "Element,Container,Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "bimanagementsystem.projectdatabase"
+        },
+        "name" : "BI Management Database",
+        "description" : "Provides data persistence for BI projects",
+        "technology" : "MS SQL",
+        "documentation" : { }
+      }, {
         "id" : "17",
         "tags" : "Element,Container",
         "properties" : {
@@ -237,12 +220,14 @@
         "name" : "BI Management App",
         "description" : "Enables management of BI projects (user management, data mapping, deploying Metabase)",
         "relationships" : [ {
-          "id" : "22",
+          "id" : "46",
+          "tags" : "Relationship",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bd534228-06c2-459d-9286-ae3f116e5ff3"
+          },
           "sourceId" : "17",
-          "destinationId" : "16",
-          "description" : "Delivers content to",
-          "technology" : "HTTPS + SignalR",
-          "linkedRelationshipId" : "21"
+          "destinationId" : "45",
+          "description" : "Uses"
         }, {
           "id" : "34",
           "sourceId" : "17",
@@ -250,11 +235,12 @@
           "description" : "Deploys database and Metabase instances",
           "linkedRelationshipId" : "32"
         }, {
-          "id" : "35",
+          "id" : "22",
           "sourceId" : "17",
-          "destinationId" : "6",
-          "description" : "Deploys database and Metabase instances",
-          "linkedRelationshipId" : "32"
+          "destinationId" : "16",
+          "description" : "Delivers content to",
+          "technology" : "HTTPS + SignalR",
+          "linkedRelationshipId" : "21"
         }, {
           "id" : "43",
           "sourceId" : "17",
@@ -263,67 +249,14 @@
           "technology" : "SMTP",
           "linkedRelationshipId" : "42"
         }, {
-          "id" : "46",
-          "tags" : "Relationship",
-          "properties" : {
-            "structurizr.dsl.identifier" : "a7d587a4-5498-4973-b02b-f9b1238ea2fc"
-          },
+          "id" : "35",
           "sourceId" : "17",
-          "destinationId" : "45",
-          "description" : "Uses"
+          "destinationId" : "6",
+          "description" : "Deploys database and Metabase instances",
+          "linkedRelationshipId" : "32"
         } ],
         "technology" : "ASP.NET Core Blazor`",
         "components" : [ {
-          "id" : "26",
-          "tags" : "Element,Component",
-          "properties" : {
-            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.notificationmodule"
-          },
-          "name" : "Notification Module",
-          "description" : "Provides notification functionality",
-          "relationships" : [ {
-            "id" : "42",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "1da30213-7622-4d7d-af00-aafd80d6c975"
-            },
-            "sourceId" : "26",
-            "destinationId" : "3",
-            "description" : "Sends e-mails to users via",
-            "technology" : "SMTP"
-          } ],
-          "technology" : "C#",
-          "documentation" : { }
-        }, {
-          "id" : "23",
-          "tags" : "Element,Component",
-          "properties" : {
-            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.usermanagementmodule"
-          },
-          "name" : "User Management Module",
-          "description" : "Provides user management functionality",
-          "relationships" : [ {
-            "id" : "38",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "11420fcb-ce19-4baf-b6c1-d117e6647521"
-            },
-            "sourceId" : "23",
-            "destinationId" : "26",
-            "description" : "Sends notifications to users via"
-          }, {
-            "id" : "48",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "7cac627d-7ada-448c-920b-1d7d5f907005"
-            },
-            "sourceId" : "23",
-            "destinationId" : "45",
-            "description" : "Saves user information"
-          } ],
-          "technology" : "C#",
-          "documentation" : { }
-        }, {
           "id" : "27",
           "tags" : "Element,Component",
           "properties" : {
@@ -335,7 +268,7 @@
             "id" : "32",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "70a55296-fd81-41a6-a72b-63e86c648155"
+              "structurizr.dsl.identifier" : "8a7ef7ae-e666-4d77-aea5-85eef7900a2f"
             },
             "sourceId" : "27",
             "destinationId" : "9",
@@ -350,7 +283,7 @@
             "id" : "39",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "006f21fe-7bf8-427e-a7a8-f70ffa50f7a9"
+              "structurizr.dsl.identifier" : "bcd3837b-ab19-4df0-a377-5126a2642f55"
             },
             "sourceId" : "27",
             "destinationId" : "26",
@@ -359,7 +292,7 @@
             "id" : "49",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "b3aac66f-36be-4701-b1b0-f095c10a5424"
+              "structurizr.dsl.identifier" : "482bbba6-f22f-47cb-90fb-3aea2c95b280"
             },
             "sourceId" : "27",
             "destinationId" : "45",
@@ -378,6 +311,27 @@
           "technology" : "TypeScript + JointJS",
           "documentation" : { }
         }, {
+          "id" : "26",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.notificationmodule"
+          },
+          "name" : "Notification Module",
+          "description" : "Provides notification functionality",
+          "relationships" : [ {
+            "id" : "42",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "ff022ba7-94f8-4b6b-a301-b6021ef81b13"
+            },
+            "sourceId" : "26",
+            "destinationId" : "3",
+            "description" : "Sends e-mails to users via",
+            "technology" : "SMTP"
+          } ],
+          "technology" : "C#",
+          "documentation" : { }
+        }, {
           "id" : "18",
           "tags" : "Element,Component",
           "properties" : {
@@ -386,10 +340,37 @@
           "name" : "Blazor Server",
           "description" : "Renders the management UI and executes user requests",
           "relationships" : [ {
+            "id" : "29",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "65c52745-fa67-452c-9d7d-ba4d0b143c0f"
+            },
+            "sourceId" : "18",
+            "destinationId" : "24",
+            "description" : "Executes data integration requests using"
+          }, {
+            "id" : "31",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "0ae937d9-0d73-4098-a7cb-8e99301aee78"
+            },
+            "sourceId" : "18",
+            "destinationId" : "27",
+            "description" : "Executes deployment requests using"
+          }, {
+            "id" : "30",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "c5b28b2e-4b02-42cb-a61a-65ed5f247f39"
+            },
+            "sourceId" : "18",
+            "destinationId" : "26",
+            "description" : "Executes notification requests using"
+          }, {
             "id" : "21",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "a2593fa8-6438-4521-a629-3619a3ef5ef4"
+              "structurizr.dsl.identifier" : "d6d0fa37-0cc1-470d-9234-282b132c1d46"
             },
             "sourceId" : "18",
             "destinationId" : "16",
@@ -399,38 +380,40 @@
             "id" : "28",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "b2ac5767-125c-4f86-aeb3-3bd492659973"
+              "structurizr.dsl.identifier" : "338145f6-3c30-49d1-b211-0e84db81409f"
             },
             "sourceId" : "18",
             "destinationId" : "23",
             "description" : "Executes user related requests using"
-          }, {
-            "id" : "29",
+          } ],
+          "technology" : "C#",
+          "documentation" : { }
+        }, {
+          "id" : "23",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.usermanagementmodule"
+          },
+          "name" : "User Management Module",
+          "description" : "Provides user management functionality",
+          "relationships" : [ {
+            "id" : "38",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "fe4b9ed8-9036-4cd9-b8e2-b6de9d4fcb36"
+              "structurizr.dsl.identifier" : "832e68f0-ffc3-4c21-a644-69bff53ed31a"
             },
-            "sourceId" : "18",
-            "destinationId" : "24",
-            "description" : "Executes data integration requests using"
-          }, {
-            "id" : "30",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "0ce75238-5279-4267-a3fe-ba5b665d8bd7"
-            },
-            "sourceId" : "18",
+            "sourceId" : "23",
             "destinationId" : "26",
-            "description" : "Executes notification requests using"
+            "description" : "Sends notifications to users via"
           }, {
-            "id" : "31",
+            "id" : "48",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "80e0718d-9f53-4981-9304-98bff92fad3a"
+              "structurizr.dsl.identifier" : "69bc605e-22c6-45c8-ab6d-51f00b5c2ae6"
             },
-            "sourceId" : "18",
-            "destinationId" : "27",
-            "description" : "Executes deployment requests using"
+            "sourceId" : "23",
+            "destinationId" : "45",
+            "description" : "Saves user information"
           } ],
           "technology" : "C#",
           "documentation" : { }
@@ -443,10 +426,19 @@
           "name" : "Data Integration Module",
           "description" : "Provides data integration functionality",
           "relationships" : [ {
+            "id" : "47",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "cd7b512a-4d5a-4e22-8488-884889f2dc49"
+            },
+            "sourceId" : "24",
+            "destinationId" : "45",
+            "description" : "Saves data mappings"
+          }, {
             "id" : "40",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "bb8d9bd4-9c03-4fc5-8a0b-369defe8f026"
+              "structurizr.dsl.identifier" : "038047ad-7f95-4075-b973-640a1cd9f81b"
             },
             "sourceId" : "24",
             "destinationId" : "25",
@@ -455,81 +447,118 @@
             "id" : "41",
             "tags" : "Relationship",
             "properties" : {
-              "structurizr.dsl.identifier" : "0dd7f778-b97a-48d2-b06d-3f0e710f8e5b"
+              "structurizr.dsl.identifier" : "9ce04046-c8db-4c60-8a81-e1e7804226f1"
             },
             "sourceId" : "24",
             "destinationId" : "27",
             "description" : "Provides mapping for deployment"
-          }, {
-            "id" : "47",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "f0cfb523-2dbe-4e8d-ac58-f102178b25e2"
-            },
-            "sourceId" : "24",
-            "destinationId" : "45",
-            "description" : "Saves data mappings"
           } ],
           "technology" : "C# + TypeScript",
           "documentation" : { }
         } ],
         "documentation" : { }
-      }, {
-        "id" : "45",
-        "tags" : "Element,Container,Database",
-        "properties" : {
-          "structurizr.dsl.identifier" : "bimanagementsystem.projectdatabase"
-        },
-        "name" : "BI Management Database",
-        "description" : "Provides data persistence for BI projects",
-        "technology" : "MS SQL",
-        "documentation" : { }
       } ],
+      "documentation" : { }
+    }, {
+      "id" : "3",
+      "tags" : "Element,Software System,Existing System,External",
+      "properties" : {
+        "structurizr.dsl.identifier" : "email"
+      },
+      "name" : "E-mail System",
+      "relationships" : [ {
+        "id" : "4",
+        "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "07c14d29-663d-44fd-8eea-091d1cff14f6"
+        },
+        "sourceId" : "3",
+        "destinationId" : "1",
+        "description" : "Sends notifications to costumers"
+      }, {
+        "id" : "5",
+        "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "6cfc34aa-79e8-4a1f-b5e1-b5199011c8d2"
+        },
+        "sourceId" : "3",
+        "destinationId" : "2",
+        "description" : "Sends notifications to administrators"
+      } ],
+      "location" : "Unspecified",
       "documentation" : { }
     } ],
     "deploymentNodes" : [ {
-      "id" : "54",
-      "tags" : "Element,Deployment Node",
-      "properties" : {
-        "structurizr.dsl.identifier" : "live.e949d151-06f9-4ebb-a1dc-31883fc4b6b2"
-      },
-      "name" : "Client Computer",
-      "environment" : "Live",
-      "instances" : "1",
-      "children" : [ {
-        "id" : "55",
-        "tags" : "Element,Deployment Node",
-        "properties" : {
-          "structurizr.dsl.identifier" : "live.e949d151-06f9-4ebb-a1dc-31883fc4b6b2.7ebb36de-99b6-4d57-9198-f11fc40c0d32"
-        },
-        "name" : "Web Browser",
-        "environment" : "Live",
-        "instances" : "1",
-        "infrastructureNodes" : [ {
-          "id" : "56",
-          "tags" : "Element,Infrastructure Node",
-          "properties" : {
-            "structurizr.dsl.identifier" : "live.e949d151-06f9-4ebb-a1dc-31883fc4b6b2.7ebb36de-99b6-4d57-9198-f11fc40c0d32.spa"
-          },
-          "name" : "Single Page Application",
-          "description" : "Provides exam system functionality via web browser",
-          "environment" : "Live"
-        } ]
-      } ]
-    }, {
       "id" : "57",
       "tags" : "Element,Deployment Node",
       "properties" : {
-        "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209"
+        "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357"
       },
       "name" : "Whole architecture",
       "environment" : "Live",
       "instances" : "1",
       "children" : [ {
+        "id" : "58",
+        "tags" : "Element,Deployment Node",
+        "properties" : {
+          "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.e5a30428-d2dd-4c69-899e-262730cfd2f5"
+        },
+        "name" : "Backend Server",
+        "environment" : "Live",
+        "instances" : "1",
+        "children" : [ {
+          "id" : "61",
+          "tags" : "Element,Deployment Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.e5a30428-d2dd-4c69-899e-262730cfd2f5.f5b3f8a3-b907-4303-9f4b-df5f2f98d07c"
+          },
+          "name" : "Database Enviroment",
+          "environment" : "Live",
+          "instances" : "1",
+          "infrastructureNodes" : [ {
+            "id" : "62",
+            "tags" : "Element,Infrastructure Node,Database",
+            "properties" : {
+              "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.e5a30428-d2dd-4c69-899e-262730cfd2f5.f5b3f8a3-b907-4303-9f4b-df5f2f98d07c.databasenode"
+            },
+            "name" : "Database",
+            "description" : "Provides data persistence",
+            "environment" : "Live"
+          }, {
+            "id" : "63",
+            "tags" : "Element,Infrastructure Node,Database",
+            "properties" : {
+              "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.e5a30428-d2dd-4c69-899e-262730cfd2f5.f5b3f8a3-b907-4303-9f4b-df5f2f98d07c.messagedatabasenode"
+            },
+            "name" : "Message Database",
+            "description" : "Provides message history persistence",
+            "environment" : "Live"
+          } ]
+        } ],
+        "infrastructureNodes" : [ {
+          "id" : "60",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.e5a30428-d2dd-4c69-899e-262730cfd2f5.apinode"
+          },
+          "name" : "Rest API Infrastructure",
+          "description" : "Provides Rest API endpoints",
+          "environment" : "Live"
+        }, {
+          "id" : "59",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.e5a30428-d2dd-4c69-899e-262730cfd2f5.lbnode"
+          },
+          "name" : "Load Balancer",
+          "description" : "Balances incoming calls",
+          "environment" : "Live"
+        } ]
+      }, {
         "id" : "67",
         "tags" : "Element,Deployment Node",
         "properties" : {
-          "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.835b0725-fa7c-4359-a3d8-b2ddf2ce01e0"
+          "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.34f108c3-d881-466e-8c9e-8daeaa3ff6ba"
         },
         "name" : "Auth Server",
         "environment" : "Live",
@@ -538,7 +567,7 @@
           "id" : "68",
           "tags" : "Element,Infrastructure Node",
           "properties" : {
-            "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.835b0725-fa7c-4359-a3d8-b2ddf2ce01e0.authnode"
+            "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.34f108c3-d881-466e-8c9e-8daeaa3ff6ba.authnode"
           },
           "name" : "Auth Service",
           "description" : "Provides authentication and authorization functionality",
@@ -548,85 +577,57 @@
         "id" : "64",
         "tags" : "Element,Deployment Node",
         "properties" : {
-          "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.47ff959b-7525-4a5f-b05d-60dd95be6ccd"
+          "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.9f195825-3230-4ed4-bde2-1a9918ac318f"
         },
         "name" : "Service Infrastructure",
         "environment" : "Live",
         "instances" : "1",
         "infrastructureNodes" : [ {
-          "id" : "66",
-          "tags" : "Element,Infrastructure Node",
-          "properties" : {
-            "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.47ff959b-7525-4a5f-b05d-60dd95be6ccd.messagenode"
-          },
-          "name" : "Message Service",
-          "description" : "Provides message handler",
-          "environment" : "Live"
-        }, {
           "id" : "65",
           "tags" : "Element,Infrastructure Node",
           "properties" : {
-            "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.47ff959b-7525-4a5f-b05d-60dd95be6ccd.notificationnode"
+            "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.9f195825-3230-4ed4-bde2-1a9918ac318f.notificationnode"
           },
           "name" : "Notification Service",
           "description" : "Provides notification handler",
           "environment" : "Live"
+        }, {
+          "id" : "66",
+          "tags" : "Element,Infrastructure Node",
+          "properties" : {
+            "structurizr.dsl.identifier" : "live.a8d19549-53f1-461a-923f-7d234acf5357.9f195825-3230-4ed4-bde2-1a9918ac318f.messagenode"
+          },
+          "name" : "Message Service",
+          "description" : "Provides message handler",
+          "environment" : "Live"
         } ]
-      }, {
-        "id" : "58",
+      } ]
+    }, {
+      "id" : "54",
+      "tags" : "Element,Deployment Node",
+      "properties" : {
+        "structurizr.dsl.identifier" : "live.c340858c-bde2-466d-b5ea-c062a46f53c8"
+      },
+      "name" : "Client Computer",
+      "environment" : "Live",
+      "instances" : "1",
+      "children" : [ {
+        "id" : "55",
         "tags" : "Element,Deployment Node",
         "properties" : {
-          "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.fefd3b3d-722e-42f5-a456-4920e77e10ad"
+          "structurizr.dsl.identifier" : "live.c340858c-bde2-466d-b5ea-c062a46f53c8.038950c5-b617-42d0-9640-44bf4ce5f2d7"
         },
-        "name" : "Backend Server",
+        "name" : "Web Browser",
         "environment" : "Live",
         "instances" : "1",
-        "children" : [ {
-          "id" : "61",
-          "tags" : "Element,Deployment Node",
-          "properties" : {
-            "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.fefd3b3d-722e-42f5-a456-4920e77e10ad.67f34e98-f6b0-4156-b6c6-0ef3052b36e1"
-          },
-          "name" : "Database Enviroment",
-          "environment" : "Live",
-          "instances" : "1",
-          "infrastructureNodes" : [ {
-            "id" : "62",
-            "tags" : "Element,Infrastructure Node,Database",
-            "properties" : {
-              "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.fefd3b3d-722e-42f5-a456-4920e77e10ad.67f34e98-f6b0-4156-b6c6-0ef3052b36e1.databasenode"
-            },
-            "name" : "Database",
-            "description" : "Provides data persistence",
-            "environment" : "Live"
-          }, {
-            "id" : "63",
-            "tags" : "Element,Infrastructure Node,Database",
-            "properties" : {
-              "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.fefd3b3d-722e-42f5-a456-4920e77e10ad.67f34e98-f6b0-4156-b6c6-0ef3052b36e1.messagedatabasenode"
-            },
-            "name" : "Message Database",
-            "description" : "Provides message history persistence",
-            "environment" : "Live"
-          } ]
-        } ],
         "infrastructureNodes" : [ {
-          "id" : "59",
+          "id" : "56",
           "tags" : "Element,Infrastructure Node",
           "properties" : {
-            "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.fefd3b3d-722e-42f5-a456-4920e77e10ad.lbnode"
+            "structurizr.dsl.identifier" : "live.c340858c-bde2-466d-b5ea-c062a46f53c8.038950c5-b617-42d0-9640-44bf4ce5f2d7.spa"
           },
-          "name" : "Load Balancer",
-          "description" : "Balances incoming calls",
-          "environment" : "Live"
-        }, {
-          "id" : "60",
-          "tags" : "Element,Infrastructure Node",
-          "properties" : {
-            "structurizr.dsl.identifier" : "live.460c396e-923f-41d4-94dc-1f7f60439209.fefd3b3d-722e-42f5-a456-4920e77e10ad.apinode"
-          },
-          "name" : "Rest API Infrastructure",
-          "description" : "Provides Rest API endpoints",
+          "name" : "Single Page Application",
+          "description" : "Provides exam system functionality via web browser",
           "environment" : "Live"
         } ]
       } ]
@@ -648,15 +649,15 @@
       }, {
         "id" : "51"
       }, {
-        "id" : "4",
-        "vertices" : [ {
-          "x" : 531,
-          "y" : 776
-        } ]
-      }, {
         "id" : "14",
         "vertices" : [ {
           "x" : 1281,
+          "y" : 776
+        } ]
+      }, {
+        "id" : "4",
+        "vertices" : [ {
+          "x" : 531,
           "y" : 776
         } ]
       }, {
@@ -689,49 +690,6 @@
       } ]
     } ],
     "containerViews" : [ {
-      "key" : "k8sClusterSystemContextDiagram",
-      "order" : 2,
-      "softwareSystemId" : "6",
-      "dimensions" : {
-        "width" : 1750,
-        "height" : 2516
-      },
-      "externalSoftwareSystemBoundariesVisible" : true,
-      "relationships" : [ {
-        "id" : "36"
-      }, {
-        "id" : "51"
-      }, {
-        "id" : "13"
-      }, {
-        "id" : "11"
-      }, {
-        "id" : "12"
-      }, {
-        "id" : "10"
-      } ],
-      "elements" : [ {
-        "id" : "1",
-        "x" : 1150,
-        "y" : 200
-      }, {
-        "id" : "15",
-        "x" : 200,
-        "y" : 260
-      }, {
-        "id" : "7",
-        "x" : 1055,
-        "y" : 1480
-      }, {
-        "id" : "8",
-        "x" : 435,
-        "y" : 1925
-      }, {
-        "id" : "9",
-        "x" : 420,
-        "y" : 975
-      } ]
-    }, {
       "key" : "biManagementSystemContainerDiagram",
       "order" : 3,
       "softwareSystemId" : "15",
@@ -747,17 +705,11 @@
       }, {
         "id" : "4"
       }, {
-        "id" : "52"
-      }, {
         "id" : "35"
       }, {
-        "id" : "5"
+        "id" : "52"
       }, {
-        "id" : "22",
-        "vertices" : [ {
-          "x" : 1315,
-          "y" : 1960
-        } ]
+        "id" : "5"
       }, {
         "id" : "43",
         "vertices" : [ {
@@ -766,6 +718,12 @@
         }, {
           "x" : 1567,
           "y" : 802
+        } ]
+      }, {
+        "id" : "22",
+        "vertices" : [ {
+          "x" : 1315,
+          "y" : 1960
         } ]
       }, {
         "id" : "20",
@@ -804,6 +762,49 @@
         "id" : "6",
         "x" : 199,
         "y" : 2124
+      } ]
+    }, {
+      "key" : "k8sClusterSystemContextDiagram",
+      "order" : 2,
+      "softwareSystemId" : "6",
+      "dimensions" : {
+        "width" : 1750,
+        "height" : 2516
+      },
+      "externalSoftwareSystemBoundariesVisible" : true,
+      "relationships" : [ {
+        "id" : "36"
+      }, {
+        "id" : "51"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "11"
+      }, {
+        "id" : "10"
+      } ],
+      "elements" : [ {
+        "id" : "1",
+        "x" : 1150,
+        "y" : 200
+      }, {
+        "id" : "15",
+        "x" : 200,
+        "y" : 260
+      }, {
+        "id" : "7",
+        "x" : 1055,
+        "y" : 1480
+      }, {
+        "id" : "8",
+        "x" : 435,
+        "y" : 1925
+      }, {
+        "id" : "9",
+        "x" : 420,
+        "y" : 975
       } ]
     } ],
     "componentViews" : [ {
@@ -849,13 +850,17 @@
       }, {
         "id" : "48",
         "vertices" : [ {
-          "x" : 1930,
-          "y" : 2070
+          "x" : 1640,
+          "y" : 2140
+        } ]
+      }, {
+        "id" : "49",
+        "vertices" : [ {
+          "x" : 1880,
+          "y" : 2105
         } ]
       }, {
         "id" : "38"
-      }, {
-        "id" : "49"
       }, {
         "id" : "39"
       }, {
@@ -866,37 +871,37 @@
         } ]
       } ],
       "elements" : [ {
-        "id" : "23",
-        "x" : 385,
-        "y" : 1400
-      }, {
         "id" : "45",
         "x" : 1945,
         "y" : 2826
+      }, {
+        "id" : "23",
+        "x" : 385,
+        "y" : 1400
       }, {
         "id" : "24",
         "x" : 1918,
         "y" : 1412
       }, {
-        "id" : "3",
-        "x" : 243,
-        "y" : 2812
-      }, {
         "id" : "25",
         "x" : 1920,
         "y" : 901
+      }, {
+        "id" : "3",
+        "x" : 243,
+        "y" : 2812
       }, {
         "id" : "26",
         "x" : 233,
         "y" : 2142
       }, {
-        "id" : "27",
-        "x" : 1133,
-        "y" : 1402
-      }, {
         "id" : "16",
         "x" : 648,
         "y" : 200
+      }, {
+        "id" : "27",
+        "x" : 1133,
+        "y" : 1402
       }, {
         "id" : "6",
         "x" : 1148,
@@ -954,7 +959,8 @@
         } ]
       },
       "terminology" : { },
-      "lastSavedView" : "biManagementSystemContainerDiagram"
+      "metadataSymbols" : "SquareBrackets",
+      "lastSavedView" : "biManagementSystemManagementApiComponentDiagram"
     }
   }
 }
