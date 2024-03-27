@@ -1,8 +1,8 @@
-workspace "MericaBI" "This workspace documents the architecture of the MericaBI system which enables managing of mapping customer database models to a given generic model, tranforming the data and menaging instances of Metabse" {
+workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI system which enables managing of mapping customer database models to a given generic model, tranforming the data and managing instances of Metabse" {
     !identifiers hierarchical
 
     model {
-        costumer = person "Customer" "Manager of a manufacturing company"
+        costumer = person "Customer" "Employee of a manufacturing company"
         administrator = person "BI Administrator" "Person responsible for managing the BI system "
         # administrator = person "BI Administrator" "Person responsible for managing the BI system - creating new projects, managing users, etc."
 
@@ -35,18 +35,29 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
             costumer -> metabaseInstance "Uses Metabase to explore data"
         }
 
-        biManagementSystem = softwareSystem "BI Management Platform" "Enables management of BI projects (data mapping, spinning up new instances of Metabase)" {
-            managementApp = container "BI Management App" "Enables management of BI projects (data mapping, spinning up new instances of Metabase)" "ASP.NET Core Blazor`" {
+        biManagementSystem = softwareSystem "BI Management Platform" "Enables management of BI projects (data mapping, deploying new instances of Metabase)" {
+            managementHtml = container "Management HTML" "Provides management functionality in web browser" "HTML + CSS + JavaScript" 
+
+
+            managementApp = container "BI Management App" "Enables management of BI projects (user management, data mapping, deploying Metabase)" "ASP.NET Core Blazor`" {
+
+                blazorServer = component "Blazor Server" "Renders the management UI and executes user requests" "C#"
+                managementHtml -> blazorServer "Sends requests to" "SignalR"
+                blazorServer -> managementHtml "Delivers content to" "HTTPS + SignalR"
                 
                 # mediator = component "Mediator" "Provides communication between modules" "C#: MediatR"
 
                 userManagementModule = component "User Management Module" "Provides user management functionality" "C#"
                 dataIntegrationModule = component "Data Integration Module" "Provides data integration functionality" "C# + TypeScript" 
-                mapperLibrary = component "Mapper Library" "Provides mapping functionality" "TypeScript + JoinJS"
+                mapperLibrary = component "Mapper Library" "Provides mapping functionality" "TypeScript + JointJS"
                 notificationModule = component "Notification Module" "Provides notification functionality" "C#"
-                metabaseDeploymentModule = component "Metabase Deployment Module" "Menages Kubernetes deployment" "C#: "
+                metabaseDeploymentModule = component "Metabase Deployment Module" "Manages Kubernetes deployment" "C#: "
 
 
+                blazorServer -> userManagementModule "Executes user related requests using"
+                blazorServer -> dataIntegrationModule "Executes data integration requests using"
+                blazorServer -> notificationModule "Executes notification requests using"
+                blazorServer -> metabaseDeploymentModule "Executes deployment requests using"
 
                 metabaseDeploymentModule -> k8sCluster.k8sAPI "Deploys database and Metabase instances"
                 # todo: aktualizovat  vztahy
@@ -66,7 +77,7 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
             }
 
             
-            projectDatabase = container "BI Management Database" "Provides data persistence for BI projects - data mappings, user infromation, project statuses" "MS SQL" {
+            projectDatabase = container "BI Management Database" "Provides data persistence for BI projects" "MS SQL" {
                 tags "Database"
             }
 
@@ -81,9 +92,8 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
         
 
         // relations 
-        costumer -> biManagementSystem.managementApp.dataIntegrationModule "Maps his data"
-        administrator -> biManagementSystem.managementApp.userManagementModule "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
-
+        costumer -> biManagementSystem.managementHtml "Maps his data"
+        administrator -> biManagementSystem.managementHtml "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
 
         live = deploymentEnvironment "Live" {
             deploymentNode "Client Computer" {
@@ -166,12 +176,12 @@ workspace "MericaBI" "This workspace documents the architecture of the MericaBI 
         }
 
         container biManagementSystem "biManagementSystemContainerDiagram" {
-            autoLayout
+            # autoLayout
             include *
         }
 
         component biManagementSystem.managementApp "biManagementSystemManagementApiComponentDiagram" {
-            autoLayout
+            # autoLayout
             include *
         }
         
