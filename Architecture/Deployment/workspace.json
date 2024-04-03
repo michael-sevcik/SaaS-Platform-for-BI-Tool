@@ -2,39 +2,13 @@
   "id" : 1,
   "name" : "SaaSBI",
   "description" : "This workspace documents the architecture of the SaaSBI system which enables managing of mapping customer database models to a given generic model, tranforming the data and managing instances of Metabse",
-  "lastModifiedDate" : "2024-03-27T14:05:23Z",
-  "lastModifiedAgent" : "structurizr-javascript",
+  "lastModifiedDate" : "2024-03-27T14:10:31Z",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlICJTYWFTQkkiICJUaGlzIHdvcmtzcGFjZSBkb2N1bWVudHMgdGhlIGFyY2hpdGVjdHVyZSBvZiB0aGUgU2FhU0JJIHN5c3RlbSB3aGljaCBlbmFibGVzIG1hbmFnaW5nIG9mIG1hcHBpbmcgY3VzdG9tZXIgZGF0YWJhc2UgbW9kZWxzIHRvIGEgZ2l2ZW4gZ2VuZXJpYyBtb2RlbCwgdHJhbmZvcm1pbmcgdGhlIGRhdGEgYW5kIG1hbmFnaW5nIGluc3RhbmNlcyBvZiBNZXRhYnNlIiB7CiAgICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIGNvc3R1bWVyID0gcGVyc29uICJDdXN0b21lciIgIkVtcGxveWVlIG9mIGEgbWFudWZhY3R1cmluZyBjb21wYW55IgogICAgICAgIGFkbWluaXN0cmF0b3IgPSBwZXJzb24gIkJJIEFkbWluaXN0cmF0b3IiICJQZXJzb24gcmVzcG9uc2libGUgZm9yIG1hbmFnaW5nIHRoZSBCSSBzeXN0ZW0gIgogICAgICAgICMgYWRtaW5pc3RyYXRvciA9IHBlcnNvbiAiQkkgQWRtaW5pc3RyYXRvciIgIlBlcnNvbiByZXNwb25zaWJsZSBmb3IgbWFuYWdpbmcgdGhlIEJJIHN5c3RlbSAtIGNyZWF0aW5nIG5ldyBwcm9qZWN0cywgbWFuYWdpbmcgdXNlcnMsIGV0Yy4iCgogICAgICAgIAogICAgICAgIGVtYWlsID0gc29mdHdhcmVzeXN0ZW0gIkUtbWFpbCBTeXN0ZW0iICIiICJFeGlzdGluZyBTeXN0ZW0iIHsKICAgICAgICAgICAgdGFncyAiRXh0ZXJuYWwiCiAgICAgICAgICAgIGVtYWlsIC0+IGNvc3R1bWVyICJTZW5kcyBub3RpZmljYXRpb25zIHRvIGNvc3R1bWVycyIKICAgICAgICAgICAgZW1haWwgLT4gYWRtaW5pc3RyYXRvciAiU2VuZHMgbm90aWZpY2F0aW9ucyB0byBhZG1pbmlzdHJhdG9ycyIgCiAgICAgICAgfQoKICAgICAgICBrOHNDbHVzdGVyICA9IHNvZnR3YXJlU3lzdGVtICJNZXRhYmFzZSBEZXBsb3ltZW50IFN5c3RlbSIgIlByb3ZpZGVzIGluZnJhc3RydWN0dXJlIGZvciBkZXBsb3lpbmcgY29udGFpbmVycyIgewogICAgICAgICAgICB0YWdzICJFeHRlcm5hbCIKCiAgICAgICAgICAgIG1ldGFiYXNlSW5zdGFuY2UgPSBjb250YWluZXIgIk1ldGFiYXNlIiAiRW5hYmxlcyBjb3N0dW1lciB0byBleHBsb3JlIHRoZWlyIGRhdGEiICIiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkV4dGVybmFsIiAKICAgICAgICAgICAgfQoKICAgICAgICAgICAgbXNzcWwgPSBjb250YWluZXIgIk1TIFNRTCIgIlByb3ZpZGVzIGRhdGEgcGVyc2lzdGVuY2UgZm9yIE1ldGFiYXNlIiAiTVMgU1FMIiB7CiAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgazhzQVBJID0gY29udGFpbmVyICJLdWJlcm5ldGVzIEFQSSIgIlByb3ZpZGVzIEFQSSBmb3IgbWFuYWdpbmcgS3ViZXJuZXRlcyBjbHVzdGVyIiAia3ViZS1hcGlzZXJ2ZXIiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIlNlcnZpY2UiICJLdWJlcm5ldGVzIC0gYXBpIgogICAgICAgICAgICB9CgogICAgICAgICAgICAvLyByZWxhdGlvbnMKICAgICAgICAgICAgazhzQVBJIC0+IG1ldGFiYXNlSW5zdGFuY2UgIk1hbmFnZXMgTWV0YWJhc2UgaW5zdGFuY2VzIgogICAgICAgICAgICBrOHNBUEkgLT4gbXNzcWwgIk1hbmFnZXMgZGF0YWJhc2VzIgogICAgICAgICAgICBtZXRhYmFzZUluc3RhbmNlIC0+IG1zc3FsICJVc2VzIgogICAgICAgICAgICBjb3N0dW1lciAtPiBtZXRhYmFzZUluc3RhbmNlICJVc2VzIE1ldGFiYXNlIHRvIGV4cGxvcmUgZGF0YSIKICAgICAgICB9CgogICAgICAgIGJpTWFuYWdlbWVudFN5c3RlbSA9IHNvZnR3YXJlU3lzdGVtICJCSSBNYW5hZ2VtZW50IFBsYXRmb3JtIiAiRW5hYmxlcyBtYW5hZ2VtZW50IG9mIEJJIHByb2plY3RzIChkYXRhIG1hcHBpbmcsIGRlcGxveWluZyBuZXcgaW5zdGFuY2VzIG9mIE1ldGFiYXNlKSIgewogICAgICAgICAgICBtYW5hZ2VtZW50SHRtbCA9IGNvbnRhaW5lciAiTWFuYWdlbWVudCBIVE1MIiAiUHJvdmlkZXMgbWFuYWdlbWVudCBmdW5jdGlvbmFsaXR5IGluIHdlYiBicm93c2VyIiAiSFRNTCArIENTUyArIEphdmFTY3JpcHQiIAoKCiAgICAgICAgICAgIG1hbmFnZW1lbnRBcHAgPSBjb250YWluZXIgIkJJIE1hbmFnZW1lbnQgQXBwIiAiRW5hYmxlcyBtYW5hZ2VtZW50IG9mIEJJIHByb2plY3RzICh1c2VyIG1hbmFnZW1lbnQsIGRhdGEgbWFwcGluZywgZGVwbG95aW5nIE1ldGFiYXNlKSIgIkFTUC5ORVQgQ29yZSBCbGF6b3JgIiB7CgogICAgICAgICAgICAgICAgYmxhem9yU2VydmVyID0gY29tcG9uZW50ICJCbGF6b3IgU2VydmVyIiAiUmVuZGVycyB0aGUgbWFuYWdlbWVudCBVSSBhbmQgZXhlY3V0ZXMgdXNlciByZXF1ZXN0cyIgIkMjIgogICAgICAgICAgICAgICAgbWFuYWdlbWVudEh0bWwgLT4gYmxhem9yU2VydmVyICJTZW5kcyByZXF1ZXN0cyB0byIgIlNpZ25hbFIiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJleGNsdWRlSW5EZXBsb3ltZW50IgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgYmxhem9yU2VydmVyIC0+IG1hbmFnZW1lbnRIdG1sICJEZWxpdmVycyBjb250ZW50IHRvIiAiSFRUUFMgKyBTaWduYWxSIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiZXhjbHVkZUluRGVwbG95bWVudCIKICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIAogICAgICAgICAgICAgICAgIyBtZWRpYXRvciA9IGNvbXBvbmVudCAiTWVkaWF0b3IiICJQcm92aWRlcyBjb21tdW5pY2F0aW9uIGJldHdlZW4gbW9kdWxlcyIgIkMjOiBNZWRpYXRSIgoKICAgICAgICAgICAgICAgIHVzZXJNYW5hZ2VtZW50TW9kdWxlID0gY29tcG9uZW50ICJVc2VyIE1hbmFnZW1lbnQgTW9kdWxlIiAiUHJvdmlkZXMgdXNlciBtYW5hZ2VtZW50IGZ1bmN0aW9uYWxpdHkiICJDIyIKICAgICAgICAgICAgICAgIGRhdGFJbnRlZ3JhdGlvbk1vZHVsZSA9IGNvbXBvbmVudCAiRGF0YSBJbnRlZ3JhdGlvbiBNb2R1bGUiICJQcm92aWRlcyBkYXRhIGludGVncmF0aW9uIGZ1bmN0aW9uYWxpdHkiICJDIyArIFR5cGVTY3JpcHQiIAogICAgICAgICAgICAgICAgbWFwcGVyTGlicmFyeSA9IGNvbXBvbmVudCAiTWFwcGVyIExpYnJhcnkiICJQcm92aWRlcyBtYXBwaW5nIGZ1bmN0aW9uYWxpdHkiICJUeXBlU2NyaXB0ICsgSm9pbnRKUyIKICAgICAgICAgICAgICAgIG5vdGlmaWNhdGlvbk1vZHVsZSA9IGNvbXBvbmVudCAiTm90aWZpY2F0aW9uIE1vZHVsZSIgIlByb3ZpZGVzIG5vdGlmaWNhdGlvbiBmdW5jdGlvbmFsaXR5IiAiQyMiCiAgICAgICAgICAgICAgICBtZXRhYmFzZURlcGxveW1lbnRNb2R1bGUgPSBjb21wb25lbnQgIk1ldGFiYXNlIERlcGxveW1lbnQgTW9kdWxlIiAiTWFuYWdlcyBLdWJlcm5ldGVzIGRlcGxveW1lbnQiICJDIzogIgoKCiAgICAgICAgICAgICAgICBibGF6b3JTZXJ2ZXIgLT4gdXNlck1hbmFnZW1lbnRNb2R1bGUgIkV4ZWN1dGVzIHVzZXIgcmVsYXRlZCByZXF1ZXN0cyB1c2luZyIKICAgICAgICAgICAgICAgIGJsYXpvclNlcnZlciAtPiBkYXRhSW50ZWdyYXRpb25Nb2R1bGUgIkV4ZWN1dGVzIGRhdGEgaW50ZWdyYXRpb24gcmVxdWVzdHMgdXNpbmciCiAgICAgICAgICAgICAgICBibGF6b3JTZXJ2ZXIgLT4gbm90aWZpY2F0aW9uTW9kdWxlICJFeGVjdXRlcyBub3RpZmljYXRpb24gcmVxdWVzdHMgdXNpbmciCiAgICAgICAgICAgICAgICBibGF6b3JTZXJ2ZXIgLT4gbWV0YWJhc2VEZXBsb3ltZW50TW9kdWxlICJFeGVjdXRlcyBkZXBsb3ltZW50IHJlcXVlc3RzIHVzaW5nIgoKICAgICAgICAgICAgICAgIG1ldGFiYXNlRGVwbG95bWVudE1vZHVsZSAtPiBrOHNDbHVzdGVyLms4c0FQSSAiRGVwbG95cyBkYXRhYmFzZSBhbmQgTWV0YWJhc2UgaW5zdGFuY2VzIgoKICAgICAgICAgICAgICAgIHVzZXJNYW5hZ2VtZW50TW9kdWxlIC0+IG5vdGlmaWNhdGlvbk1vZHVsZSAiU2VuZHMgbm90aWZpY2F0aW9ucyB0byB1c2VycyB2aWEiCiAgICAgICAgICAgICAgICBtZXRhYmFzZURlcGxveW1lbnRNb2R1bGUgLT4gbm90aWZpY2F0aW9uTW9kdWxlICJTZW5kcyBub3RpZmljYXRpb25zIHRvIHVzZXJzIHZpYSIKICAgICAgICAgICAgICAgICMgZGF0YUludGVncmF0aW9uTW9kdWxlIC0+IG1lZGlhdG9yICJTdWJzY3JpYmVzIGFuZCBwdWJsaXNoZXMgZGF0YSBpbnRlZ3JhdGlvbiBldmVudHMiCiAgICAgICAgICAgICAgICAjIG1ldGFiYXNlRGVwbG95bWVudE1vZHVsZSAtPiBtZWRpYXRvciAiU3Vic2NyaWJlcyBhbmQgcHVibGlzaGVzIGRlcGxveW1lbnQgZXZlbnRzIgogICAgICAgICAgICAgICAgZGF0YUludGVncmF0aW9uTW9kdWxlIC0+IG1hcHBlckxpYnJhcnkgIkludGVncmF0ZXMiCiAgICAgICAgICAgICAgICBkYXRhSW50ZWdyYXRpb25Nb2R1bGUgLT4gbWV0YWJhc2VEZXBsb3ltZW50TW9kdWxlICJQcm92aWRlcyBtYXBwaW5nIGZvciBkZXBsb3ltZW50IgoKICAgICAgICAgICAgICAgIG5vdGlmaWNhdGlvbk1vZHVsZSAtPiBlbWFpbCAiU2VuZHMgZS1tYWlscyB0byB1c2VycyB2aWEiICJTTVRQIgoKCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIAogICAgICAgICAgICBwcm9qZWN0RGF0YWJhc2UgPSBjb250YWluZXIgIkJJIE1hbmFnZW1lbnQgRGF0YWJhc2UiICJQcm92aWRlcyBkYXRhIHBlcnNpc3RlbmNlIGZvciBCSSBwcm9qZWN0cyIgIk1TIFNRTCIgewogICAgICAgICAgICAgICAgdGFncyAiRGF0YWJhc2UiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIC8vIHJlbGF0aW9ucwogICAgICAgICAgICBtYW5hZ2VtZW50QXBwIC0+IHByb2plY3REYXRhYmFzZSAiVXNlcyIKICAgICAgICAgICAgbWFuYWdlbWVudEFwcC5kYXRhSW50ZWdyYXRpb25Nb2R1bGUgLT4gcHJvamVjdERhdGFiYXNlICJTYXZlcyBkYXRhIG1hcHBpbmdzIgogICAgICAgICAgICBtYW5hZ2VtZW50QXBwLnVzZXJNYW5hZ2VtZW50TW9kdWxlIC0+IHByb2plY3REYXRhYmFzZSAiU2F2ZXMgdXNlciBpbmZvcm1hdGlvbiIKICAgICAgICAgICAgbWFuYWdlbWVudEFwcC5tZXRhYmFzZURlcGxveW1lbnRNb2R1bGUgLT4gcHJvamVjdERhdGFiYXNlICJTYXZlcyBwcm9qZWN0IHN0YXR1c2VzIgoKCiAgICAgICAgfQogICAgICAgIAoKICAgICAgICAvLyByZWxhdGlvbnMgCiAgICAgICAgY29zdHVtZXIgLT4gYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRIdG1sICJNYXBzIGhpcyBkYXRhIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRIdG1sICJNYW5hZ2VzIEJJIHByb2plY3RzIC0gY3JlYXRlcyBuZXcsIHN0YXJ0cyBkZXBsb3ltZW50IG9mIE1ldGFiYXNlIGluc3RhbmNlcywgZXRjLiIKCiAgICAgICAgICAgIGRlcGxveW1lbnRFbnZpcm9ubWVudCAiTGl2ZSIgewogICAgICAgICAgICB1c2Vyc0NvbXB1dGVyID0gZGVwbG95bWVudE5vZGUgIlVzZXIncyBDb21wdXRlciIgewogICAgICAgICAgICAgICAgd2ViQnJvd3NlciA9IGRlcGxveW1lbnROb2RlICJXZWIgQnJvd3NlciIgewogICAgICAgICAgICAgICAgICAgIGxpdmVNYW5hZ2VtZW50SHRtbCA9IGNvbnRhaW5lckluc3RhbmNlIGJpTWFuYWdlbWVudFN5c3RlbS5tYW5hZ2VtZW50SHRtbCAiTGl2ZSBNYW5hZ2VtZW50IEhUTUwiICJNYW5hZ2VzIEJJIHByb2plY3RzIGluIHdlYiBicm93c2VyIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CgogICAgICAgICAgICBrdWJlcm5ldGVzTm9kZSA9IGRlcGxveW1lbnROb2RlICJLdWJlcm5ldGVzIENsdXN0ZXIiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIms4cyBjbHVzdGVyIgogICAgICAgICAgICAgICAgbWV0YWJhc2VOb2RlID0gZGVwbG95bWVudE5vZGUgIk1ldGFiYXNlIEluc3RhbmNlIiBuIHsKICAgICAgICAgICAgICAgICAgICBsaXZlTWV0YWJhc2VJbnN0YW5jZSA9IGNvbnRhaW5lckluc3RhbmNlIGs4c0NsdXN0ZXIubWV0YWJhc2VJbnN0YW5jZSAiTGl2ZSBNZXRhYmFzZSBJbnN0YW5jZSIgIk1ldGFiYXNlIGluc3RhbmNlIGZvciBjb3N0dW1lciIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBnYXRld2F5Tm9kZSA9IGRlcGxveW1lbnROb2RlICJSb3V0ZXIiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gcG9kIgogICAgICAgICAgICAgICAgICAgIGxpdmVSb3V0ZXIgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIlJvdXRlciIgIk5naW54IGluZ3Jlc3MgY29udHJvbGxlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gaW5nIgogICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbiAiUm91dGVzIGluY29taW5nIHJlcXVlc3RzIGJhc2VkIG9uIFVSTCBwYXRoIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBnYXRld2F5Tm9kZS5saXZlUm91dGVyIC0+IG1ldGFiYXNlTm9kZS5saXZlTWV0YWJhc2VJbnN0YW5jZSAiUm91dGVzIHJlcXVlc3RzIHRvIgoKICAgICAgICAgICAgICAgIGt1YmVBcGlOb2RlID0gZGVwbG95bWVudE5vZGUgIkt1YmVybmV0ZXMgQVBJIiB7CiAgICAgICAgICAgICAgICAgICAgbGl2ZUs4c0FQSSA9IGNvbnRhaW5lckluc3RhbmNlIGs4c0NsdXN0ZXIuazhzQVBJICJMaXZlIEt1YmVybmV0ZXMgQVBJIiAiQVBJIGZvciBtYW5hZ2luZyBLdWJlcm5ldGVzIGNsdXN0ZXIiCiAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgbGl2ZVNlcnZlck5vZGUgPSBkZXBsb3ltZW50Tm9kZSAiQmFja2VuZCBTZXJ2ZXIiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gcG9kIgogICAgICAgICAgICAgICAgICAgIGxpdmVNYW5hZ2VtZW50QXBwID0gY29udGFpbmVySW5zdGFuY2UgYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRBcHAgIk1hbmFnZW1lbnQgQXBwIiAiTWFuYWdlcyBCSSBwcm9qZWN0cyIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBsaXZlREJOb2RlID0gZGVwbG95bWVudE5vZGUgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiS3ViZXJuZXRlcyAtIHBvZCIKICAgICAgICAgICAgICAgICAgICBsaXZlRGF0YWJhc2UgPSBjb250YWluZXJJbnN0YW5jZSBiaU1hbmFnZW1lbnRTeXN0ZW0ucHJvamVjdERhdGFiYXNlICJMaXZlIERhdGFiYXNlIiAiRGF0YWJhc2UgZm9yIE1ldGFiYXNlIgogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGdhdGV3YXlOb2RlLmxpdmVSb3V0ZXIgLT4gbGl2ZVNlcnZlck5vZGUubGl2ZU1hbmFnZW1lbnRBcHAgIlJvdXRlcyByZXF1ZXN0cyB0byIKCiAgICAgICAgICAgICAgICBrOHNDbHVzdGVyTm9kZSA9IGRlcGxveW1lbnROb2RlICJrOHNDbHVzdGVyIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiRXh0ZXJuYWwiCiAgICAgICAgICAgICAgICAgICAgbGl2ZUNsdXN0ZXIgPSBzb2Z0d2FyZVN5c3RlbUluc3RhbmNlIGs4c0NsdXN0ZXIgIkUtbWFpbCBTZXJ2ZXIiICJTTVRQIHNlcnZlciIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBnYXRld2F5Tm9kZS5saXZlUm91dGVyIC0+IGs4c0NsdXN0ZXJOb2RlLmxpdmVDbHVzdGVyICJSb3V0ZXMgTWV0YWJhc2UgdHJhZmZpYyB0byIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIkUtbWFpbCBTZXJ2ZXIiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkV4dGVybmFsIgogICAgICAgICAgICAgICAgbGl2ZUVtYWlsID0gc29mdHdhcmVTeXN0ZW1JbnN0YW5jZSBlbWFpbCAiRS1tYWlsIFNlcnZlciIgIlNNVFAgc2VydmVyIgogICAgICAgICAgICB9CgogICAgICAgICAgICB1c2Vyc0NvbXB1dGVyLndlYkJyb3dzZXIubGl2ZU1hbmFnZW1lbnRIdG1sIC0+IGt1YmVybmV0ZXNOb2RlLmdhdGV3YXlOb2RlLmxpdmVSb3V0ZXIgIlNlbmRzIHJlcXVlc3RzIHRvIgoKICAgICAgICAgICAgIyBhcGlOb2RlIC0+IGF1dGhOb2RlICJTZW5kcyBhdXRoIHJlcXVlc3RzIgogICAgICAgICAgICAjIGF1dGhOb2RlIC0+IGFwaU5vZGUgIlNlbmRzIGJhY2sgYXV0aCBkYXRhIgoKICAgICAgICAgICAgIyBzcGEgLT4gbGJOb2RlICJDYWxscyBBUEkgcmVxdWVzdHMiCiAgICAgICAgICAgICMgYXBpTm9kZSAtPiBzcGEgIlNlbmRzIGJhY2sgcmVxdWVzdGVkIGRhdGEiCiAgICAgICAgICAgICMgbGJOb2RlIC0+IGFwaU5vZGUgIkZvcndhcmRzIEFQSSByZXF1ZXN0cyIKCiAgICAgICAgICAgICMgYXBpTm9kZSAtPiBkYXRhYmFzZU5vZGUgIlNlbmRzIGRhdGEgdG8gcGVyc2lzdCIKICAgICAgICAgICAgIyBhcGlOb2RlIC0+IG1lc3NhZ2VEYXRhYmFzZU5vZGUgIlNlbmRzIG1lc3NhZ2UgaGlzdG9yeSIKCiAgICAgICAgICAgICMgZGF0YWJhc2VOb2RlIC0+IGFwaU5vZGUgIlNlbmRzIGJhY2sgcmVxdWVzdGVkIGRhdGEiCiAgICAgICAgICAgICMgbWVzc2FnZURhdGFiYXNlTm9kZSAtPiBhcGlOb2RlICJTZW5kcyBiYWNrIG1lc3NhZ2UgZGF0YSIKCiAgICAgICAgICAgICMgYXBpTm9kZSAtPiBub3RpZmljYXRpb25Ob2RlICJSZXF1ZXN0IG5vdGlmaWNhdGlvbiIKICAgICAgICAgICAgIyBub3RpZmljYXRpb25Ob2RlIC0+IGRhdGFiYXNlTm9kZSAiU3Vic2NyaWJlIHRvIGRhdGEgY2hhbmdlcyIKCiAgICAgICAgICAgICMgbWVzc2FnZU5vZGUgLT4gbWVzc2FnZURhdGFiYXNlTm9kZSAiU3RvcmUgbWVzc2FnZSBkYXRhIgogICAgICAgICAgICAjIG1lc3NhZ2VEYXRhYmFzZU5vZGUgLT4gbWVzc2FnZU5vZGUgIlNlbmQgYmFjayBtZXNzYWdlIGhpc3RvcnkiCiAgICAgICAgfQogICAgfQoKICAgIHZpZXdzIHsKICAgICAgICBzeXN0ZW1Db250ZXh0IGJpTWFuYWdlbWVudFN5c3RlbSAiYmlNYW5hZ2VtZW50U3lzdGVtU3lzdGVtQ29udGV4dERpYWdyYW0iIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQoKICAgICAgICBjb250YWluZXIgazhzQ2x1c3RlciAiazhzQ2x1c3RlclN5c3RlbUNvbnRleHREaWFncmFtIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIGJpTWFuYWdlbWVudFN5c3RlbSAiYmlNYW5hZ2VtZW50U3lzdGVtQ29udGFpbmVyRGlhZ3JhbSIgewogICAgICAgICAgICAjIGF1dG9MYXlvdXQKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRBcHAgImJpTWFuYWdlbWVudFN5c3RlbU1hbmFnZW1lbnRBcGlDb21wb25lbnREaWFncmFtIiB7CiAgICAgICAgICAgICMgYXV0b0xheW91dAogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICB9CgogICAgICAgIGRlcGxveW1lbnQgYmlNYW5hZ2VtZW50U3lzdGVtICJMaXZlIiAibGl2ZURlcGxveW1lbnREaWFncmFtIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBleGNsdWRlICJyZWxhdGlvbnNoaXAudGFnPT1leGNsdWRlSW5EZXBsb3ltZW50IgogICAgICAgIH0KICAgICAgICAKCiAgICAgICAgc3R5bGVzIHsKICAgICAgICAgICAgcmVsYXRpb25zaGlwICJSZWxhdGlvbnNoaXAiewogICAgICAgICAgICAgICAgZm9udFNpemUgMzAKICAgICAgICAgICAgfSAgIAoKICAgICAgICAgICAgZWxlbWVudCAiRWxlbWVudCIgewogICAgICAgICAgICAgICAgZm9udFNpemUgMzAKCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiUGVyc29uIiB7CiAgICAgICAgICAgICAgICBjb2xvciAjMDg0MjdiCiAgICAgICAgICAgICAgICBmb250U2l6ZSAyNAogICAgICAgICAgICAgICAgc2hhcGUgUGVyc29uCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIlNvZnR3YXJlIFN5c3RlbSIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjMTE2OGJkCiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiQ29udGFpbmVyIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM0MzhkZDUKICAgICAgICAgICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICAKICAgICAgICAgICAgZWxlbWVudCAiQ29tcG9uZW50IiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICM4NWJiZjAKICAgICAgICAgICAgICAgIGNvbG9yICMwMDAwMDAKCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIkZhaWxvdmVyIiB7CiAgICAgICAgICAgICAgICBvcGFjaXR5IDI1CiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIGVsZW1lbnQgIms4cyBjbHVzdGVyIiB7CiAgICAgICAgICAgICAgICBpY29uICJodHRwczovL3N0YXRpYy0wMC5pY29uZHVjay5jb20vYXNzZXRzLjAwL2t1YmVybmV0ZXMtaWNvbi0yMDQ4eDE5OTUtcjFxM2Y4bjcucG5nIgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJTZXJ2aWNlIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICNkNDY1NWQKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJEYXRhYmFzZSIgewogICAgICAgICAgICAgICAgc2hhcGUgQ3lsaW5kZXIKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzMwNDY5YwogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkNvbnRyb2xsZXIiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgICM1N2I1ODYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJFeHRlcm5hbCIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAgIzczNzM3MwogICAgICAgICAgICB9CiAgICAgICAgfQoKICAgICAgICB0aGVtZXMgaHR0cHM6Ly9zdGF0aWMuc3RydWN0dXJpenIuY29tL3RoZW1lcy9rdWJlcm5ldGVzLXYwLjMvdGhlbWUuanNvbgogICAgfQp9CgoKCg=="
+    "structurizr.dsl" : "d29ya3NwYWNlICJTYWFTQkkiICJUaGlzIHdvcmtzcGFjZSBkb2N1bWVudHMgdGhlIGFyY2hpdGVjdHVyZSBvZiB0aGUgU2FhU0JJIHN5c3RlbSB3aGljaCBlbmFibGVzIG1hbmFnaW5nIG9mIG1hcHBpbmcgY3VzdG9tZXIgZGF0YWJhc2UgbW9kZWxzIHRvIGEgZ2l2ZW4gZ2VuZXJpYyBtb2RlbCwgdHJhbmZvcm1pbmcgdGhlIGRhdGEgYW5kIG1hbmFnaW5nIGluc3RhbmNlcyBvZiBNZXRhYnNlIiB7CiAgICAhaWRlbnRpZmllcnMgaGllcmFyY2hpY2FsCgogICAgbW9kZWwgewogICAgICAgIGNvc3R1bWVyID0gcGVyc29uICJDdXN0b21lciIgIkVtcGxveWVlIG9mIGEgbWFudWZhY3R1cmluZyBjb21wYW55IgogICAgICAgIGFkbWluaXN0cmF0b3IgPSBwZXJzb24gIkJJIEFkbWluaXN0cmF0b3IiICJQZXJzb24gcmVzcG9uc2libGUgZm9yIG1hbmFnaW5nIHRoZSBCSSBzeXN0ZW0gIgoKICAgICAgICAKICAgICAgICBlbWFpbCA9IHNvZnR3YXJlc3lzdGVtICJFLW1haWwgU3lzdGVtIiAiIiAiRXhpc3RpbmcgU3lzdGVtIiB7CiAgICAgICAgICAgIHRhZ3MgIkV4dGVybmFsIgogICAgICAgICAgICBlbWFpbCAtPiBjb3N0dW1lciAiU2VuZHMgbm90aWZpY2F0aW9ucyB0byBjb3N0dW1lcnMiCiAgICAgICAgICAgIGVtYWlsIC0+IGFkbWluaXN0cmF0b3IgIlNlbmRzIG5vdGlmaWNhdGlvbnMgdG8gYWRtaW5pc3RyYXRvcnMiIAogICAgICAgIH0KCiAgICAgICAgazhzQ2x1c3RlciAgPSBzb2Z0d2FyZVN5c3RlbSAiTWV0YWJhc2UgRGVwbG95bWVudCBTeXN0ZW0iICJQcm92aWRlcyBpbmZyYXN0cnVjdHVyZSBmb3IgZGVwbG95aW5nIGNvbnRhaW5lcnMgdXNpbmcgS3ViZXJuZXRlcyIgIms4cyBjbHVzdGVyIiB7CiAgICAgICAgICAgIHRhZ3MgIkV4dGVybmFsIgoKICAgICAgICAgICAgbWV0YWJhc2VJbnN0YW5jZSA9IGNvbnRhaW5lciAiTWV0YWJhc2UiICJFbmFibGVzIGNvc3R1bWVyIHRvIGV4cGxvcmUgdGhlaXIgZGF0YSIgIiIgewogICAgICAgICAgICAgICAgdGFncyAiRXh0ZXJuYWwiIAogICAgICAgICAgICB9CgogICAgICAgICAgICBtc3NxbCA9IGNvbnRhaW5lciAiTVMgU1FMIiAiUHJvdmlkZXMgZGF0YSBwZXJzaXN0ZW5jZSBmb3IgTWV0YWJhc2UiICJNUyBTUUwiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkRhdGFiYXNlIgogICAgICAgICAgICB9CgogICAgICAgICAgICBrOHNBUEkgPSBjb250YWluZXIgIkt1YmVybmV0ZXMgQVBJIiAiUHJvdmlkZXMgQVBJIGZvciBtYW5hZ2luZyBLdWJlcm5ldGVzIGNsdXN0ZXIiICJrdWJlLWFwaXNlcnZlciIgewogICAgICAgICAgICAgICAgdGFncyAiU2VydmljZSIgIkt1YmVybmV0ZXMgLSBhcGkiCiAgICAgICAgICAgIH0KCiAgICAgICAgICAgIC8vIHJlbGF0aW9ucwogICAgICAgICAgICBrOHNBUEkgLT4gbWV0YWJhc2VJbnN0YW5jZSAiTWFuYWdlcyBNZXRhYmFzZSBpbnN0YW5jZXMiCiAgICAgICAgICAgIGs4c0FQSSAtPiBtc3NxbCAiTWFuYWdlcyBkYXRhYmFzZXMiCiAgICAgICAgICAgIG1ldGFiYXNlSW5zdGFuY2UgLT4gbXNzcWwgIlVzZXMiCiAgICAgICAgICAgIGNvc3R1bWVyIC0+IG1ldGFiYXNlSW5zdGFuY2UgIlVzZXMgTWV0YWJhc2UgdG8gZXhwbG9yZSBkYXRhIgogICAgICAgIH0KCiAgICAgICAgYmlNYW5hZ2VtZW50U3lzdGVtID0gc29mdHdhcmVTeXN0ZW0gIkJJIE1hbmFnZW1lbnQgUGxhdGZvcm0iICJFbmFibGVzIG1hbmFnZW1lbnQgb2YgQkkgcHJvamVjdHMgKGRhdGEgbWFwcGluZywgZGVwbG95aW5nIG5ldyBpbnN0YW5jZXMgb2YgTWV0YWJhc2UpIiB7CiAgICAgICAgICAgIG1hbmFnZW1lbnRIdG1sID0gY29udGFpbmVyICJNYW5hZ2VtZW50IEhUTUwiICJQcm92aWRlcyBtYW5hZ2VtZW50IGZ1bmN0aW9uYWxpdHkgaW4gd2ViIGJyb3dzZXIiICJIVE1MICsgQ1NTICsgSmF2YVNjcmlwdCIgCgoKICAgICAgICAgICAgbWFuYWdlbWVudEFwcCA9IGNvbnRhaW5lciAiQkkgTWFuYWdlbWVudCBBcHAiICJFbmFibGVzIG1hbmFnZW1lbnQgb2YgQkkgcHJvamVjdHMgKHVzZXIgbWFuYWdlbWVudCwgZGF0YSBtYXBwaW5nLCBkZXBsb3lpbmcgTWV0YWJhc2UpIiAiQVNQLk5FVCBDb3JlIEJsYXpvcmAiIHsKCiAgICAgICAgICAgICAgICBibGF6b3JTZXJ2ZXIgPSBjb21wb25lbnQgIkJsYXpvciBTZXJ2ZXIiICJSZW5kZXJzIHRoZSBtYW5hZ2VtZW50IFVJIGFuZCBleGVjdXRlcyB1c2VyIHJlcXVlc3RzIiAiQyMiCiAgICAgICAgICAgICAgICBtYW5hZ2VtZW50SHRtbCAtPiBibGF6b3JTZXJ2ZXIgIlNlbmRzIHJlcXVlc3RzIHRvIiAiU2lnbmFsUiIgewogICAgICAgICAgICAgICAgICAgIHRhZ3MgImV4Y2x1ZGVJbkRlcGxveW1lbnQiCiAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBibGF6b3JTZXJ2ZXIgLT4gbWFuYWdlbWVudEh0bWwgIkRlbGl2ZXJzIGNvbnRlbnQgdG8iICJIVFRQUyArIFNpZ25hbFIiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJleGNsdWRlSW5EZXBsb3ltZW50IgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgCiAgICAgICAgICAgICAgICAjIG1lZGlhdG9yID0gY29tcG9uZW50ICJNZWRpYXRvciIgIlByb3ZpZGVzIGNvbW11bmljYXRpb24gYmV0d2VlbiBtb2R1bGVzIiAiQyM6IE1lZGlhdFIiCgogICAgICAgICAgICAgICAgdXNlck1hbmFnZW1lbnRNb2R1bGUgPSBjb21wb25lbnQgIlVzZXIgTWFuYWdlbWVudCBNb2R1bGUiICJQcm92aWRlcyB1c2VyIG1hbmFnZW1lbnQgZnVuY3Rpb25hbGl0eSIgIkMjIgogICAgICAgICAgICAgICAgZGF0YUludGVncmF0aW9uTW9kdWxlID0gY29tcG9uZW50ICJEYXRhIEludGVncmF0aW9uIE1vZHVsZSIgIlByb3ZpZGVzIGRhdGEgaW50ZWdyYXRpb24gZnVuY3Rpb25hbGl0eSIgIkMjICsgVHlwZVNjcmlwdCIgCiAgICAgICAgICAgICAgICBtYXBwZXJMaWJyYXJ5ID0gY29tcG9uZW50ICJNYXBwZXIgTGlicmFyeSIgIlByb3ZpZGVzIG1hcHBpbmcgZnVuY3Rpb25hbGl0eSIgIlR5cGVTY3JpcHQgKyBKb2ludEpTIgogICAgICAgICAgICAgICAgbm90aWZpY2F0aW9uTW9kdWxlID0gY29tcG9uZW50ICJOb3RpZmljYXRpb24gTW9kdWxlIiAiUHJvdmlkZXMgbm90aWZpY2F0aW9uIGZ1bmN0aW9uYWxpdHkiICJDIyIKICAgICAgICAgICAgICAgIG1ldGFiYXNlRGVwbG95bWVudE1vZHVsZSA9IGNvbXBvbmVudCAiTWV0YWJhc2UgRGVwbG95bWVudCBNb2R1bGUiICJNYW5hZ2VzIEt1YmVybmV0ZXMgZGVwbG95bWVudCIgIkMjOiAiCgoKICAgICAgICAgICAgICAgIGJsYXpvclNlcnZlciAtPiB1c2VyTWFuYWdlbWVudE1vZHVsZSAiRXhlY3V0ZXMgdXNlciByZWxhdGVkIHJlcXVlc3RzIHVzaW5nIgogICAgICAgICAgICAgICAgYmxhem9yU2VydmVyIC0+IGRhdGFJbnRlZ3JhdGlvbk1vZHVsZSAiRXhlY3V0ZXMgZGF0YSBpbnRlZ3JhdGlvbiByZXF1ZXN0cyB1c2luZyIKICAgICAgICAgICAgICAgIGJsYXpvclNlcnZlciAtPiBub3RpZmljYXRpb25Nb2R1bGUgIkV4ZWN1dGVzIG5vdGlmaWNhdGlvbiByZXF1ZXN0cyB1c2luZyIKICAgICAgICAgICAgICAgIGJsYXpvclNlcnZlciAtPiBtZXRhYmFzZURlcGxveW1lbnRNb2R1bGUgIkV4ZWN1dGVzIGRlcGxveW1lbnQgcmVxdWVzdHMgdXNpbmciCgogICAgICAgICAgICAgICAgbWV0YWJhc2VEZXBsb3ltZW50TW9kdWxlIC0+IGs4c0NsdXN0ZXIuazhzQVBJICJEZXBsb3lzIGRhdGFiYXNlIGFuZCBNZXRhYmFzZSBpbnN0YW5jZXMiCgogICAgICAgICAgICAgICAgdXNlck1hbmFnZW1lbnRNb2R1bGUgLT4gbm90aWZpY2F0aW9uTW9kdWxlICJTZW5kcyBub3RpZmljYXRpb25zIHRvIHVzZXJzIHZpYSIKICAgICAgICAgICAgICAgIG1ldGFiYXNlRGVwbG95bWVudE1vZHVsZSAtPiBub3RpZmljYXRpb25Nb2R1bGUgIlNlbmRzIG5vdGlmaWNhdGlvbnMgdG8gdXNlcnMgdmlhIgogICAgICAgICAgICAgICAgIyBkYXRhSW50ZWdyYXRpb25Nb2R1bGUgLT4gbWVkaWF0b3IgIlN1YnNjcmliZXMgYW5kIHB1Ymxpc2hlcyBkYXRhIGludGVncmF0aW9uIGV2ZW50cyIKICAgICAgICAgICAgICAgICMgbWV0YWJhc2VEZXBsb3ltZW50TW9kdWxlIC0+IG1lZGlhdG9yICJTdWJzY3JpYmVzIGFuZCBwdWJsaXNoZXMgZGVwbG95bWVudCBldmVudHMiCiAgICAgICAgICAgICAgICBkYXRhSW50ZWdyYXRpb25Nb2R1bGUgLT4gbWFwcGVyTGlicmFyeSAiSW50ZWdyYXRlcyIKICAgICAgICAgICAgICAgIGRhdGFJbnRlZ3JhdGlvbk1vZHVsZSAtPiBtZXRhYmFzZURlcGxveW1lbnRNb2R1bGUgIlByb3ZpZGVzIG1hcHBpbmcgZm9yIGRlcGxveW1lbnQiCgogICAgICAgICAgICAgICAgbm90aWZpY2F0aW9uTW9kdWxlIC0+IGVtYWlsICJTZW5kcyBlLW1haWxzIHRvIHVzZXJzIHZpYSIgIlNNVFAiCgoKICAgICAgICAgICAgfQoKICAgICAgICAgICAgCiAgICAgICAgICAgIHByb2plY3REYXRhYmFzZSA9IGNvbnRhaW5lciAiQkkgTWFuYWdlbWVudCBEYXRhYmFzZSIgIlByb3ZpZGVzIGRhdGEgcGVyc2lzdGVuY2UgZm9yIEJJIHByb2plY3RzIiAiTVMgU1FMIiB7CiAgICAgICAgICAgICAgICB0YWdzICJEYXRhYmFzZSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgLy8gcmVsYXRpb25zCiAgICAgICAgICAgIG1hbmFnZW1lbnRBcHAgLT4gcHJvamVjdERhdGFiYXNlICJVc2VzIgogICAgICAgICAgICBtYW5hZ2VtZW50QXBwLmRhdGFJbnRlZ3JhdGlvbk1vZHVsZSAtPiBwcm9qZWN0RGF0YWJhc2UgIlNhdmVzIGRhdGEgbWFwcGluZ3MiCiAgICAgICAgICAgIG1hbmFnZW1lbnRBcHAudXNlck1hbmFnZW1lbnRNb2R1bGUgLT4gcHJvamVjdERhdGFiYXNlICJTYXZlcyB1c2VyIGluZm9ybWF0aW9uIgogICAgICAgICAgICBtYW5hZ2VtZW50QXBwLm1ldGFiYXNlRGVwbG95bWVudE1vZHVsZSAtPiBwcm9qZWN0RGF0YWJhc2UgIlNhdmVzIHByb2plY3Qgc3RhdHVzZXMiCiAgICAgICAgfQogICAgICAgIAoKICAgICAgICAvLyByZWxhdGlvbnMgCiAgICAgICAgY29zdHVtZXIgLT4gYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRIdG1sICJNYXBzIGhpcyBkYXRhIgogICAgICAgIGFkbWluaXN0cmF0b3IgLT4gYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRIdG1sICJNYW5hZ2VzIEJJIHByb2plY3RzIGFuZCBjb3N0dW1lcnMiCgogICAgICAgIGRlcGxveW1lbnRFbnZpcm9ubWVudCAiTGl2ZSIgewogICAgICAgICAgICB1c2Vyc0NvbXB1dGVyID0gZGVwbG95bWVudE5vZGUgIlVzZXIncyBDb21wdXRlciIgewogICAgICAgICAgICAgICAgd2ViQnJvd3NlciA9IGRlcGxveW1lbnROb2RlICJXZWIgQnJvd3NlciIgewogICAgICAgICAgICAgICAgICAgIGxpdmVNYW5hZ2VtZW50SHRtbCA9IGNvbnRhaW5lckluc3RhbmNlIGJpTWFuYWdlbWVudFN5c3RlbS5tYW5hZ2VtZW50SHRtbCAiTGl2ZSBNYW5hZ2VtZW50IEhUTUwiICJNYW5hZ2VzIEJJIHByb2plY3RzIGluIHdlYiBicm93c2VyIgogICAgICAgICAgICAgICAgfQogICAgICAgICAgICB9CgogICAgICAgICAgICBrdWJlcm5ldGVzTm9kZSA9IGRlcGxveW1lbnROb2RlICJLdWJlcm5ldGVzIENsdXN0ZXIiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIms4cyBjbHVzdGVyIgogICAgICAgICAgICAgICAgbWV0YWJhc2VOb2RlID0gZGVwbG95bWVudE5vZGUgIk1ldGFiYXNlIEluc3RhbmNlIiBuIHsKICAgICAgICAgICAgICAgICAgICBsaXZlTWV0YWJhc2VJbnN0YW5jZSA9IGNvbnRhaW5lckluc3RhbmNlIGs4c0NsdXN0ZXIubWV0YWJhc2VJbnN0YW5jZSAiTGl2ZSBNZXRhYmFzZSBJbnN0YW5jZSIgIk1ldGFiYXNlIGluc3RhbmNlIGZvciBjb3N0dW1lciIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBnYXRld2F5Tm9kZSA9IGRlcGxveW1lbnROb2RlICJSb3V0ZXIiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gcG9kIgogICAgICAgICAgICAgICAgICAgIGxpdmVSb3V0ZXIgPSBpbmZyYXN0cnVjdHVyZU5vZGUgIlJvdXRlciIgIk5naW54IGluZ3Jlc3MgY29udHJvbGxlciIgewogICAgICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gaW5nIgogICAgICAgICAgICAgICAgICAgICAgICBkZXNjcmlwdGlvbiAiUm91dGVzIGluY29taW5nIHJlcXVlc3RzIGJhc2VkIG9uIFVSTCBwYXRoIgogICAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBnYXRld2F5Tm9kZS5saXZlUm91dGVyIC0+IG1ldGFiYXNlTm9kZS5saXZlTWV0YWJhc2VJbnN0YW5jZSAiUm91dGVzIHJlcXVlc3RzIHRvIgoKICAgICAgICAgICAgICAgIGt1YmVBcGlOb2RlID0gZGVwbG95bWVudE5vZGUgIkt1YmVybmV0ZXMgQVBJIiB7CiAgICAgICAgICAgICAgICAgICAgbGl2ZUs4c0FQSSA9IGNvbnRhaW5lckluc3RhbmNlIGs4c0NsdXN0ZXIuazhzQVBJICJMaXZlIEt1YmVybmV0ZXMgQVBJIiAiQVBJIGZvciBtYW5hZ2luZyBLdWJlcm5ldGVzIGNsdXN0ZXIiCiAgICAgICAgICAgICAgICB9CgogICAgICAgICAgICAgICAgbGl2ZVNlcnZlck5vZGUgPSBkZXBsb3ltZW50Tm9kZSAiQmFja2VuZCBTZXJ2ZXIiIHsKICAgICAgICAgICAgICAgICAgICB0YWdzICJLdWJlcm5ldGVzIC0gcG9kIgogICAgICAgICAgICAgICAgICAgIGxpdmVNYW5hZ2VtZW50QXBwID0gY29udGFpbmVySW5zdGFuY2UgYmlNYW5hZ2VtZW50U3lzdGVtLm1hbmFnZW1lbnRBcHAgIk1hbmFnZW1lbnQgQXBwIiAiTWFuYWdlcyBCSSBwcm9qZWN0cyIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBsaXZlREJOb2RlID0gZGVwbG95bWVudE5vZGUgIkRhdGFiYXNlIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiS3ViZXJuZXRlcyAtIHBvZCIKICAgICAgICAgICAgICAgICAgICBsaXZlRGF0YWJhc2UgPSBjb250YWluZXJJbnN0YW5jZSBiaU1hbmFnZW1lbnRTeXN0ZW0ucHJvamVjdERhdGFiYXNlICJMaXZlIERhdGFiYXNlIiAiRGF0YWJhc2UgZm9yIE1ldGFiYXNlIgogICAgICAgICAgICAgICAgfQoKICAgICAgICAgICAgICAgIGdhdGV3YXlOb2RlLmxpdmVSb3V0ZXIgLT4gbGl2ZVNlcnZlck5vZGUubGl2ZU1hbmFnZW1lbnRBcHAgIlJvdXRlcyByZXF1ZXN0cyB0byIKCiAgICAgICAgICAgICAgICBrOHNDbHVzdGVyTm9kZSA9IGRlcGxveW1lbnROb2RlICJrOHNDbHVzdGVyIiB7CiAgICAgICAgICAgICAgICAgICAgdGFncyAiRXh0ZXJuYWwiCiAgICAgICAgICAgICAgICAgICAgbGl2ZUNsdXN0ZXIgPSBzb2Z0d2FyZVN5c3RlbUluc3RhbmNlIGs4c0NsdXN0ZXIgIkUtbWFpbCBTZXJ2ZXIiICJTTVRQIHNlcnZlciIKICAgICAgICAgICAgICAgIH0KCiAgICAgICAgICAgICAgICBnYXRld2F5Tm9kZS5saXZlUm91dGVyIC0+IGs4c0NsdXN0ZXJOb2RlLmxpdmVDbHVzdGVyICJSb3V0ZXMgTWV0YWJhc2UgdHJhZmZpYyB0byIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZGVwbG95bWVudE5vZGUgIkUtbWFpbCBTZXJ2ZXIiIHsKICAgICAgICAgICAgICAgIHRhZ3MgIkV4dGVybmFsIgogICAgICAgICAgICAgICAgbGl2ZUVtYWlsID0gc29mdHdhcmVTeXN0ZW1JbnN0YW5jZSBlbWFpbCAiRS1tYWlsIFNlcnZlciIgIlNNVFAgc2VydmVyIgogICAgICAgICAgICB9CgogICAgICAgICAgICB1c2Vyc0NvbXB1dGVyLndlYkJyb3dzZXIubGl2ZU1hbmFnZW1lbnRIdG1sIC0+IGt1YmVybmV0ZXNOb2RlLmdhdGV3YXlOb2RlLmxpdmVSb3V0ZXIgIlNlbmRzIHJlcXVlc3RzIHRvIgogICAgICAgIH0KICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtQ29udGV4dCBiaU1hbmFnZW1lbnRTeXN0ZW0gImJpTWFuYWdlbWVudFN5c3RlbVN5c3RlbUNvbnRleHREaWFncmFtIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIGs4c0NsdXN0ZXIgIms4c0NsdXN0ZXJTeXN0ZW1Db250ZXh0RGlhZ3JhbSIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICB9CgogICAgICAgIGNvbnRhaW5lciBiaU1hbmFnZW1lbnRTeXN0ZW0gImJpTWFuYWdlbWVudFN5c3RlbUNvbnRhaW5lckRpYWdyYW0iIHsKICAgICAgICAgICAgIyBhdXRvTGF5b3V0CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgIH0KCiAgICAgICAgY29tcG9uZW50IGJpTWFuYWdlbWVudFN5c3RlbS5tYW5hZ2VtZW50QXBwICJiaU1hbmFnZW1lbnRTeXN0ZW1NYW5hZ2VtZW50QXBpQ29tcG9uZW50RGlhZ3JhbSIgewogICAgICAgICAgICAjIGF1dG9MYXlvdXQKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgfQoKICAgICAgICBkZXBsb3ltZW50IGJpTWFuYWdlbWVudFN5c3RlbSAiTGl2ZSIgImxpdmVEZXBsb3ltZW50RGlhZ3JhbSIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgZXhjbHVkZSAicmVsYXRpb25zaGlwLnRhZz09ZXhjbHVkZUluRGVwbG95bWVudCIKICAgICAgICB9CiAgICAgICAgCgogICAgICAgIHN0eWxlcyB7CiAgICAgICAgICAgIHJlbGF0aW9uc2hpcCAiUmVsYXRpb25zaGlwInsKICAgICAgICAgICAgICAgIGZvbnRTaXplIDMwCiAgICAgICAgICAgIH0gICAKCiAgICAgICAgICAgIGVsZW1lbnQgIkVsZW1lbnQiIHsKICAgICAgICAgICAgICAgIGZvbnRTaXplIDMwCgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIlBlcnNvbiIgewogICAgICAgICAgICAgICAgY29sb3IgIzA4NDI3YgogICAgICAgICAgICAgICAgZm9udFNpemUgMjQKICAgICAgICAgICAgICAgIHNoYXBlIFBlcnNvbgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJTb2Z0d2FyZSBTeXN0ZW0iIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgIzExNjhiZAogICAgICAgICAgICAgICAgY29sb3IgI2ZmZmZmZgogICAgICAgICAgICB9CiAgICAgICAgICAgIGVsZW1lbnQgIkNvbnRhaW5lciIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjNDM4ZGQ1CiAgICAgICAgICAgICAgICBjb2xvciAjZmZmZmZmCiAgICAgICAgICAgIH0KICAgICAgICAgICAgCiAgICAgICAgICAgIGVsZW1lbnQgIkNvbXBvbmVudCIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjODViYmYwCiAgICAgICAgICAgICAgICBjb2xvciAjMDAwMDAwCgogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJGYWlsb3ZlciIgewogICAgICAgICAgICAgICAgb3BhY2l0eSAyNQogICAgICAgICAgICB9CgogICAgICAgICAgICBlbGVtZW50ICJrOHMgY2x1c3RlciIgewogICAgICAgICAgICAgICAgaWNvbiAiaHR0cHM6Ly9zdGF0aWMtMDAuaWNvbmR1Y2suY29tL2Fzc2V0cy4wMC9rdWJlcm5ldGVzLWljb24tMjA0OHgxOTk1LXIxcTNmOG43LnBuZyIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZWxlbWVudCAiU2VydmljZSIgewogICAgICAgICAgICAgICAgYmFja2dyb3VuZCAjZDQ2NTVkCiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiRGF0YWJhc2UiIHsKICAgICAgICAgICAgICAgIHNoYXBlIEN5bGluZGVyCiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICMzMDQ2OWMKICAgICAgICAgICAgICAgIGNvbG9yICNmZmZmZmYKICAgICAgICAgICAgfQogICAgICAgICAgICBlbGVtZW50ICJDb250cm9sbGVyIiB7CiAgICAgICAgICAgICAgICBiYWNrZ3JvdW5kICAjNTdiNTg2CiAgICAgICAgICAgIH0KICAgICAgICAgICAgZWxlbWVudCAiRXh0ZXJuYWwiIHsKICAgICAgICAgICAgICAgIGJhY2tncm91bmQgICM3MzczNzMKICAgICAgICAgICAgfQogICAgICAgIH0KCiAgICAgICAgdGhlbWVzIGh0dHBzOi8vc3RhdGljLnN0cnVjdHVyaXpyLmNvbS90aGVtZXMva3ViZXJuZXRlcy12MC4zL3RoZW1lLmpzb24KICAgIH0KfQoKCgo="
   },
   "configuration" : { },
   "model" : {
     "people" : [ {
-      "id" : "2",
-      "tags" : "Element,Person",
-      "properties" : {
-        "structurizr.dsl.identifier" : "administrator"
-      },
-      "name" : "BI Administrator",
-      "description" : "Person responsible for managing the BI system",
-      "relationships" : [ {
-        "id" : "53",
-        "sourceId" : "2",
-        "destinationId" : "15",
-        "description" : "Manages BI projects - creates new, starts deployment of Metabase instances, etc.",
-        "linkedRelationshipId" : "52"
-      }, {
-        "id" : "52",
-        "tags" : "Relationship",
-        "properties" : {
-          "structurizr.dsl.identifier" : "7192117f-2d81-47da-94d7-da56d0a0029f"
-        },
-        "sourceId" : "2",
-        "destinationId" : "16",
-        "description" : "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
-      } ],
-      "location" : "Unspecified"
-    }, {
       "id" : "1",
       "tags" : "Element,Person",
       "properties" : {
@@ -43,361 +17,99 @@
       "name" : "Customer",
       "description" : "Employee of a manufacturing company",
       "relationships" : [ {
+        "id" : "13",
+        "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "a6551166-337e-49c9-96ab-43c37e0984c6"
+        },
+        "sourceId" : "1",
+        "destinationId" : "7",
+        "description" : "Uses Metabase to explore data"
+      }, {
         "id" : "14",
         "sourceId" : "1",
         "destinationId" : "6",
         "description" : "Uses Metabase to explore data",
         "linkedRelationshipId" : "13"
       }, {
-        "id" : "51",
-        "sourceId" : "1",
-        "destinationId" : "15",
-        "description" : "Maps his data",
-        "linkedRelationshipId" : "50"
-      }, {
         "id" : "50",
         "tags" : "Relationship",
         "properties" : {
-          "structurizr.dsl.identifier" : "a4bcadba-307c-4cf1-a452-926ea9230999"
+          "structurizr.dsl.identifier" : "be81ab1b-ec84-4776-ab16-4787f95f483d"
         },
         "sourceId" : "1",
         "destinationId" : "16",
         "description" : "Maps his data"
       }, {
-        "id" : "13",
+        "id" : "51",
+        "sourceId" : "1",
+        "destinationId" : "15",
+        "description" : "Maps his data",
+        "linkedRelationshipId" : "50"
+      } ],
+      "location" : "Unspecified"
+    }, {
+      "id" : "2",
+      "tags" : "Element,Person",
+      "properties" : {
+        "structurizr.dsl.identifier" : "administrator"
+      },
+      "name" : "BI Administrator",
+      "description" : "Person responsible for managing the BI system",
+      "relationships" : [ {
+        "id" : "52",
         "tags" : "Relationship",
         "properties" : {
-          "structurizr.dsl.identifier" : "43388319-35aa-4cc8-a5fb-667ade5acf6f"
+          "structurizr.dsl.identifier" : "8bb9d1b2-1212-4ab6-9786-294a9915ebd5"
         },
-        "sourceId" : "1",
-        "destinationId" : "7",
-        "description" : "Uses Metabase to explore data"
+        "sourceId" : "2",
+        "destinationId" : "16",
+        "description" : "Manages BI projects and costumers"
+      }, {
+        "id" : "53",
+        "sourceId" : "2",
+        "destinationId" : "15",
+        "description" : "Manages BI projects and costumers",
+        "linkedRelationshipId" : "52"
       } ],
       "location" : "Unspecified"
     } ],
     "softwareSystems" : [ {
-      "id" : "15",
-      "tags" : "Element,Software System",
+      "id" : "3",
+      "tags" : "Element,Software System,Existing System,External",
       "properties" : {
-        "structurizr.dsl.identifier" : "bimanagementsystem"
+        "structurizr.dsl.identifier" : "email"
       },
-      "name" : "BI Management Platform",
-      "description" : "Enables management of BI projects (data mapping, deploying new instances of Metabase)",
+      "name" : "E-mail System",
       "relationships" : [ {
-        "id" : "37",
-        "sourceId" : "15",
-        "destinationId" : "6",
-        "description" : "Deploys database and Metabase instances",
-        "linkedRelationshipId" : "32"
+        "id" : "4",
+        "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "e2062ce5-1923-4be3-8a60-4f9525e4ec90"
+        },
+        "sourceId" : "3",
+        "destinationId" : "1",
+        "description" : "Sends notifications to costumers"
       }, {
-        "id" : "36",
-        "sourceId" : "15",
-        "destinationId" : "9",
-        "description" : "Deploys database and Metabase instances",
-        "linkedRelationshipId" : "32"
-      }, {
-        "id" : "44",
-        "sourceId" : "15",
-        "destinationId" : "3",
-        "description" : "Sends e-mails to users via",
-        "technology" : "SMTP",
-        "linkedRelationshipId" : "42"
+        "id" : "5",
+        "tags" : "Relationship",
+        "properties" : {
+          "structurizr.dsl.identifier" : "46be627d-0a35-4d42-93a9-eb959b7da691"
+        },
+        "sourceId" : "3",
+        "destinationId" : "2",
+        "description" : "Sends notifications to administrators"
       } ],
       "location" : "Unspecified",
-      "containers" : [ {
-        "id" : "17",
-        "tags" : "Element,Container",
-        "properties" : {
-          "structurizr.dsl.identifier" : "bimanagementsystem.managementapp"
-        },
-        "name" : "BI Management App",
-        "description" : "Enables management of BI projects (user management, data mapping, deploying Metabase)",
-        "relationships" : [ {
-          "id" : "22",
-          "sourceId" : "17",
-          "destinationId" : "16",
-          "description" : "Delivers content to",
-          "technology" : "HTTPS + SignalR",
-          "linkedRelationshipId" : "21"
-        }, {
-          "id" : "46",
-          "tags" : "Relationship",
-          "properties" : {
-            "structurizr.dsl.identifier" : "162530a5-8a66-4694-be98-24e2e5ae2161"
-          },
-          "sourceId" : "17",
-          "destinationId" : "45",
-          "description" : "Uses"
-        }, {
-          "id" : "34",
-          "sourceId" : "17",
-          "destinationId" : "9",
-          "description" : "Deploys database and Metabase instances",
-          "linkedRelationshipId" : "32"
-        }, {
-          "id" : "35",
-          "sourceId" : "17",
-          "destinationId" : "6",
-          "description" : "Deploys database and Metabase instances",
-          "linkedRelationshipId" : "32"
-        }, {
-          "id" : "43",
-          "sourceId" : "17",
-          "destinationId" : "3",
-          "description" : "Sends e-mails to users via",
-          "technology" : "SMTP",
-          "linkedRelationshipId" : "42"
-        } ],
-        "technology" : "ASP.NET Core Blazor`",
-        "components" : [ {
-          "id" : "18",
-          "tags" : "Element,Component",
-          "properties" : {
-            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.blazorserver"
-          },
-          "name" : "Blazor Server",
-          "description" : "Renders the management UI and executes user requests",
-          "relationships" : [ {
-            "id" : "29",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "95f3b761-aef5-4fb3-bef5-f3cb82bb016c"
-            },
-            "sourceId" : "18",
-            "destinationId" : "24",
-            "description" : "Executes data integration requests using"
-          }, {
-            "id" : "28",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "58fdd2ed-e19c-46d8-b289-85638501ff5c"
-            },
-            "sourceId" : "18",
-            "destinationId" : "23",
-            "description" : "Executes user related requests using"
-          }, {
-            "id" : "30",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "479a267c-b0bc-42a2-a854-4638f850dbcb"
-            },
-            "sourceId" : "18",
-            "destinationId" : "26",
-            "description" : "Executes notification requests using"
-          }, {
-            "id" : "21",
-            "tags" : "Relationship,excludeInDeployment",
-            "properties" : {
-              "structurizr.dsl.identifier" : "9b32b2af-1eae-4f19-889a-30f789a6c1ee"
-            },
-            "sourceId" : "18",
-            "destinationId" : "16",
-            "description" : "Delivers content to",
-            "technology" : "HTTPS + SignalR"
-          }, {
-            "id" : "31",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "6c90267a-491e-42ad-8d85-4175d091fb9d"
-            },
-            "sourceId" : "18",
-            "destinationId" : "27",
-            "description" : "Executes deployment requests using"
-          } ],
-          "technology" : "C#",
-          "documentation" : { }
-        }, {
-          "id" : "26",
-          "tags" : "Element,Component",
-          "properties" : {
-            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.notificationmodule"
-          },
-          "name" : "Notification Module",
-          "description" : "Provides notification functionality",
-          "relationships" : [ {
-            "id" : "42",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "9c1524da-dab6-46c0-bf34-b47bf4daea8c"
-            },
-            "sourceId" : "26",
-            "destinationId" : "3",
-            "description" : "Sends e-mails to users via",
-            "technology" : "SMTP"
-          } ],
-          "technology" : "C#",
-          "documentation" : { }
-        }, {
-          "id" : "23",
-          "tags" : "Element,Component",
-          "properties" : {
-            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.usermanagementmodule"
-          },
-          "name" : "User Management Module",
-          "description" : "Provides user management functionality",
-          "relationships" : [ {
-            "id" : "38",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "a6f480da-493c-4eb4-934d-3c794ed9008b"
-            },
-            "sourceId" : "23",
-            "destinationId" : "26",
-            "description" : "Sends notifications to users via"
-          }, {
-            "id" : "48",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "4eb4bd9e-ab16-4093-b105-ff67da3793d8"
-            },
-            "sourceId" : "23",
-            "destinationId" : "45",
-            "description" : "Saves user information"
-          } ],
-          "technology" : "C#",
-          "documentation" : { }
-        }, {
-          "id" : "27",
-          "tags" : "Element,Component",
-          "properties" : {
-            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.metabasedeploymentmodule"
-          },
-          "name" : "Metabase Deployment Module",
-          "description" : "Manages Kubernetes deployment",
-          "relationships" : [ {
-            "id" : "39",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "a2fd46dc-a940-42e8-a718-cd09a06fafd8"
-            },
-            "sourceId" : "27",
-            "destinationId" : "26",
-            "description" : "Sends notifications to users via"
-          }, {
-            "id" : "49",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "9238de48-c81f-4010-a0c2-bc703bee4d22"
-            },
-            "sourceId" : "27",
-            "destinationId" : "45",
-            "description" : "Saves project statuses"
-          }, {
-            "id" : "32",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "364f6e56-4025-4652-81ef-419831e6ddd2"
-            },
-            "sourceId" : "27",
-            "destinationId" : "9",
-            "description" : "Deploys database and Metabase instances"
-          }, {
-            "id" : "33",
-            "sourceId" : "27",
-            "destinationId" : "6",
-            "description" : "Deploys database and Metabase instances",
-            "linkedRelationshipId" : "32"
-          } ],
-          "technology" : "C#:",
-          "documentation" : { }
-        }, {
-          "id" : "24",
-          "tags" : "Element,Component",
-          "properties" : {
-            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.dataintegrationmodule"
-          },
-          "name" : "Data Integration Module",
-          "description" : "Provides data integration functionality",
-          "relationships" : [ {
-            "id" : "41",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "88aa1fa9-96ce-42ef-84c8-faf7320bc114"
-            },
-            "sourceId" : "24",
-            "destinationId" : "27",
-            "description" : "Provides mapping for deployment"
-          }, {
-            "id" : "47",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "25ee40f8-78e3-4052-a2db-102ad1567eef"
-            },
-            "sourceId" : "24",
-            "destinationId" : "45",
-            "description" : "Saves data mappings"
-          }, {
-            "id" : "40",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "f817173a-8ba2-47da-88e5-031a1a2c8c22"
-            },
-            "sourceId" : "24",
-            "destinationId" : "25",
-            "description" : "Integrates"
-          } ],
-          "technology" : "C# + TypeScript",
-          "documentation" : { }
-        }, {
-          "id" : "25",
-          "tags" : "Element,Component",
-          "properties" : {
-            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.mapperlibrary"
-          },
-          "name" : "Mapper Library",
-          "description" : "Provides mapping functionality",
-          "technology" : "TypeScript + JointJS",
-          "documentation" : { }
-        } ],
-        "documentation" : { }
-      }, {
-        "id" : "45",
-        "tags" : "Element,Container,Database",
-        "properties" : {
-          "structurizr.dsl.identifier" : "bimanagementsystem.projectdatabase"
-        },
-        "name" : "BI Management Database",
-        "description" : "Provides data persistence for BI projects",
-        "technology" : "MS SQL",
-        "documentation" : { }
-      }, {
-        "id" : "16",
-        "tags" : "Element,Container",
-        "properties" : {
-          "structurizr.dsl.identifier" : "bimanagementsystem.managementhtml"
-        },
-        "name" : "Management HTML",
-        "description" : "Provides management functionality in web browser",
-        "relationships" : [ {
-          "id" : "20",
-          "sourceId" : "16",
-          "destinationId" : "17",
-          "description" : "Sends requests to",
-          "technology" : "SignalR",
-          "linkedRelationshipId" : "19"
-        }, {
-          "id" : "19",
-          "tags" : "Relationship,excludeInDeployment",
-          "properties" : {
-            "structurizr.dsl.identifier" : "fe681e37-4598-4ccf-a8e8-667fd1018f4f"
-          },
-          "sourceId" : "16",
-          "destinationId" : "18",
-          "description" : "Sends requests to",
-          "technology" : "SignalR"
-        } ],
-        "technology" : "HTML + CSS + JavaScript",
-        "documentation" : { }
-      } ],
       "documentation" : { }
     }, {
       "id" : "6",
-      "tags" : "Element,Software System,External",
+      "tags" : "Element,Software System,k8s cluster,External",
       "properties" : {
         "structurizr.dsl.identifier" : "k8scluster"
       },
       "name" : "Metabase Deployment System",
-      "description" : "Provides infrastructure for deploying containers",
+      "description" : "Provides infrastructure for deploying containers using Kubernetes",
       "location" : "Unspecified",
       "containers" : [ {
         "id" : "8",
@@ -418,23 +130,23 @@
         "name" : "Kubernetes API",
         "description" : "Provides API for managing Kubernetes cluster",
         "relationships" : [ {
-          "id" : "11",
-          "tags" : "Relationship",
-          "properties" : {
-            "structurizr.dsl.identifier" : "397bbc2f-100e-4c81-8fa1-442ba6faec5c"
-          },
-          "sourceId" : "9",
-          "destinationId" : "8",
-          "description" : "Manages databases"
-        }, {
           "id" : "10",
           "tags" : "Relationship",
           "properties" : {
-            "structurizr.dsl.identifier" : "91b4bcf8-1fba-4392-bcd3-bd2e7f8ebf46"
+            "structurizr.dsl.identifier" : "d760ba45-4112-468e-a71b-5f8d62fd2167"
           },
           "sourceId" : "9",
           "destinationId" : "7",
           "description" : "Manages Metabase instances"
+        }, {
+          "id" : "11",
+          "tags" : "Relationship",
+          "properties" : {
+            "structurizr.dsl.identifier" : "69359ce1-8bd7-4c27-9c8e-2d3be308b700"
+          },
+          "sourceId" : "9",
+          "destinationId" : "8",
+          "description" : "Manages databases"
         } ],
         "technology" : "kube-apiserver",
         "documentation" : { }
@@ -450,7 +162,7 @@
           "id" : "12",
           "tags" : "Relationship",
           "properties" : {
-            "structurizr.dsl.identifier" : "400a767c-c58b-4f44-ae9d-21805aac6e36"
+            "structurizr.dsl.identifier" : "459393c4-5928-431f-93d9-90a9f9ee5267"
           },
           "sourceId" : "7",
           "destinationId" : "8",
@@ -460,48 +172,409 @@
       } ],
       "documentation" : { }
     }, {
-      "id" : "3",
-      "tags" : "Element,Software System,Existing System,External",
+      "id" : "15",
+      "tags" : "Element,Software System",
       "properties" : {
-        "structurizr.dsl.identifier" : "email"
+        "structurizr.dsl.identifier" : "bimanagementsystem"
       },
-      "name" : "E-mail System",
+      "name" : "BI Management Platform",
+      "description" : "Enables management of BI projects (data mapping, deploying new instances of Metabase)",
       "relationships" : [ {
-        "id" : "5",
-        "tags" : "Relationship",
-        "properties" : {
-          "structurizr.dsl.identifier" : "77469409-d674-4d02-b28b-8cd7baf7e9e6"
-        },
-        "sourceId" : "3",
-        "destinationId" : "2",
-        "description" : "Sends notifications to administrators"
+        "id" : "36",
+        "sourceId" : "15",
+        "destinationId" : "9",
+        "description" : "Deploys database and Metabase instances",
+        "linkedRelationshipId" : "32"
       }, {
-        "id" : "4",
-        "tags" : "Relationship",
-        "properties" : {
-          "structurizr.dsl.identifier" : "23d86e19-425e-49cc-b583-10794172d00f"
-        },
-        "sourceId" : "3",
-        "destinationId" : "1",
-        "description" : "Sends notifications to costumers"
+        "id" : "37",
+        "sourceId" : "15",
+        "destinationId" : "6",
+        "description" : "Deploys database and Metabase instances",
+        "linkedRelationshipId" : "32"
+      }, {
+        "id" : "44",
+        "sourceId" : "15",
+        "destinationId" : "3",
+        "description" : "Sends e-mails to users via",
+        "technology" : "SMTP",
+        "linkedRelationshipId" : "42"
       } ],
       "location" : "Unspecified",
+      "containers" : [ {
+        "id" : "45",
+        "tags" : "Element,Container,Database",
+        "properties" : {
+          "structurizr.dsl.identifier" : "bimanagementsystem.projectdatabase"
+        },
+        "name" : "BI Management Database",
+        "description" : "Provides data persistence for BI projects",
+        "technology" : "MS SQL",
+        "documentation" : { }
+      }, {
+        "id" : "16",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "bimanagementsystem.managementhtml"
+        },
+        "name" : "Management HTML",
+        "description" : "Provides management functionality in web browser",
+        "relationships" : [ {
+          "id" : "19",
+          "tags" : "Relationship,excludeInDeployment",
+          "properties" : {
+            "structurizr.dsl.identifier" : "2e221aa9-f841-4cbc-a716-71dd8faf0698"
+          },
+          "sourceId" : "16",
+          "destinationId" : "18",
+          "description" : "Sends requests to",
+          "technology" : "SignalR"
+        }, {
+          "id" : "20",
+          "sourceId" : "16",
+          "destinationId" : "17",
+          "description" : "Sends requests to",
+          "technology" : "SignalR",
+          "linkedRelationshipId" : "19"
+        } ],
+        "technology" : "HTML + CSS + JavaScript",
+        "documentation" : { }
+      }, {
+        "id" : "17",
+        "tags" : "Element,Container",
+        "properties" : {
+          "structurizr.dsl.identifier" : "bimanagementsystem.managementapp"
+        },
+        "name" : "BI Management App",
+        "description" : "Enables management of BI projects (user management, data mapping, deploying Metabase)",
+        "relationships" : [ {
+          "id" : "22",
+          "sourceId" : "17",
+          "destinationId" : "16",
+          "description" : "Delivers content to",
+          "technology" : "HTTPS + SignalR",
+          "linkedRelationshipId" : "21"
+        }, {
+          "id" : "34",
+          "sourceId" : "17",
+          "destinationId" : "9",
+          "description" : "Deploys database and Metabase instances",
+          "linkedRelationshipId" : "32"
+        }, {
+          "id" : "35",
+          "sourceId" : "17",
+          "destinationId" : "6",
+          "description" : "Deploys database and Metabase instances",
+          "linkedRelationshipId" : "32"
+        }, {
+          "id" : "43",
+          "sourceId" : "17",
+          "destinationId" : "3",
+          "description" : "Sends e-mails to users via",
+          "technology" : "SMTP",
+          "linkedRelationshipId" : "42"
+        }, {
+          "id" : "46",
+          "tags" : "Relationship",
+          "properties" : {
+            "structurizr.dsl.identifier" : "895870a4-9da2-421b-937a-173c980aee2c"
+          },
+          "sourceId" : "17",
+          "destinationId" : "45",
+          "description" : "Uses"
+        } ],
+        "technology" : "ASP.NET Core Blazor`",
+        "components" : [ {
+          "id" : "18",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.blazorserver"
+          },
+          "name" : "Blazor Server",
+          "description" : "Renders the management UI and executes user requests",
+          "relationships" : [ {
+            "id" : "21",
+            "tags" : "Relationship,excludeInDeployment",
+            "properties" : {
+              "structurizr.dsl.identifier" : "ea9d0f45-6ea3-42ae-9550-22c00f36507e"
+            },
+            "sourceId" : "18",
+            "destinationId" : "16",
+            "description" : "Delivers content to",
+            "technology" : "HTTPS + SignalR"
+          }, {
+            "id" : "28",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "04ce52c1-6281-49d3-8a45-0e84eb1bc504"
+            },
+            "sourceId" : "18",
+            "destinationId" : "23",
+            "description" : "Executes user related requests using"
+          }, {
+            "id" : "29",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "daec35fd-a318-44d0-9ae4-d7b502a2c449"
+            },
+            "sourceId" : "18",
+            "destinationId" : "24",
+            "description" : "Executes data integration requests using"
+          }, {
+            "id" : "30",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "81ce5bd9-7cf1-4418-921e-082eaf64230e"
+            },
+            "sourceId" : "18",
+            "destinationId" : "26",
+            "description" : "Executes notification requests using"
+          }, {
+            "id" : "31",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "6c23649d-478f-4984-b172-839e870edd84"
+            },
+            "sourceId" : "18",
+            "destinationId" : "27",
+            "description" : "Executes deployment requests using"
+          } ],
+          "technology" : "C#",
+          "documentation" : { }
+        }, {
+          "id" : "27",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.metabasedeploymentmodule"
+          },
+          "name" : "Metabase Deployment Module",
+          "description" : "Manages Kubernetes deployment",
+          "relationships" : [ {
+            "id" : "32",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "df2fa111-9cfc-4b65-a278-48a38cf0bdb9"
+            },
+            "sourceId" : "27",
+            "destinationId" : "9",
+            "description" : "Deploys database and Metabase instances"
+          }, {
+            "id" : "33",
+            "sourceId" : "27",
+            "destinationId" : "6",
+            "description" : "Deploys database and Metabase instances",
+            "linkedRelationshipId" : "32"
+          }, {
+            "id" : "39",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "f2c72c56-cd3c-49eb-ac3d-3d8be159808f"
+            },
+            "sourceId" : "27",
+            "destinationId" : "26",
+            "description" : "Sends notifications to users via"
+          }, {
+            "id" : "49",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "d0e1c8cd-83c4-468f-a611-c88479d4bc4e"
+            },
+            "sourceId" : "27",
+            "destinationId" : "45",
+            "description" : "Saves project statuses"
+          } ],
+          "technology" : "C#:",
+          "documentation" : { }
+        }, {
+          "id" : "25",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.mapperlibrary"
+          },
+          "name" : "Mapper Library",
+          "description" : "Provides mapping functionality",
+          "technology" : "TypeScript + JointJS",
+          "documentation" : { }
+        }, {
+          "id" : "23",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.usermanagementmodule"
+          },
+          "name" : "User Management Module",
+          "description" : "Provides user management functionality",
+          "relationships" : [ {
+            "id" : "38",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "0399273f-bb5f-407d-9983-ffd4eba1cb98"
+            },
+            "sourceId" : "23",
+            "destinationId" : "26",
+            "description" : "Sends notifications to users via"
+          }, {
+            "id" : "48",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "5c8cfa1b-8953-4251-a3d4-0dfb7c3b7d12"
+            },
+            "sourceId" : "23",
+            "destinationId" : "45",
+            "description" : "Saves user information"
+          } ],
+          "technology" : "C#",
+          "documentation" : { }
+        }, {
+          "id" : "24",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.dataintegrationmodule"
+          },
+          "name" : "Data Integration Module",
+          "description" : "Provides data integration functionality",
+          "relationships" : [ {
+            "id" : "40",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "812dc6d8-f520-49ed-b8e4-3b0a88b31f9c"
+            },
+            "sourceId" : "24",
+            "destinationId" : "25",
+            "description" : "Integrates"
+          }, {
+            "id" : "41",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "6ab003cc-c26e-4434-a315-d6419868196b"
+            },
+            "sourceId" : "24",
+            "destinationId" : "27",
+            "description" : "Provides mapping for deployment"
+          }, {
+            "id" : "47",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "5a2cfac4-b1f1-4cea-a126-57d7f2ffaed5"
+            },
+            "sourceId" : "24",
+            "destinationId" : "45",
+            "description" : "Saves data mappings"
+          } ],
+          "technology" : "C# + TypeScript",
+          "documentation" : { }
+        }, {
+          "id" : "26",
+          "tags" : "Element,Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "bimanagementsystem.managementapp.notificationmodule"
+          },
+          "name" : "Notification Module",
+          "description" : "Provides notification functionality",
+          "relationships" : [ {
+            "id" : "42",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "e2b4f77c-1700-462e-a19e-90f7decd6fd1"
+            },
+            "sourceId" : "26",
+            "destinationId" : "3",
+            "description" : "Sends e-mails to users via",
+            "technology" : "SMTP"
+          } ],
+          "technology" : "C#",
+          "documentation" : { }
+        } ],
+        "documentation" : { }
+      } ],
       "documentation" : { }
     } ],
     "deploymentNodes" : [ {
+      "id" : "54",
+      "tags" : "Element,Deployment Node",
+      "properties" : {
+        "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.userscomputer"
+      },
+      "name" : "User's Computer",
+      "environment" : "Live",
+      "instances" : "1",
+      "children" : [ {
+        "id" : "55",
+        "tags" : "Element,Deployment Node",
+        "properties" : {
+          "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.userscomputer.webbrowser"
+        },
+        "name" : "Web Browser",
+        "environment" : "Live",
+        "instances" : "1",
+        "containerInstances" : [ {
+          "id" : "56",
+          "tags" : "Container Instance,Manages BI projects in web browser",
+          "properties" : {
+            "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.userscomputer.webbrowser.livemanagementhtml"
+          },
+          "relationships" : [ {
+            "id" : "69",
+            "sourceId" : "56",
+            "destinationId" : "67",
+            "description" : "Sends requests to",
+            "technology" : "SignalR",
+            "linkedRelationshipId" : "20"
+          }, {
+            "id" : "82",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "4d92426e-3e6d-4ba8-b5ae-146d4849e17d"
+            },
+            "sourceId" : "56",
+            "destinationId" : "61",
+            "description" : "Sends requests to"
+          } ],
+          "environment" : "Live",
+          "deploymentGroups" : [ "Default" ],
+          "instanceId" : 1,
+          "containerId" : "16"
+        } ]
+      } ]
+    }, {
       "id" : "57",
       "tags" : "Element,Deployment Node,k8s cluster",
       "properties" : {
-        "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode"
+        "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode"
       },
       "name" : "Kubernetes Cluster",
       "environment" : "Live",
       "instances" : "1",
       "children" : [ {
+        "id" : "63",
+        "tags" : "Element,Deployment Node",
+        "properties" : {
+          "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.kubeapinode"
+        },
+        "name" : "Kubernetes API",
+        "environment" : "Live",
+        "instances" : "1",
+        "containerInstances" : [ {
+          "id" : "64",
+          "tags" : "Container Instance,API for managing Kubernetes cluster",
+          "properties" : {
+            "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.kubeapinode.livek8sapi"
+          },
+          "relationships" : [ {
+            "id" : "65",
+            "sourceId" : "64",
+            "destinationId" : "59",
+            "description" : "Manages Metabase instances",
+            "linkedRelationshipId" : "10"
+          } ],
+          "environment" : "Live",
+          "deploymentGroups" : [ "Default" ],
+          "instanceId" : 1,
+          "containerId" : "9"
+        } ]
+      }, {
         "id" : "66",
         "tags" : "Element,Deployment Node,Kubernetes - pod",
         "properties" : {
-          "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.liveservernode"
+          "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.liveservernode"
         },
         "name" : "Backend Server",
         "environment" : "Live",
@@ -510,15 +583,9 @@
           "id" : "67",
           "tags" : "Container Instance,Manages BI projects",
           "properties" : {
-            "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.liveservernode.livemanagementapp"
+            "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.liveservernode.livemanagementapp"
           },
           "relationships" : [ {
-            "id" : "70",
-            "sourceId" : "67",
-            "destinationId" : "64",
-            "description" : "Deploys database and Metabase instances",
-            "linkedRelationshipId" : "34"
-          }, {
             "id" : "68",
             "sourceId" : "67",
             "destinationId" : "56",
@@ -526,17 +593,23 @@
             "technology" : "HTTPS + SignalR",
             "linkedRelationshipId" : "22"
           }, {
-            "id" : "77",
+            "id" : "70",
             "sourceId" : "67",
-            "destinationId" : "76",
+            "destinationId" : "64",
             "description" : "Deploys database and Metabase instances",
-            "linkedRelationshipId" : "35"
+            "linkedRelationshipId" : "34"
           }, {
             "id" : "73",
             "sourceId" : "67",
             "destinationId" : "72",
             "description" : "Uses",
             "linkedRelationshipId" : "46"
+          }, {
+            "id" : "77",
+            "sourceId" : "67",
+            "destinationId" : "76",
+            "description" : "Deploys database and Metabase instances",
+            "linkedRelationshipId" : "35"
           }, {
             "id" : "81",
             "sourceId" : "67",
@@ -551,97 +624,10 @@
           "containerId" : "17"
         } ]
       }, {
-        "id" : "60",
-        "tags" : "Element,Deployment Node,Kubernetes - pod",
-        "properties" : {
-          "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.gatewaynode"
-        },
-        "name" : "Router",
-        "environment" : "Live",
-        "instances" : "1",
-        "infrastructureNodes" : [ {
-          "id" : "61",
-          "tags" : "Element,Infrastructure Node,Kubernetes - ing",
-          "properties" : {
-            "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.gatewaynode.liverouter"
-          },
-          "name" : "Router",
-          "description" : "Routes incoming requests based on URL path",
-          "relationships" : [ {
-            "id" : "62",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "005ccfbc-a4c0-4529-839a-6e0525b981e5"
-            },
-            "sourceId" : "61",
-            "destinationId" : "59",
-            "description" : "Routes requests to"
-          }, {
-            "id" : "78",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "a99b74a6-6bff-4703-87f4-0efa429fe543"
-            },
-            "sourceId" : "61",
-            "destinationId" : "76",
-            "description" : "Routes Metabase traffic to"
-          }, {
-            "id" : "74",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "a2501312-5bc4-4d4b-9987-76672899b852"
-            },
-            "sourceId" : "61",
-            "destinationId" : "67",
-            "description" : "Routes requests to"
-          } ],
-          "environment" : "Live"
-        } ]
-      }, {
-        "id" : "75",
-        "tags" : "Element,Deployment Node,External",
-        "properties" : {
-          "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.k8sclusternode"
-        },
-        "name" : "k8sCluster",
-        "environment" : "Live",
-        "instances" : "1",
-        "softwareSystemInstances" : [ {
-          "id" : "76",
-          "tags" : "Software System Instance,SMTP server",
-          "properties" : {
-            "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.k8sclusternode.livecluster"
-          },
-          "environment" : "Live",
-          "deploymentGroups" : [ "Default" ],
-          "instanceId" : 1,
-          "softwareSystemId" : "6"
-        } ]
-      }, {
-        "id" : "71",
-        "tags" : "Element,Deployment Node,Kubernetes - pod",
-        "properties" : {
-          "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.livedbnode"
-        },
-        "name" : "Database",
-        "environment" : "Live",
-        "instances" : "1",
-        "containerInstances" : [ {
-          "id" : "72",
-          "tags" : "Container Instance,Database for Metabase",
-          "properties" : {
-            "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.livedbnode.livedatabase"
-          },
-          "environment" : "Live",
-          "deploymentGroups" : [ "Default" ],
-          "instanceId" : 1,
-          "containerId" : "45"
-        } ]
-      }, {
         "id" : "58",
         "tags" : "Element,Deployment Node",
         "properties" : {
-          "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.metabasenode"
+          "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.metabasenode"
         },
         "name" : "Metabase Instance",
         "description" : "n",
@@ -651,7 +637,7 @@
           "id" : "59",
           "tags" : "Container Instance,Metabase instance for costumer",
           "properties" : {
-            "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.metabasenode.livemetabaseinstance"
+            "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.metabasenode.livemetabaseinstance"
           },
           "environment" : "Live",
           "deploymentGroups" : [ "Default" ],
@@ -659,38 +645,98 @@
           "containerId" : "7"
         } ]
       }, {
-        "id" : "63",
-        "tags" : "Element,Deployment Node",
+        "id" : "71",
+        "tags" : "Element,Deployment Node,Kubernetes - pod",
         "properties" : {
-          "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.kubeapinode"
+          "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.livedbnode"
         },
-        "name" : "Kubernetes API",
+        "name" : "Database",
         "environment" : "Live",
         "instances" : "1",
         "containerInstances" : [ {
-          "id" : "64",
-          "tags" : "Container Instance,API for managing Kubernetes cluster",
+          "id" : "72",
+          "tags" : "Container Instance,Database for Metabase",
           "properties" : {
-            "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.kubernetesnode.kubeapinode.livek8sapi"
+            "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.livedbnode.livedatabase"
           },
-          "relationships" : [ {
-            "id" : "65",
-            "sourceId" : "64",
-            "destinationId" : "59",
-            "description" : "Manages Metabase instances",
-            "linkedRelationshipId" : "10"
-          } ],
           "environment" : "Live",
           "deploymentGroups" : [ "Default" ],
           "instanceId" : 1,
-          "containerId" : "9"
+          "containerId" : "45"
+        } ]
+      }, {
+        "id" : "60",
+        "tags" : "Element,Deployment Node,Kubernetes - pod",
+        "properties" : {
+          "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.gatewaynode"
+        },
+        "name" : "Router",
+        "environment" : "Live",
+        "instances" : "1",
+        "infrastructureNodes" : [ {
+          "id" : "61",
+          "tags" : "Element,Infrastructure Node,Kubernetes - ing",
+          "properties" : {
+            "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.gatewaynode.liverouter"
+          },
+          "name" : "Router",
+          "description" : "Routes incoming requests based on URL path",
+          "relationships" : [ {
+            "id" : "62",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "a7bd9bec-f207-410c-bb08-aa4b9c8a8a91"
+            },
+            "sourceId" : "61",
+            "destinationId" : "59",
+            "description" : "Routes requests to"
+          }, {
+            "id" : "74",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "bffef48e-a024-4e30-a9af-bf73302d6b61"
+            },
+            "sourceId" : "61",
+            "destinationId" : "67",
+            "description" : "Routes requests to"
+          }, {
+            "id" : "78",
+            "tags" : "Relationship",
+            "properties" : {
+              "structurizr.dsl.identifier" : "6b429864-52dc-44df-9230-f50c56527646"
+            },
+            "sourceId" : "61",
+            "destinationId" : "76",
+            "description" : "Routes Metabase traffic to"
+          } ],
+          "environment" : "Live"
+        } ]
+      }, {
+        "id" : "75",
+        "tags" : "Element,Deployment Node,External",
+        "properties" : {
+          "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.k8sclusternode"
+        },
+        "name" : "k8sCluster",
+        "environment" : "Live",
+        "instances" : "1",
+        "softwareSystemInstances" : [ {
+          "id" : "76",
+          "tags" : "Software System Instance,SMTP server",
+          "properties" : {
+            "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.kubernetesnode.k8sclusternode.livecluster"
+          },
+          "environment" : "Live",
+          "deploymentGroups" : [ "Default" ],
+          "instanceId" : 1,
+          "softwareSystemId" : "6"
         } ]
       } ]
     }, {
       "id" : "79",
       "tags" : "Element,Deployment Node,External",
       "properties" : {
-        "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.1d4bbff4-3467-4f66-94d4-1ec7bb896b5e"
+        "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.5faeba3a-2303-41bf-ac8e-edaadc69edcd"
       },
       "name" : "E-mail Server",
       "environment" : "Live",
@@ -699,59 +745,12 @@
         "id" : "80",
         "tags" : "Software System Instance,SMTP server",
         "properties" : {
-          "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.1d4bbff4-3467-4f66-94d4-1ec7bb896b5e.liveemail"
+          "structurizr.dsl.identifier" : "4875631e-1248-4f0c-828a-3b977f2b2dce.5faeba3a-2303-41bf-ac8e-edaadc69edcd.liveemail"
         },
         "environment" : "Live",
         "deploymentGroups" : [ "Default" ],
         "instanceId" : 1,
         "softwareSystemId" : "3"
-      } ]
-    }, {
-      "id" : "54",
-      "tags" : "Element,Deployment Node",
-      "properties" : {
-        "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.userscomputer"
-      },
-      "name" : "User's Computer",
-      "environment" : "Live",
-      "instances" : "1",
-      "children" : [ {
-        "id" : "55",
-        "tags" : "Element,Deployment Node",
-        "properties" : {
-          "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.userscomputer.webbrowser"
-        },
-        "name" : "Web Browser",
-        "environment" : "Live",
-        "instances" : "1",
-        "containerInstances" : [ {
-          "id" : "56",
-          "tags" : "Container Instance,Manages BI projects in web browser",
-          "properties" : {
-            "structurizr.dsl.identifier" : "8c8cfb18-1758-437c-958f-557fa8736d7f.userscomputer.webbrowser.livemanagementhtml"
-          },
-          "relationships" : [ {
-            "id" : "69",
-            "sourceId" : "56",
-            "destinationId" : "67",
-            "description" : "Sends requests to",
-            "technology" : "SignalR",
-            "linkedRelationshipId" : "20"
-          }, {
-            "id" : "82",
-            "tags" : "Relationship",
-            "properties" : {
-              "structurizr.dsl.identifier" : "82d92f3b-38ec-4f00-be96-612ea0f07d0c"
-            },
-            "sourceId" : "56",
-            "destinationId" : "61",
-            "description" : "Sends requests to"
-          } ],
-          "environment" : "Live",
-          "deploymentGroups" : [ "Default" ],
-          "instanceId" : 1,
-          "containerId" : "16"
-        } ]
       } ]
     } ]
   },
@@ -766,6 +765,27 @@
         "height" : 2300
       },
       "enterpriseBoundaryVisible" : true,
+      "elements" : [ {
+        "id" : "1",
+        "x" : 707,
+        "y" : 147
+      }, {
+        "id" : "2",
+        "x" : 705,
+        "y" : 1750
+      }, {
+        "id" : "3",
+        "x" : 37,
+        "y" : 1292
+      }, {
+        "id" : "15",
+        "x" : 681,
+        "y" : 776
+      }, {
+        "id" : "6",
+        "x" : 1320,
+        "y" : 1310
+      } ],
       "relationships" : [ {
         "id" : "37"
       }, {
@@ -788,104 +808,9 @@
         "id" : "53"
       }, {
         "id" : "44"
-      } ],
-      "elements" : [ {
-        "id" : "1",
-        "x" : 707,
-        "y" : 147
-      }, {
-        "id" : "2",
-        "x" : 705,
-        "y" : 1750
-      }, {
-        "id" : "3",
-        "x" : 37,
-        "y" : 1292
-      }, {
-        "id" : "15",
-        "x" : 681,
-        "y" : 776
-      }, {
-        "id" : "6",
-        "x" : 1320,
-        "y" : 1310
       } ]
     } ],
     "containerViews" : [ {
-      "key" : "biManagementSystemContainerDiagram",
-      "order" : 3,
-      "softwareSystemId" : "15",
-      "dimensions" : {
-        "width" : 1870,
-        "height" : 3294
-      },
-      "externalSoftwareSystemBoundariesVisible" : true,
-      "relationships" : [ {
-        "id" : "50"
-      }, {
-        "id" : "14"
-      }, {
-        "id" : "4"
-      }, {
-        "id" : "35"
-      }, {
-        "id" : "52"
-      }, {
-        "id" : "5"
-      }, {
-        "id" : "43",
-        "vertices" : [ {
-          "x" : 1584,
-          "y" : 1914
-        }, {
-          "x" : 1567,
-          "y" : 802
-        } ]
-      }, {
-        "id" : "22",
-        "vertices" : [ {
-          "x" : 1315,
-          "y" : 1960
-        } ]
-      }, {
-        "id" : "20",
-        "vertices" : [ {
-          "x" : 1042,
-          "y" : 1952
-        } ]
-      }, {
-        "id" : "46"
-      } ],
-      "elements" : [ {
-        "id" : "1",
-        "x" : 219,
-        "y" : 764
-      }, {
-        "id" : "45",
-        "x" : 967,
-        "y" : 2702
-      }, {
-        "id" : "2",
-        "x" : 1024,
-        "y" : 769
-      }, {
-        "id" : "3",
-        "x" : 554,
-        "y" : 199
-      }, {
-        "id" : "16",
-        "x" : 967,
-        "y" : 1502
-      }, {
-        "id" : "17",
-        "x" : 967,
-        "y" : 2102
-      }, {
-        "id" : "6",
-        "x" : 199,
-        "y" : 2124
-      } ]
-    }, {
       "key" : "k8sClusterSystemContextDiagram",
       "order" : 2,
       "softwareSystemId" : "6",
@@ -894,19 +819,6 @@
         "height" : 2516
       },
       "externalSoftwareSystemBoundariesVisible" : true,
-      "relationships" : [ {
-        "id" : "36"
-      }, {
-        "id" : "51"
-      }, {
-        "id" : "13"
-      }, {
-        "id" : "12"
-      }, {
-        "id" : "11"
-      }, {
-        "id" : "10"
-      } ],
       "elements" : [ {
         "id" : "1",
         "x" : 1150,
@@ -927,6 +839,93 @@
         "id" : "9",
         "x" : 420,
         "y" : 975
+      } ],
+      "relationships" : [ {
+        "id" : "36"
+      }, {
+        "id" : "51"
+      }, {
+        "id" : "13"
+      }, {
+        "id" : "11"
+      }, {
+        "id" : "12"
+      }, {
+        "id" : "10"
+      } ]
+    }, {
+      "key" : "biManagementSystemContainerDiagram",
+      "order" : 3,
+      "softwareSystemId" : "15",
+      "dimensions" : {
+        "width" : 1870,
+        "height" : 3294
+      },
+      "externalSoftwareSystemBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "45",
+        "x" : 967,
+        "y" : 2702
+      }, {
+        "id" : "1",
+        "x" : 219,
+        "y" : 764
+      }, {
+        "id" : "2",
+        "x" : 1024,
+        "y" : 769
+      }, {
+        "id" : "3",
+        "x" : 554,
+        "y" : 199
+      }, {
+        "id" : "16",
+        "x" : 967,
+        "y" : 1502
+      }, {
+        "id" : "17",
+        "x" : 967,
+        "y" : 2102
+      }, {
+        "id" : "6",
+        "x" : 199,
+        "y" : 2124
+      } ],
+      "relationships" : [ {
+        "id" : "50"
+      }, {
+        "id" : "14"
+      }, {
+        "id" : "4"
+      }, {
+        "id" : "52"
+      }, {
+        "id" : "35"
+      }, {
+        "id" : "5"
+      }, {
+        "id" : "22",
+        "vertices" : [ {
+          "x" : 1315,
+          "y" : 1960
+        } ]
+      }, {
+        "id" : "43",
+        "vertices" : [ {
+          "x" : 1584,
+          "y" : 1914
+        }, {
+          "x" : 1567,
+          "y" : 802
+        } ]
+      }, {
+        "id" : "20",
+        "vertices" : [ {
+          "x" : 1042,
+          "y" : 1952
+        } ]
+      }, {
+        "id" : "46"
       } ]
     } ],
     "componentViews" : [ {
@@ -938,6 +937,47 @@
       },
       "containerId" : "17",
       "externalContainerBoundariesVisible" : true,
+      "elements" : [ {
+        "id" : "45",
+        "x" : 1945,
+        "y" : 2826
+      }, {
+        "id" : "23",
+        "x" : 385,
+        "y" : 1400
+      }, {
+        "id" : "24",
+        "x" : 1918,
+        "y" : 1412
+      }, {
+        "id" : "25",
+        "x" : 1920,
+        "y" : 901
+      }, {
+        "id" : "3",
+        "x" : 243,
+        "y" : 2812
+      }, {
+        "id" : "26",
+        "x" : 233,
+        "y" : 2142
+      }, {
+        "id" : "16",
+        "x" : 648,
+        "y" : 200
+      }, {
+        "id" : "27",
+        "x" : 1133,
+        "y" : 1402
+      }, {
+        "id" : "6",
+        "x" : 1148,
+        "y" : 2817
+      }, {
+        "id" : "18",
+        "x" : 648,
+        "y" : 800
+      } ],
       "relationships" : [ {
         "id" : "40"
       }, {
@@ -976,13 +1016,13 @@
           "y" : 2140
         } ]
       }, {
-        "id" : "38"
-      }, {
         "id" : "49",
         "vertices" : [ {
           "x" : 1880,
           "y" : 2105
         } ]
+      }, {
+        "id" : "38"
       }, {
         "id" : "39"
       }, {
@@ -991,47 +1031,6 @@
           "x" : 723,
           "y" : 650
         } ]
-      } ],
-      "elements" : [ {
-        "id" : "45",
-        "x" : 1945,
-        "y" : 2826
-      }, {
-        "id" : "23",
-        "x" : 385,
-        "y" : 1400
-      }, {
-        "id" : "24",
-        "x" : 1918,
-        "y" : 1412
-      }, {
-        "id" : "3",
-        "x" : 243,
-        "y" : 2812
-      }, {
-        "id" : "25",
-        "x" : 1920,
-        "y" : 901
-      }, {
-        "id" : "26",
-        "x" : 233,
-        "y" : 2142
-      }, {
-        "id" : "16",
-        "x" : 648,
-        "y" : 200
-      }, {
-        "id" : "27",
-        "x" : 1133,
-        "y" : 1402
-      }, {
-        "id" : "6",
-        "x" : 1148,
-        "y" : 2817
-      }, {
-        "id" : "18",
-        "x" : 648,
-        "y" : 800
       } ]
     } ],
     "deploymentViews" : [ {
@@ -1043,19 +1042,6 @@
         "height" : 2521
       },
       "environment" : "Live",
-      "relationships" : [ {
-        "id" : "82"
-      }, {
-        "id" : "81"
-      }, {
-        "id" : "74"
-      }, {
-        "id" : "73"
-      }, {
-        "id" : "78"
-      }, {
-        "id" : "77"
-      } ],
       "elements" : [ {
         "id" : "55",
         "x" : 700,
@@ -1085,21 +1071,21 @@
         "x" : 206,
         "y" : 210
       }, {
-        "id" : "60",
-        "x" : 700,
-        "y" : 700
-      }, {
         "id" : "71",
         "x" : 525,
         "y" : 525
       }, {
-        "id" : "61",
-        "x" : 935,
-        "y" : 993
+        "id" : "60",
+        "x" : 700,
+        "y" : 700
       }, {
         "id" : "72",
         "x" : 190,
         "y" : 1860
+      }, {
+        "id" : "61",
+        "x" : 935,
+        "y" : 993
       }, {
         "id" : "75",
         "x" : 350,
@@ -1112,6 +1098,19 @@
         "id" : "76",
         "x" : 875,
         "y" : 1865
+      } ],
+      "relationships" : [ {
+        "id" : "82"
+      }, {
+        "id" : "81"
+      }, {
+        "id" : "74"
+      }, {
+        "id" : "73"
+      }, {
+        "id" : "78"
+      }, {
+        "id" : "77"
       } ]
     } ],
     "configuration" : {
@@ -1165,7 +1164,6 @@
       },
       "themes" : [ "https://static.structurizr.com/themes/kubernetes-v0.3/theme.json" ],
       "terminology" : { },
-      "metadataSymbols" : "SquareBrackets",
       "lastSavedView" : "biManagementSystemManagementApiComponentDiagram"
     }
   }

@@ -4,7 +4,6 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
     model {
         costumer = person "Customer" "Employee of a manufacturing company"
         administrator = person "BI Administrator" "Person responsible for managing the BI system "
-        # administrator = person "BI Administrator" "Person responsible for managing the BI system - creating new projects, managing users, etc."
 
         
         email = softwaresystem "E-mail System" "" "Existing System" {
@@ -13,7 +12,7 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
             email -> administrator "Sends notifications to administrators" 
         }
 
-        k8sCluster  = softwareSystem "Metabase Deployment System" "Provides infrastructure for deploying containers" {
+        k8sCluster  = softwareSystem "Metabase Deployment System" "Provides infrastructure for deploying containers using Kubernetes" "k8s cluster" {
             tags "External"
 
             metabaseInstance = container "Metabase" "Enables costumer to explore their data" "" {
@@ -87,16 +86,14 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
             managementApp.dataIntegrationModule -> projectDatabase "Saves data mappings"
             managementApp.userManagementModule -> projectDatabase "Saves user information"
             managementApp.metabaseDeploymentModule -> projectDatabase "Saves project statuses"
-
-
         }
         
 
         // relations 
         costumer -> biManagementSystem.managementHtml "Maps his data"
-        administrator -> biManagementSystem.managementHtml "Manages BI projects - creates new, starts deployment of Metabase instances, etc."
+        administrator -> biManagementSystem.managementHtml "Manages BI projects and costumers"
 
-            deploymentEnvironment "Live" {
+        deploymentEnvironment "Live" {
             usersComputer = deploymentNode "User's Computer" {
                 webBrowser = deploymentNode "Web Browser" {
                     liveManagementHtml = containerInstance biManagementSystem.managementHtml "Live Management HTML" "Manages BI projects in web browser"
@@ -149,25 +146,6 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
             }
 
             usersComputer.webBrowser.liveManagementHtml -> kubernetesNode.gatewayNode.liveRouter "Sends requests to"
-
-            # apiNode -> authNode "Sends auth requests"
-            # authNode -> apiNode "Sends back auth data"
-
-            # spa -> lbNode "Calls API requests"
-            # apiNode -> spa "Sends back requested data"
-            # lbNode -> apiNode "Forwards API requests"
-
-            # apiNode -> databaseNode "Sends data to persist"
-            # apiNode -> messageDatabaseNode "Sends message history"
-
-            # databaseNode -> apiNode "Sends back requested data"
-            # messageDatabaseNode -> apiNode "Sends back message data"
-
-            # apiNode -> notificationNode "Request notification"
-            # notificationNode -> databaseNode "Subscribe to data changes"
-
-            # messageNode -> messageDatabaseNode "Store message data"
-            # messageDatabaseNode -> messageNode "Send back message history"
         }
     }
 
