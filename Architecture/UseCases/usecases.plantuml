@@ -14,7 +14,7 @@ package "Správa zákazníků" {
     (Nahlédnout do mapovacího \n projektu zákazníka) as view_customers_mapping
     (Nasadit novou instanci \n nástroje Metabase) as start_metabase
     (Zaslat email s odkazem\n na obnovení hesla) as send_password_reset_email
-    (zaslat email s odkazem \n na novou instanci Metabase) as send_metabase_link
+    (Zaslat email s odkazem \n na novou instanci Metabase) as send_metabase_link
     login ..> verify_credentials : <<include>>
     add_customer ..> send_password_reset_email : <<include>>
     delete_customer ..> stop_metabase : <<include>>
@@ -24,7 +24,7 @@ package "Správa zákazníků" {
 package "Správa dat" {
     (Zobrazit mapování dat) as view_data_mapping
     (Upravit\n mapování dat) as edit_data_mapping
-    (vytvořit SQL views) as create_views
+    (Vytvořit databázové pohledy) as create_views
     edit_data_mapping .r.> view_data_mapping : <<extend>>
 }
 
@@ -66,7 +66,7 @@ package "Správa dat" {
 
 package "Vizualizace dat" {
     (Přistoupit k nástroji Metabase) as access_metabase
-    (Vytvořit, sdílet, exportovat, nebo porovnávat reporty a dashboardy) as use_metabase
+    (Vytvořit, sdílet, exportovat nebo porovnávat reporty a dashboardy) as use_metabase
     access_metabase <.r. use_metabase : <<extend>>
 
 }
