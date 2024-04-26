@@ -185,6 +185,23 @@ export class MappingEditor {
 
         this.sourceTablePickerModal = new SourceTablePickerModal(this.sourceDb.tables);
 
+        const importFile = document.getElementById('source-file');
+        importFile.addEventListener('change', (event) => {
+            const file = (event.target as HTMLInputElement).files?.[0];
+            if (file === undefined) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                const result = reader.result;
+                if (result === null) return;
+
+                const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(JSON.parse(result as string));
+                this.loadEntityMapping(entityMapping);
+            }
+
+            reader.readAsText(file);
+        });
+
     }
  
     public exportMapping() {
