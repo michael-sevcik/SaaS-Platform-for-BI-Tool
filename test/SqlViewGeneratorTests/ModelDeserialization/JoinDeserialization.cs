@@ -82,7 +82,7 @@ namespace SqlViewGeneratorTests.ModelDeserialization
                 }
                 """;
 
-            var deserialized = JsonSerializer.Deserialize<Join>(jsonText, this.SerializerOptions);
+            var deserialized = JsonSerializer.Deserialize<Join>(jsonText, SerializerOptions);
 
             Assert.IsNotNull(deserialized);
         }
@@ -104,8 +104,8 @@ namespace SqlViewGeneratorTests.ModelDeserialization
                     new(left, "IdObdobi"),
                     new(right, "IdObdobi")));
 
-            var serialized  = JsonSerializer.Serialize(join, this.SerializerOptions);
-            var serializedISource = JsonSerializer.Serialize<ISourceEntity>(join, this.SerializerOptions);
+            var serialized  = JsonSerializer.Serialize(join, SerializerOptions);
+            var serializedISource = JsonSerializer.Serialize<ISourceEntity>(join, SerializerOptions);
 
             Assert.IsNotNull(serialized);
             Assert.IsNotNull(serializedISource);
@@ -143,7 +143,7 @@ namespace SqlViewGeneratorTests.ModelDeserialization
                 }
                 """;
 
-            var deserialized = JsonSerializer.Deserialize<JoinCondition>(jsonText, this.SerializerOptions);
+            var deserialized = JsonSerializer.Deserialize<JoinCondition>(jsonText, SerializerOptions);
 
             Assert.IsNotNull(deserialized);
         }

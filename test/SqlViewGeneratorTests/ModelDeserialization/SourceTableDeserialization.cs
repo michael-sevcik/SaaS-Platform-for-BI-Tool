@@ -23,7 +23,7 @@ public class SourceTableDeserialization : BaseModelDeserializationTests
             }
             """;
 
-        var deserialized = JsonSerializer.Deserialize<SourceTable>(jsonText, this.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<SourceTable>(jsonText, SerializerOptions);
         Assert.IsNotNull(deserialized);
         Assert.That(deserialized.Name, Is.EqualTo("TabMzdList"));
         Assert.That(deserialized.SelectedColumns, Is.EquivalentTo(outputColumns));

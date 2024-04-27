@@ -14,7 +14,7 @@ namespace SqlViewGeneratorTests;
 public class BaseModelDeserializationTests
 {
     // TODO: Create an entity from this which parses
-    protected JsonSerializerOptions SerializerOptions => new(JsonSerializerDefaults.Web)
+    protected static JsonSerializerOptions SerializerOptions => new(JsonSerializerDefaults.Web)
     {
         Converters =
         {
@@ -33,9 +33,10 @@ public class BaseModelDeserializationTests
     {
         var expectedJson = JsonSerializer.Serialize(expected);
         var actualJson = JsonSerializer.Serialize(actual);
-
-        Assert.IsNotNull(expectedJson);
-        Assert.IsNotNull(actualJson);
-        Assert.That(actualJson, Is.EqualTo(expectedJson));
+        Assert.Multiple(() =>
+        {
+            Assert.That(expectedJson, Is.Not.Null);
+            Assert.That(actualJson, Is.Not.Null.And.EqualTo(expectedJson));
+        });
     }
 }

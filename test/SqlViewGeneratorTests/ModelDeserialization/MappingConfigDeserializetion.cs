@@ -162,9 +162,9 @@ public class MappingConfigDeserializetion : BaseModelDeserializationTests
             }
             """;
 
-        var deserialized = JsonSerializer.Deserialize<MappingConfig>(jsonText, this.SerializerOptions);
+        var deserialized = JsonSerializer.Deserialize<MappingConfig>(jsonText, SerializerOptions);
 
-        Assert.IsNotNull(deserialized);
+        Assert.That(deserialized, Is.Not.Null);
         AreEqualByJson(expectedMappingConfig, deserialized);
     }
 }

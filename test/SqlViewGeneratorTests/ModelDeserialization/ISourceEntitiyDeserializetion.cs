@@ -30,19 +30,22 @@ namespace SqlViewGeneratorTests.ModelDeserialization
             """;
 
             // Action
-            var deserialized = JsonSerializer.Deserialize<ISourceEntity>(jsonText, this.SerializerOptions);
+            var deserialized = JsonSerializer.Deserialize<ISourceEntity>(jsonText, SerializerOptions);
 
             // Assertion
-            Assert.IsNotNull(deserialized);
-            Assert.That(deserialized.Name, Is.EqualTo("TabMzdList"));
-            Assert.That(deserialized.SelectedColumns, Is.EquivalentTo(outputColumns));
+            Assert.That(deserialized, Is.Not.Null);
+            Assert.Multiple(() =>
+            {
+                Assert.That(deserialized.Name, Is.EqualTo("TabMzdList"));
+                Assert.That(deserialized.SelectedColumns, Is.EquivalentTo(outputColumns));
+            });
         }
 
         public class X
         {
-            public string Name { get; set; }
+            public required string Name { get; set; }
 
-            public X? someX { get; set; }
+            public X? SomeX { get; set; }
             public X? NextX { get; set; }
         }
 
@@ -50,9 +53,9 @@ namespace SqlViewGeneratorTests.ModelDeserialization
         public void TestReferenceHandlingOnSerialization()
         {
             var x = new X() { Name = "str",  };
-            var x1 = new X() { Name = "str", NextX = x, someX = x };
-            var serialized = JsonSerializer.Serialize(x1, this.SerializerOptions);
-            Assert.IsNotNull(serialized);
+            var x1 = new X() { Name = "str", NextX = x, SomeX = x };
+            var serialized = JsonSerializer.Serialize(x1, SerializerOptions);
+            Assert.That(serialized, Is.Not.Null);
         }
 
         [Test]
@@ -75,8 +78,8 @@ namespace SqlViewGeneratorTests.ModelDeserialization
                 }
                 """;
             
-            var deserialized = JsonSerializer.Deserialize<X>(jsonText, this.SerializerOptions);
-            Assert.IsNotNull(deserialized);
+            var deserialized = JsonSerializer.Deserialize<X>(jsonText, SerializerOptions);
+            Assert.That(deserialized, Is.Not.Null);
         }
     }
 }
