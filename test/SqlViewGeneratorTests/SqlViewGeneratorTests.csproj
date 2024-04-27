@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\scr\SqlViewGenerator\SqlViewGenerator.csproj" />
+    <ProjectReference Include="..\..\src\Modules\DataIntegration\SqlViewGenerator\SqlViewGenerator.csproj" />
   </ItemGroup>
 
 </Project>

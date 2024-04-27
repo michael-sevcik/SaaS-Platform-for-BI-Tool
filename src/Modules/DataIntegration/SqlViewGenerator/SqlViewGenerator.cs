@@ -1,13 +1,6 @@
-﻿using SqlViewGenerator.JsonModel;
-using SqlViewGenerator.SqlViewGenerating;
-using System;
-using System.CodeDom.Compiler;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace SqlViewGenerator;
+﻿namespace SqlViewGenerator;
+using JsonModel;
+using SqlViewGenerating;
 
 public static class SqlViewGenerator
 {
