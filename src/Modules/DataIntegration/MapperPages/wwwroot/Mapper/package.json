@@ -2,20 +2,24 @@
   "name": "mapper",
   "main": "index.js",
   "dependencies": {
-    "assert": "^2.1.0",
+    "@joint/core": "^4.0.2",
+    "@joint/layout-directed-graph": "^4.0.3",
     "class-transformer": "^0.5.1",
-    "jointjs": "^3.1.1",
+    "dagre": "^0.8.5",
     "reflect-metadata": "^0.1.13"
   },
   "scripts": {
     "start": "webpack-dev-server",
+    "build-pack": "webpack --mode production",
     "tsc": "tsc",
     "build": "tsc",
     "test": "jasmine"
   },
   "devDependencies": {
     "@types/backbone": "^1.4.15",
+    "@types/dagre": "^0.7.52",
     "@types/jasmine": "^4.3.5",
+    "assert": "^2.1.0",
     "jasmine": "^5.1.0",
     "ts-loader": "^9.2.5",
     "typescript": "^4.9.5",

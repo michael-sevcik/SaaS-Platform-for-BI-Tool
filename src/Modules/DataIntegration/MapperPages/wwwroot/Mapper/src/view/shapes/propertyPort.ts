@@ -1,4 +1,4 @@
-import { dia } from "jointjs";
+import { dia } from "@joint/core";
 import { Column } from "../../dbModel/database";
 
 export class PropertyPort implements dia.Element.Port {

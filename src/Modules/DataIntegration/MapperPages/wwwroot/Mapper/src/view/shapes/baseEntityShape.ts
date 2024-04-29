@@ -1,4 +1,4 @@
-import { dia } from 'jointjs';
+import { dia } from '@joint/core';
 import {
     DATABASE_ENTITY_PROPERTY_WIDTH,
     DATABASE_ENTITY_PROPERTY_HEIGHT,

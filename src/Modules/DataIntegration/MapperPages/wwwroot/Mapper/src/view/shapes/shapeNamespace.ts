@@ -1,4 +1,4 @@
-import { shapes } from 'jointjs';
+import { shapes } from '@joint/core';
 
 import { SourceTableShape } from './sourceTableShape';
 import { TargetTableShape } from './targetTableShape';

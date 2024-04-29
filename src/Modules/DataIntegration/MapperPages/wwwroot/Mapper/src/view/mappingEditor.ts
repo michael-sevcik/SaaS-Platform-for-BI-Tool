@@ -1,6 +1,7 @@
 import * as dagre from 'dagre';
 
-import { dia, elementTools, layout, linkTools, shapes } from 'jointjs';
+import { dia, elementTools, layout, linkTools, shapes } from '@joint/core';
+import { DirectedGraph } from '@joint/layout-directed-graph';
 
 import { SHAPE_NAMESPACE } from './shapes/shapeNamespace';
 import { GRID_SIZE, TARGET_DATABASE_ENTITY_GROUP_NAME, LIGHT_COLOR } from '../constants';
@@ -240,9 +241,7 @@ export class MappingEditor {
         this.graph.resetCells(cells);
 
         // layout the cells - source https://www.jointjs.com/demos/directed-graph-layout
-        layout.DirectedGraph.layout(this.graph, {
-            dagre: dagre,
-            graphlib: dagre.graphlib,
+        DirectedGraph.layout(this.graph, {
             nodeSep: 200,
             edgeSep: 80,
             rankDir: "LR"
