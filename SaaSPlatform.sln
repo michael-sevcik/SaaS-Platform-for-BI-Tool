@@ -37,13 +37,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "src\Common\Shared
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MapperPages", "src\Modules\DataIntegration\MapperPages\MapperPages.csproj", "{27B1640F-8AEE-4000-A99D-B4C4255AF14A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Modules\Users\Domain\Domain.csproj", "{E4304B76-B58A-4834-B77C-396073797A7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Modules\Users\Domain\Domain.csproj", "{E4304B76-B58A-4834-B77C-396073797A7B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Modules\Users\Api\Api.csproj", "{B1706391-8805-498B-9523-BA48E21F1B7F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Modules\Users\Api\Api.csproj", "{B1706391-8805-498B-9523-BA48E21F1B7F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain", "src\Modules\DataIntegration\Domain\Domain.csproj", "{BC15D466-B253-46AA-9C6A-A19E774D296D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "src\Modules\DataIntegration\Domain\Domain.csproj", "{BC15D466-B253-46AA-9C6A-A19E774D296D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api", "src\Modules\DataIntegration\Api\Api.csproj", "{36F2E87F-D422-42B1-8307-DE117398B6F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Api", "src\Modules\DataIntegration\Api\Api.csproj", "{36F2E87F-D422-42B1-8307-DE117398B6F7}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SqlViewGenerator", "src\Modules\DataIntegration\SqlViewGenerator\SqlViewGenerator.csproj", "{548C6D6E-A458-4F7F-A0A4-9357FD2EAA76}"
 EndProject
