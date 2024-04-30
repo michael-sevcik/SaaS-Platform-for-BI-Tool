@@ -1,0 +1,5 @@
+package-lock.json
+src/*.js
+dist/
+node_modules/
+build

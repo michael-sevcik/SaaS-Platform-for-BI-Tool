@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0",
+  "name": "asp.net",
+  "private": true,
+  "scripts": {
+    "build": "cd Mapper && npm install && cross-env NODE_ENV_PATH=../wwwroot/dist npm run build-pack",
+    "clean": "rimraf dist build node_modules out && cd Mapper && npm run clean"
+
+  },
+  "devDependencies": {
+    "rimraf": "^5.0.5",
+    "cross-env": "^7.0.3"
+  },
+  "-vs-binding": {
+    "BeforeBuild": [ "install", "build" ],
+    "Clean": [ "clean" ]
+  }
+}
