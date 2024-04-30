@@ -9,9 +9,11 @@ import { EntityMapping } from './mappingModel/entityMapping';
 import { Column, ColumnType, Database, Table } from './dbModel/database';
 import { SourceColumn } from './mappingModel/sourceColumn';
 import { EntityMappingConvertor } from './mappingModel/serialization/entityMappingConvertor';
+export { getMappingEditor };
 
 
  
+
 // Example Diagram
 
 const articleMovementRowsProperties = [
@@ -108,3 +110,8 @@ const deserializedEntityMapping = EntityMappingConvertor.convertPlainToEntityMap
 
 const mappingEditor = new MappingEditor(sourceDb, targetDb);
 mappingEditor.loadEntityMapping(deserializedEntityMapping);
+
+
+function getMappingEditor() : MappingEditor {
+    return mappingEditor;
+}

@@ -11,6 +11,7 @@
   "scripts": {
     "start": "webpack-dev-server",
     "build-pack": "webpack --mode production",
+    "build-to-www": "tsc --outDir \"../wwwroot/build\"",
     "tsc": "tsc",
     "build": "tsc",
     "test": "jasmine",
@@ -22,6 +23,7 @@
     "@types/jasmine": "^4.3.5",
     "assert": "^2.1.0",
     "cross-env": "^7.0.3",
+    "css-loader": "^7.1.1",
     "jasmine": "^5.1.0",
     "rimraf": "^5.0.5",
     "ts-loader": "^9.2.5",
