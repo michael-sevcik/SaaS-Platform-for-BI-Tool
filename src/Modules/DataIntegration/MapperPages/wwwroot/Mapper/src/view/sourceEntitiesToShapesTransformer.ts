@@ -11,7 +11,7 @@ import { JoinLink } from "./shapes/joinLink";
 import { JoinModal } from "./modals/joinModal";
 import { SourceTableShape } from "./shapes/sourceTableShape";
 
-import { dia } from "jointjs";
+import { dia } from "@joint/core";
 
 
 export class SourceEntitiesToShapesTransformer extends MappingVisitor{
@@ -54,6 +54,7 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         const joinLink = new JoinLink(join, joinModal);
         joinLink.source(leftSourceEntityShape);
         joinLink.target(rightSourceEntityShape);
+        joinLink.source()
 
         this.cells.push(joinLink);
         console.log('Join link');

@@ -72,7 +72,7 @@ export class MappingEditor {
             model: this.graph,
             frozen: true,
             async: true,
-            defaultLink: () => new PropertyLink(),
+            defaultLink: new shapes.standard.DoubleLink(),
             sorting: dia.Paper.sorting.APPROX,
             magnetThreshold: 'onleave',
             linkPinning: false,

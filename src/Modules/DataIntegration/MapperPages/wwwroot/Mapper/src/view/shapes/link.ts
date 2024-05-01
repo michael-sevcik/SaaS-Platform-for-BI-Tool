@@ -1,4 +1,4 @@
-import { shapes, dia, util } from "jointjs";
+import { shapes, dia, util } from "@joint/core";
 import { LIGHT_COLOR, SECONDARY_DARK_COLOR } from "../../constants";
 
 export abstract class Link extends shapes.standard.DoubleLink {

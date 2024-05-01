@@ -1,4 +1,4 @@
-import { dia, shapes, util } from "jointjs";
+import { dia, shapes, util } from "@joint/core";
 import { HIGHLIGHTED_OUTLINE_COLOR, LIGHT_COLOR, SECONDARY_DARK_COLOR } from "../../constants";
 import { Link } from "./link";
 import { TargetElementShape } from "./targetElementShape";
