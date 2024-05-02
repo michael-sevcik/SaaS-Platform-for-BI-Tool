@@ -1,0 +1,30 @@
+﻿@using static Microsoft.AspNetCore.Components.Web.RenderMode;
+@rendermode InteractiveServer
+
+@using Microsoft.JSInterop;
+@inject IJSRuntime JsRuntime;
+
+<div class="my-component">
+    This component is defined in the <strong>MapperPages</strong> library.
+    <p>@number</p>
+</div>
+
+<div id="toolbar">
+    <input id="source-file" type="file" />
+</div>
+<div id="content">
+    <div id="paper"></div>
+</div>
+<div id="overlay"></div>
+
+@code {
+    private int number = 0;
+    protected override async Task OnAfterRenderAsync(bool t)
+    {
+        await using ExampleJsInterop a = new(JsRuntime);
+        
+        // create a variable  in the component and assign it a value from the JSInterop
+        var number = await a.GetNumber();
+        Console.WriteLine(number);
+    }
+}

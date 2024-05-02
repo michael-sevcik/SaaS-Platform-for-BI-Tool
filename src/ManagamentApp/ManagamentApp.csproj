@@ -20,6 +20,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Common\Application.Contracts\Application.Contracts.csproj" />
     <ProjectReference Include="..\Common\Application\Application.csproj" />
+    <ProjectReference Include="..\Modules\DataIntegration\MapperPages\MapperPages.csproj" />
   </ItemGroup>
 
 </Project>

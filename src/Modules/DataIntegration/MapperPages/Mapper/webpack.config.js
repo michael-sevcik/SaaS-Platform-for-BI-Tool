@@ -14,7 +14,12 @@ module.exports = {
         path: process.env.NODE_ENV_PATH
             ? path.resolve(__dirname, process.env.NODE_ENV_PATH)
             : path.resolve(__dirname, 'dist'), // Default output if not set
-        publicPath: '/dist/'
+        publicPath: '/dist/',
+        library: {
+            name: 'Mapinator',
+            type: 'var'
+        },
+
     },
     mode: 'development',
     module: {

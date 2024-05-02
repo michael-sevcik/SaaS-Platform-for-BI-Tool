@@ -3,10 +3,10 @@
   "name": "asp.net",
   "private": true,
   "scripts": {
-    "build": "cd Mapper && npm install && npm run build-to-www",
+    "build": "npm run build-pack",
+    "tsc-build": "cd Mapper && npm install && npm run build-to-www",
     "build-pack": "cd Mapper && npm install && cross-env NODE_ENV_PATH=../wwwroot/dist npm run build-pack",
     "clean": "rimraf wwwroot/dist wwwroot/build node_modules out && cd Mapper && npm run clean"
-
   },
   "devDependencies": {
     "rimraf": "^5.0.5",
