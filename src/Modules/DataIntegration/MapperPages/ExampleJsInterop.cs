@@ -16,14 +16,14 @@ namespace MapperPages
         public ExampleJsInterop(IJSRuntime jsRuntime)
         {
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", "./_content/MapperPages/dist/bundle.js").AsTask());
+                "import", "./_content/MapperPages/exampleJsInterop2.js").AsTask()); 
         }
 
-        public async ValueTask<int> GetNumber()
+        public async ValueTask<string> GetNumber()
         {
             var module = await moduleTask.Value;
 
-            return await module.InvokeAsync<int>("ahoj");
+            return await module.InvokeAsync<string>("showPrompt", "ahoj");
         }
 
         public async ValueTask DisposeAsync()

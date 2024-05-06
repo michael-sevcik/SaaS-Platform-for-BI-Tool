@@ -9,6 +9,9 @@ module.exports = {
     },
     // target: 'es2020',
     entry: './src/index.ts',
+    experiments: {
+        outputModule: true,
+    },
     output: {
         filename: 'bundle.js',
         path: process.env.NODE_ENV_PATH
@@ -16,11 +19,11 @@ module.exports = {
             : path.resolve(__dirname, 'dist'), // Default output if not set
         publicPath: '/dist/',
         library: {
-            name: 'Mapinator',
-            type: 'var'
+            //name: 'Mapinator',
+            type: 'module'
         },
-
     },
+    devtool: 'source-map', 
     mode: 'development',
     module: {
         rules: [

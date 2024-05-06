@@ -14,57 +14,24 @@
     <TypeScriptModuleKind>none</TypeScriptModuleKind>
 	<ShouldRunNpmInstall>true</ShouldRunNpmInstall>
 	<ShouldRunNpmBuildScript>true</ShouldRunNpmBuildScript>
+	<AccelerateBuildsInVisualStudio>false</AccelerateBuildsInVisualStudio>
+	<MvcBuildViews>true</MvcBuildViews>
 
   </PropertyGroup>
 
-  <ItemGroup>
-    <None Remove="Mapper\.gitignore" />
-    <None Remove="Mapper\index.html" />
-    <None Remove="Mapper\README.txt" />
-    <None Remove="Mapper\spec\deserialization.spec.ts" />
-    <None Remove="Mapper\spec\serialization.spec.ts" />
-    <None Remove="Mapper\src\constants.ts" />
-    <None Remove="Mapper\src\dbModel\database.ts" />
-    <None Remove="Mapper\src\index.ts" />
-    <None Remove="Mapper\src\mappingModel\Agregators\Conditions\conditionLink.ts" />
-    <None Remove="Mapper\src\mappingModel\Agregators\Conditions\joinCondition.ts" />
-    <None Remove="Mapper\src\mappingModel\Agregators\join.ts" />
-    <None Remove="Mapper\src\mappingModel\dbConnectionConfig.ts" />
-    <None Remove="Mapper\src\mappingModel\entityMapping.ts" />
-    <None Remove="Mapper\src\mappingModel\mappingConfig.ts" />
-    <None Remove="Mapper\src\mappingModel\ownable.ts" />
-    <None Remove="Mapper\src\mappingModel\owner.ts" />
-    <None Remove="Mapper\src\mappingModel\referenceHolder.ts" />
-    <None Remove="Mapper\src\mappingModel\serialization\entityMappingConvertor.ts" />
-    <None Remove="Mapper\src\mappingModel\serialization\mappingModelConverter.ts" />
-    <None Remove="Mapper\src\mappingModel\serialization\mappingToPlainConverterVisitor.ts" />
-    <None Remove="Mapper\src\mappingModel\serialization\mappingVisitor.ts" />
-    <None Remove="Mapper\src\mappingModel\serialization\plainToSourceEntityConvertor.ts" />
-    <None Remove="Mapper\src\mappingModel\serialization\visitable.ts" />
-    <None Remove="Mapper\src\mappingModel\sourceColumn.ts" />
-    <None Remove="Mapper\src\mappingModel\sourceConcreteEntity.ts" />
-    <None Remove="Mapper\src\mappingModel\sourceEntity.ts" />
-    <None Remove="Mapper\src\mappingModel\sourceTable.ts" />
-    <None Remove="Mapper\src\style.css" />
-    <None Remove="Mapper\src\view\elements\searchableDropdown.ts" />
-    <None Remove="Mapper\src\view\mappingEditor.ts" />
-    <None Remove="Mapper\src\view\modals\baseModal.ts" />
-    <None Remove="Mapper\src\view\modals\columnSelectionModal.ts" />
-    <None Remove="Mapper\src\view\modals\joinModal.ts" />
-    <None Remove="Mapper\src\view\modals\sourceTablePickerModal.ts" />
-    <None Remove="Mapper\src\view\shapes\baseEntityShape.ts" />
-    <None Remove="Mapper\src\view\shapes\baseSourceEntityShape.ts" />
-    <None Remove="Mapper\src\view\shapes\joinLink.ts" />
-    <None Remove="Mapper\src\view\shapes\link.ts" />
-    <None Remove="Mapper\src\view\shapes\propertyLink.ts" />
-    <None Remove="Mapper\src\view\shapes\propertyPort.ts" />
-    <None Remove="Mapper\src\view\shapes\shapeNamespace.ts" />
-    <None Remove="Mapper\src\view\shapes\sourceTableShape.ts" />
-    <None Remove="Mapper\src\view\shapes\targetElementShape.ts" />
-    <None Remove="Mapper\src\view\shapes\targetTableShape.ts" />
-    <None Remove="Mapper\src\view\sourceEntitiesToShapesTransformer.ts" />
-    <None Remove="Mapper\webpack.config.js" />
-  </ItemGroup>
+    <Target Name="CleanNPM" BeforeTargets="Clean">
+        <Exec Command="npm run clean" />
+    </Target>
+
+	<Target Name="InstallNPM" AfterTargets="Restore">
+		<Exec Command="npm install" />
+	</Target>
+
+	<Target Name="BuildNPM" BeforeTargets="BeforeBuild">
+		<Exec Command="npm install" />
+		<Exec Command="npm run build" />
+	</Target>
+	
 
   <ItemGroup>
     <Content Include="Mapper\.gitignore">
@@ -264,6 +231,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\exampleJsInterop2.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

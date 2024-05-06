@@ -9,11 +9,8 @@
     "clean": "rimraf wwwroot/dist wwwroot/build node_modules out && cd Mapper && npm run clean"
   },
   "devDependencies": {
-    "rimraf": "^5.0.5",
-    "cross-env": "^7.0.3"
-  },
-  "-vs-binding": {
-    "BeforeBuild": [ "install", "build" ],
-    "Clean": [ "clean" ]
+    "cross-env": "^7.0.3",
+    "rimraf": "^5.0.5"
   }
+
 }
