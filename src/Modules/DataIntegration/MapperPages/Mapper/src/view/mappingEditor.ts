@@ -72,7 +72,7 @@ export class MappingEditor {
             model: this.graph,
             frozen: true,
             async: true,
-            defaultLink: new shapes.standard.DoubleLink(),
+            defaultLink: new PropertyLink(),
             sorting: dia.Paper.sorting.APPROX,
             magnetThreshold: 'onleave',
             linkPinning: false,
@@ -314,7 +314,9 @@ export class MappingEditor {
         const tranformer = new SourceEntitiesToShapesTransformer(this.sourceDb.tables);
         
         // transform the source entities to shapes
-        entityMapping.sourceEntity.accept(tranformer);
+        if (entityMapping.sourceEntity !== null) {
+            entityMapping.sourceEntity.accept(tranformer);
+        }
         
         // Create the target entity shape and links between the source and target entities
         const cells = tranformer.cells;

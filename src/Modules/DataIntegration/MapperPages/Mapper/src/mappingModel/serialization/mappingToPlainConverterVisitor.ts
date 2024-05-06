@@ -137,8 +137,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
         });
     }
 
-    public getResult(): any {
-        // TODO: CHECK IF THE INTERMEDIATE RESULT IS NOT EMPTY
+    public popResult(): any {
         const result = this.intermediateResult.pop();
         if (this.intermediateResult.length !== 0) {
             throw new Error("Intermediate result is not empty");

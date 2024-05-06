@@ -80,12 +80,12 @@ const mappingConfig = new MappingConfig(dbConnectionConfig, [entityMapping]);
 //     });
 // });
 
-fdescribe('Join serialization', () => {
+fdescribe('Join serialization', () => { 
     it('should serialize a join', () => {
         // Serialize
         const visitor = new MappingToPlainConverterVisiter();
         join.accept(visitor);
-        const stringifiedResult = JSON.stringify(visitor.getResult(), null, 4);
+        const stringifiedResult = JSON.stringify(visitor.popResult(), null, 4);
 
         const parsed = JSON.parse(`
         {

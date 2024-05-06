@@ -23,7 +23,7 @@ module.exports = {
             type: 'module'
         },
     },
-    devtool: 'source-map', 
+    devtool: 'eval-source-map', 
     mode: 'development',
     module: {
         rules: [

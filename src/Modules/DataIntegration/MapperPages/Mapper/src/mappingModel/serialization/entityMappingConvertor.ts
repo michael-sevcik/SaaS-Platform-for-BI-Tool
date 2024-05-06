@@ -6,13 +6,16 @@ import { PlainToSourceEntityConvertor } from "./plainToSourceEntityConvertor";
 
 export class EntityMappingConvertor {
     static convertEntityMappingToPlain(entityMapping: EntityMapping) : any {
-        entityMapping.createBackwardConnections(); // TODO: is this needed?
+        let plainSourceEntity : any | null = null;
+        let plainSourceEntities : SourceEntity[] = [];
         const visitor = new MappingToPlainConverterVisiter();
-        entityMapping.sourceEntity.accept(visitor);
-        const plainSourceEntities = visitor.sortedSourceEntities;
-        visitor.getResult();
-        entityMapping.sourceEntity.accept(visitor);
-        const plainSourceEntity = visitor.getResult();
+        entityMapping.createBackwardConnections(); // TODO: is this needed?
+        if (entityMapping.sourceEntity !== null) {
+            entityMapping.sourceEntity.accept(visitor);
+            plainSourceEntity = visitor.popResult();
+            plainSourceEntities = visitor.sortedSourceEntities;
+        }
+        
         const plainColumnMappings = {};
         entityMapping.columnMappings.forEach((sourceColumn, key, map) => {
             let result : any| null;
@@ -23,7 +26,7 @@ export class EntityMappingConvertor {
             }
             else {
                 visitor.visitSourceColumn(sourceColumn);
-                result = visitor.getResult();
+                result = visitor.popResult();
             }
             
             plainColumnMappings[key] = result
@@ -45,8 +48,11 @@ export class EntityMappingConvertor {
         for (const plainSourceEntity of plainSourceEntities) {
             sourceEntities.push(convertor.convertToSourceEntity(plainSourceEntity));
         }
-        
-        const sourceEntity = convertor.convertToSourceEntity(value["sourceEntity"]);
+
+        let sourceEntity : SourceEntity | null = null; 
+        if (value["sourceEntity"] != null) {
+            sourceEntity = convertor.convertToSourceEntity(value["sourceEntity"]);
+        }
 
         const columnMappings = new Map<string, SourceColumn | null>();
         Object.entries(value["columnMappings"]).forEach(([key, value]) => {
