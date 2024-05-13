@@ -1,7 +1,7 @@
 export abstract class BaseModal {
     private static counter = 0;
     private readonly title: HTMLHeadingElement;
-    private readonly saveAction = () => this.handleSaveRequest();
+    private readonly cancelAction = () => this.handleCancelClick();
     private saveCallback: () => void | null = null;
 
     protected static readonly overlay = document.getElementById('overlay');
@@ -17,7 +17,7 @@ export abstract class BaseModal {
         const closeButton = document.createElement('button');
         closeButton.classList.add('close-button');
         closeButton.innerHTML = '&times;';
-        closeButton.addEventListener('click', () => this.handleSaveRequest());
+        closeButton.addEventListener('click', () => this.handleCancelClick());
 
         const modalHeader = document.createElement('div');
         modalHeader.classList.add('modal-header');
@@ -31,8 +31,8 @@ export abstract class BaseModal {
         footer.classList.add('modal-footer');
 
         const cancelButton = document.createElement('button');
-        cancelButton.innerText = 'Cancel';
-        cancelButton.addEventListener('click', () => this.handleCancelClick());
+        cancelButton.innerText = 'Continue';
+        cancelButton.addEventListener('click', () => this.handleSaveRequest());
         footer.appendChild(cancelButton);
 
         const modal = document.createElement('div');
@@ -81,7 +81,7 @@ export abstract class BaseModal {
         this.close();
         const callback = this.saveCallback;
         if (callback !== null) {
-            this.saveCallback = null;
+            this.saveCallback = null; // TODO: is this necessary?
             callback();
         }
     }
@@ -97,7 +97,7 @@ export abstract class BaseModal {
         this.saveCallback = saveCallback;
         this.modal.classList.add('active');
         BaseModal.overlay.classList.add('active');
-        BaseModal.overlay.addEventListener('click', this.saveAction);
+        BaseModal.overlay.addEventListener('click', this.cancelAction);
     }
 
     /**
@@ -110,7 +110,7 @@ export abstract class BaseModal {
     private close() {
         this.modal.classList.remove('active');
         BaseModal.overlay.classList.remove('active');
-        BaseModal.overlay.removeEventListener('click', this.saveAction);
+        BaseModal.overlay.removeEventListener('click', this.cancelAction);
     }
 
     protected setTitle(title: string) {
