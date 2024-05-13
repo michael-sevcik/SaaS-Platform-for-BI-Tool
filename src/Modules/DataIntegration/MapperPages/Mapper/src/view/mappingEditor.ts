@@ -311,15 +311,15 @@ export class MappingEditor {
             (table) => table.name === entityMapping.name);
             
         if (correspondingTable === undefined) throw new Error('Cannot find the corresponding table');    
-        const tranformer = new SourceEntitiesToShapesTransformer(this.sourceDb.tables);
+        const transformer = new SourceEntitiesToShapesTransformer(this.sourceDb.tables);
         
         // transform the source entities to shapes
         if (entityMapping.sourceEntity !== null) {
-            entityMapping.sourceEntity.accept(tranformer);
+            entityMapping.sourceEntity.accept(transformer);
         }
         
         // Create the target entity shape and links between the source and target entities
-        const cells = tranformer.cells;
+        const cells = transformer.cells;
         const targetShape = new TargetTableShape(entityMapping, []);
         for (const [targetColumnName, sourceColumn] of entityMapping.columnMappings) {
             // Add port to the target entity
@@ -330,7 +330,7 @@ export class MappingEditor {
 
             // if it has mapping, add a link
             if (sourceColumn !== null) {
-                const sourceElement = tranformer.elementMap.get(sourceColumn.owner);
+                const sourceElement = transformer.elementMap.get(sourceColumn.owner);
                 const sourcePort = sourceElement.getPortByColumn(sourceColumn);                
                 const link = new PropertyLink();
                 link.source({
@@ -350,7 +350,6 @@ export class MappingEditor {
         }
 
         cells.push(targetShape);
-
         return cells;
     }
 
