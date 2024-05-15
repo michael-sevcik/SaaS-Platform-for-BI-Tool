@@ -1,3 +1,5 @@
+import { mapperElement } from "../../constants";
+
 export abstract class BaseModal {
     private static counter = 0;
     private readonly title: HTMLHeadingElement;
@@ -7,7 +9,7 @@ export abstract class BaseModal {
     protected static readonly overlay = document.getElementById('overlay');
     protected readonly modal : HTMLDivElement;
     protected abstract name: string;
-    protected readonly body: HTMLDivElement
+    protected readonly modalContent: HTMLDivElement
 
     public constructor() {
         console.log('base modal constructor');
@@ -24,8 +26,8 @@ export abstract class BaseModal {
         modalHeader.appendChild(this.title);
         modalHeader.appendChild(closeButton);
 
-        this.body = document.createElement('div');
-        this.body.classList.add('modal-body');
+        this.modalContent = document.createElement('div');
+        this.modalContent.classList.add('modal-body');
 
         const footer = document.createElement('div');
         footer.classList.add('modal-footer');
@@ -37,13 +39,14 @@ export abstract class BaseModal {
 
         const modal = document.createElement('div');
         modal.id = 'Modal-' + BaseModal.counter++;
-        modal.classList.add('modal');
+        modal.classList.add('mapper-modal');
         modal.appendChild(modalHeader);
-        modal.appendChild(this.body);
+        modal.appendChild(this.modalContent);
         modal.appendChild(footer);
         this.modal = modal;
 
-        document.body.appendChild(modal);
+        // document.body.appendChild(modal);
+        mapperElement.appendChild(modal); 
     }
 
     /**

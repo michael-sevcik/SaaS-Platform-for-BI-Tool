@@ -27,10 +27,10 @@ export class SourceTablePickerModal extends BaseModal {
         this.setTitle(this.name);
         const instructions = document.createElement('p');
         instructions.textContent = 'Vyberte zdrojovou tabulku k přidání: \n';
-        this.body.appendChild(instructions);
+        this.modalContent.appendChild(instructions);
 
         this.tablePicker = new SearchableDropdown(
-            this.body,
+            this.modalContent,
             () => tables.map(table => table.name),
             "Tabulka k přidání",
             index => this._tableToAdd = tables[index]);

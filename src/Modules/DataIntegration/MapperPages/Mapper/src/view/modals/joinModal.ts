@@ -62,7 +62,7 @@ export class JoinModal extends BaseModal{
         this.setTitle(this.name);
         const instructions = document.createElement('p');
         instructions.textContent = 'Vyberte sloupce pro podmínku Join: \n';
-        this.body.appendChild(instructions);
+        this.modalContent.appendChild(instructions);
 
         const joinCondition = this.join.condition;
         const leftColumns = this.join.leftSourceEntity.selectedColumns;
@@ -90,7 +90,7 @@ export class JoinModal extends BaseModal{
             'Left column',
             (optionIndex) => this.rightColumn = rightColumns[optionIndex]);
     
-        this.body.appendChild(pickColumnsDiv);
+        this.modalContent.appendChild(pickColumnsDiv);
         this.setDefaultValues();
     }
 
