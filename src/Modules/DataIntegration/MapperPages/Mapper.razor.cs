@@ -14,9 +14,9 @@ namespace MapperPages
         {
             if (isFirst && mapperJSInterop == null && JSRuntime != null)
             {
-                mapperJSInterop = new(JSRuntime);
+                mapperJSInterop = new(JSRuntime); // TODO: Uncomment 
 
-                // create a variable  in the component and assign it a value from the JSInterop
+                //create a variable  in the component and assign it a value from the JSInterop
                 var number = await mapperJSInterop.GetNumber();
                 Console.WriteLine(number);
             }
