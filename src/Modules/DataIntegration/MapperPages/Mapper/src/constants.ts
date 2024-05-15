@@ -158,3 +158,5 @@ export const headerAttributes = {
         }]
     }]
 };
+
+export const mapperElement = document.getElementById('mapper');
