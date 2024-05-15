@@ -1,6 +1,19 @@
 const path = require('path');
+const CopyPlugin = require("copy-webpack-plugin");
+
+const distPath = process.env.NODE_ENV_PATH
+    ? path.resolve(__dirname, process.env.NODE_ENV_PATH)
+    : path.resolve(__dirname, 'dist');
 
 module.exports = {
+    plugins: [
+        new CopyPlugin({
+            patterns: [
+                { from: "./src/style.css", to: distPath },
+            ],
+        }),
+
+     ],
     resolve: {
         extensions: ['.ts', '.tsx', '.js'],
         fallback: {
@@ -14,12 +27,9 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: process.env.NODE_ENV_PATH
-            ? path.resolve(__dirname, process.env.NODE_ENV_PATH)
-            : path.resolve(__dirname, 'dist'), // Default output if not set
-        publicPath: '/dist/',
+        path: distPath,
+        publicPath: './dist/',
         library: {
-            //name: 'Mapinator',
             type: 'module'
         },
     },
@@ -28,10 +38,6 @@ module.exports = {
     module: {
         rules: [
             { test: /\.ts?$/, loader: 'ts-loader' },
-            {
-                test: /\.css$/,
-                use: ['style-loader', 'css-loader']
-            }
         ]
     },
     devServer: {
