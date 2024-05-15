@@ -10,9 +10,9 @@ import { SourceColumn } from "../sourceColumn";
  * The visit method's parameters are not typed because of the circular dependency.
  */
 export abstract class MappingVisitor {
-    public abstract visitSourceColumn(sourceColumn: SourceColumn): void;
     public abstract visitConditionLink(conditionLink: ConditionLink): void;
-    public abstract visitJoinCondition(joinCondition: JoinCondition): void;
-    public abstract visitSourceTable(sourceTable: SourceTable): void;
     public abstract visitJoin(join: Join): void;
+    public abstract visitJoinCondition(joinCondition: JoinCondition): void;
+    public abstract visitSourceColumn(sourceColumn: SourceColumn): void;
+    public abstract visitSourceTable(sourceTable: SourceTable): void;
 }

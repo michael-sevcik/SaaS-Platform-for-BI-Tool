@@ -7,16 +7,7 @@ import { PropertyPort } from './propertyPort';
 import { TargetElementShape } from './targetElementShape';
 
 export class TargetTableShape extends BaseEntityShape implements TargetElementShape {
-    handleDoubleClick(): void {
-        // no use for this event yet
-    }
-
     groupName: string;
-
-    defaults() {
-        this.groupName = TARGET_DATABASE_ENTITY_GROUP_NAME;
-        return super.defaults();
-    }
 
     public constructor(private readonly entityMapping: EntityMapping, columns: Column[], ...args: any[]) {
         super(columns, ...args);
@@ -24,7 +15,16 @@ export class TargetTableShape extends BaseEntityShape implements TargetElementSh
         this.setDescription(entityMapping.description ?? DEFAULT_TARGET_ENTITY_DESCRIPTION);
         // TODO: add description
     }
-    
+
+    defaults() {
+        this.groupName = TARGET_DATABASE_ENTITY_GROUP_NAME;
+        return super.defaults();
+    }
+
+    handleDoubleClick(): void {
+        // no use for this event yet
+    }
+
     public removeColumnMapping(targetPort: PropertyPort) {
         this.entityMapping.removeColumnMapping(targetPort.column);
         console.log(this.entityMapping);

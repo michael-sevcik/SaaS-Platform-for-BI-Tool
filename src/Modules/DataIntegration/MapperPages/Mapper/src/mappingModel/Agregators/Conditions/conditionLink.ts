@@ -20,11 +20,11 @@ export class ConditionLink implements Visitable, ReferenceHolder {
         public condition : JoinCondition) {
     }
 
-    createBackwardConnections(): void {
-        this.condition.createBackwardConnections();
-    }
-
     accept(visitor: MappingVisitor): void {
         visitor.visitConditionLink(this);
+    }
+
+    createBackwardConnections(): void {
+        this.condition.createBackwardConnections();
     }
 }

@@ -56,12 +56,56 @@ class SourceTableFinder extends MappingVisitor {
 
 export class MappingEditor {
     public static readonly containerId = 'paper';
+
+    private static onPaperElementMouseEnter(elementView: dia.ElementView) {
+        const baseEntityShape = elementView.model as BaseEntityShape;
+
+        if (baseEntityShape instanceof BaseSourceEntityShape) {
+            const toolsView = new dia.ToolsView({
+                tools: [new elementTools.Remove( {
+                    action: () => {
+                        console.log('Removing an element.')
+                        baseEntityShape.handleRemoving();
+                    }
+                })]
+            })
+            
+            elementView.addTools(toolsView)
+        }
+    }
+
+    private static onPaperElementMouseLeave(linkView: dia.ElementView) {
+        linkView.removeTools();
+    }
+
+    private static onPaperLinkMouseEnter(linkView: dia.LinkView) {
+        const link = linkView.model as Link;
+
+        // TODO: OPTIMIZE - do not create new tools everytime 
+        const toolsView = new dia.ToolsView({
+            tools: [new linkTools.Remove( { action: () => {
+                console.log('Removing a link');
+                link.handleRemoving();
+            }})]
+        });
+    
+        linkView.addTools(toolsView);
+        if (link instanceof PropertyLink) console.log('Property link');
+        
+        link.highlight();
+    }
+
+    private static onPaperLinkMouseLeave(linkView: dia.LinkView) {
+        linkView.removeTools();
+        const link = linkView.model as Link;
+        link.unhighlight();
+    }
+
+    private entityMapping : EntityMapping | null = null;
+    private readonly sourceTablePickerModal: SourceTablePickerModal;
+    private readonly toolbar = document.getElementById('toolbar');
     public readonly graph = new dia.Graph({}, { cellNamespace: SHAPE_NAMESPACE });
     public readonly paper : dia.Paper;
-    private entityMapping : EntityMapping | null = null;
-    private readonly toolbar = document.getElementById('toolbar'); 
-    private readonly sourceTablePickerModal: SourceTablePickerModal;
-
     // todo: consider creating map of target tables with their names as keys
     public constructor(private readonly sourceDb: Database, private readonly targetDb: Database) {
         this.paper = new dia.Paper({
@@ -351,49 +395,5 @@ export class MappingEditor {
 
         cells.push(targetShape);
         return cells;
-    }
-
-    private static onPaperLinkMouseEnter(linkView: dia.LinkView) {
-        const link = linkView.model as Link;
-
-        // TODO: OPTIMIZE - do not create new tools everytime 
-        const toolsView = new dia.ToolsView({
-            tools: [new linkTools.Remove( { action: () => {
-                console.log('Removing a link');
-                link.handleRemoving();
-            }})]
-        });
-    
-        linkView.addTools(toolsView);
-        if (link instanceof PropertyLink) console.log('Property link');
-        
-        link.highlight();
-    }
-    
-    private static onPaperLinkMouseLeave(linkView: dia.LinkView) {
-        linkView.removeTools();
-        const link = linkView.model as Link;
-        link.unhighlight();
-    }
-    
-    private static onPaperElementMouseEnter(elementView: dia.ElementView) {
-        const baseEntityShape = elementView.model as BaseEntityShape;
-
-        if (baseEntityShape instanceof BaseSourceEntityShape) {
-            const toolsView = new dia.ToolsView({
-                tools: [new elementTools.Remove( {
-                    action: () => {
-                        console.log('Removing an element.')
-                        baseEntityShape.handleRemoving();
-                    }
-                })]
-            })
-            
-            elementView.addTools(toolsView)
-        }
-    }
-
-    private static onPaperElementMouseLeave(linkView: dia.ElementView) {
-        linkView.removeTools();
     }
 }

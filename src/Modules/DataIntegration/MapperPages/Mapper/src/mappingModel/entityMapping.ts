@@ -26,7 +26,21 @@ export class EntityMapping implements Owner{
             }
         });
     }
-    
+
+    /**
+     * Removes the column mapping for the specified column.
+     * 
+     * @param column - The column to remove the mapping for.
+     */
+    removeColumnMapping(column: Column) {
+        const oldColumn = this.columnMappings.get(column.name);
+        if (oldColumn !== undefined && oldColumn !== null) {
+            oldColumn.removeReference(this);
+        }
+        
+        this.columnMappings.set(column.name, null);
+    }
+
     replaceChild(oldChild: Ownable | null, newChild: SourceEntity | null): void {
         if (oldChild !== this.sourceEntity) {
             throw new Error('Invalid child');
@@ -49,19 +63,5 @@ export class EntityMapping implements Owner{
 
         this.columnMappings.set(targetColumn.name, sourceColumn);
         sourceColumn.addReference(this);
-    }
-
-    /**
-     * Removes the column mapping for the specified column.
-     * 
-     * @param column - The column to remove the mapping for.
-     */
-    removeColumnMapping(column: Column) {
-        const oldColumn = this.columnMappings.get(column.name);
-        if (oldColumn !== undefined && oldColumn !== null) {
-            oldColumn.removeReference(this);
-        }
-        
-        this.columnMappings.set(column.name, null);
     }
 }

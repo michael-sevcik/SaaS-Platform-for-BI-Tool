@@ -6,12 +6,9 @@ import { BaseSourceEntityShape } from "./baseSourceEntityShape";
 import { Join } from "../../mappingModel/Agregators/join";
 
 export class JoinLink extends Link {
-    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
-        const sourceEntity = this.getTargetElement() as BaseSourceEntityShape;
-        sourceEntity.handleRemoving();
-        this.join.owner.replaceChild(this.join, this.join.leftSourceEntity);
-        this.joinModal.finalize();
-        return this.remove(opt);
+    public constructor(public join: Join, public joinModal : JoinModal, ...args: any[]) {
+        super();
+        super.initialize.call(this, ...args);
     }
 
     protected getHighlightedAttrs() {
@@ -24,6 +21,7 @@ export class JoinLink extends Link {
             }
         }
     }
+
     protected getUnhighlightedAttrs() {
         return {
             line: {
@@ -35,7 +33,7 @@ export class JoinLink extends Link {
         
         }
     }
-    
+
     defaults() {
         return util.defaultsDeep({
             type: 'JoinLink',
@@ -64,12 +62,15 @@ export class JoinLink extends Link {
         }, super.defaults);
     }
 
-    public constructor(public join: Join, public joinModal : JoinModal, ...args: any[]) {
-        super();
-        super.initialize.call(this, ...args);
-    }
-
     handleDoubleClick() {
         this.joinModal.open();
+    }
+
+    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
+        const sourceEntity = this.getTargetElement() as BaseSourceEntityShape;
+        sourceEntity.handleRemoving();
+        this.join.owner.replaceChild(this.join, this.join.leftSourceEntity);
+        this.joinModal.finalize();
+        return this.remove(opt);
     }
 }

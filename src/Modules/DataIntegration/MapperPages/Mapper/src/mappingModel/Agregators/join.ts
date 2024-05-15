@@ -7,25 +7,10 @@ import { JoinCondition } from "./Conditions/joinCondition";
 import { SourceColumn } from "../sourceColumn";
 
 export class Join extends SourceEntity{
-    replaceChild(oldChild: any, newChild: any): void {
-        if (oldChild === this.leftSourceEntity) {
-            this.leftSourceEntity = newChild;
-        } else if (oldChild === this.rightSourceEntity) {
-            this.rightSourceEntity = newChild;
-        }
-    }
-    public createBackwardConnections(): void {
-        this.leftSourceEntity.owner = this;
-        this.rightSourceEntity.owner = this;
-        this.leftSourceEntity.createBackwardConnections();
-        this.rightSourceEntity.createBackwardConnections();
-        this.condition.createBackwardConnections();
-    }
-    
-
     public get selectedColumns() : SourceColumn[] {
         return this.leftSourceEntity.selectedColumns.concat(this.rightSourceEntity.selectedColumns);
     }
+
 /**
  * Creates an instance of join.
  * @param type type of the join
@@ -48,8 +33,24 @@ public constructor(
       visitor.visitJoin(this);
     }
 
+    public createBackwardConnections(): void {
+        this.leftSourceEntity.owner = this;
+        this.rightSourceEntity.owner = this;
+        this.leftSourceEntity.createBackwardConnections();
+        this.rightSourceEntity.createBackwardConnections();
+        this.condition.createBackwardConnections();
+    }
+
     public isInitialized() : boolean {
         return this.condition !== null;
+    }
+
+    replaceChild(oldChild: any, newChild: any): void {
+        if (oldChild === this.leftSourceEntity) {
+            this.leftSourceEntity = newChild;
+        } else if (oldChild === this.rightSourceEntity) {
+            this.rightSourceEntity = newChild;
+        }
     }
 }
 

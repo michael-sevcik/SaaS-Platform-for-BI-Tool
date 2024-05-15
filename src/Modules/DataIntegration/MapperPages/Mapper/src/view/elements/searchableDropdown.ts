@@ -1,19 +1,17 @@
 // TODO: REDO OR add source
 
 export class SearchableDropdown {
-    private readonly input: HTMLInputElement;
-    private readonly dropdown: HTMLDivElement;
-    private readonly dropdownContent: HTMLDivElement;
-    private readonly options: HTMLDivElement[] = [];
-    private readonly optionsMap = new Map<string, HTMLDivElement>();
-    private optionValues: string[] | null = null; 
-    private readonly onOptionSelected: (optionIndex: number) => void;
-    
     /**
      * Indicates whether the dropdown is currently displayed as incorrect
      */
     private displayingIncorrect = false;
-
+    private readonly dropdown: HTMLDivElement;
+    private readonly dropdownContent: HTMLDivElement;
+    private readonly input: HTMLInputElement;
+    private readonly onOptionSelected: (optionIndex: number) => void;
+    private readonly options: HTMLDivElement[] = [];
+    private readonly optionsMap = new Map<string, HTMLDivElement>();
+    private optionValues: string[] | null = null;
     public constructor(
         private readonly container: HTMLDivElement,
         private readonly optionsProvider: () => string[],
@@ -37,41 +35,6 @@ export class SearchableDropdown {
         this.container.appendChild(this.input);
         this.container.appendChild(this.dropdown);
 
-    }
-
-    /**
-     * Displays as incorrect
-     * 
-     * Creates a red border around the input
-     */
-    public displayIncorrect() : void {
-        if (this.displayingIncorrect) {
-            return;
-        }
-        
-        this.input.classList.add('incorrect-input');
-        this.displayingIncorrect = true;
-    }
-
-    /**
-     * Displays as correct
-     * 
-     * Removes the red border around the input
-     */
-    public displayCorrect() : void {
-        if (!this.displayingIncorrect) {
-            return;
-        }
-        
-        this.input.classList.remove('incorrect-input');
-    }
-
-    /**
-     * Sets place holder
-     * @param placeholder the placeholder 
-     */
-    public setPlaceHolder(placeholder: string) {
-        this.input.placeholder = placeholder;
     }
 
     private handleInput() {
@@ -102,13 +65,6 @@ export class SearchableDropdown {
         this.dropdown.style.display = 'block';
     }
 
-    /**
-     * Handles blur
-     */
-    private hideOptions() {
-        this.dropdown.style.display = 'none';
-    }
-
     private handleOptionClick(optionIndex: number) {
         this.displayCorrect();
 
@@ -116,5 +72,47 @@ export class SearchableDropdown {
         this.input.value = optionValue;
         this.onOptionSelected(optionIndex);
         this.hideOptions();
+    }
+
+    /**
+     * Handles blur
+     */
+    private hideOptions() {
+        this.dropdown.style.display = 'none';
+    }
+
+    /**
+     * Displays as correct
+     * 
+     * Removes the red border around the input
+     */
+    public displayCorrect() : void {
+        if (!this.displayingIncorrect) {
+            return;
+        }
+        
+        this.input.classList.remove('incorrect-input');
+    }
+
+    /**
+     * Displays as incorrect
+     * 
+     * Creates a red border around the input
+     */
+    public displayIncorrect() : void {
+        if (this.displayingIncorrect) {
+            return;
+        }
+        
+        this.input.classList.add('incorrect-input');
+        this.displayingIncorrect = true;
+    }
+
+    /**
+     * Sets place holder
+     * @param placeholder the placeholder 
+     */
+    public setPlaceHolder(placeholder: string) {
+        this.input.placeholder = placeholder;
     }
 }

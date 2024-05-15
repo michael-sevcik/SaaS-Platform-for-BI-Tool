@@ -8,8 +8,54 @@ import { SourceEntity } from "../sourceEntity";
 import { SourceTable } from "../sourceTable";
 
 export class PlainToSourceEntityConvertor {
-    sourceEntityReferences = new Map<string, SourceEntity>();
-    columnReferences = new Map<string, SourceColumn>();
+    private columnReferences = new Map<string, SourceColumn>();
+    private sourceEntityReferences = new Map<string, SourceEntity>();
+
+    public convertSourceColumns(plainSourceColumns: any) : SourceColumn[] { 
+        if (plainSourceColumns.length == 0) {
+            throw new Error("plainSourceColumns cannot be empty");
+        }
+
+        const result = Array<SourceColumn>();
+
+        for (const plainColumn of plainSourceColumns) {
+            const column = this.convertToColumn(plainColumn);
+            this.columnReferences.set(plainColumn["$id"], column);
+            result.push(column);
+        }
+
+        return result;
+    }
+
+    public convertToColumn(column: any) : SourceColumn {
+        if (column == null) {
+            throw new Error("plainColumnMapping cannot be null");
+        }
+        
+        return new SourceColumn(new Column (
+            column["name"],
+            column["type"]));
+    }
+
+    public convertToJoinCondition(plainJoinCondition: any) : null | JoinCondition {
+        if (plainJoinCondition == null) {
+            return null;
+        }
+
+        let conditionLink : ConditionLink | null = null; 
+        const plainCondtionLink = plainJoinCondition["conditionLink"];
+        if (plainCondtionLink != null) {
+            conditionLink  = new ConditionLink(
+                plainCondtionLink["relation"], // TODO: check the type of the relation
+                 this.convertToJoinCondition(plainCondtionLink["leftCondition"]));
+        }
+
+        return new JoinCondition(
+            plainJoinCondition["relation"],
+            this.getSourceColumnByReference(plainJoinCondition["leftColumn"]),
+            this.getSourceColumnByReference(plainJoinCondition["rightColumn"]),
+            plainCondtionLink);
+    }
 
     public convertToSourceEntity(value: any) : SourceEntity {
 
@@ -67,32 +113,6 @@ export class PlainToSourceEntityConvertor {
         return result;
     }
 
-    public convertSourceColumns(plainSourceColumns: any) : SourceColumn[] { 
-        if (plainSourceColumns.length == 0) {
-            throw new Error("plainSourceColumns cannot be empty");
-        }
-
-        const result = Array<SourceColumn>();
-
-        for (const plainColumn of plainSourceColumns) {
-            const column = this.convertToColumn(plainColumn);
-            this.columnReferences.set(plainColumn["$id"], column);
-            result.push(column);
-        }
-
-        return result;
-    }
-
-    public convertToColumn(column: any) : SourceColumn {
-        if (column == null) {
-            throw new Error("plainColumnMapping cannot be null");
-        }
-        
-        return new SourceColumn(new Column (
-            column["name"],
-            column["type"]));
-    }
-
     public getSourceColumnByReference(reference: any) {
         if (reference == null) {
             throw new Error("reference cannot be null");
@@ -109,25 +129,5 @@ export class PlainToSourceEntityConvertor {
         }
 
         return column;
-    }
-
-    public convertToJoinCondition(plainJoinCondition: any) : null | JoinCondition {
-        if (plainJoinCondition == null) {
-            return null;
-        }
-
-        let conditionLink : ConditionLink | null = null; 
-        const plainCondtionLink = plainJoinCondition["conditionLink"];
-        if (plainCondtionLink != null) {
-            conditionLink  = new ConditionLink(
-                plainCondtionLink["relation"], // TODO: check the type of the relation
-                 this.convertToJoinCondition(plainCondtionLink["leftCondition"]));
-        }
-
-        return new JoinCondition(
-            plainJoinCondition["relation"],
-            this.getSourceColumnByReference(plainJoinCondition["leftColumn"]),
-            this.getSourceColumnByReference(plainJoinCondition["rightColumn"]),
-            plainCondtionLink);
     }
 }

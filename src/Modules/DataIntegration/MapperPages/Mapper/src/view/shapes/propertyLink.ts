@@ -5,45 +5,10 @@ import { TargetElementShape } from "./targetElementShape";
 import { PropertyPort } from "./propertyPort";
 
 export class PropertyLink extends Link {
-    handleConnection() {
-        const targetElement = this.getTargetElement();
-        
-        // HACK: this is a workaround for a for getting TargetElementShape
-        const targetEntity = targetElement as unknown as TargetElementShape;
-        if (targetEntity === undefined) {
-            throw new Error('Cannot find the target element.');
-        }
-
-        const targetPort = targetElement.getPort(this.target().port) as PropertyPort;
-        if (targetPort === undefined) {
-            throw new Error('Cannot find the target port.');
-        }
-
-        const sourceEntity = this.getSourceElement();
-        const sourcePort = sourceEntity.getPort(this.source().port) as PropertyPort;
-
-        targetEntity.setColumnMapping(sourcePort, targetPort);
+    private clickMethod() {
+        console.log('clickMethod');
     }
-    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
-        const element = this.getTargetElement();
-        
-        // HACK: this is a workaround for a for getting TargetElementShape
-        const targetElement = element as unknown as TargetElementShape;
-        if (targetElement === undefined) {
-            throw new Error('Cannot find the target element.');
-        }
 
-        const targetPort = element.getPort(this.target().port) as PropertyPort;
-        if (targetPort === undefined) {
-            throw new Error('Cannot find the target port.');
-        }
-
-        targetElement.removeColumnMapping(targetPort);
-
-        // TODO: update references source column references
-        return this.remove(opt);
-    }
-    
     protected getHighlightedAttrs() {
         return {
             line: {
@@ -85,7 +50,42 @@ export class PropertyLink extends Link {
         }, super.defaults);
     }
 
-    clickMethod() {
-        console.log('clickMethod');
+    handleConnection() {
+        const targetElement = this.getTargetElement();
+        
+        // HACK: this is a workaround for a for getting TargetElementShape
+        const targetEntity = targetElement as unknown as TargetElementShape;
+        if (targetEntity === undefined) {
+            throw new Error('Cannot find the target element.');
+        }
+
+        const targetPort = targetElement.getPort(this.target().port) as PropertyPort;
+        if (targetPort === undefined) {
+            throw new Error('Cannot find the target port.');
+        }
+
+        const sourceEntity = this.getSourceElement();
+        const sourcePort = sourceEntity.getPort(this.source().port) as PropertyPort;
+
+        targetEntity.setColumnMapping(sourcePort, targetPort);
+    }
+    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
+        const element = this.getTargetElement();
+        
+        // HACK: this is a workaround for a for getting TargetElementShape
+        const targetElement = element as unknown as TargetElementShape;
+        if (targetElement === undefined) {
+            throw new Error('Cannot find the target element.');
+        }
+
+        const targetPort = element.getPort(this.target().port) as PropertyPort;
+        if (targetPort === undefined) {
+            throw new Error('Cannot find the target port.');
+        }
+
+        targetElement.removeColumnMapping(targetPort);
+
+        // TODO: update references source column references
+        return this.remove(opt);
     }
 }
