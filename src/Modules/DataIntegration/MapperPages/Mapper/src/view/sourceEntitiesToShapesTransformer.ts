@@ -1,8 +1,8 @@
 import { Column, Database, Table } from "../dbModel/database";
-import { ConditionLink } from "../mappingModel/Agregators/Conditions/conditionLink";
-import { JoinCondition } from "../mappingModel/Agregators/Conditions/joinCondition";
-import { Join } from "../mappingModel/Agregators/join";
-import { MappingVisitor } from "../mappingModel/serialization/mappingVisitor";
+import { ConditionLink } from "../mappingModel/aggregators/conditions/conditionLink";
+import { JoinCondition } from "../mappingModel/aggregators/conditions/joinCondition";
+import { Join } from "../mappingModel/aggregators/join";
+import { MappingVisitor } from "../mappingModel/mappingVisitor";
 import { SourceColumn } from "../mappingModel/sourceColumn";
 import { SourceEntity } from "../mappingModel/sourceEntity";
 import { SourceTable } from "../mappingModel/sourceTable";

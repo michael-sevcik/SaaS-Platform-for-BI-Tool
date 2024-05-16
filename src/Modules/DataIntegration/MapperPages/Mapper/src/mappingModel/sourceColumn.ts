@@ -1,8 +1,8 @@
 import { Column } from "../dbModel/database";
 import { ReferenceHolder } from "./referenceHolder";
 import { Ownable } from "./ownable";
-import { MappingVisitor } from "./serialization/mappingVisitor";
-import { Visitable } from "./serialization/visitable";
+import { MappingVisitor } from "./mappingVisitor";
+import { Visitable } from "./converting/visitable";
 import { SourceEntity } from "./sourceEntity";
 
 /**

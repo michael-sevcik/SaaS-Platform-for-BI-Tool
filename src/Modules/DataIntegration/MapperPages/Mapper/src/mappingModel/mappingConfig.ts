@@ -2,7 +2,7 @@ import { Transform, Type,  } from "class-transformer";
 
 import { DbConnectionConfig } from "./dbConnectionConfig";
 import { EntityMapping } from "./entityMapping";
-import { EntityMappingConvertor } from "./serialization/entityMappingConvertor";
+import { EntityMappingConvertor } from "./converting/entityMappingConvertor";
 
 export class MappingConfig {
     @Type(() => DbConnectionConfig)

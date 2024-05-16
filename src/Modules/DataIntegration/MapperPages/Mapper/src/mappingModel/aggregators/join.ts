@@ -2,8 +2,8 @@ import { Type } from "class-transformer";
 
 import { SourceEntity } from "../sourceEntity";
 import { SourceConcreteEntity } from "../sourceConcreteEntity";
-import { MappingVisitor } from "../serialization/mappingVisitor";
-import { JoinCondition } from "./Conditions/joinCondition";
+import { MappingVisitor } from "../mappingVisitor";
+import { JoinCondition } from "./conditions/joinCondition";
 import { SourceColumn } from "../sourceColumn";
 
 export class Join extends SourceEntity{

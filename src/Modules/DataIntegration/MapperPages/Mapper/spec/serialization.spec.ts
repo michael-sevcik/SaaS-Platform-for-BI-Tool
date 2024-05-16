@@ -1,10 +1,10 @@
 import { instanceToPlain } from "class-transformer";
-import { EntityMappingConvertor } from "../src/mappingModel/serialization/entityMappingConvertor";
-import { MappingToPlainConverterVisiter } from "../src/mappingModel/serialization/mappingToPlainConverterVisitor";
-import { MappingModelConvertor } from "../src/mappingModel/serialization/mappingModelConverter";
-import { JoinCondition, Operator } from "../src/mappingModel/Agregators/Conditions/joinCondition";
+import { EntityMappingConvertor } from "../src/mappingModel/converting/entityMappingConvertor";
+import { MappingToPlainConverterVisiter } from "../src/mappingModel/converting/serialization/mappingToPlainConverterVisitor";
+import { MappingModelConvertor } from "../src/mappingModel/converting/mappingModelConverter";
+import { JoinCondition, Operator } from "../src/mappingModel/aggregators/conditions/joinCondition";
 import { SourceTable } from "../src/mappingModel/sourceTable";
-import { Join, JoinType } from "../src/mappingModel/Agregators/join";
+import { Join, JoinType } from "../src/mappingModel/aggregators/join";
 import { EntityMapping } from "../src/mappingModel/entityMapping";
 import { DbConnectionConfig } from "../src/mappingModel/dbConnectionConfig";
 import { MappingConfig } from "../src/mappingModel/mappingConfig";

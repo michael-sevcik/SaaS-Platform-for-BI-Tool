@@ -3,12 +3,12 @@ import 'reflect-metadata';
 
 import { MappingEditor } from './view/mappingEditor';
 import { SourceTable } from './mappingModel/sourceTable';
-import { Join, JoinType } from './mappingModel/Agregators/join';
-import { JoinCondition, Operator } from './mappingModel/Agregators/Conditions/joinCondition';
+import { Join, JoinType } from './mappingModel/aggregators/join';
+import { JoinCondition, Operator } from './mappingModel/aggregators/conditions/joinCondition';
 import { EntityMapping } from './mappingModel/entityMapping';
 import { Column, ColumnType, Database, Table } from './dbModel/database';
 import { SourceColumn } from './mappingModel/sourceColumn';
-import { EntityMappingConvertor } from './mappingModel/serialization/entityMappingConvertor';
+import { EntityMappingConvertor } from './mappingModel/converting/entityMappingConvertor';
 export { getMappingEditor };
 
 

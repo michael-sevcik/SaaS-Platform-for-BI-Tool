@@ -1,7 +1,7 @@
 import { plainToInstance } from "class-transformer";
-import { MappingModelConvertor } from "../src/mappingModel/serialization/mappingModelConverter";
+import { MappingModelConvertor } from "../src/mappingModel/converting/mappingModelConverter";
 import { DbConnectionConfig } from "../src/mappingModel/dbConnectionConfig";
-import { PlainToSourceEntityConvertor } from "../src/mappingModel/serialization/plainToSourceEntityConvertor";
+import { PlainToSourceEntityConvertor } from "../src/mappingModel/converting/deserialization/plainToSourceEntityConvertor";
 
 // TODO: shares data with the serialization tests - consider separating it to a shared file.
 

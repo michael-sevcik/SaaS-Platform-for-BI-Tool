@@ -1,4 +1,4 @@
-import { MappingVisitor } from "./serialization/mappingVisitor";
+import { MappingVisitor } from "./mappingVisitor";
 import { SourceColumn } from "./sourceColumn";
 import { SourceEntity } from "./sourceEntity";
 

@@ -16,15 +16,15 @@ import { Link } from './shapes/link';
 import { PropertyPort } from './shapes/propertyPort';
 import { SourceTable } from '../mappingModel/sourceTable';
 import { SourceColumn } from '../mappingModel/sourceColumn';
-import { Join, JoinType } from '../mappingModel/Agregators/join';
+import { Join, JoinType } from '../mappingModel/aggregators/join';
 import { JoinModal } from './modals/joinModal';
 import { SourceTablePickerModal } from './modals/sourceTablePickerModal';
-import { MappingVisitor } from '../mappingModel/serialization/mappingVisitor';
-import { ConditionLink } from '../mappingModel/Agregators/Conditions/conditionLink';
-import { JoinCondition } from '../mappingModel/Agregators/Conditions/joinCondition';
+import { MappingVisitor } from '../mappingModel/mappingVisitor';
+import { ConditionLink } from '../mappingModel/aggregators/conditions/conditionLink';
+import { JoinCondition } from '../mappingModel/aggregators/conditions/joinCondition';
 import { BaseEntityShape } from './shapes/baseEntityShape';
 import { BaseSourceEntityShape } from './shapes/baseSourceEntityShape';
-import { EntityMappingConvertor } from '../mappingModel/serialization/entityMappingConvertor';
+import { EntityMappingConvertor } from '../mappingModel/converting/entityMappingConvertor';
   
 class IntermediateSourceTableData {
     public constructor(

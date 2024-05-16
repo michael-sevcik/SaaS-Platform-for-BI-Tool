@@ -1,11 +1,11 @@
-import { Column } from "../../dbModel/database";
-import { ConditionLink } from "../Agregators/Conditions/conditionLink";
-import { JoinCondition } from "../Agregators/Conditions/joinCondition";
-import { Join } from "../Agregators/join";
-import { SourceColumn } from "../sourceColumn";
-import { SourceConcreteEntity } from "../sourceConcreteEntity";
-import { SourceEntity } from "../sourceEntity";
-import { SourceTable } from "../sourceTable";
+import { Column } from "../../../dbModel/database";
+import { ConditionLink } from "../../aggregators/conditions/conditionLink";
+import { JoinCondition } from "../../aggregators/conditions/joinCondition";
+import { Join } from "../../aggregators/join";
+import { SourceColumn } from "../../sourceColumn";
+import { SourceConcreteEntity } from "../../sourceConcreteEntity";
+import { SourceEntity } from "../../sourceEntity";
+import { SourceTable } from "../../sourceTable";
 
 export class PlainToSourceEntityConvertor {
     private columnReferences = new Map<string, SourceColumn>();

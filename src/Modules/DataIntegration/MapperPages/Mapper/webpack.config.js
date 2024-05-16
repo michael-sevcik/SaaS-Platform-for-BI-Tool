@@ -28,7 +28,7 @@ module.exports = {
     output: {
         filename: 'bundle.js',
         path: distPath,
-        publicPath: './dist/',
+        publicPath: '/dist',
         library: {
             type: 'module'
         },
@@ -43,7 +43,8 @@ module.exports = {
     devServer: {
         static: {
             directory: __dirname,
+            publicPath: '/',
         },
-        compress: true
-    },
+            compress: true
+        },
 };

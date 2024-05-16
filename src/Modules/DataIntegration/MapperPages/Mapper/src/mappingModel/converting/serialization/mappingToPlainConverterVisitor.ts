@@ -1,10 +1,10 @@
-import { ConditionLink } from "../Agregators/Conditions/conditionLink";
-import { JoinCondition } from "../Agregators/Conditions/joinCondition";
-import { Join } from "../Agregators/join";
-import { SourceColumn } from "../sourceColumn";
-import { SourceEntity } from "../sourceEntity";
-import { SourceTable } from "../sourceTable";
-import { MappingVisitor } from "./mappingVisitor";
+import { ConditionLink } from "../../aggregators/conditions/conditionLink";
+import { JoinCondition } from "../../aggregators/conditions/joinCondition";
+import { Join } from "../../aggregators/join";
+import { SourceColumn } from "../../sourceColumn";
+import { SourceEntity } from "../../sourceEntity";
+import { SourceTable } from "../../sourceTable";
+import { MappingVisitor } from "../../mappingVisitor";
 
 
 // TODO: IMPLEMENT NESTED JOIN VISITATION

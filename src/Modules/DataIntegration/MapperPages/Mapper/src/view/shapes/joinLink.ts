@@ -3,7 +3,7 @@ import { HIGHLIGHTED_OUTLINE_COLOR, LIGHT_COLOR, SECONDARY_DARK_COLOR } from "..
 import { JoinModal } from "../modals/joinModal";
 import { Link } from "./link";
 import { BaseSourceEntityShape } from "./baseSourceEntityShape";
-import { Join } from "../../mappingModel/Agregators/join";
+import { Join } from "../../mappingModel/aggregators/join";
 
 export class JoinLink extends Link {
     public constructor(public join: Join, public joinModal : JoinModal, ...args: any[]) {
