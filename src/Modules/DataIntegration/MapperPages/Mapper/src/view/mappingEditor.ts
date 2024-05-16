@@ -81,7 +81,7 @@ export class MappingEditor {
     private static onPaperLinkMouseEnter(linkView: dia.LinkView) {
         const link = linkView.model as Link;
 
-        // TODO: OPTIMIZE - do not create new tools everytime 
+        // TODO: OPTIMIZE - do not create new tools every time 
         const toolsView = new dia.ToolsView({
             tools: [new linkTools.Remove( { action: () => {
                 console.log('Removing a link');

@@ -43,18 +43,18 @@ export class PlainToSourceEntityConvertor {
         }
 
         let conditionLink : ConditionLink | null = null; 
-        const plainCondtionLink = plainJoinCondition["conditionLink"];
-        if (plainCondtionLink != null) {
+        const plainConditionLink = plainJoinCondition["conditionLink"];
+        if (plainConditionLink != null) {
             conditionLink  = new ConditionLink(
-                plainCondtionLink["relation"], // TODO: check the type of the relation
-                 this.convertToJoinCondition(plainCondtionLink["leftCondition"]));
+                plainConditionLink["relation"], // TODO: check the type of the relation
+                 this.convertToJoinCondition(plainConditionLink["leftCondition"]));
         }
 
         return new JoinCondition(
             plainJoinCondition["relation"],
             this.getSourceColumnByReference(plainJoinCondition["leftColumn"]),
             this.getSourceColumnByReference(plainJoinCondition["rightColumn"]),
-            plainCondtionLink);
+            plainConditionLink);
     }
 
     public convertToSourceEntity(value: any) : SourceEntity {
@@ -86,7 +86,7 @@ export class PlainToSourceEntityConvertor {
 
                 // const outputColumns = Array<SourceColumn>();
                 // value["outputColumns"].forEach(plainColumnMapping => {
-                //     outputColumns.push(this.convertToColunmMapping(plainColumnMapping));
+                //     outputColumns.push(this.convertToColumnMapping(plainColumnMapping));
                 // });
 
                 const plainCondition = value["joinCondition"];
@@ -97,7 +97,7 @@ export class PlainToSourceEntityConvertor {
 
                 result = new Join(
                     value["name"],
-                    value["joinType"], // TODO: The value should be probalby checked
+                    value["joinType"], // TODO: The value should be probably checked
                     leftSourceEntity,
                     rightSourceEntity as SourceConcreteEntity,
                     joinCondition);
