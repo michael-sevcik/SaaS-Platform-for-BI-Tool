@@ -1,7 +1,7 @@
 import { Type } from "class-transformer";
 
 import { SourceEntity } from "../sourceEntity";
-import { SourceConcreteEntity } from "../sourceConcreteEntity";
+import { SourceEntityBase } from "../sourceEntityBase";
 import { MappingVisitor } from "../mappingVisitor";
 import { JoinCondition } from "./conditions/joinCondition";
 import { SourceColumn } from "../sourceColumn";
@@ -24,7 +24,7 @@ public constructor(
         name : string,
         public type : JoinType,
         public leftSourceEntity : SourceEntity,
-        public rightSourceEntity : SourceConcreteEntity,
+        public rightSourceEntity : SourceEntityBase,
         public condition : JoinCondition | null = null) {
         super(name);
     }

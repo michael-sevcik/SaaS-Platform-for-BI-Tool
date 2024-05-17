@@ -3,7 +3,7 @@ import { ConditionLink } from "../../aggregators/conditions/conditionLink";
 import { JoinCondition } from "../../aggregators/conditions/joinCondition";
 import { Join } from "../../aggregators/join";
 import { SourceColumn } from "../../sourceColumn";
-import { SourceConcreteEntity } from "../../sourceConcreteEntity";
+import { SourceEntityBase } from "../../sourceEntityBase";
 import { SourceEntity } from "../../sourceEntity";
 import { SourceTable } from "../../sourceTable";
 
@@ -99,7 +99,7 @@ export class PlainToSourceEntityConvertor {
                     value["name"],
                     value["joinType"], // TODO: The value should be probably checked
                     leftSourceEntity,
-                    rightSourceEntity as SourceConcreteEntity,
+                    rightSourceEntity as SourceEntityBase,
                     joinCondition);
 
                     break;
