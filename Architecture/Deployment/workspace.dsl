@@ -90,7 +90,7 @@ workspace "SaaSBI" "This workspace documents the architecture of the SaaSBI syst
         
 
         // relations 
-        costumer -> biManagementSystem.managementHtml "Maps his data"
+        costumer -> biManagementSystem.managementHtml "Maps their data"
         administrator -> biManagementSystem.managementHtml "Manages BI projects and costumers"
 
         deploymentEnvironment "Live" {
