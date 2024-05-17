@@ -1,6 +1,6 @@
 import { ReferenceHolder } from "../../referenceHolder";
-import { MappingVisitor } from "../../serialization/mappingVisitor";
-import { Visitable } from "../../serialization/visitable";
+import { MappingVisitor } from "../../mappingVisitor";
+import { Visitable } from "../../converting/visitable";
 import type { JoinCondition } from "./joinCondition";
 
 export enum LinkRelation {
@@ -20,11 +20,11 @@ export class ConditionLink implements Visitable, ReferenceHolder {
         public condition : JoinCondition) {
     }
 
-    createBackwardConnections(): void {
-        this.condition.createBackwardConnections();
-    }
-
     accept(visitor: MappingVisitor): void {
         visitor.visitConditionLink(this);
+    }
+
+    createBackwardConnections(): void {
+        this.condition.createBackwardConnections();
     }
 }

@@ -16,10 +16,6 @@ export class PropertyPort implements dia.Element.Port {
             this.setDescription(column.description);
         }
     }
-    
-    public setDescription(description: string ) {
-        this.attrs.rect = { title: description };
-    }
 
     /**
      * Tests whether the column of this port is assignable with the column of the given port.
@@ -28,5 +24,9 @@ export class PropertyPort implements dia.Element.Port {
      */
     public isAssignableWith(port: PropertyPort): boolean {
         return this.column.isAssignableWith(port.column);
+    }
+
+    public setDescription(description: string ) {
+        this.attrs.rect = { title: description };
     }
 }

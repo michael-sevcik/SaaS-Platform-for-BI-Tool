@@ -17,10 +17,10 @@ import { PropertyPort } from './propertyPort';
 
 // Provides a base implementation for database entity shapes.
 export abstract class BaseEntityShape extends dia.Element {
-    // This entity must be implemented by the extending class for adding ports during initializetion.
-    protected abstract groupName : string;
+    
     private _portsByColumns : Map<Column, PropertyPort>;
-
+// This entity must be implemented by the extending class for adding ports during initializetion.
+    protected abstract groupName : string;
     defaults() {
         console.log("base entity defaults");
         console.log(this.groupName);
@@ -90,7 +90,7 @@ export abstract class BaseEntityShape extends dia.Element {
         }
     }
 
-    canAddPort(group: string): boolean {
+    private canAddPort(group: string): boolean {
         return Object.keys(this.getGroupPorts(group)).length < DATABASE_ENTITY_MAX_PORT_COUNT;
     }
 

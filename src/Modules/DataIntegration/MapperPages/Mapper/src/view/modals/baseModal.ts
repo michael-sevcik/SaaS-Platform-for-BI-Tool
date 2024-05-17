@@ -2,15 +2,13 @@ import { mapperElement } from "../../constants";
 
 export abstract class BaseModal {
     private static counter = 0;
-    private readonly title: HTMLHeadingElement;
+    protected static readonly overlay = document.getElementById('overlay');
     private readonly cancelAction = () => this.handleCancelClick();
     private saveCallback: () => void | null = null;
-
-    protected static readonly overlay = document.getElementById('overlay');
+    private readonly title: HTMLHeadingElement;
     protected readonly modal : HTMLDivElement;
-    protected abstract name: string;
     protected readonly modalContent: HTMLDivElement
-
+    protected abstract name: string;
     public constructor() {
         console.log('base modal constructor');
         this.title = document.createElement('h1');
@@ -49,19 +47,11 @@ export abstract class BaseModal {
         mapperElement.appendChild(modal); 
     }
 
-    /**
-     * Saves base modal
-     * @returns true if saving was successful, false otherwise - invalid data, etc. 
-     */
-    protected abstract save(): boolean;
-
-    /**
-     * Handles the action of canceling the modal.
-     * 
-     * Cancels the changes
-     */
-    protected abstract cancel(): void;
-
+    private close() {
+        this.modal.classList.remove('active');
+        BaseModal.overlay.classList.remove('active');
+        BaseModal.overlay.removeEventListener('click', this.cancelAction);
+    }
 
     /**
      * Handles click on the cancel button.
@@ -90,6 +80,29 @@ export abstract class BaseModal {
     }
 
     /**
+     * Handles the action of canceling the modal.
+     * 
+     * Cancels the changes
+     */
+    protected abstract cancel(): void;
+    /**
+     * Saves base modal
+     * @returns true if saving was successful, false otherwise - invalid data, etc. 
+     */
+    protected abstract save(): boolean;
+
+    protected setTitle(title: string) {
+        this.title.textContent = title;
+    }
+
+    /**
+     * Frees the resources used by the modal
+     */
+    public finalize() { 
+        this.modal.parentNode.removeChild(this.modal);
+    }
+
+    /**
      * Opens the modal
      * 
      * The callback might never be called if the modal is closed by the cancel button
@@ -101,22 +114,5 @@ export abstract class BaseModal {
         this.modal.classList.add('active');
         BaseModal.overlay.classList.add('active');
         BaseModal.overlay.addEventListener('click', this.cancelAction);
-    }
-
-    /**
-     * Frees the resources used by the modal
-     */
-    public finalize() { 
-        this.modal.parentNode.removeChild(this.modal);
-    }
-
-    private close() {
-        this.modal.classList.remove('active');
-        BaseModal.overlay.classList.remove('active');
-        BaseModal.overlay.removeEventListener('click', this.cancelAction);
-    }
-
-    protected setTitle(title: string) {
-        this.title.textContent = title;
     }
 }

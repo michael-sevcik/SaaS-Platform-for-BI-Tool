@@ -1,6 +1,6 @@
 import { ReferenceHolder } from "../../referenceHolder";
-import { MappingVisitor } from "../../serialization/mappingVisitor";
-import { Visitable } from "../../serialization/visitable";
+import { MappingVisitor } from "../../mappingVisitor";
+import { Visitable } from "../../converting/visitable";
 import { SourceColumn } from "../../sourceColumn";
 import type { ConditionLink } from "./conditionLink";
 
@@ -15,20 +15,8 @@ export class JoinCondition implements Visitable, ReferenceHolder {
     private _leftColumn : SourceColumn;
     private _rightColumn : SourceColumn;
 
-    public set leftColumn(leftColumn : SourceColumn) {
-        this._leftColumn.removeReference(this);
-        this._leftColumn = leftColumn;
-        leftColumn.addReference(this);
-    }
-
     public get leftColumn() : SourceColumn {
         return this._leftColumn;
-    }
-
-    public set rightColumn(rightColumn : SourceColumn) {
-        this._rightColumn.removeReference(this);
-        this._rightColumn = rightColumn;
-        rightColumn.addReference(this);
     }
 
     public get rightColumn() : SourceColumn {
@@ -43,6 +31,11 @@ export class JoinCondition implements Visitable, ReferenceHolder {
         this._leftColumn = leftColumn;
         this._rightColumn = rightColumn;
     }
+
+    accept(visitor: MappingVisitor): void {
+        visitor.visitJoinCondition(this);
+    }
+
     createBackwardConnections(): void {
         this._leftColumn.addReference(this);
         this._rightColumn.addReference(this);
@@ -51,7 +44,15 @@ export class JoinCondition implements Visitable, ReferenceHolder {
         }
     }
 
-    accept(visitor: MappingVisitor): void {
-        visitor.visitJoinCondition(this);
+    public set leftColumn(leftColumn : SourceColumn) {
+        this._leftColumn.removeReference(this);
+        this._leftColumn = leftColumn;
+        leftColumn.addReference(this);
+    }
+
+    public set rightColumn(rightColumn : SourceColumn) {
+        this._rightColumn.removeReference(this);
+        this._rightColumn = rightColumn;
+        rightColumn.addReference(this);
     }
 }

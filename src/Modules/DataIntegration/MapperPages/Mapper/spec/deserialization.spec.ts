@@ -1,7 +1,7 @@
 import { plainToInstance } from "class-transformer";
-import { MappingModelConvertor } from "../src/mappingModel/serialization/mappingModelConverter";
+import { MappingModelConvertor } from "../src/mappingModel/converting/mappingModelConverter";
 import { DbConnectionConfig } from "../src/mappingModel/dbConnectionConfig";
-import { PlainToSourceEntityConvertor } from "../src/mappingModel/serialization/plainToSourceEntityConvertor";
+import { PlainToSourceEntityConvertor } from "../src/mappingModel/converting/deserialization/plainToSourceEntityConvertor";
 
 // TODO: shares data with the serialization tests - consider separating it to a shared file.
 
@@ -26,7 +26,7 @@ describe('DbConnectionConfig deserialization', () => {
 });
 
 describe('Join condition deserialization', () => {
-    it('should convert a plain entitity to JoinCondition instance', () => {
+    it('should convert a plain entity to JoinCondition instance', () => {
         const jsonText = `
         {
             "leftColumn" : {
@@ -93,7 +93,7 @@ describe('Join condition deserialization', () => {
 });
 
 describe('Join deserialization', () => {
-    it('should convert a plain entitity to a Join instance', () => {
+    it('should convert a plain entity to a Join instance', () => {
         const jsonText = `
         {
             "$id" : "3",

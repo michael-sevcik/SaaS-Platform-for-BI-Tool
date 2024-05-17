@@ -1,0 +1,257 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "$id": "TODO",
+    "$defs": {
+        "namedEntity": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "required": [ "name" ]
+
+        },
+        "identifier": {
+            "type": "object",
+            "properties": {
+                "$id": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "$id"
+            ]
+        },
+        "reference": {
+            "type": "object",
+            "properties": {
+                "$ref": {
+                    "type": "string",
+                    "minLength": 1
+                }
+            },
+            "required": [
+                "$ref"
+            ]
+        },
+
+        "sourceColumn": {
+            "oneOf": [
+                { "$ref": "#/$defs/reference" },
+                {
+                    "allOf": [
+                        { "$ref": "#/$defs/identifier" },
+                        { "$ref": "#/$defs/namedEntity" },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "$comment": "TODO: enum",
+                                    "enum": [
+                                        "string",
+                                        "int",
+                                        "decimal",
+                                        "date",
+                                        "boolean"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "type"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "sourceEntityBase": {
+            "$comment": "Serves as a base schema for source entities",
+            "allOf": [
+                { "$ref": "#/$defs/identifier" },
+                { "$ref": "#/$defs/namedEntity" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "selectedColumns": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/sourceColumn"
+                            }
+                        },
+                        "type": {
+                            "$comment": "Every source entity must have a type. This is used to determine the type of the entity.",
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "selectedColumns", "type"
+                    ]
+                }
+            ]
+        },
+        "sourceTable": {
+            "$comment": "Schema for source tables. Implements sourceEntityBase.",
+            "allOf": [
+                { "$ref": "#/$defs/sourceEntityBase" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "sourceTable"
+                        }
+                    },
+                    "required": [
+                        "type"
+                    ]
+                }
+            ]
+        },
+
+        "joinCondition": {
+            "$comment": "Schema for join condition. Represents a condition for joining two columns.",
+            "type": "object",
+            "properties": {
+                "leftColumn": {
+                    "$ref": "#/$defs/sourceColumn"
+                },
+                "relation": {
+                    "enum": [
+                        "equals",
+                        "notEquals",
+                        "greaterThan",
+                        "lessThan"
+                    ]
+                },
+                "rightColumn": {
+                    "$ref": "#/$defs/sourceColumn"
+                },
+                "linkedCondition": {
+                    "oneOf": [
+                        { "type": "null" },
+                        { "$ref": "#/$defs/conditionLink" }
+                    ]
+                }
+            },
+            "required": [
+                "leftColumn",
+                "rightColumn"
+            ]
+        },
+
+        "conditionLink": {
+            "$comment": "Schema for condition link. Represents a link to another conditions.",
+            "type": "object",
+            "properties": {
+                "condition": {
+                    "$ref": "#/$defs/joinCondition"
+                },
+                "relation": {
+                    "enum": [
+                        "and",
+                        "or"
+                    ]
+                }
+            },
+            "required": [
+                "relation",
+                "condition"
+            ]
+        },
+        "join": {
+            "$comment": "Schema for entity representing SQL join. Implements sourceEntityBase.",
+            "allOf": [
+                { "$ref": "#/$defs/sourceEntityBase" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "join"
+                        },
+                        "joinType": {
+                            "type": "string",
+                            "$comment": "TODO: check enum values",
+                            "enum": [
+                                "inner",
+                                "left",
+                                "right",
+                                "full"
+                            ]
+                        },
+                        "leftSourceEntity": {
+                            "$ref": "#/$defs/sourceEntity"
+                        },
+                        "rightSourceEntity": {
+                            "$ref": "#/$defs/sourceEntity"
+                        },
+                        "joinCondition": {
+                            "$ref": "#/$defs/joinCondition"
+                        }
+                    },
+                    "required": [
+                        "type", "joinType", "leftSourceEntity", "rightSourceEntity", "joinCondition"
+                    ]
+                }
+            ]
+        },
+
+        "sourceEntityImplementations": {
+            "$comment": "Represents schema for all source entity types.",
+            "oneOf": [
+                { "$ref": "#/$defs/sourceTable" },
+                { "$ref": "#/$defs/join" }
+            ]
+        },
+        "sourceEntity": {
+            "$comment": "Schema for both definitions of source entities and references to them.",
+            "oneOf": [
+                { "$ref": "#/$defs/sourceEntityImplementations" },
+                { "$ref": "#/$defs/reference" }
+            ]
+        }
+
+    },
+    "type": "object",
+    "allOf": [
+        { "$ref": "#/$defs/namedEntity" },
+        {
+            "properties": {
+                "sourceEntities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/sourceEntity"
+                    }
+                },
+                "sourceEntity": {
+                    "$ref": "#/$defs/sourceEntity"
+                },
+                "columnMappings": {
+                    "$comment": "TODO: implement - we need a way to define all properties type",
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "$comment": "Nullable sourceColumn or reference to sourceColumn",
+                            "oneOf": [
+                                {
+                                    "type": "null"
+                                },
+                                {
+                                    "$ref": "#/$defs/sourceColumn"
+                                }
+                            ]
+                        }
+                    },
+                    "unevaluatedProperties": false
+                }
+            },
+            "required": [
+                "sourceEntities",
+                "sourceEntity",
+                "columnMappings"
+            ]
+        }
+    ]
+
+    
+}

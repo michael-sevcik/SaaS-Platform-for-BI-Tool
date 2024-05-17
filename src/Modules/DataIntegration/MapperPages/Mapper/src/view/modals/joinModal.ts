@@ -1,59 +1,20 @@
-import { JoinCondition, Operator } from "../../mappingModel/Agregators/Conditions/joinCondition";
-import { Join } from "../../mappingModel/Agregators/join";
+import { JoinCondition, Operator } from "../../mappingModel/aggregators/conditions/joinCondition";
+import { Join } from "../../mappingModel/aggregators/join";
 import { SourceColumn } from "../../mappingModel/sourceColumn";
 import { SearchableDropdown } from "../elements/searchableDropdown";
 import { BaseModal } from "./baseModal";
 
 export class JoinModal extends BaseModal{
-    protected cancel(): void {
-        this.setDefaultValues();
+    private static getColumnDescription(column: SourceColumn) : string {
+        return `${column.owner.name}_${column.name}: ${column.type}`;
     }
-
-    protected save(): boolean {
-        if (this.leftColumn === null) {
-            this.leftColumnPicker.displayIncorrect();
-            alert('Vyberte sloupec pro podmínku Join');
-            return false;
-        }
-        if (this.operator === null) {
-            this.operatorPicker.displayIncorrect();
-            alert('Vyberte vztah pro podmínku Join');
-            return false;
-        }
-        if (this.rightColumn === null) {
-            this.rightColumnPicker.displayIncorrect();
-            alert('Vyberte sloupec pro podmínku Join');
-            return false;
-        }
-
-        if (!this.leftColumn.isAssignableWith(this.rightColumn)) {
-            this.leftColumnPicker.displayIncorrect();
-            this.rightColumnPicker.displayIncorrect();
-            alert('Sloupce musí být stejného typu');
-            return false;
-        }
-
-        if (this.join.condition === null) {
-            this.join.condition = new JoinCondition(this.operator, this.leftColumn, this.rightColumn);
-        }
-        else {
-            this.join.condition.relation = this.operator;
-            this.join.condition.leftColumn = this.leftColumn;
-            this.join.condition.rightColumn = this.rightColumn;
-        }
-
-        this.setDefaultValues();
-        return true;
-    }
-
-    private readonly leftColumnPicker: SearchableDropdown;
-    private readonly operatorPicker: SearchableDropdown;
-    private readonly rightColumnPicker: SearchableDropdown;
 
     private leftColumn: SourceColumn | null = null;
+    private readonly leftColumnPicker: SearchableDropdown;
     private operator: Operator | null = null;
+    private readonly operatorPicker: SearchableDropdown;
     private rightColumn: SourceColumn | null = null;
-
+    private readonly rightColumnPicker: SearchableDropdown;
     protected name = 'JoinModal';
 
     public constructor(public join : Join) {
@@ -112,7 +73,44 @@ export class JoinModal extends BaseModal{
         this.rightColumnPicker.displayCorrect();
     }
 
-    private static getColumnDescription(column: SourceColumn) : string {
-        return `${column.owner.name}_${column.name}: ${column.type}`;
+    protected cancel(): void {
+        this.setDefaultValues();
+    }
+
+    protected save(): boolean {
+        if (this.leftColumn === null) {
+            this.leftColumnPicker.displayIncorrect();
+            alert('Vyberte sloupec pro podmínku Join');
+            return false;
+        }
+        if (this.operator === null) {
+            this.operatorPicker.displayIncorrect();
+            alert('Vyberte vztah pro podmínku Join');
+            return false;
+        }
+        if (this.rightColumn === null) {
+            this.rightColumnPicker.displayIncorrect();
+            alert('Vyberte sloupec pro podmínku Join');
+            return false;
+        }
+
+        if (!this.leftColumn.isAssignableWith(this.rightColumn)) {
+            this.leftColumnPicker.displayIncorrect();
+            this.rightColumnPicker.displayIncorrect();
+            alert('Sloupce musí být stejného typu');
+            return false;
+        }
+
+        if (this.join.condition === null) {
+            this.join.condition = new JoinCondition(this.operator, this.leftColumn, this.rightColumn);
+        }
+        else {
+            this.join.condition.relation = this.operator;
+            this.join.condition.leftColumn = this.leftColumn;
+            this.join.condition.rightColumn = this.rightColumn;
+        }
+
+        this.setDefaultValues();
+        return true;
     }
 }

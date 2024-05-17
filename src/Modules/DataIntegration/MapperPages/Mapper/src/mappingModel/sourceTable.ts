@@ -1,10 +1,10 @@
-import { MappingVisitor } from "./serialization/mappingVisitor";
-import { SourceConcreteEntity } from "./sourceConcreteEntity";
+import { MappingVisitor } from "./mappingVisitor";
+import { SourceEntityBase } from "./sourceEntityBase";
 import { SourceColumn } from "./sourceColumn";
 import { Column } from "../dbModel/database";
 // import * as assert from "assert";
 
-export class SourceTable extends SourceConcreteEntity {
+export class SourceTable extends SourceEntityBase {
     replaceChild(oldChild: any, newChild: any): void {
     }
     

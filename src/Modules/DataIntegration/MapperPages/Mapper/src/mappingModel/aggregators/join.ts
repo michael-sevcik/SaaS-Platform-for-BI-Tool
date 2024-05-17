@@ -1,31 +1,16 @@
 import { Type } from "class-transformer";
 
 import { SourceEntity } from "../sourceEntity";
-import { SourceConcreteEntity } from "../sourceConcreteEntity";
-import { MappingVisitor } from "../serialization/mappingVisitor";
-import { JoinCondition } from "./Conditions/joinCondition";
+import { SourceEntityBase } from "../sourceEntityBase";
+import { MappingVisitor } from "../mappingVisitor";
+import { JoinCondition } from "./conditions/joinCondition";
 import { SourceColumn } from "../sourceColumn";
 
 export class Join extends SourceEntity{
-    replaceChild(oldChild: any, newChild: any): void {
-        if (oldChild === this.leftSourceEntity) {
-            this.leftSourceEntity = newChild;
-        } else if (oldChild === this.rightSourceEntity) {
-            this.rightSourceEntity = newChild;
-        }
-    }
-    public createBackwardConnections(): void {
-        this.leftSourceEntity.owner = this;
-        this.rightSourceEntity.owner = this;
-        this.leftSourceEntity.createBackwardConnections();
-        this.rightSourceEntity.createBackwardConnections();
-        this.condition.createBackwardConnections();
-    }
-    
-
     public get selectedColumns() : SourceColumn[] {
         return this.leftSourceEntity.selectedColumns.concat(this.rightSourceEntity.selectedColumns);
     }
+
 /**
  * Creates an instance of join.
  * @param type type of the join
@@ -39,7 +24,7 @@ public constructor(
         name : string,
         public type : JoinType,
         public leftSourceEntity : SourceEntity,
-        public rightSourceEntity : SourceConcreteEntity,
+        public rightSourceEntity : SourceEntityBase,
         public condition : JoinCondition | null = null) {
         super(name);
     }
@@ -48,8 +33,24 @@ public constructor(
       visitor.visitJoin(this);
     }
 
+    public createBackwardConnections(): void {
+        this.leftSourceEntity.owner = this;
+        this.rightSourceEntity.owner = this;
+        this.leftSourceEntity.createBackwardConnections();
+        this.rightSourceEntity.createBackwardConnections();
+        this.condition.createBackwardConnections();
+    }
+
     public isInitialized() : boolean {
         return this.condition !== null;
+    }
+
+    replaceChild(oldChild: any, newChild: any): void {
+        if (oldChild === this.leftSourceEntity) {
+            this.leftSourceEntity = newChild;
+        } else if (oldChild === this.rightSourceEntity) {
+            this.rightSourceEntity = newChild;
+        }
     }
 }
 

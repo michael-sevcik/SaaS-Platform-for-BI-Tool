@@ -1,8 +1,8 @@
 import { Column, Database, Table } from "../dbModel/database";
-import { ConditionLink } from "../mappingModel/Agregators/Conditions/conditionLink";
-import { JoinCondition } from "../mappingModel/Agregators/Conditions/joinCondition";
-import { Join } from "../mappingModel/Agregators/join";
-import { MappingVisitor } from "../mappingModel/serialization/mappingVisitor";
+import { ConditionLink } from "../mappingModel/aggregators/conditions/conditionLink";
+import { JoinCondition } from "../mappingModel/aggregators/conditions/joinCondition";
+import { Join } from "../mappingModel/aggregators/join";
+import { MappingVisitor } from "../mappingModel/mappingVisitor";
 import { SourceColumn } from "../mappingModel/sourceColumn";
 import { SourceEntity } from "../mappingModel/sourceEntity";
 import { SourceTable } from "../mappingModel/sourceTable";
@@ -31,12 +31,10 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         );
     }
 
-    public visitSourceTable(sourceTable: SourceTable): void {
-        const shape = new SourceTableShape(sourceTable);
-        this.elementMap.set(sourceTable, shape);
-        this.cells.push(shape);
-        this.cellStack.push(shape);
+    public visitConditionLink(conditionLink: ConditionLink): void {
+        throw new Error("Method not implemented.");
     }
+
     public visitJoin(join: Join): void {
         const joinModal = new JoinModal(join);
         
@@ -60,13 +58,19 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         console.log('Join link');
         console.log(joinLink);
     }
+
+    public visitJoinCondition(joinCondition: JoinCondition): void {
+        throw new Error("Method not implemented.");
+    }
+
     public visitSourceColumn(sourceColumn: SourceColumn): void {
         throw new Error("Method not implemented.");
     }
-    public visitConditionLink(conditionLink: ConditionLink): void {
-        throw new Error("Method not implemented.");
-    }
-    public visitJoinCondition(joinCondition: JoinCondition): void {
-        throw new Error("Method not implemented.");
+
+    public visitSourceTable(sourceTable: SourceTable): void {
+        const shape = new SourceTableShape(sourceTable);
+        this.elementMap.set(sourceTable, shape);
+        this.cells.push(shape);
+        this.cellStack.push(shape);
     }
 }

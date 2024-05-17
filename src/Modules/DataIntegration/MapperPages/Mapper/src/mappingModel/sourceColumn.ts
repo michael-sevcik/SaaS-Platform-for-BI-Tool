@@ -1,8 +1,8 @@
 import { Column } from "../dbModel/database";
 import { ReferenceHolder } from "./referenceHolder";
 import { Ownable } from "./ownable";
-import { MappingVisitor } from "./serialization/mappingVisitor";
-import { Visitable } from "./serialization/visitable";
+import { MappingVisitor } from "./mappingVisitor";
+import { Visitable } from "./converting/visitable";
 import { SourceEntity } from "./sourceEntity";
 
 /**
@@ -10,19 +10,6 @@ import { SourceEntity } from "./sourceEntity";
  */
 export class SourceColumn extends Column implements Ownable, Visitable {
     private _owner: SourceEntity | null = null;
-    
-    /**
-     * Holders of references to this column.
-     */
-    public referenceHolders = new Set<ReferenceHolder>();
-
-    /**
-     * Sets the owner of the source column.
-     * @param owner The owner entity.
-     */
-    set owner(owner: SourceEntity) {
-        this._owner = owner;
-    }
 
     /**
      * Gets the owner of the source column.
@@ -31,6 +18,11 @@ export class SourceColumn extends Column implements Ownable, Visitable {
     get owner(): SourceEntity | null {
         return this._owner;
     }
+
+    /**
+     * Holders of references to this column.
+     */
+    public referenceHolders = new Set<ReferenceHolder>();
 
     constructor(column: Column) { 
         super(column.name, column.type);
@@ -45,14 +37,6 @@ export class SourceColumn extends Column implements Ownable, Visitable {
     }
 
     /**
-     * Checks if the source column is used in the mapping.
-     * @returns True if the source column is used in the mapping.
-     */
-    public isUsed(): boolean {
-        return this.referenceHolders.size > 0;
-    }
-
-    /**
      * Adds a reference holder to the source column.
      * @param referenceHolder The reference holder.
      */
@@ -61,10 +45,26 @@ export class SourceColumn extends Column implements Ownable, Visitable {
     }
 
     /**
+     * Checks if the source column is used in the mapping.
+     * @returns True if the source column is used in the mapping.
+     */
+    public isUsed(): boolean {
+        return this.referenceHolders.size > 0;
+    }
+
+    /**
      * Removes a reference holder from the source column.
      * @param referenceHolder The reference holder.
      */
     public removeReference(referenceHolder: any): void {
         this.referenceHolders.delete(referenceHolder);
+    }
+
+    /**
+     * Sets the owner of the source column.
+     * @param owner The owner entity.
+     */
+    set owner(owner: SourceEntity) {
+        this._owner = owner;
     }
 }

@@ -3,22 +3,10 @@ import { SearchableDropdown } from "../elements/searchableDropdown";
 import { BaseModal } from "./baseModal";
 
 export class SourceTablePickerModal extends BaseModal {
-    protected name: string = 'Source table picker';
-    protected save(): boolean {
-        if (this._tableToAdd === null) {
-            this.tablePicker.displayIncorrect();
-            alert('Vyberte tabulku k přidání');
-            return false;
-        }
-        
-        return true;
-    }
-    protected cancel(): void {
-        
-    }
-
-    private readonly tablePicker: SearchableDropdown;
     private _tableToAdd: Table | null = null;
+    private readonly tablePicker: SearchableDropdown;
+    protected name: string = 'Source table picker';
+
     public get tableToAdd(): Table | null { return this._tableToAdd; }
 
     public constructor(tables: Table[]) {
@@ -36,4 +24,17 @@ export class SourceTablePickerModal extends BaseModal {
             index => this._tableToAdd = tables[index]);
     }
 
+    protected cancel(): void {
+        
+    }
+
+    protected save(): boolean {
+        if (this._tableToAdd === null) {
+            this.tablePicker.displayIncorrect();
+            alert('Vyberte tabulku k přidání');
+            return false;
+        }
+        
+        return true;
+    }
 }

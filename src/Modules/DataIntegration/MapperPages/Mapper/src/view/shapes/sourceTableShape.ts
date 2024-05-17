@@ -8,12 +8,23 @@ import { PropertyLink } from './propertyLink';
 
 export class SourceTableShape extends BaseSourceEntityShape {
     groupName: string;
-    
+
+    public constructor(public readonly sourceTable: SourceTable, ...args: any[]) {
+        super(sourceTable.selectedColumns, ...args);
+        this.setTitle(sourceTable.name);
+        this.setDescription(sourceTable.description ?? DEFAULT_SOURCE_ENTITY_DESCRIPTION);
+    }
+
     defaults() {
         this.groupName = SOURCE_DATABASE_ENTITY_GROUP_NAME;
         return super.defaults();
     }
-    
+
+    public handleDoubleClick(): void {
+        const columnSelectionModal = new ColumnSelectionModal(this);
+        columnSelectionModal.open();
+    }
+
     public handleRemoving(): void {
         for (const link of this.graph.getConnectedLinks(this, { outbound: true })) {
             const propertyLink = link as PropertyLink;
@@ -22,16 +33,5 @@ export class SourceTableShape extends BaseSourceEntityShape {
         
         this.sourceTable.owner?.replaceChild(this.sourceTable, null);
         this.remove();
-    }
-
-    public handleDoubleClick(): void {
-        const columnSelectionModal = new ColumnSelectionModal(this);
-        columnSelectionModal.open();
-    }
-    
-    public constructor(public readonly sourceTable: SourceTable, ...args: any[]) {
-        super(sourceTable.selectedColumns, ...args);
-        this.setTitle(sourceTable.name);
-        this.setDescription(sourceTable.description ?? DEFAULT_SOURCE_ENTITY_DESCRIPTION);
     }
 }

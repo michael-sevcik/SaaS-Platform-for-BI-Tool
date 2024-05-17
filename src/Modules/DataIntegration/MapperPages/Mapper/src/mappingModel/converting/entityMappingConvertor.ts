@@ -1,8 +1,8 @@
 import { EntityMapping } from "../entityMapping";
 import { SourceColumn } from "../sourceColumn";
 import { SourceEntity } from "../sourceEntity";
-import { MappingToPlainConverterVisiter } from "./mappingToPlainConverterVisitor";
-import { PlainToSourceEntityConvertor } from "./plainToSourceEntityConvertor";
+import { MappingToPlainConverterVisiter } from "./serialization/mappingToPlainConverterVisitor";
+import { PlainToSourceEntityConvertor } from "./deserialization/plainToSourceEntityConvertor";
 
 export class EntityMappingConvertor {
     static convertEntityMappingToPlain(entityMapping: EntityMapping) : any {
