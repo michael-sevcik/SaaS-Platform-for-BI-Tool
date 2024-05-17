@@ -4,7 +4,7 @@ import { dia, elementTools, layout, linkTools, shapes } from '@joint/core';
 import { DirectedGraph } from '@joint/layout-directed-graph';
 
 import { SHAPE_NAMESPACE } from './shapes/shapeNamespace';
-import { GRID_SIZE, TARGET_DATABASE_ENTITY_GROUP_NAME, LIGHT_COLOR } from '../constants';
+import { GRID_SIZE, TARGET_DATABASE_ENTITY_GROUP_NAME, LIGHT_COLOR, contentDiv } from '../constants';
 import { PropertyLink } from './shapes/propertyLink';
 import { SourceTableShape } from './shapes/sourceTableShape';
 import { JoinLink } from './shapes/joinLink';
@@ -215,6 +215,33 @@ export class MappingEditor {
             'link:connect': (linkView, evt, elementViewConnected) => { 
                 const propertyLink = linkView.model as PropertyLink;
                 propertyLink.handleConnection();
+            },
+            'cell:pointermove': function (cellView, evt, x, y) {
+                // Check if the cell being dragged is an element
+                if (cellView.model.isElement()) {
+                    const element = cellView.model;
+                    const boundingBox = element.getBBox();
+
+                    const containerRect = contentDiv.getBoundingClientRect();
+
+                    // Define boundaries of the container
+                    // bounding box is relative to the paper
+                    const containerMinX = 0;
+                    const containerMinY = 0;
+                    const containerMaxX = containerRect.width;
+                    const containerMaxY = containerRect.height;
+
+                    // Check if the element is trying to move beyond the container boundaries
+                    if (boundingBox.x < containerMinX
+                        || boundingBox.x + boundingBox.width > containerMaxX
+                        || boundingBox.y < containerMinY
+                        || boundingBox.y + boundingBox.height > containerMaxY) {
+                        // Adjust the position of the element to keep it within container boundaries
+                        var newX = Math.min(Math.max(boundingBox.x, containerMinX), containerMaxX - boundingBox.width);
+                        var newY = Math.min(Math.max(boundingBox.y, containerMinY), containerMaxY - boundingBox.height);
+                        element.position(newX, newY);
+                    }
+                }
             }
         });
 

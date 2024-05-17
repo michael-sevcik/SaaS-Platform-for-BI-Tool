@@ -6,5 +6,5 @@ export function showPrompt(message) {
     console.log(ahoj());
     console.log(ahoj);
 
-    return "ahojka8"; 
+    return "ahojka123"; 
 }
