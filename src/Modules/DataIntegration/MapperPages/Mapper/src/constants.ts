@@ -160,3 +160,11 @@ export const headerAttributes = {
 };
 
 export const mapperElement = document.getElementById('mapper');
+
+export const mainToolbar = document.getElementById('toolbar');
+
+export const paperDiv = document.getElementById('paper');
+
+export const contentDiv = document.getElementById('content');
+
+export const sourceFileInput = document.getElementById('source-file');
