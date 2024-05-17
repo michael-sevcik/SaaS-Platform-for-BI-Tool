@@ -2,11 +2,6 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "TODO",
     "$defs": {
-        "notNull": {
-            "not": {
-                "type": "null"
-            }
-        },
         "namedEntity": {
             "type": "object",
             "properties": {
@@ -19,36 +14,26 @@
 
         },
         "identifier": {
-            "allOf": [
-                { "$ref": "#/$defs/notNull" },
-                {
-                    "type": "object",
-                    "properties": {
-                        "$id": {
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "$id"
-                    ]
+            "type": "object",
+            "properties": {
+                "$id": {
+                    "type": "string"
                 }
+            },
+            "required": [
+                "$id"
             ]
-           
         },
         "reference": {
-            "allOf": [
-                { "$ref": "#/$defs/notNull" },
-                {
-                    "type": "object",
-                    "properties": {
-                        "$ref": {
-                            "type": "string"
-                        }
-                    },
-                    "required": [
-                        "$ref"
-                    ]
+            "type": "object",
+            "properties": {
+                "$ref": {
+                    "type": "string",
+                    "minLength": 1
                 }
+            },
+            "required": [
+                "$ref"
             ]
         },
 
@@ -145,7 +130,7 @@
                 "linkedCondition": {
                     "oneOf": [
                         { "type": "null" },
-                        { "ref": "#/$defs/conditionLink" }
+                        { "$ref": "#/$defs/conditionLink" }
                     ]
                 }
             },
@@ -214,9 +199,8 @@
         "sourceEntityImplementations": {
             "$comment": "Represents schema for all source entity types.",
             "oneOf": [
-                {
-                    
-                }
+                { "$ref": "#/$defs/sourceTable" },
+                { "$ref": "#/$defs/join" }
             ]
         },
         "sourceEntity": {
@@ -247,12 +231,13 @@
                     "type": "object",
                     "patternProperties": {
                         ".*": {
+                            "$comment": "Nullable sourceColumn or reference to sourceColumn",
                             "oneOf": [
                                 {
                                     "type": "null"
                                 },
                                 {
-                                    "ref": "#/$defs/sourceColumn"
+                                    "$ref": "#/$defs/sourceColumn"
                                 }
                             ]
                         }
