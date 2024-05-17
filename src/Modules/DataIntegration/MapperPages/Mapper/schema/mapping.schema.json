@@ -2,248 +2,271 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "TODO",
     "$defs": {
-        "sourceColumn": {
-            "type": "object",
-            "properties": {
-                "source": {
-                    "type": "string"
-                },
-                "column": {
-                    "type": "string"
-                }
-            },
-            "required": [
-                "source",
-                "column"
-            ]
+        "notNull": {
+            "not": {
+                "type": "null"
+            }
         },
-        "sourceEntity": {
+        "namedEntity": {
             "type": "object",
             "properties": {
-                "selectedColumns": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/sourceColumn"
-                    }
+                "name": {
+                    "type": "string",
+                    "minLength": 1
                 }
             },
-            "required": [
-                "selectedColumns"
+            "required": [ "name" ]
+
+        },
+        "identifier": {
+            "allOf": [
+                { "$ref": "#/$defs/notNull" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "$id": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "$id"
+                    ]
+                }
+            ]
+           
+        },
+        "reference": {
+            "allOf": [
+                { "$ref": "#/$defs/notNull" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "$ref": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "$ref"
+                    ]
+                }
             ]
         },
 
-        "occupant": {
-            "allOf": [
+        "sourceColumn": {
+            "oneOf": [
+                { "$ref": "#/$defs/reference" },
                 {
-                    "$ref": "#/$defs/person"
-                },
+                    "allOf": [
+                        { "$ref": "#/$defs/identifier" },
+                        { "$ref": "#/$defs/namedEntity" },
+                        {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "$comment": "TODO: enum",
+                                    "enum": [
+                                        "string",
+                                        "int",
+                                        "decimal",
+                                        "date",
+                                        "boolean"
+                                    ]
+                                }
+                            },
+                            "required": [
+                                "type"
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        "sourceEntityBase": {
+            "$comment": "Serves as a base schema for source entities",
+            "allOf": [
+                { "$ref": "#/$defs/identifier" },
+                { "$ref": "#/$defs/namedEntity" },
                 {
                     "type": "object",
                     "properties": {
-                        "dateFrom": {
-                            "type": "string",
-                            "format": "date"
+                        "selectedColumns": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/$defs/sourceColumn"
+                            }
                         },
-                        "unpaidFees": {
-                            "type": "boolean"
+                        "type": {
+                            "$comment": "Every source entity must have a type. This is used to determine the type of the entity.",
+                            "type": "string"
                         }
                     },
                     "required": [
-                        "dateFrom",
-                        "unpaidFees"
+                        "selectedColumns", "type"
                     ]
                 }
             ]
         },
-        "mayor": {
+        "sourceTable": {
+            "$comment": "Schema for source tables. Implements sourceEntityBase.",
             "allOf": [
-                {
-                    "$ref": "#/$defs/person"
-                },
+                { "$ref": "#/$defs/sourceEntityBase" },
                 {
                     "type": "object",
                     "properties": {
-                        "termStart": {
-                            "type": "string",
-                            "format": "date"
-                        },
-                        "termEnd": {
-                            "type": "string",
-                            "format": "date"
+                        "type": {
+                            "const": "sourceTable"
                         }
                     },
                     "required": [
-                        "termStart",
-                        "termEnd"
+                        "type"
                     ]
                 }
             ]
         },
-        "street": {
+
+        "joinCondition": {
+            "$comment": "Schema for join condition. Represents a condition for joining two columns.",
             "type": "object",
             "properties": {
-                "streetName": {
-                    "anyOf": [
-                        {
-                            "type": "object",
-                            "required": [
-                                "cs"
-                            ],
-                            "properties": {
-                                "cs": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "required": [
-                                "sk"
-                            ],
-                            "properties": {
-                                "sk": {
-                                    "type": "string"
-                                }
-                            }
-                        },
-                        {
-                            "type": "object",
-                            "required": [
-                                "en"
-                            ],
-                            "properties": {
-                                "en": {
-                                    "type": "string"
-                                }
-                            }
-                        }
+                "leftColumn": {
+                    "$ref": "#/$defs/sourceColumn"
+                },
+                "relation": {
+                    "enum": [
+                        "equals",
+                        "notEquals",
+                        "greaterThan",
+                        "lessThan"
                     ]
                 },
-                "hasSidewalk": {
-                    "type": "boolean"
+                "rightColumn": {
+                    "$ref": "#/$defs/sourceColumn"
                 },
-                "houses": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/house"
-                    }
+                "linkedCondition": {
+                    "oneOf": [
+                        { "type": "null" },
+                        { "ref": "#/$defs/conditionLink" }
+                    ]
                 }
             },
             "required": [
-                "streetName",
-                "hasSidewalk",
-                "houses"
+                "leftColumn",
+                "rightColumn"
             ]
         },
-        "house": {
+
+        "conditionLink": {
+            "$comment": "Schema for condition link. Represents a link to another conditions.",
             "type": "object",
             "properties": {
-                "houseNumber": {
-                    "type": "integer",
-                    "minimum": 1
+                "condition": {
+                    "$ref": "#/$defs/joinCondition"
                 },
-                "colour_hex_code": {
-                    "type": "string",
-                    "pattern": "^[0-9A-Fa-f]{6}$"
-                },
-                "area": {
-                    "type": "number",
-                    "exclusiveMinimum": 0
-                },
-                "occupants": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/occupant"
-                    }
+                "relation": {
+                    "enum": [
+                        "and",
+                        "or"
+                    ]
                 }
             },
             "required": [
-                "houseNumber",
-                "colour_hex_code",
-                "area",
-                "occupants"
+                "relation",
+                "condition"
             ]
         },
-        "graph": {
-            "type": "array",
-            "title": "Towns",
-            "minItems": 1,
-            "items": {
-                "type": "object",
-                "title": "Town",
-                "properties": {
-                    "townName": {
-                        "anyOf": [
-                            {
-                                "type": "object",
-                                "required": [
-                                    "cs"
-                                ],
-                                "properties": {
-                                    "cs": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            {
-                                "type": "object",
-                                "required": [
-                                    "sk"
-                                ],
-                                "properties": {
-                                    "sk": {
-                                        "type": "string"
-                                    }
-                                }
-                            },
-                            {
-                                "type": "object",
-                                "required": [
-                                    "en"
-                                ],
-                                "properties": {
-                                    "en": {
-                                        "type": "string"
-                                    }
-                                }
-                            }
-                        ]
-                    },
-                    "hasFlag": {
-                        "type": "boolean"
-                    },
-                    "hasBroadcast": {
-                        "type": "boolean"
-                    },
-                    "streets": {
-                        "type": "array",
-                        "items": {
-                            "$ref": "#/$defs/street"
+        "join": {
+            "$comment": "Schema for entity representing SQL join. Implements sourceEntityBase.",
+            "allOf": [
+                { "$ref": "#/$defs/sourceEntityBase" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "join"
+                        },
+                        "joinType": {
+                            "type": "string",
+                            "$comment": "TODO: check enum values",
+                            "enum": [
+                                "inner",
+                                "left",
+                                "right",
+                                "full"
+                            ]
+                        },
+                        "leftSourceEntity": {
+                            "$ref": "#/$defs/sourceEntity"
+                        },
+                        "rightSourceEntity": {
+                            "$ref": "#/$defs/sourceEntity"
+                        },
+                        "joinCondition": {
+                            "$ref": "#/$defs/joinCondition"
                         }
                     },
-                    "mayor": {
-                        "$ref": "#/$defs/mayor"
-                    },
-                    "townhall": {
-                        "$ref": "#/$defs/house"
-                    }
-                },
-                "required": [
-                    "townName",
-                    "hasFlag",
-                    "hasBroadcast",
-                    "mayor"
-                ]
-            }
+                    "required": [
+                        "type", "joinType", "leftSourceEntity", "rightSourceEntity", "joinCondition"
+                    ]
+                }
+            ]
+        },
+
+        "sourceEntityImplementations": {
+            "$comment": "Represents schema for all source entity types.",
+            "oneOf": [
+                {
+                    
+                }
+            ]
+        },
+        "sourceEntity": {
+            "$comment": "Schema for both definitions of source entities and references to them.",
+            "oneOf": [
+                { "$ref": "#/$defs/sourceEntityImplementations" },
+                { "$ref": "#/$defs/reference" }
+            ]
         }
+
     },
     "type": "object",
-    "properties": {
-        "@graph": {
-            "$ref": "#/$defs/graph"
+    "allOf": [
+        { "$ref": "#/$defs/namedEntity" },
+        {
+            "properties": {
+                "sourceEntities": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/sourceEntity"
+                    }
+                },
+                "sourceEntity": {
+                    "$ref": "#/$defs/sourceEntity"
+                },
+                "columnMappings": {
+                    "$comment": "TODO: implement - we need a way to define all properties type",
+                    "type": "object",
+                    "patternProperties": {
+                        ".*": {
+                            "oneOf": [
+                                {
+                                    "type": "null"
+                                },
+                                {
+                                    "ref": "#/$defs/sourceColumn"
+                                }
+                            ]
+                        }
+                    },
+                    "unevaluatedProperties": false
+                }
+            },
+            "required": [
+                "sourceEntities",
+                "sourceEntity",
+                "columnMappings"
+            ]
         }
-    },
-    "required": [
-        "@graph"
     ]
+
+    
 }
