@@ -1,0 +1,44 @@
+﻿@using Domain
+@using Domain.Roles
+@page "/costumers"
+
+@inject IUserRepository userRepository;
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Users)
+        {
+            <tr>
+                <td>@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.Role</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private IEnumerable<ApplicationUser> Users { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await userRepository.GetUsersByRole(Role.Costumer);
+        if (result.IsSuccess)
+        {
+            Users = result.Value;
+        }
+        else
+        {
+            // TODO: Handle error
+            throw new NotImplementedException();
+        }
+    }
+}
