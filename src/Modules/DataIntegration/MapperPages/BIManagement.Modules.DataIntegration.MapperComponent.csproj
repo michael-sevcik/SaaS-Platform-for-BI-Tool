@@ -235,7 +235,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\exampleJsInterop2.js">
+    <Content Update="wwwroot\mapperInterop.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

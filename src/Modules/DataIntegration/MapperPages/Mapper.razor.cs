@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace BIManagement.Modules.DataIntegration.MapperPages
+namespace BIManagement.Modules.DataIntegration.MapperComponent
 {
     public partial class Mapper : IAsyncDisposable
     {
@@ -9,7 +9,7 @@ namespace BIManagement.Modules.DataIntegration.MapperPages
 
         [Inject]
         IJSRuntime JSRuntime { get; set; } = default!;
-        ExampleJsInterop? mapperJSInterop { get; set; }
+        MapperJsInterop? mapperJSInterop { get; set; }
         protected override async Task OnAfterRenderAsync(bool isFirst)
         {
             if (isFirst && mapperJSInterop == null && JSRuntime != null)

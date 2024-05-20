@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Common.Persist
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Common.Shared", "src\Common\Shared\BIManagement.Common.Shared.csproj", "{EBA26DAC-5A17-49C0-8E3D-99EA3B375A39}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.MapperPages", "src\Modules\DataIntegration\MapperPages\BIManagement.Modules.DataIntegration.MapperPages.csproj", "{27B1640F-8AEE-4000-A99D-B4C4255AF14A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.MapperComponent", "src\Modules\DataIntegration\MapperPages\BIManagement.Modules.DataIntegration.MapperComponent.csproj", "{27B1640F-8AEE-4000-A99D-B4C4255AF14A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Users.Domain", "src\Modules\Users\Domain\BIManagement.Modules.Users.Domain.csproj", "{E4304B76-B58A-4834-B77C-396073797A7B}"
 EndProject
@@ -50,6 +50,8 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{0942116F-2CC1-4A97-A0D8-BF6A052449F9}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataIntegration", "DataIntegration", "{C3DE0035-ADCD-48D9-9D34-D7B51BDD8BFA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.DataIntegration.Pages", "src\Modules\DataIntegration\Pages\BIManagement.Modules.DataIntegration.Pages.csproj", "{70FAAEDF-227E-419D-A7EC-C83D6D6AE8D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,6 +115,10 @@ Global
 		{2822F624-13C6-493D-8A83-A55A59839AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2822F624-13C6-493D-8A83-A55A59839AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2822F624-13C6-493D-8A83-A55A59839AE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{70FAAEDF-227E-419D-A7EC-C83D6D6AE8D7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{70FAAEDF-227E-419D-A7EC-C83D6D6AE8D7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{70FAAEDF-227E-419D-A7EC-C83D6D6AE8D7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{70FAAEDF-227E-419D-A7EC-C83D6D6AE8D7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -140,6 +146,7 @@ Global
 		{2822F624-13C6-493D-8A83-A55A59839AE5} = {B7FD84A2-BF89-48CC-9700-72B6D912B0FC}
 		{0942116F-2CC1-4A97-A0D8-BF6A052449F9} = {C1BBA08F-C8AA-41C5-9467-44C2259E700E}
 		{C3DE0035-ADCD-48D9-9D34-D7B51BDD8BFA} = {0942116F-2CC1-4A97-A0D8-BF6A052449F9}
+		{70FAAEDF-227E-419D-A7EC-C83D6D6AE8D7} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1954CCB7-4EB5-4651-9A8A-1FE50A343FE4}

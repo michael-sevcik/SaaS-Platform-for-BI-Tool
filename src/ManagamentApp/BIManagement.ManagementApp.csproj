@@ -19,7 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Common\Application\BIManagement.Common.Application.csproj" />
-    <ProjectReference Include="..\Modules\DataIntegration\MapperPages\BIManagement.Modules.DataIntegration.MapperPages.csproj" />
+    <ProjectReference Include="..\Modules\DataIntegration\MapperPages\BIManagement.Modules.DataIntegration.MapperComponent.csproj" />
   </ItemGroup>
 
 </Project>
