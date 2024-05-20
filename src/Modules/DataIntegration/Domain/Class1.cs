@@ -1,4 +1,4 @@
-﻿namespace BIManagementPlatform.Modules.DataIntegration.Domain
+﻿namespace BIManagement.Modules.DataIntegration.Domain
 {
     public class Class1
     {

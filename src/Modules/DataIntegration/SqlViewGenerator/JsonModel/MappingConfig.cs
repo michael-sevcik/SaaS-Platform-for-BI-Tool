@@ -1,4 +1,4 @@
-﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 public class MappingConfig : IVisitable
 {

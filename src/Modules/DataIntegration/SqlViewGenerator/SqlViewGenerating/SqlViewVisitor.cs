@@ -2,19 +2,19 @@
 // Copyright © Merica
 // </copyright>
 
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
 
-namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.SqlViewGenerating;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.SqlViewGenerating;
 
 using System.Text;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
 using JsonModel;
 using JsonModel.Agregators;
 using JsonModel.Agregators.Conditions;
-using static BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions.ConditionLink;
-using static BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions.JoinCondition;
+using static BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions.ConditionLink;
+using static BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions.JoinCondition;
 
 public class SqlViewVisitor : IVisitor
 {

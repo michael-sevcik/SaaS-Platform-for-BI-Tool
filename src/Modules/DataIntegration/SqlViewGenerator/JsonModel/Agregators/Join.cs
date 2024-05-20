@@ -1,5 +1,5 @@
-﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
 
 
 public class Join : IAgregator

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+using BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
 
-namespace SqlViewGeneratorTests.ModelDeserialization;
+namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization;
 
 [TestFixture]
 public class MappingConfigDeserializetion : BaseModelDeserializationTests

@@ -4,11 +4,11 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("SqlViewGeneratorTests")]
+[assembly: InternalsVisibleTo("BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests")]
 
-namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.MappingParser;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
 
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 using JsonModel;
 using System.Text.Json;

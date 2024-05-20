@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 
-namespace BIManagementPlatform.Modules.Users.Domain.Roles
+namespace BIManagement.Modules.Users.Domain.Roles
 {
     public class Policy : Enumeration<Policy>
     {

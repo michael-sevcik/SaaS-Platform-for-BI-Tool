@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.SqlViewGenerating;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.SqlViewGenerating;
 
-namespace SqlViewGeneratorTests;
+namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 
 [TestFixture]
 public class SqlViewVisitorTests

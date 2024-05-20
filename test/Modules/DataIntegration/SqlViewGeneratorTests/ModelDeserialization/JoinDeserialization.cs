@@ -1,6 +1,7 @@
-﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+using BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,13 +9,13 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace SqlViewGeneratorTests.ModelDeserialization
+namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization
 {
     [TestFixture]
     public class JoinDeserialization : BaseModelDeserializationTests
     {
         [Test]
-        public void TestJoinDeserialization() 
+        public void TestJoinDeserialization()
         {
             var jsonText = """
                 {
@@ -90,8 +91,8 @@ namespace SqlViewGeneratorTests.ModelDeserialization
         [Test]
         public void TestJoinSerialization()
         {
-            SourceTable left = new ("TabMzdList", new string[] { "ZamestnanecId", "OdpracHod", "IdObdobi" });
-            SourceTable right = new ("TabMzdObd", new string[] { "MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi" });
+            SourceTable left = new("TabMzdList", new string[] { "ZamestnanecId", "OdpracHod", "IdObdobi" });
+            SourceTable right = new("TabMzdObd", new string[] { "MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi" });
 
             Join join = new(
                 Join.Type.Inner,
@@ -104,7 +105,7 @@ namespace SqlViewGeneratorTests.ModelDeserialization
                     new(left, "IdObdobi"),
                     new(right, "IdObdobi")));
 
-            var serialized  = JsonSerializer.Serialize(join, SerializerOptions);
+            var serialized = JsonSerializer.Serialize(join, SerializerOptions);
             var serializedISource = JsonSerializer.Serialize<ISourceEntity>(join, SerializerOptions);
 
             Assert.IsNotNull(serialized);

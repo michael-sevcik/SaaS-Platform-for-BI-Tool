@@ -1,6 +1,7 @@
-﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using SqlViewGenerator.JsonModel.Agregators;
-using SqlViewGenerator.MappingParser;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace SqlViewGeneratorTests.ModelDeserialization
+namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization
 {
     [TestFixture]
     public class ISourceEntitiyDeserializetion : BaseModelDeserializationTests
@@ -52,7 +53,7 @@ namespace SqlViewGeneratorTests.ModelDeserialization
         [Test]
         public void TestReferenceHandlingOnSerialization()
         {
-            var x = new X() { Name = "str",  };
+            var x = new X() { Name = "str", };
             var x1 = new X() { Name = "str", NextX = x, SomeX = x };
             var serialized = JsonSerializer.Serialize(x1, SerializerOptions);
             Assert.That(serialized, Is.Not.Null);
@@ -77,7 +78,7 @@ namespace SqlViewGeneratorTests.ModelDeserialization
                   }
                 }
                 """;
-            
+
             var deserialized = JsonSerializer.Deserialize<X>(jsonText, SerializerOptions);
             Assert.That(deserialized, Is.Not.Null);
         }

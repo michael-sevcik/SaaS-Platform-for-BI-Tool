@@ -1,4 +1,6 @@
-﻿namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator;
+﻿namespace BIManagement.Modules.DataIntegration.SqlViewGenerator;
+
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 using JsonModel;
 using SqlViewGenerating;
 

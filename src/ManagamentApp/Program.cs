@@ -1,6 +1,6 @@
-using ManagementApp.Components;
-using ManagementApp.Components.Account;
-using ManagementApp.Data;
+using BIManagement.ManagementApp.Components.Account;
+using BIManagement.ManagementApp.Data;
+using BIManagement.ManagementApp.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;

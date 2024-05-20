@@ -1,4 +1,4 @@
-﻿namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+﻿namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
 
 public class ConditionLink : IVisitable
 {

@@ -1,4 +1,4 @@
-﻿namespace BIManagementPlatform.Modules.DataIntegration.Api
+﻿namespace BIManagement.Modules.DataIntegration.Api
 {
     public class Class1
     {

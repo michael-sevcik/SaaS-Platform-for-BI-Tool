@@ -1,6 +1,6 @@
-﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using SqlViewGenerator.MappingParser;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +9,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace SqlViewGeneratorTests;
+namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 
 public class BaseModelDeserializationTests
 {

@@ -1,6 +1,6 @@
 using Microsoft.JSInterop;
 
-namespace BIManagementPlatform.Modules.DataIntegration.MapperPages
+namespace BIManagement.Modules.DataIntegration.MapperPages
 {
     // This class provides an example of how JavaScript functionality can be wrapped
     // in a .NET class for easy consumption. The associated JavaScript module is
@@ -16,7 +16,7 @@ namespace BIManagementPlatform.Modules.DataIntegration.MapperPages
         public ExampleJsInterop(IJSRuntime jsRuntime)
         {
             moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-                "import", "./_content/MapperPages/exampleJsInterop2.js").AsTask());
+                "import", "./_content/BIManagement.Modules.DataIntegration.MapperPages/exampleJsInterop2.js").AsTask());
         }
 
         public async ValueTask<string> GetNumber()

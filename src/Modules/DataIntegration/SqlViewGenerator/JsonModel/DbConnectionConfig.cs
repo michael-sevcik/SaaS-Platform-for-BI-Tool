@@ -1,4 +1,4 @@
-﻿namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+﻿namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 public class DbConnectionConfig
 {

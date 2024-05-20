@@ -1,7 +1,7 @@
-﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator;
 using System.Text.Json.Serialization;
 
-namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 public class SourceTable : ISourceEntity
 {

@@ -2,9 +2,12 @@
 // Copyright © Merica
 // </copyright>
 
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator;
 
-namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+// <copyright file="ISourceEntity.cs" company="Merica s.r.o.">
+// Copyright © Merica
+// </copyright>
+
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 /// <summary>
 /// Represents a named entity that is a source of column based data.

@@ -1,6 +1,7 @@
-﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
+using BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace SqlViewGeneratorTests.ModelDeserialization;
+namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization;
 
 [TestFixture]
 public class EntityMappingDeserialization : BaseModelDeserializationTests
@@ -23,13 +24,13 @@ public class EntityMappingDeserialization : BaseModelDeserializationTests
             sourceTable1,
             sourceTable2,
             "3",
-            new ColumnMapping[] { 
+            new ColumnMapping[] {
                 sourceTable1.GetColumnMapping("ZamestnanecId"),
                 sourceTable1.GetColumnMapping("OdpracHod"),
                 sourceTable2.GetColumnMapping("MzdObd_DatumOd"),
                 sourceTable2.GetColumnMapping("MzdObd_DatumDo"),
             },
-            new (JoinCondition.Operator.Equal, sourceTable1.GetColumnMapping("IdObdobi"), sourceTable2.GetColumnMapping("IdObdobi")));
+            new(JoinCondition.Operator.Equal, sourceTable1.GetColumnMapping("IdObdobi"), sourceTable2.GetColumnMapping("IdObdobi")));
 
         EntityMapping expectedEntityMapping = new(
             name: "EmployeeHoursWorked",

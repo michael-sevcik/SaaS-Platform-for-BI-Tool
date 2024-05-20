@@ -9,7 +9,7 @@ using System.Text.Json;
 
 [assembly: InternalsVisibleTo("SqlViewGeneratorTests")]
 
-namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.MappingParser;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
 
 internal class SourceEntityReferenceResolver : ReferenceResolver
 {

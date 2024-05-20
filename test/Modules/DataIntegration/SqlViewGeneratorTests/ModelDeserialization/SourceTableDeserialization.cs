@@ -1,10 +1,8 @@
-using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using SqlViewGenerator.JsonModel.Agregators;
-using SqlViewGenerator.MappingParser;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
-namespace SqlViewGeneratorTests.ModelDeserialization;
+namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization;
 
 public class SourceTableDeserialization : BaseModelDeserializationTests
 {
@@ -24,9 +22,11 @@ public class SourceTableDeserialization : BaseModelDeserializationTests
             """;
 
         var deserialized = JsonSerializer.Deserialize<SourceTable>(jsonText, SerializerOptions);
-        Assert.IsNotNull(deserialized);
-        Assert.That(deserialized.Name, Is.EqualTo("TabMzdList"));
-        Assert.That(deserialized.SelectedColumns, Is.EquivalentTo(outputColumns));
-
+        Assert.That(deserialized, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(deserialized.Name, Is.EqualTo("TabMzdList"));
+            Assert.That(deserialized.SelectedColumns, Is.EquivalentTo(outputColumns));
+        });
     }
 }

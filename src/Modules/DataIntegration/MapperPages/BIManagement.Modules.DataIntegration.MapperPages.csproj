@@ -20,7 +20,8 @@
   </PropertyGroup>
 
     <Target Name="CleanNPM" BeforeTargets="Clean">
-        <Exec Command="npm run clean" />
+		<Exec Command="npm install" />
+		<Exec Command="npm run clean" />
     </Target>
 
 	<Target Name="InstallNPM" AfterTargets="Restore">

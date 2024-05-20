@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Domain\BIManagementPlatform.Modules.Users.Domain.csproj" />
+    <ProjectReference Include="..\Domain\BIManagement.Modules.Users.Domain.csproj" />
   </ItemGroup>
 
 </Project>

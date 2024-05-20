@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace BIManagementPlatform.Modules.DataIntegration.MapperPages
+namespace BIManagement.Modules.DataIntegration.MapperPages
 {
     public partial class Mapper : IAsyncDisposable
     {

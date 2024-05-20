@@ -1,4 +1,4 @@
-﻿namespace BIManagementPlatform.Modules.Users.Domain.Roles;
+﻿namespace BIManagement.Modules.Users.Domain.Roles;
 
 /// <summary>
 /// Represents the role of a user.

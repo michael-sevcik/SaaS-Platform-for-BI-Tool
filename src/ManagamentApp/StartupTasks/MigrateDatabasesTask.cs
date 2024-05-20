@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace ManagementApp.StartupTasks
+namespace BIManagement.ManagementApp.StartupTasks
 {
     /// <summary>
     /// Represents a startup task for migrating the databases in the development environment.

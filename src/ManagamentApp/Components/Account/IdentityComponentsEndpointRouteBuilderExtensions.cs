@@ -1,8 +1,8 @@
 using System.Security.Claims;
 using System.Text.Json;
-using ManagementApp.Components.Account.Pages;
-using ManagementApp.Components.Account.Pages.Manage;
-using ManagementApp.Data;
+using BIManagement.ManagementApp.Data;
+using BIManagement.ManagementApp.Components.Account.Pages;
+using BIManagement.ManagementApp.Components.Account.Pages.Manage;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
 
-namespace ManagementApp.Components.Account
+namespace BIManagement.ManagementApp.Components.Account
 {
     internal static class IdentityComponentsEndpointRouteBuilderExtensions
     {
