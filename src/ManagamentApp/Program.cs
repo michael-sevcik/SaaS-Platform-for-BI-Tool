@@ -36,6 +36,8 @@ builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.Requ
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
+builder.Logging.SetMinimumLevel(LogLevel.Trace);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,7 +61,7 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddAdditionalAssemblies(
 // TODO:
-        BIManagement.Modules.DataIntegration.Pages.AssemblyReference.Assembly, p.AssemblyReference.Assembly
+        BIManagement.Modules.DataIntegration.Pages.AssemblyReference.Assembly
     );
 
 // Add additional endpoints required by the Identity /Account Razor components.

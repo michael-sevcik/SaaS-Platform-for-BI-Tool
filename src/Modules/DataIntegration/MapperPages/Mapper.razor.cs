@@ -12,7 +12,9 @@ namespace BIManagement.Modules.DataIntegration.MapperComponent
         MapperJsInterop? MapperJSInterop { get; set; }
         protected override async Task OnAfterRenderAsync(bool isFirst)
         {
-            if (isFirst && MapperJSInterop == null && JSRuntime != null)
+            Console.WriteLine("OnAfterRenderAsync");
+            Console.WriteLine(isFirst);
+            //if (isFirst && MapperJSInterop == null && JSRuntime != null)
             {
                 MapperJSInterop = new(JSRuntime); // TODO: Uncomment 
 
@@ -24,9 +26,11 @@ namespace BIManagement.Modules.DataIntegration.MapperComponent
 
         public async ValueTask DisposeAsync()
         {
+            Console.WriteLine("DisposeAsync" + ((MapperJSInterop is null) ? "null" : "not null"));
             if (MapperJSInterop != null)
             {
-                await MapperJSInterop.DisposeAsync();
+
+                //await MapperJSInterop.DisposeAsync();
             }
         }
 

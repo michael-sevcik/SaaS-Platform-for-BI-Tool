@@ -51,7 +51,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{0942
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DataIntegration", "DataIntegration", "{C3DE0035-ADCD-48D9-9D34-D7B51BDD8BFA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.DataIntegration.Pages", "src\Modules\DataIntegration\Pages\BIManagement.Modules.DataIntegration.Pages.csproj", "{70FAAEDF-227E-419D-A7EC-C83D6D6AE8D7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.Pages", "src\Modules\DataIntegration\Pages\BIManagement.Modules.DataIntegration.Pages.csproj", "{70FAAEDF-227E-419D-A7EC-C83D6D6AE8D7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

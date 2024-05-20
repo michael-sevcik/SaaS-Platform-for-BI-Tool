@@ -9,7 +9,7 @@ import { EntityMapping } from './mappingModel/entityMapping';
 import { Column, ColumnType, Database, Table } from './dbModel/database';
 import { SourceColumn } from './mappingModel/sourceColumn';
 import { EntityMappingConvertor } from './mappingModel/converting/entityMappingConvertor';
-export { getMappingEditor };
+//export { getMappingEditor };
 
 
  
@@ -108,16 +108,21 @@ entityMapping.createBackwardConnections();
 const plainEntitiyMapping = EntityMappingConvertor.convertEntityMappingToPlain(entityMapping);
 const deserializedEntityMapping = EntityMappingConvertor.convertPlainToEntityMapping(plainEntitiyMapping);
 
-const mappingEditor = new MappingEditor(sourceDb, targetDb);
-mappingEditor.loadEntityMapping(deserializedEntityMapping);
+// TODO:
+//const mappingEditor = new MappingEditor(sourceDb, targetDb);
+//mappingEditor.loadEntityMapping(deserializedEntityMapping);
 
 
-function getMappingEditor() : MappingEditor {
-    return mappingEditor;
-}
+//function getMappingEditor(): MappingEditor {
+//    return mappingEditor;
+//}
 
 export function ahoj(): number {
-    return 760;
+    const mappingEditor = new MappingEditor(sourceDb, targetDb);
+    mappingEditor.loadEntityMapping(deserializedEntityMapping);
+
+    return 800;
 }
 
 
+ahoj();
