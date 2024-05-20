@@ -1,7 +1,8 @@
-﻿@using ManagementApp.Components.Account.Shared
+﻿@using BIManagement.ManagementApp.Components.Account.Shared
+@using BIManagement.Modules.DataIntegration.Pages
 
-<Router AppAssembly="typeof(Program).Assembly">
-    @* AdditionalAssemblies="new[] { typeof(Component1).Assembly }"> TODO: add all the pages *@
+<Router AppAssembly="typeof(Program).Assembly" AdditionalAssemblies="new[] { Modules.DataIntegration.Pages.AssemblyReference.Assembly, p.AssemblyReference.Assembly }">
+   
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
             <NotAuthorized>
