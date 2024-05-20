@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Shared.Results;
+﻿using BIManagement.Common.Shared.Results;
+using MediatR;
 
-namespace Application.Messaging;
+namespace BIManagement.Common.Application.Messaging;
 
 /// <summary>
 /// Represents the query handler interface.

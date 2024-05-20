@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlViewGenerator;
+namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator;
 
 public interface IVisitable
 {

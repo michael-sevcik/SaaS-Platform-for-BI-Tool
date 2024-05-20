@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace MapperPages
+namespace BIManagementPlatform.Modules.DataIntegration.MapperPages
 {
     public partial class Mapper : IAsyncDisposable
     {
@@ -20,7 +20,7 @@ namespace MapperPages
                 var number = await mapperJSInterop.GetNumber();
                 Console.WriteLine(number);
             }
-        }      
+        }
 
         public async ValueTask DisposeAsync()
         {

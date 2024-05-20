@@ -1,4 +1,4 @@
-﻿namespace Application.ServiceLifetimes;
+﻿namespace BIManagement.Common.Application.ServiceLifetimes;
 
 /// <summary>
 /// Represents the scoped service lifetime.

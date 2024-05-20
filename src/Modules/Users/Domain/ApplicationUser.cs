@@ -1,8 +1,8 @@
-using Domain.Primitives;
-using Domain.Roles;
+using BIManagement.Common.Domain.Primitives;
+using BIManagementPlatform.Modules.Users.Domain.Roles;
 using Microsoft.AspNetCore.Identity;
 
-namespace Domain
+namespace BIManagementPlatform.Modules.Users.Domain
 {
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser, IAuditable

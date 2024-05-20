@@ -1,7 +1,7 @@
-﻿using Domain.Roles;
-using Shared.Results;
+﻿using BIManagement.Common.Shared.Results;
+using BIManagementPlatform.Modules.Users.Domain.Roles;
 
-namespace Domain;
+namespace BIManagementPlatform.Modules.Users.Domain;
 
 /// <summary>
 /// Represents the user repository interface.

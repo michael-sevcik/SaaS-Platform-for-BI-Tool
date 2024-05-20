@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Configuration;
+namespace BIManagement.Common.Infrastructure.Configuration;
 
 /// <summary>
 /// Represents the interface for installing a module.

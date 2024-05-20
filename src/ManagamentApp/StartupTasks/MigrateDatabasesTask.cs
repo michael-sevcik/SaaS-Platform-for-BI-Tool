@@ -1,6 +1,7 @@
-﻿namespace ManagamentApp.StartupTasks
+﻿using Microsoft.EntityFrameworkCore;
+
+namespace ManagementApp.StartupTasks
 {
-    using Microsoft.EntityFrameworkCore;
     /// <summary>
     /// Represents a startup task for migrating the databases in the development environment.
     /// </summary>

@@ -1,7 +1,7 @@
-using ManagamentApp.Data;
+using ManagementApp.Data;
 using Microsoft.AspNetCore.Identity;
 
-namespace ManagamentApp.Components.Account
+namespace ManagementApp.Components.Account
 {
     internal sealed class IdentityUserAccessor(UserManager<ApplicationUser> userManager, IdentityRedirectManager redirectManager)
     {

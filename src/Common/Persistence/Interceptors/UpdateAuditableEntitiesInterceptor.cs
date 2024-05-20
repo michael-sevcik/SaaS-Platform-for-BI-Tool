@@ -1,10 +1,10 @@
-﻿using Application.Time;
-using Domain.Primitives;
+﻿using BIManagement.Common.Application.Time;
+using BIManagement.Common.Domain.Primitives;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Persistence.Interceptors;
+namespace BIManagement.Common.Persistence.Interceptors;
 
 /// <summary>
 /// Represents the interceptor for updating auditable entity values.

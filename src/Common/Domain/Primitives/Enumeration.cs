@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Domain.Primitives;
+namespace BIManagement.Common.Domain.Primitives;
 
 /// <summary>
 /// Represents an enumeration of objects with a unique numeric identifier and a name.

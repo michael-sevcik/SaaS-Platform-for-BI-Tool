@@ -1,11 +1,11 @@
-﻿using Infrastructure.Configuration;
-using Infrastructure.Extensions;
+﻿using BIManagement.Common.Infrastructure.Configuration;
+using BIManagement.Common.Infrastructure.Extensions;
+using BIManagement.Common.Persistence.Options;
+using BIManagement.Common.Shared.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Options;
-using Shared.Extensions;
 
-namespace Persistence;
+namespace BIManagement.Common.Persistence;
 
 /// <summary>
 /// Represents the persistence service installer.

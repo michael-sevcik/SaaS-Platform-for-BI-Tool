@@ -1,6 +1,6 @@
-﻿using Shared.Errors;
+﻿using BIManagement.Common.Shared.Errors;
 
-namespace Shared.Results;
+namespace BIManagement.Common.Shared.Results;
 
 /// <summary>
 /// Represents a result of some operation, with status information and possibly an error.

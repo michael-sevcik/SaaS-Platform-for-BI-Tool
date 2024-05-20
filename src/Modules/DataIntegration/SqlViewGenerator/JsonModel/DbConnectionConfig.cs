@@ -1,12 +1,12 @@
-﻿namespace SqlViewGenerator.JsonModel;
+﻿namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 public class DbConnectionConfig
 {
     public DbConnectionConfig(string databaseProvider, string server, string initialCatalog)
     {
-        this.DatabaseProvider = databaseProvider;
-        this.Server = server;
-        this.InitialCatalog = initialCatalog;
+        DatabaseProvider = databaseProvider;
+        Server = server;
+        InitialCatalog = initialCatalog;
     }
 
     public string DatabaseProvider { get; }

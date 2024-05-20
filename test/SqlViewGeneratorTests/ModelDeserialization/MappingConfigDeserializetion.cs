@@ -1,12 +1,12 @@
-﻿using SqlViewGenerator.JsonModel;
-using SqlViewGenerator.JsonModel.Agregators.Conditions;
-using SqlViewGenerator.JsonModel.Agregators;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Text.Json;
+using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
 
 namespace SqlViewGeneratorTests.ModelDeserialization;
 

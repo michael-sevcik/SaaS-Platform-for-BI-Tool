@@ -1,5 +1,5 @@
-﻿using SqlViewGenerator.JsonModel;
-using SqlViewGenerator.JsonModel.Agregators;
+﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
 using SqlViewGenerator.MappingParser;
 using System;
 using System.Collections.Generic;

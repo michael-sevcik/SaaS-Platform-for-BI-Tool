@@ -1,12 +1,12 @@
 ﻿using System.Reflection;
-using Application.ServiceLifetimes;
-using Infrastructure.Configuration;
+using BIManagement.Common.Application.ServiceLifetimes;
+using BIManagement.Common.Infrastructure.Configuration;
+using BIManagement.Common.Shared.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
-using Shared.Extensions;
 
-namespace Infrastructure.Extensions;
+namespace BIManagement.Common.Infrastructure.Extensions;
 
 /// <summary>
 /// Contains extension methods for the <see cref="IServiceCollection"/> interface.

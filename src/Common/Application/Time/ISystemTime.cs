@@ -1,4 +1,4 @@
-﻿namespace Application.Time;
+﻿namespace BIManagement.Common.Application.Time;
 
 /// <summary>
 /// Represents the system time interface.

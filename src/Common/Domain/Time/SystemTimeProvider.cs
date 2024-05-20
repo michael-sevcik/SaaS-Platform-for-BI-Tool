@@ -1,4 +1,4 @@
-﻿namespace Domain.Time;
+﻿namespace BIManagement.Common.Domain.Time;
 
 /// <summary>
 /// Represents the static system time provider.

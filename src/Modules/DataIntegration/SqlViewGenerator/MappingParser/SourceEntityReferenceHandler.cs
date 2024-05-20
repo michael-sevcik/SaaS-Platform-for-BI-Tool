@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 [assembly: InternalsVisibleTo("SqlViewGeneratorTests")]
 
-namespace SqlViewGenerator.MappingParser
+namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.MappingParser
 {
     internal class SourceEntityReferenceHandler : ReferenceHandler
     {

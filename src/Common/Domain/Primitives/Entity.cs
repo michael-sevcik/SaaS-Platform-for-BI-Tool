@@ -1,4 +1,4 @@
-﻿namespace Domain.Primitives;
+﻿namespace BIManagement.Common.Domain.Primitives;
 
 /// <summary>
 /// Represents the abstract entity primitive.

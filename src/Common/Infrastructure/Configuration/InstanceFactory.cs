@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Infrastructure.Configuration;
+namespace BIManagement.Common.Infrastructure.Configuration;
 
 /// <summary>
 /// Represents the instance factory.

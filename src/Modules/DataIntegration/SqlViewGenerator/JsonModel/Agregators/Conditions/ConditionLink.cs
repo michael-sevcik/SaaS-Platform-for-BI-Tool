@@ -1,4 +1,4 @@
-﻿namespace SqlViewGenerator.JsonModel.Agregators.Conditions;
+﻿namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
 
 public class ConditionLink : IVisitable
 {
@@ -10,8 +10,8 @@ public class ConditionLink : IVisitable
 
     public ConditionLink(LinkRelation relation, JoinCondition condition)
     {
-        this.Relation = relation;
-        this.Condition = condition;
+        Relation = relation;
+        Condition = condition;
     }
 
     public LinkRelation Relation { get; }

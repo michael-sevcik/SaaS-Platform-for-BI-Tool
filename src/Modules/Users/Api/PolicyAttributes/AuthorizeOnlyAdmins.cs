@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Api.PolicyAttributes;
+namespace BIManagementPlatform.Modules.Users.Api.PolicyAttributes;
 
 public class AuthorizeOnlyAdmins
 {

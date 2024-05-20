@@ -1,4 +1,4 @@
-﻿namespace Shared.Errors;
+﻿namespace BIManagement.Common.Shared.Errors;
 
 /// <summary>
 /// Represents an error.

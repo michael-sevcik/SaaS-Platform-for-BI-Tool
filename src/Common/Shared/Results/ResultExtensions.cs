@@ -1,6 +1,6 @@
-﻿using Shared.Errors;
+﻿using BIManagement.Common.Shared.Errors;
 
-namespace Shared.Results;
+namespace BIManagement.Common.Shared.Results;
 
 /// <summary>
 /// Contains extension methods for working with the <see cref="Result"/> class.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlViewGenerator.JsonModel.Agregators.Conditions;
+namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
 
 public class JoinCondition : IVisitable
 {
@@ -22,10 +22,10 @@ public class JoinCondition : IVisitable
         ColumnMapping rightColumn,
         ConditionLink? linkedCondition = null)
     {
-        this.Relation = relation;
-        this.LeftColumn = leftColumn;
-        this.RightColumn = rightColumn;
-        this.LinkedCondition = linkedCondition;
+        Relation = relation;
+        LeftColumn = leftColumn;
+        RightColumn = rightColumn;
+        LinkedCondition = linkedCondition;
     }
 
     public Operator Relation { get; }

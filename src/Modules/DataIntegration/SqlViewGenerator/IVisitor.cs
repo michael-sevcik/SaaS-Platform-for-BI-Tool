@@ -1,8 +1,8 @@
-﻿using SqlViewGenerator.JsonModel;
-using SqlViewGenerator.JsonModel.Agregators;
-using SqlViewGenerator.JsonModel.Agregators.Conditions;
+﻿using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
 
-namespace SqlViewGenerator;
+namespace BIManagementPlatform.Modules.DataIntegration.SqlViewGenerator;
 
 public interface IVisitor
 {

@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
-namespace Persistence.Options;
+namespace BIManagement.Common.Persistence.Options;
 
 /// <summary>
 /// Represents the <see cref="ConnectionStringOptions"/> setup.

@@ -1,16 +1,16 @@
-using ManagamentApp.Components.Account.Pages;
-using ManagamentApp.Components.Account.Pages.Manage;
-using ManagamentApp.Data;
+using System.Security.Claims;
+using System.Text.Json;
+using ManagementApp.Components.Account.Pages;
+using ManagementApp.Components.Account.Pages.Manage;
+using ManagementApp.Data;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
-using System.Security.Claims;
-using System.Text.Json;
 
-namespace Microsoft.AspNetCore.Routing
+namespace ManagementApp.Components.Account
 {
     internal static class IdentityComponentsEndpointRouteBuilderExtensions
     {

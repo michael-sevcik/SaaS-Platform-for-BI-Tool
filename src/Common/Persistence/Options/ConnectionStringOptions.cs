@@ -1,4 +1,4 @@
-﻿namespace Persistence.Options;
+﻿namespace BIManagement.Common.Persistence.Options;
 
 /// <summary>
 /// Represents the connection string.
