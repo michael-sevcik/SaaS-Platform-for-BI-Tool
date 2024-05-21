@@ -15,11 +15,18 @@
         background-color: rgba(255, 255, 255, 0.5);
     }
 
-.top-row {
-    height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+.collapse:has( .nav-link.active) {
+    border-block-color: red;
+    display: block;
 }
 
+.pl-5 {
+    padding-left: 3rem;
+}
+
+.pr-3 {
+    padding-right: 1rem;
+}
 .navbar-brand {
     font-size: 1.1rem;
 }
@@ -70,25 +77,21 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='white' class='bi bi-arrow-bar-left' viewBox='0 0 16 16'%3E%3Cpath d='M12.5 15a.5.5 0 0 1-.5-.5v-13a.5.5 0 0 1 1 0v13a.5.5 0 0 1-.5.5ZM10 8a.5.5 0 0 1-.5.5H3.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L3.707 7.5H9.5a.5.5 0 0 1 .5.5Z'/%3E%3C/svg%3E");
 }
 
-.nav-submenu{
-    color: white;
-}
-
 .nav-item {
     font-size: 0.9rem;
     padding-bottom: 0.5rem;
 }
 
-    .nav-item:first-of-type {
+/*    .nav-item:first-of-type {
         padding-top: 1rem;
-    }
+    }*/
 
     .nav-item:last-of-type {
         padding-bottom: 1rem;
     }
 
     .nav-item ::deep .nav-link {
-        /*color: white;*/
+        color: #d7d7d7;
         background: none;
         border: none;
         border-radius: 4px;
@@ -105,6 +108,7 @@
     }
 
     .nav-item ::deep .nav-link:hover {
+        height: 3rem;
         background-color: rgba(255,255,255,0.1);
         color: white;
     }
