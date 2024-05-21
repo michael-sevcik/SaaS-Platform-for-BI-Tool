@@ -1,5 +1,24 @@
-﻿<h3>NavigationItem</h3>
+﻿@using Microsoft.AspNetCore.Components
+@using System.Collections.Generic
+@using Microsoft.AspNetCore.Components.Routing
+
+
+<div class="nav-item ">
+    <NavLink class="nav-link" >
+        <span class="bi bi-plus-square-fill-nav-menu"> </span>@label
+        @Body
+    </NavLink>
+</div>
+
 
 @code {
+    [Parameter, EditorRequired]
+    public string label { get; set; } = string.Empty;
+    
+    [Parameter]
+    public string href { get; set; } = string.Empty;
+
+
+    RenderFragment? Body { get; set; }
 
 }
