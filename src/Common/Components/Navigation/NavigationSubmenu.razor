@@ -35,9 +35,15 @@
     [Parameter]
     public RenderFragment? ChildContent { get; set; }
 
+    /// <summary>
+    /// Initializes the component.
+    /// </summary>
+    /// <throws><see cref="ArgumentException"/> if <see cref="label"/> or <see cref="Id"/> is null or whitespace.</throws>S
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        ArgumentException.ThrowIfNullOrWhiteSpace(label, nameof(label));
+        ArgumentException.ThrowIfNullOrWhiteSpace(Id, nameof(Id));
         this.Id = Id.Replace(' ', '-');
     }
 }
