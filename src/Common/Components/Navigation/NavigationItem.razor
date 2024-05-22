@@ -4,9 +4,11 @@
 
 
 <div class="nav-item ">
-    <NavLink class="nav-link" >
-        <span class="bi bi-plus-square-fill-nav-menu"> </span>@label
-        @Body
+    <NavLink class="nav-link" href="@href" >
+        <div class="bi">
+            @ChildContent
+        </div>
+        @label
     </NavLink>
 </div>
 
@@ -14,11 +16,15 @@
 @code {
     [Parameter, EditorRequired]
     public string label { get; set; } = string.Empty;
-    
-    [Parameter]
+
+    // TODO: Use href parameter
+    [Parameter, EditorRequired]
     public string href { get; set; } = string.Empty;
 
-
-    RenderFragment? Body { get; set; }
+    /// <summary>
+    /// The logo icon to display in the menu.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
 
 }

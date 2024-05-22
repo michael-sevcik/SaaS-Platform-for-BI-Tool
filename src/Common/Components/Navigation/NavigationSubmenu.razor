@@ -3,16 +3,16 @@
 @using Microsoft.AspNetCore.Components.Routing
 
 
-<div class="nav-submenu mb-1">
+<div class="nav-submenu mb-1" id="@Id">
     <div class="nav-item  px-3">
-        <div class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#@label-collapse" aria-expanded="false">
+        <div class="nav-link collapsed" data-bs-toggle="collapse" data-bs-target="#@Id-collapse" aria-expanded="false">
             <span class="bi bi-plus-square-fill-nav-menu"> </span>
             @label
         </div>
     </div>
-    <div class="collapse" id="@label-collapse">
+    <div class="collapse" id="@Id-collapse">
         <div class="pl-5 pr-3">
-            @body
+            @ChildContent
         </div>
         <div class="border-top my-3"></div>
     </div>
@@ -23,6 +23,20 @@
     [Parameter, EditorRequired]
     public string label { get; set; } = string.Empty;
 
+    /// <summary>
+    /// Id of the submenu element. Spaces will be replaced with a dash.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string Id { get; set; } = string.Empty;
+
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        this.Id = Id.Replace(' ', '-');
+    }
     private bool showSubMenu = false;
     private List<string> submenuItems = new List<string> { "Item 1", "Item 2", "Item 3" };
 
