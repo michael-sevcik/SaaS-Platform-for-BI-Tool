@@ -1,5 +1,5 @@
 using System.Diagnostics.CodeAnalysis;
-using BIManagement.Common.Shared.Cookie;
+using BIManagement.Common.Shared.Cookies;
 using Microsoft.AspNetCore.Components;
 
 namespace BIManagement.ManagementApp.Components.Account

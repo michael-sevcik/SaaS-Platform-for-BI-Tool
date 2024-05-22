@@ -7,6 +7,10 @@
   </PropertyGroup>
 
 
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+    
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
@@ -17,6 +21,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shared\BIManagement.Common.Shared.csproj" />
   </ItemGroup>
 
 </Project>

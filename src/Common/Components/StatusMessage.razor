@@ -1,4 +1,5 @@
-﻿@using BIManagement.Common.Shared.Cookie
+﻿@using Microsoft.AspNetCore.Http
+
 @if (!string.IsNullOrEmpty(DisplayMessage))
 {
     var statusMessageClass = DisplayMessage.StartsWith("Error") ? "danger" : "success";
@@ -13,6 +14,10 @@
     [Parameter]
     public string? Message { get; set; }
 
+    [Parameter]
+    public string? CookieName { get; set; }
+
+
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
@@ -20,11 +25,14 @@
 
     protected override void OnInitialized()
     {
-        messageFromCookie = HttpContext.Request.Cookies[CookieNames.IdentityStatus];
-
-        if (messageFromCookie is not null)
+        if (CookieName is not null)
         {
-            HttpContext.Response.Cookies.Delete(CookieNames.IdentityStatus);
+            messageFromCookie = HttpContext.Request.Cookies[CookieName];
+
+            if (messageFromCookie is not null)
+            {
+                HttpContext.Response.Cookies.Delete(CookieName);
+            }
         }
     }
 }

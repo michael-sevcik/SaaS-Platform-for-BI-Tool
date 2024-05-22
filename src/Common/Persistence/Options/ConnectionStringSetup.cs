@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using MassTransit;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 
 namespace BIManagement.Common.Persistence.Options;
@@ -18,5 +19,6 @@ internal sealed class ConnectionStringSetup : IConfigureOptions<ConnectionString
     public ConnectionStringSetup(IConfiguration configuration) => _configuration = configuration;
 
     /// <inheritdoc />
-    public void Configure(ConnectionStringOptions options) => options.Value = _configuration.GetConnectionString(ConnectionStringName);
+    public void Configure(ConnectionStringOptions options) => options.Value = _configuration.GetConnectionString(ConnectionStringName)
+        ?? throw new ConfigurationException($"Parameter \"{ConnectionStringName}\" is not provided.");
 }
