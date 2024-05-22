@@ -20,6 +20,9 @@
 
 
 @code {
+    /// <summary>
+    /// Label of the submenu element.
+    /// </summary>
     [Parameter, EditorRequired]
     public string label { get; set; } = string.Empty;
 
@@ -36,12 +39,5 @@
     {
         base.OnInitialized();
         this.Id = Id.Replace(' ', '-');
-    }
-    private bool showSubMenu = false;
-    private List<string> submenuItems = new List<string> { "Item 1", "Item 2", "Item 3" };
-
-    private void ToggleSubMenu()
-    {
-        showSubMenu = !showSubMenu;
     }
 }

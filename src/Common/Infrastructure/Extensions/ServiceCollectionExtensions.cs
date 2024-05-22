@@ -30,7 +30,7 @@ public static class ServiceCollectionExtensions
                 .ForEach(serviceInstaller => serviceInstaller.Install(services, configuration)));
 
     /// <summary>
-    /// Installs the modules using the <see cref="IModuleInstaller"/> implementations defined in the specified assemblies.
+    /// Installs the modules using the <see cref="IModuleServiceInstaller"/> implementations defined in the specified assemblies.
     /// </summary>
     /// <param name="services">The services.</param>
     /// <param name="configuration">The configuration.</param>
@@ -42,7 +42,7 @@ public static class ServiceCollectionExtensions
         params Assembly[] assemblies) =>
         services.Tap(
             () => InstanceFactory
-                .CreateFromAssemblies<IModuleInstaller>(assemblies)
+                .CreateFromAssemblies<IModuleServiceInstaller>(assemblies)
                 .ForEach(moduleInstaller => moduleInstaller.Install(services, configuration)));
 
     /// <summary>

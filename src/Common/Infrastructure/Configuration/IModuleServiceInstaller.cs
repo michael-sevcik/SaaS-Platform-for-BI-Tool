@@ -6,7 +6,7 @@ namespace BIManagement.Common.Infrastructure.Configuration;
 /// <summary>
 /// Represents the interface for installing a module.
 /// </summary>
-public interface IModuleInstaller
+public interface IModuleServiceInstaller
 {
     /// <summary>
     /// Installs the module using the specified service collection.
