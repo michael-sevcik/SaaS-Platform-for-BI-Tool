@@ -1,12 +1,11 @@
 using System.Diagnostics.CodeAnalysis;
+using BIManagement.Common.Shared.Cookie;
 using Microsoft.AspNetCore.Components;
 
 namespace BIManagement.ManagementApp.Components.Account
 {
     internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
     {
-        public const string StatusCookieName = "Identity.StatusMessage";
-
         private static readonly CookieBuilder StatusCookieBuilder = new()
         {
             SameSite = SameSiteMode.Strict,
@@ -43,7 +42,7 @@ namespace BIManagement.ManagementApp.Components.Account
         [DoesNotReturn]
         public void RedirectToWithStatus(string uri, string message, HttpContext context)
         {
-            context.Response.Cookies.Append(StatusCookieName, message, StatusCookieBuilder.Build(context));
+            context.Response.Cookies.Append(CookieNames.IdentityStatus, message, StatusCookieBuilder.Build(context));
             RedirectTo(uri);
         }
 

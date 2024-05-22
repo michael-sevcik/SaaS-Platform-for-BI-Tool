@@ -1,4 +1,5 @@
-﻿@if (!string.IsNullOrEmpty(DisplayMessage))
+﻿@using BIManagement.Common.Shared.Cookie
+@if (!string.IsNullOrEmpty(DisplayMessage))
 {
     var statusMessageClass = DisplayMessage.StartsWith("Error") ? "danger" : "success";
     <div class="alert alert-@statusMessageClass" role="alert">
@@ -19,11 +20,11 @@
 
     protected override void OnInitialized()
     {
-        messageFromCookie = HttpContext.Request.Cookies[IdentityRedirectManager.StatusCookieName];
+        messageFromCookie = HttpContext.Request.Cookies[CookieNames.IdentityStatus];
 
         if (messageFromCookie is not null)
         {
-            HttpContext.Response.Cookies.Delete(IdentityRedirectManager.StatusCookieName);
+            HttpContext.Response.Cookies.Delete(CookieNames.IdentityStatus);
         }
     }
 }
