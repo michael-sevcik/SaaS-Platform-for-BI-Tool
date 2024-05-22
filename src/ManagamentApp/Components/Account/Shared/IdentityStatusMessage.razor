@@ -6,23 +6,4 @@
 @code {
     [Parameter]
     public string? Message { get; set; }
-
-
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
-
-    private string? DisplayMessage => Message ?? messageFromCookie;
-
-    protected override void OnInitialized()
-    {
-        if (CookieName is not null)
-        {
-            messageFromCookie = HttpContext.Request.Cookies[CookieName];
-
-            if (messageFromCookie is not null)
-            {
-                HttpContext.Response.Cookies.Delete(CookieName);
-            }
-        }
-    }
 }

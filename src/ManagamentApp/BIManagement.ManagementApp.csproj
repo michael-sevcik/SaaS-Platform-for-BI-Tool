@@ -10,10 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Components\Account\Shared\IdentityStatusMessage.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.5" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
@@ -30,18 +26,6 @@
     <ProjectReference Include="..\Common\Shared\BIManagement.Common.Shared.csproj" />
     <ProjectReference Include="..\Modules\DataIntegration\MapperPages\BIManagement.Modules.DataIntegration.MapperComponent.csproj" />
     <ProjectReference Include="..\Modules\DataIntegration\Pages\BIManagement.Modules.DataIntegration.Pages.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <UpToDateCheckInput Remove="Components\Account\Shared\IdentityStatusMessage.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <_ContentIncludedByDefault Remove="Components\Account\Shared\IdentityStatusMessage.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include="Components\Account\Shared\IdentityStatusMessage.razor" />
   </ItemGroup>
 
 </Project>
