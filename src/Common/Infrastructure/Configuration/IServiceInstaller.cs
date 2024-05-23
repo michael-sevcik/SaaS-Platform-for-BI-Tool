@@ -13,5 +13,5 @@ public interface IServiceInstaller
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <param name="configuration">The configuration.</param>
-    void Install(IServiceCollection services, IConfiguration configuration);
+    static abstract void Install(IServiceCollection services, IConfiguration configuration);
 }

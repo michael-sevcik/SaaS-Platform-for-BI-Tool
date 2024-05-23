@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using BIManagement.Common.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,16 @@ builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSe
 
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 
+// Install services and modules from the specified assemblies.
+//builder.Services.InstallServicesFromAssemblies(
+builder.Services.InstallModulesFromAssemblies(
+    builder.Configuration,
+    BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
+    BIManagement.Modules.Deployment.Infrastructure.AssemblyReference.Assembly,
+    BIManagement.Modules.Notifications.Infrastructure.AssemblyReference.Assembly,
+    BIManagement.Modules.Users.Infrastructure.AssemblyReference.Assembly
+);
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -56,6 +67,8 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()

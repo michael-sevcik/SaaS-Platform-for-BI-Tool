@@ -6,12 +6,12 @@ namespace BIManagement.Common.Infrastructure.Configuration;
 /// <summary>
 /// Represents the interface for installing a module.
 /// </summary>
-public interface IModuleServiceInstaller
+public interface IModuleInstaller
 {
     /// <summary>
     /// Installs the module using the specified service collection.
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <param name="configuration">The configuration.</param>
-    public void Install(IServiceCollection services, IConfiguration configuration);
+    static abstract void Install(IServiceCollection services, IConfiguration configuration);
 }

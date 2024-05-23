@@ -24,13 +24,14 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration,
         params Assembly[] assemblies) =>
-        services.Tap(
-            () => InstanceFactory
-                .CreateFromAssemblies<IServiceInstaller>(assemblies)
-                .ForEach(serviceInstaller => serviceInstaller.Install(services, configuration)));
+        services.Tap(() => assemblies.SelectMany(assembly => assembly.GetTypes())
+            .Where(type => typeof(IServiceInstaller).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
+            .ForEach(type => type
+                .GetMethod(nameof(IServiceInstaller.Install))
+                ?.Invoke(null, [services, configuration])));
 
     /// <summary>
-    /// Installs the modules using the <see cref="IModuleServiceInstaller"/> implementations defined in the specified assemblies.
+    /// Installs the modules using the <see cref="IModuleInstaller"/> implementations defined in the specified assemblies.
     /// </summary>
     /// <param name="services">The services.</param>
     /// <param name="configuration">The configuration.</param>
@@ -40,10 +41,14 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration,
         params Assembly[] assemblies) =>
-        services.Tap(
-            () => InstanceFactory
-                .CreateFromAssemblies<IModuleServiceInstaller>(assemblies)
-                .ForEach(moduleInstaller => moduleInstaller.Install(services, configuration)));
+        services.Tap(() => assemblies.SelectMany(assembly => assembly.GetTypes())
+            .Where(type => typeof(IModuleInstaller).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
+            .ForEach(type => type
+                .GetMethod(nameof(IModuleInstaller.Install))
+                
+                // null for static methods and [services, configuration] as parameters
+                ?.Invoke(null, [services, configuration]))); 
+
 
     /// <summary>
     /// Adds all of the implementations of <see cref="ITransient"/> inside the specified assembly as transient.
