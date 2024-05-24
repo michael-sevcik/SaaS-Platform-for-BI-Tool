@@ -5,9 +5,13 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 	<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+	<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
 
   </PropertyGroup>
 
+  <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
 
   <ItemGroup>
     <SupportedPlatform Include="browser" />
@@ -22,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Shared\BIManagement.Common.Shared.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.Users.Domain.csproj" />
   </ItemGroup>
 

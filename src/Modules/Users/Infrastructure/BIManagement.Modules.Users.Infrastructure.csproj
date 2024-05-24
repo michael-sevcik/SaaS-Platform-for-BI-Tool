@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\Persistence\BIManagement.Modules.Users.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -61,11 +61,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Notifications", "Notificati
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{83EFAECF-9F4D-43E5-93D3-A962F34448AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.Deployment.Infrastructure", "src\Modules\Deployment\Infrastructure\BIManagement.Modules.Deployment.Infrastructure.csproj", "{C48DD4AB-3C91-490A-9180-A2F61FCF2EB3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Deployment.Infrastructure", "src\Modules\Deployment\Infrastructure\BIManagement.Modules.Deployment.Infrastructure.csproj", "{C48DD4AB-3C91-490A-9180-A2F61FCF2EB3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.Notifications.Infrastructure", "src\Modules\Notifications\Infrastructure\BIManagement.Modules.Notifications.Infrastructure.csproj", "{A58D2833-539F-47E3-8A0B-0058086F8000}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Notifications.Infrastructure", "src\Modules\Notifications\Infrastructure\BIManagement.Modules.Notifications.Infrastructure.csproj", "{A58D2833-539F-47E3-8A0B-0058086F8000}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.DataIntegration.Infrastructure", "src\Modules\DataIntegration\Infrastructure\BIManagement.Modules.DataIntegration.Infrastructure.csproj", "{252CDD93-AF74-45A3-A346-221A36561FF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.Infrastructure", "src\Modules\DataIntegration\Infrastructure\BIManagement.Modules.DataIntegration.Infrastructure.csproj", "{252CDD93-AF74-45A3-A346-221A36561FF0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.Deployment.Pages", "src\Modules\Deployment\Pages\BIManagement.Modules.Deployment.Pages.csproj", "{55CF4046-C6D6-4275-B853-178B26328BFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -161,6 +163,10 @@ Global
 		{252CDD93-AF74-45A3-A346-221A36561FF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{252CDD93-AF74-45A3-A346-221A36561FF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{252CDD93-AF74-45A3-A346-221A36561FF0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55CF4046-C6D6-4275-B853-178B26328BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55CF4046-C6D6-4275-B853-178B26328BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55CF4046-C6D6-4275-B853-178B26328BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55CF4046-C6D6-4275-B853-178B26328BFF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -196,6 +202,7 @@ Global
 		{C48DD4AB-3C91-490A-9180-A2F61FCF2EB3} = {83EFAECF-9F4D-43E5-93D3-A962F34448AB}
 		{A58D2833-539F-47E3-8A0B-0058086F8000} = {B2F4316F-4904-4497-B224-FF1222691F2A}
 		{252CDD93-AF74-45A3-A346-221A36561FF0} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
+		{55CF4046-C6D6-4275-B853-178B26328BFF} = {83EFAECF-9F4D-43E5-93D3-A962F34448AB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1954CCB7-4EB5-4651-9A8A-1FE50A343FE4}

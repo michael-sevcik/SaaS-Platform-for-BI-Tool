@@ -1,13 +1,14 @@
-using BIManagement.ManagementApp.Data;
+using BIManagement.Modules.Users.Domain;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI.Services;
 
-namespace BIManagement.ManagementApp.Components.Account
+namespace BIManagement.Modules.Users.Infrastructure.Identity
 {
-    // TODO: Implement a real email sender.
+    // TODO: Consider moving to application
     // Remove the "else if (EmailSender is IdentityNoOpEmailSender)" block from RegisterConfirmation.razor after updating with a real implementation.
     internal sealed class IdentityNoOpEmailSender : IEmailSender<ApplicationUser>
     {
+        // TODO: use a notifications API to send emails.
         private readonly IEmailSender emailSender = new NoOpEmailSender();
 
         public Task SendConfirmationLinkAsync(ApplicationUser user, string email, string confirmationLink) =>

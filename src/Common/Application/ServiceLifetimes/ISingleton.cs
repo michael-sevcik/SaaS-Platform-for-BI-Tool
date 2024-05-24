@@ -1,6 +1,6 @@
 ﻿namespace BIManagement.Common.Application.ServiceLifetimes;
 
 /// <summary>
-/// Represents the transient service lifetime.
+/// Represents the singleton service lifetime.
 /// </summary>
-public interface ITransient;
+public interface ISigleton;

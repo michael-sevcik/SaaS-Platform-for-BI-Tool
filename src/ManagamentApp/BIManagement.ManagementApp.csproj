@@ -29,8 +29,10 @@
     <ProjectReference Include="..\Modules\DataIntegration\MapperPages\BIManagement.Modules.DataIntegration.MapperComponent.csproj" />
     <ProjectReference Include="..\Modules\DataIntegration\Pages\BIManagement.Modules.DataIntegration.Pages.csproj" />
     <ProjectReference Include="..\Modules\Deployment\Infrastructure\BIManagement.Modules.Deployment.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Deployment\Pages\BIManagement.Modules.Deployment.Pages.csproj" />
     <ProjectReference Include="..\Modules\Notifications\Infrastructure\BIManagement.Modules.Notifications.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Users\Infrastructure\BIManagement.Modules.Users.Infrastructure.csproj" />
+    <ProjectReference Include="..\Modules\Users\Pages\BIManagement.Modules.Users.Pages.csproj" />
   </ItemGroup>
 
 </Project>

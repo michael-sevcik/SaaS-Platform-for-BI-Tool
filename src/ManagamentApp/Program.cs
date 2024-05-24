@@ -30,17 +30,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddSignInManager()
-    .AddDefaultTokenProviders();
+// TODO: DELETE
+//builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>()
+//    .AddSignInManager()
+//    .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 
 // Install services and modules from the specified assemblies.
-//builder.Services.InstallServicesFromAssemblies(
+//builder.Services.InstallServicesFromAssemblies( // TODO: INSTALL SERVICES
 builder.Services.InstallModulesFromAssemblies(
     builder.Configuration,
     BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
@@ -73,8 +74,10 @@ app.UseAntiforgery();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddAdditionalAssemblies(
-// TODO:
         BIManagement.Modules.DataIntegration.Pages.AssemblyReference.Assembly
+        //BIManagement.Modules.DataIntegration.Pages.AssemblyReference.Assembly,
+        //BIManagement.Modules.Deployment.Pages.AssemblyReference.Assembly,
+        //BIManagement.Modules.Users.Pages.AssemblyReference.Assembly
     );
 
 // Add additional endpoints required by the Identity /Account Razor components.

@@ -77,4 +77,18 @@ public static class ServiceCollectionExtensions
                 .UsingRegistrationStrategy(RegistrationStrategy.Throw)
                 .AsMatchingInterface()
                 .WithTransientLifetime());
+
+    /// <summary>
+    /// Adds all of the implementations of <see cref="IScoped"/> inside the specified assembly as scoped.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="assembly">The assembly to scan for scoped services.</param>
+    /// <returns>The same service collection so that multiple calls can be chained.</returns>
+    public static IServiceCollection AddSigletonAsMatchingInterfaces(this IServiceCollection services, Assembly assembly) =>
+        services.Scan(scan =>
+            scan.FromAssemblies(assembly)
+                .AddClasses(filter => filter.AssignableTo<ISigleton>(), false)
+                .UsingRegistrationStrategy(RegistrationStrategy.Throw)
+                .AsMatchingInterface()
+                .WithSingletonLifetime());
 }
