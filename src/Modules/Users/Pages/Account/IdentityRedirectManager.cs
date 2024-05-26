@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Http;
 
 namespace BIManagement.Modules.Users.Pages.Account
 {
-    internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
+    public sealed class IdentityRedirectManager(NavigationManager navigationManager)
     {
         private static readonly CookieBuilder StatusCookieBuilder = new()
         {

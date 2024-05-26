@@ -11,7 +11,7 @@ namespace BIManagement.Modules.Users.Pages.Account
 {
     // This is a server-side AuthenticationStateProvider that revalidates the security stamp for the connected user
     // every 30 minutes an interactive circuit is connected.
-    internal sealed class IdentityRevalidatingAuthenticationStateProvider(
+    public sealed class IdentityRevalidatingAuthenticationStateProvider(
             ILoggerFactory loggerFactory,
             IServiceScopeFactory scopeFactory,
             IOptions<IdentityOptions> options)

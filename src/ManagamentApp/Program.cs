@@ -14,44 +14,47 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
-builder.Services.AddCascadingAuthenticationState();
-builder.Services.AddScoped<IdentityUserAccessor>();
-builder.Services.AddScoped<IdentityRedirectManager>();
-builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 builder.Services.AddSingleton<INavMenuContentProvider, NavMenuContentProvider>(); // TODO: use the service technique to provide the NavMenuContentProvider
 
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-    })
-    .AddIdentityCookies();
+#region Identity
+//builder.Services.AddCascadingAuthenticationState();
+//builder.Services.AddScoped<IdentityUserAccessor>();
+//builder.Services.AddScoped<IdentityRedirectManager>();
+//builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
 
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+//builder.Services.AddAuthentication(options =>
+//    {
+//        options.DefaultScheme = IdentityConstants.ApplicationScheme;
+//        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
+//    })
+//    .AddIdentityCookies();
 
-// TODO: DELETE moved to users.ServiceInstallers.IdentitySrviceInstaller
-builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>()
-    .AddSignInManager()
-    .AddDefaultTokenProviders();
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+//builder.Services.AddDbContext<ApplicationDbContext>(options =>
+//    options.UseSqlServer(connectionString));
+//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+//// TODO: DELETE moved to users.ServiceInstallers.IdentitySrviceInstaller
+//builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+//    .AddEntityFrameworkStores<ApplicationDbContext>()
+//    .AddSignInManager()
+//    .AddDefaultTokenProviders();
+
+//builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+
+#endregion
 
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
 
 // Install services and modules from the specified assemblies.
 //builder.Services.InstallServicesFromAssemblies( // TODO: INSTALL SERVICES
-//builder.Services.InstallModulesFromAssemblies(
-//    builder.Configuration,
-//    BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
-//    BIManagement.Modules.Deployment.Infrastructure.AssemblyReference.Assembly,
-//    BIManagement.Modules.Notifications.Infrastructure.AssemblyReference.Assembly,
-//    BIManagement.Modules.Users.Infrastructure.AssemblyReference.Assembly
-//);
+builder.Services.InstallModulesFromAssemblies(
+    builder.Configuration,
+   BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
+   BIManagement.Modules.Deployment.Infrastructure.AssemblyReference.Assembly,
+   BIManagement.Modules.Notifications.Infrastructure.AssemblyReference.Assembly,
+   BIManagement.Modules.Users.Infrastructure.AssemblyReference.Assembly
+);
 
 var app = builder.Build();
 

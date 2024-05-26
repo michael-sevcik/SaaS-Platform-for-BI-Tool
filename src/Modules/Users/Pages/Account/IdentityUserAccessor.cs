@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace BIManagement.Modules.Users.Pages.Account
 {
-    internal sealed class IdentityUserAccessor(UserManager<ApplicationUser> userManager, IdentityRedirectManager redirectManager)
+    public sealed class IdentityUserAccessor(UserManager<ApplicationUser> userManager, IdentityRedirectManager redirectManager)
     {
         public async Task<ApplicationUser> GetRequiredUserAsync(HttpContext context)
         {

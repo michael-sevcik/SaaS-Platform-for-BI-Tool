@@ -14,7 +14,7 @@ public class UsersModuleInstaller : IModuleInstaller
 {
     public static void Install(IServiceCollection services, IConfiguration configuration)
     {
-        services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
+        //services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
         services.InstallServicesFromAssemblies(configuration,
             AssemblyReference.Assembly
             //  TODO: ADD all ADDITIONAL ASSEMBLIES
