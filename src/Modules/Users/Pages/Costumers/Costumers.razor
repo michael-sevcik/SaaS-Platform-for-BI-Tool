@@ -15,7 +15,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var user in Users)
+        @foreach (var user in Users) // Consider using virtualization if the list is too long - https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization
         {
             <tr>
                 <td>@user.Id</td>
@@ -27,7 +27,7 @@
 </table>
 
 @code {
-    private IEnumerable<ApplicationUser> Users { get; set; }
+    private IEnumerable<ApplicationUser> Users { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {

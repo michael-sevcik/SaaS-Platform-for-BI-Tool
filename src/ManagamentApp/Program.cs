@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using BIManagement.Common.Infrastructure.Extensions;
+using BIManagement.ManagementApp.Components.Layout;
+using BIManagement.Common.Components.Layout;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,7 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
+builder.Services.AddSingleton<INavMenuContentProvider, NavMenuContentProvider>(); // TODO: use the service technique to provide the NavMenuContentProvider
 
 builder.Services.AddAuthentication(options =>
     {
@@ -30,11 +33,11 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-// TODO: DELETE
-//builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>()
-//    .AddSignInManager()
-//    .AddDefaultTokenProviders();
+// TODO: DELETE moved to users.ServiceInstallers.IdentitySrviceInstaller
+builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddEntityFrameworkStores<ApplicationDbContext>()
+    .AddSignInManager()
+    .AddDefaultTokenProviders();
 
 builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
 
@@ -42,13 +45,13 @@ builder.Logging.SetMinimumLevel(LogLevel.Trace);
 
 // Install services and modules from the specified assemblies.
 //builder.Services.InstallServicesFromAssemblies( // TODO: INSTALL SERVICES
-builder.Services.InstallModulesFromAssemblies(
-    builder.Configuration,
-    BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
-    BIManagement.Modules.Deployment.Infrastructure.AssemblyReference.Assembly,
-    BIManagement.Modules.Notifications.Infrastructure.AssemblyReference.Assembly,
-    BIManagement.Modules.Users.Infrastructure.AssemblyReference.Assembly
-);
+//builder.Services.InstallModulesFromAssemblies(
+//    builder.Configuration,
+//    BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
+//    BIManagement.Modules.Deployment.Infrastructure.AssemblyReference.Assembly,
+//    BIManagement.Modules.Notifications.Infrastructure.AssemblyReference.Assembly,
+//    BIManagement.Modules.Users.Infrastructure.AssemblyReference.Assembly
+//);
 
 var app = builder.Build();
 

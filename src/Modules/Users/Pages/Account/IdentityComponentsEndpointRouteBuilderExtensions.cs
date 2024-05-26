@@ -1,18 +1,23 @@
 using System.Security.Claims;
 using System.Text.Json;
-using BIManagement.ManagementApp.Data;
-using BIManagement.ManagementApp.Components.Account.Pages;
-using BIManagement.ManagementApp.Components.Account.Pages.Manage;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Http.Extensions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Primitives;
+using Microsoft.AspNetCore.Routing;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using BIManagement.Modules.Users.Domain;
+using BIManagement.Modules.Users.Pages.Account.Pages;
+using BIManagement.Modules.Users.Pages.Account.Pages.Manage;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
-namespace BIManagement.ManagementApp.Components.Account;
+namespace BIManagement.Modules.Users.Pages.Account;
 
-internal static class IdentityComponentsEndpointRouteBuilderExtensions
+public static class IdentityComponentsEndpointRouteBuilderExtensions
 {
     // These endpoints are required by the Identity Razor components defined in the /Components/Account/Pages directory of this project.
     public static IEndpointConventionBuilder MapAdditionalIdentityEndpoints(this IEndpointRouteBuilder endpoints)

@@ -1,3 +1,4 @@
+using BIManagement.ManagementApp.Components.Account.Shared;
 using BIManagement.ManagementApp.Data;
 using Microsoft.AspNetCore.Identity;
 

@@ -3,7 +3,7 @@ using Microsoft.JSInterop;
 
 namespace BIManagement.Modules.DataIntegration.MapperComponent
 {
-    public partial class Mapper : IAsyncDisposable
+    public sealed partial class Mapper : IAsyncDisposable
     {
         private string number = "";
 
@@ -26,11 +26,10 @@ namespace BIManagement.Modules.DataIntegration.MapperComponent
 
         public async ValueTask DisposeAsync()
         {
-            Console.WriteLine("DisposeAsync" + ((MapperJSInterop is null) ? "null" : "not null"));
             if (MapperJSInterop != null)
             {
 
-                //await MapperJSInterop.DisposeAsync();
+                await MapperJSInterop.DisposeAsync();
             }
         }
 

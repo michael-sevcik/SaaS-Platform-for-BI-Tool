@@ -2,7 +2,7 @@ using BIManagement.Modules.Users.Domain;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 
-namespace BIManagement.ManagementApp.Components.Account
+namespace BIManagement.Modules.Users.Pages.Account
 {
     internal sealed class IdentityUserAccessor(UserManager<ApplicationUser> userManager, IdentityRedirectManager redirectManager)
     {

@@ -4,21 +4,17 @@
 /// Represents the abstract entity primitive.
 /// </summary>
 /// <typeparam name="TEntityId">The entity identifier type.</typeparam>
-public abstract class Entity<TEntityId> : IEquatable<Entity<TEntityId>>
+/// <remarks>
+/// Initializes a new instance of the <see cref="Entity{TEntityId}"/> class.
+/// </remarks>
+/// <param name="id">The entity identifier.</param>
+public abstract class Entity<TEntityId>(TEntityId id) : IEquatable<Entity<TEntityId>>
     where TEntityId : struct, IEquatable<TEntityId>
 {
     /// <summary>
-    /// Initializes a new instance of the <see cref="Entity{TEntityId}"/> class.
-    /// </summary>
-    /// <param name="id">The entity identifier.</param>
-    protected Entity(TEntityId id)
-        => Id = id;
-
-
-    /// <summary>
     /// Gets the entity identifier.
     /// </summary>
-    public TEntityId Id { get; private init; }
+    public TEntityId Id { get; private init; } = id;
 
     public static bool operator ==(Entity<TEntityId>? a, Entity<TEntityId>? b)
     {

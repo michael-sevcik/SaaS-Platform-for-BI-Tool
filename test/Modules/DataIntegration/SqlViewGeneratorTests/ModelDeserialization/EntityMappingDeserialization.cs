@@ -153,7 +153,7 @@ public class EntityMappingDeserialization : BaseModelDeserializationTests
 
         var deserialized = JsonSerializer.Deserialize<EntityMapping>(jsonString, SerializerOptions);
 
-        Assert.IsNotNull(deserialized);
+        Assert.That(deserialized, Is.Not.Null);
         AreEqualByJson(expectedEntityMapping, deserialized);
     }
 }

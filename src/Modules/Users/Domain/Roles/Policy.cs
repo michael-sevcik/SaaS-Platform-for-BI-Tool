@@ -8,13 +8,9 @@ using System.Threading.Tasks;
 
 namespace BIManagement.Modules.Users.Domain.Roles
 {
-    public class Policy : Enumeration<Policy>
+    public class Policy(int id, string name) : Enumeration<Policy>(id, name)
     {
-        public static Policy AdminOnly = new Policy((int)Role.Admin, "Admin");
-        public static Policy CostumerOnly = new Policy((int)Role.Costumer, "Costumer");
-
-        public Policy(int id, string name) : base(id, name)
-        {
-        }
+        public readonly static Policy AdminOnly = new((int)Role.Admin, "Admin");
+        public readonly static Policy costumerOnly = new((int)Role.Costumer, "Costumer");
     }
 }

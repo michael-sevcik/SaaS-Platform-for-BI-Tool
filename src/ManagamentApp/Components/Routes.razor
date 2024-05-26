@@ -1,10 +1,11 @@
-﻿@using BIManagement.ManagementApp.Components.Account.Shared
+﻿@using BIManagement.Common.Components.Layout
+@using BIManagement.ManagementApp.Components.Account.Shared
 @using BIManagement.Modules.DataIntegration.Pages
 
 <Router AppAssembly="typeof(Program).Assembly" >
    @* AdditionalAssemblies="new[] { Modules.DataIntegration.Pages.AssemblyReference.Assembly } *@
     <Found Context="routeData">
-        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(BIManagement.Common.Components.Layout.MainLayout)">
             <NotAuthorized>
                 <RedirectToLogin />
             </NotAuthorized>

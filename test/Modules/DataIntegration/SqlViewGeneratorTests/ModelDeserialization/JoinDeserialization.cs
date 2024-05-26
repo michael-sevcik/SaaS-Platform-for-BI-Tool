@@ -85,7 +85,7 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
 
             var deserialized = JsonSerializer.Deserialize<Join>(jsonText, SerializerOptions);
 
-            Assert.IsNotNull(deserialized);
+            Assert.That(deserialized, Is.Not.Null);
         }
 
         [Test]
@@ -107,9 +107,11 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
 
             var serialized = JsonSerializer.Serialize(join, SerializerOptions);
             var serializedISource = JsonSerializer.Serialize<ISourceEntity>(join, SerializerOptions);
-
-            Assert.IsNotNull(serialized);
-            Assert.IsNotNull(serializedISource);
+            Assert.Multiple(() =>
+            {
+                Assert.That(serialized, Is.Not.Null);
+                Assert.That(serializedISource, Is.Not.Null);
+            });
         }
 
         [Test]
@@ -146,7 +148,7 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
 
             var deserialized = JsonSerializer.Deserialize<JoinCondition>(jsonText, SerializerOptions);
 
-            Assert.IsNotNull(deserialized);
+            Assert.That(deserialized, Is.Not.Null);
         }
     }
 }

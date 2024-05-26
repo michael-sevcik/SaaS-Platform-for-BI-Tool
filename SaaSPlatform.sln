@@ -67,7 +67,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Notifi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.Infrastructure", "src\Modules\DataIntegration\Infrastructure\BIManagement.Modules.DataIntegration.Infrastructure.csproj", "{252CDD93-AF74-45A3-A346-221A36561FF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.Deployment.Pages", "src\Modules\Deployment\Pages\BIManagement.Modules.Deployment.Pages.csproj", "{55CF4046-C6D6-4275-B853-178B26328BFF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Deployment.Pages", "src\Modules\Deployment\Pages\BIManagement.Modules.Deployment.Pages.csproj", "{55CF4046-C6D6-4275-B853-178B26328BFF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

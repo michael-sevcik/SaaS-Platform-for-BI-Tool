@@ -1,5 +1,6 @@
-﻿@inherits LayoutComponentBase
-@layout ManagementApp.Components.Layout.MainLayout
+﻿@using Microsoft.AspNetCore.Http
+@inherits LayoutComponentBase // TODO:
+@layout BIManagement.Common.Components.Layout.MainLayout
 @inject NavigationManager NavigationManager
 
 @if (HttpContext is null)
@@ -8,7 +9,7 @@
 }
 else
 {
-    @Body
+     @Body // todo: 
 }
 
 @code {

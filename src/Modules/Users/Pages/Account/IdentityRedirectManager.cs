@@ -3,7 +3,7 @@ using BIManagement.Common.Shared.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
 
-namespace BIManagement.ManagementApp.Components.Account
+namespace BIManagement.Modules.Users.Pages.Account
 {
     internal sealed class IdentityRedirectManager(NavigationManager navigationManager)
     {

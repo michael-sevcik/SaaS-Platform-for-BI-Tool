@@ -31,7 +31,7 @@ public class SqlViewVisitorTests
             },
             new(JoinCondition.Operator.Equal, sourceTable1.GetColumnMapping("IdObdobi"), sourceTable2.GetColumnMapping("IdObdobi")));
 
-        SqlViewVisitor visitor = new SqlViewVisitor("[dbo].");
+        SqlViewVisitor visitor = new("[dbo].");
         join.Accept(visitor);
         string actualJoinRepresentation = visitor.GetSqlView();
 
@@ -70,7 +70,7 @@ public class SqlViewVisitorTests
                 { "DateTo", sourceTable2.GetColumnMapping("MzdObd_DatumDo")},
             });
 
-        SqlViewVisitor visitor = new SqlViewVisitor("[dbo].");
+        SqlViewVisitor visitor = new("[dbo].");
         entityMapping.Accept(visitor);
         string actualJoinRepresentation = visitor.GetSqlView();
 

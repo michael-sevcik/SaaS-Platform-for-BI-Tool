@@ -7,10 +7,10 @@ using Microsoft.AspNetCore.Authorization;
 namespace BIManagement.Modules.Users.Api.PolicyAttributes;
 
 /// <summary>
-/// 
+/// Custom authorization attribute that allows only admins to access the method.
 /// </summary>
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
-internal class AuthorizeOnlyCostumers : AuthorizeAttribute
+public class AuthorizeOnlyCostumers : AuthorizeAttribute
 {
     public AuthorizeOnlyCostumers()
     {
