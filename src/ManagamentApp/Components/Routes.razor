@@ -1,6 +1,6 @@
 ﻿@using BIManagement.Common.Components.Layout
-@using BIManagement.ManagementApp.Components.Account.Shared
 @using BIManagement.Modules.DataIntegration.Pages
+@inject NavigationManager NavigationManager
 
 <Router AppAssembly="typeof(Program).Assembly" >
    @* AdditionalAssemblies="new[] { Modules.DataIntegration.Pages.AssemblyReference.Assembly } *@
@@ -17,3 +17,9 @@
         <h1>404 Not Found</h1>
     </NotFound>
 </Router>
+
+
+@code {
+    void RedirectToLogin()
+        => NavigationManager.NavigateTo($"Account/Login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}", forceLoad: true);
+}

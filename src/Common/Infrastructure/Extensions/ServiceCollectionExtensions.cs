@@ -2,6 +2,8 @@
 using BIManagement.Common.Application.ServiceLifetimes;
 using BIManagement.Common.Infrastructure.Configuration;
 using BIManagement.Common.Shared.Extensions;
+using FluentValidation;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Scrutor;
@@ -41,13 +43,27 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services,
         IConfiguration configuration,
         params Assembly[] assemblies) =>
-        services.Tap(() => assemblies.SelectMany(assembly => assembly.GetTypes())
-            .Where(type => typeof(IModuleInstaller).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
-            .ForEach(type => type
+        services.Tap(() => ForEachModuleInstallerTypeFromAssemblies(assemblies, type => type
                 .GetMethod(nameof(IModuleInstaller.Install))
                 
                 // null for static methods and [services, configuration] as parameters
-                ?.Invoke(null, [services, configuration]))); 
+                ?.Invoke(null, [services, configuration])));
+
+    /// <summary>
+    /// Adds module endpoints using the <see cref="IModuleInstaller"/> implementations defined in the specified assemblies.
+    /// </summary>
+    /// <param name="services">The services.</param>
+    /// <param name="configuration">The configuration.</param>
+    /// <param name="assemblies">The assemblies to scan for module installer implementations.</param>
+    /// <returns>The same service collection so that multiple calls can be chained.</returns>
+    public static IEndpointRouteBuilder AddModulesEndpointsFromAssemblies(
+        this IEndpointRouteBuilder builder,
+        params Assembly[] assemblies) =>
+        builder.Tap(() => ForEachModuleInstallerTypeFromAssemblies(assemblies, type => type
+                    .GetMethod(nameof(IModuleInstaller.AddEndpoints))
+
+                    // null for static methods and [services, configuration] as parameters
+                    ?.Invoke(null, [builder])));
 
 
     /// <summary>
@@ -91,4 +107,14 @@ public static class ServiceCollectionExtensions
                 .UsingRegistrationStrategy(RegistrationStrategy.Throw)
                 .AsMatchingInterface()
                 .WithSingletonLifetime());
+
+    public static IServiceCollection AddServicesWithLifetimeAsMatchingInterfaces(this IServiceCollection services, Assembly assembly)
+        => services.AddTransientAsMatchingInterfaces(assembly)
+            .AddScopedAsMatchingInterfaces(assembly)
+            .AddSigletonAsMatchingInterfaces(assembly);
+
+    private static void ForEachModuleInstallerTypeFromAssemblies(Assembly[] assemblies, Action<Type> action)
+        => assemblies.SelectMany(assembly => assembly.GetTypes())
+            .Where(type => typeof(IModuleInstaller).IsAssignableFrom(type) && !type.IsInterface && !type.IsAbstract)
+            .ForEach(action);
 }

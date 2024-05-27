@@ -5,8 +5,6 @@ namespace BIManagement.Modules.DataIntegration.MapperComponent
 {
     public sealed partial class Mapper : IAsyncDisposable
     {
-        private string number = "";
-
         [Inject]
         IJSRuntime JSRuntime { get; set; } = default!;
         MapperJsInterop? MapperJSInterop { get; set; }
@@ -28,7 +26,6 @@ namespace BIManagement.Modules.DataIntegration.MapperComponent
         {
             if (MapperJSInterop != null)
             {
-
                 await MapperJSInterop.DisposeAsync();
             }
         }

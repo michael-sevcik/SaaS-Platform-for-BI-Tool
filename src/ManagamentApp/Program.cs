@@ -1,5 +1,5 @@
-using BIManagement.ManagementApp.Components.Account;
-using BIManagement.ManagementApp.Data;
+//using BIManagement.ManagementApp.Components.Account; // TODO:
+//using BIManagement.ManagementApp.Data;
 using BIManagement.ManagementApp.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +8,7 @@ using System.Reflection;
 using BIManagement.Common.Infrastructure.Extensions;
 using BIManagement.ManagementApp.Components.Layout;
 using BIManagement.Common.Components.Layout;
+using BIManagement.ManagementApp.StartupTasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,44 +17,19 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddSingleton<INavMenuContentProvider, NavMenuContentProvider>(); // TODO: use the service technique to provide the NavMenuContentProvider
 
-#region Identity
-//builder.Services.AddCascadingAuthenticationState();
-//builder.Services.AddScoped<IdentityUserAccessor>();
-//builder.Services.AddScoped<IdentityRedirectManager>();
-//builder.Services.AddScoped<AuthenticationStateProvider, IdentityRevalidatingAuthenticationStateProvider>();
-
-//builder.Services.AddAuthentication(options =>
-//    {
-//        options.DefaultScheme = IdentityConstants.ApplicationScheme;
-//        options.DefaultSignInScheme = IdentityConstants.ExternalScheme;
-//    })
-//    .AddIdentityCookies();
-
-//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-//builder.Services.AddDbContext<ApplicationDbContext>(options =>
-//    options.UseSqlServer(connectionString));
-//builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-//// TODO: DELETE moved to users.ServiceInstallers.IdentitySrviceInstaller
-//builder.Services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-//    .AddEntityFrameworkStores<ApplicationDbContext>()
-//    .AddSignInManager()
-//    .AddDefaultTokenProviders();
-
-//builder.Services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
-
-#endregion
-
 builder.Logging.SetMinimumLevel(LogLevel.Trace);
+builder.Services.AddHostedService<MigrateDatabasesTask>();
 
-// Install services and modules from the specified assemblies.
-//builder.Services.InstallServicesFromAssemblies( // TODO: INSTALL SERVICES
+Assembly[] infrastructureAssemblies = [
+    BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
+    BIManagement.Modules.Deployment.Infrastructure.AssemblyReference.Assembly,
+    BIManagement.Modules.Notifications.Infrastructure.AssemblyReference.Assembly,
+    BIManagement.Modules.Users.Infrastructure.AssemblyReference.Assembly
+    ];
+
 builder.Services.InstallModulesFromAssemblies(
     builder.Configuration,
-   BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
-   BIManagement.Modules.Deployment.Infrastructure.AssemblyReference.Assembly,
-   BIManagement.Modules.Notifications.Infrastructure.AssemblyReference.Assembly,
-   BIManagement.Modules.Users.Infrastructure.AssemblyReference.Assembly
+    infrastructureAssemblies
 );
 
 var app = builder.Build();
@@ -75,18 +51,15 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
 
+app.AddModulesEndpointsFromAssemblies(infrastructureAssemblies);
 
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddAdditionalAssemblies(
-        BIManagement.Modules.DataIntegration.Pages.AssemblyReference.Assembly
-        //BIManagement.Modules.DataIntegration.Pages.AssemblyReference.Assembly,
-        //BIManagement.Modules.Deployment.Pages.AssemblyReference.Assembly,
-        //BIManagement.Modules.Users.Pages.AssemblyReference.Assembly
+        BIManagement.Modules.DataIntegration.Pages.AssemblyReference.Assembly,
+        BIManagement.Modules.Deployment.Pages.AssemblyReference.Assembly,
+        BIManagement.Modules.Users.Pages.AssemblyReference.Assembly
     );
-
-// Add additional endpoints required by the Identity /Account Razor components.
-app.MapAdditionalIdentityEndpoints();
 
 app.Run();

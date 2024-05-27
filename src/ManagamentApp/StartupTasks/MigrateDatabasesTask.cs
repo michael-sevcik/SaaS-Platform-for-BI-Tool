@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BIManagement.Modules.Users.Persistence;
+using Microsoft.EntityFrameworkCore;
 
 namespace BIManagement.ManagementApp.StartupTasks
 {
@@ -22,7 +23,8 @@ namespace BIManagement.ManagementApp.StartupTasks
 
             using IServiceScope scope = serviceProvider.CreateScope();
 
-            // TODO: use for each DbContext
+            await MigrateDatabaseAsync<UsersContext>(scope, stoppingToken);
+
         }
 
         private static async Task MigrateDatabaseAsync<TDbContext>(IServiceScope scope, CancellationToken cancellationToken)
@@ -30,7 +32,7 @@ namespace BIManagement.ManagementApp.StartupTasks
         {
             TDbContext dbContext = scope.ServiceProvider.GetRequiredService<TDbContext>();
 
-            await dbContext.Database.MigrateAsync(cancellationToken);
+            await dbContext.Database.EnsureCreatedAsync(cancellationToken);
         }
     }
 

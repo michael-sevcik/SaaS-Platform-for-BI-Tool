@@ -12,9 +12,8 @@ namespace BIManagement.Modules.Users.Api.PolicyAttributes;
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
 public class AuthorizeOnlyCostumers : AuthorizeAttribute
 {
-    public AuthorizeOnlyCostumers()
-    {
-        // TODO:
-        //Policy = Policy;
+    public AuthorizeOnlyCostumers() {
+        base.Roles = Domain.Roles.Costumer;
     }
 }
+

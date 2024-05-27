@@ -13,5 +13,8 @@ namespace BIManagement.Modules.Users.Api.PolicyAttributes;
 [AttributeUsage(AttributeTargets.Method, Inherited = false)]
 public class AuthorizeOnlyAdmins : AuthorizeAttribute
 {
-    // TODO: Implement AuthorizeOnlyAdmins
+    public AuthorizeOnlyAdmins()
+    {
+        base.Roles = Domain.Roles.Admin;
+    }
 }

@@ -15,6 +15,8 @@ namespace BIManagement.Modules.Users.Pages.Account
                 redirectManager.RedirectToWithStatus("Account/InvalidUser", $"Error: Unable to load user with ID '{userManager.GetUserId(context.User)}'.", context);
             }
 
+            //await userManager.AddToRoleAsync(user, "Admin");
+
             return user;
         }
     }

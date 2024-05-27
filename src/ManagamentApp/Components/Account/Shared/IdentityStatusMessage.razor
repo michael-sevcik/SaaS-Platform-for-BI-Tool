@@ -1,9 +1,0 @@
-﻿@using BIManagement.Common.Components
-@using BIManagement.Common.Shared.Cookies
-
-<StatusMessage CookieName="@CookieNames.IdentityStatus" Message="@Message" />
-
-@code {
-    [Parameter]
-    public string? Message { get; set; }
-}

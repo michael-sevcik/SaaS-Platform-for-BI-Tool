@@ -5,5 +5,5 @@ namespace BIManagement.ManagementApp.Components.Layout;
 
 public class NavMenuContentProvider : INavMenuContentProvider
 {
-    public RenderFragment Content => NavMenu.MenuContent;
+    public RenderFragment Content => NavMenuContent.MenuContent;
 }

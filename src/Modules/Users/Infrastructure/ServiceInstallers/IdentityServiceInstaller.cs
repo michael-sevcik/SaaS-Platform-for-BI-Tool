@@ -29,20 +29,21 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
                 .AddIdentityCookies();
 
             var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            services.AddDbContext<ApplicationDbContext>(options =>
+            services.AddDbContext<UsersContext>(options =>
                 options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             // TODO: DELETE moved to users.ServiceInstallers.IdentitySrviceInstaller
             services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<UsersContext>()
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
 
             services.AddSingleton<IEmailSender<ApplicationUser>, Identity.IdentityNoOpEmailSender>();
 
             services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddEntityFrameworkStores<UsersContext>()
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
         }

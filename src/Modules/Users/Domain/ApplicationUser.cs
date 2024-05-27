@@ -1,5 +1,4 @@
 using BIManagement.Common.Domain.Primitives;
-using BIManagement.Modules.Users.Domain.Roles;
 using Microsoft.AspNetCore.Identity;
 
 namespace BIManagement.Modules.Users.Domain
@@ -7,8 +6,6 @@ namespace BIManagement.Modules.Users.Domain
     // Add profile data for application users by adding properties to the ApplicationUser class
     public class ApplicationUser : IdentityUser, IAuditable
     {
-        public Role Role { get; set; }
-
         // TODO: fINISH IMPLEMENTATION OF IAuditable
         DateTime IAuditable.CreatedOnUtc => throw new NotImplementedException();
 

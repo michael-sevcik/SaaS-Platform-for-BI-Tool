@@ -19,6 +19,7 @@
 
 	<ItemGroup>
     <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\Application\BIManagement.Modules.Users.Application.csproj" />
     <ProjectReference Include="..\Pages\BIManagement.Modules.Users.Pages.csproj" />
     <ProjectReference Include="..\Persistence\BIManagement.Modules.Users.Persistence.csproj" />
   </ItemGroup>
