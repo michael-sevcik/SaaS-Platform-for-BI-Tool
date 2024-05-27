@@ -7,9 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\Api\BIManagement.Modules.Notifications.Api.csproj" />
-    <ProjectReference Include="..\Application\BIManagement.Modules.Notifications.Application.csproj" />
   </ItemGroup>
 
 </Project>

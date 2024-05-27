@@ -16,6 +16,6 @@ public class UsersContext(DbContextOptions<UsersContext> options) : IdentityDbCo
     {
         base.OnModelCreating(builder);
         builder.HasDefaultSchema(UsersSchema.Name);
-        builder.Entity<IdentityRole>().HasData()
+        builder.Entity<IdentityRole>().HasData();   // todo: Add roles here
     }
 }

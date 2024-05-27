@@ -1,6 +1,5 @@
 ﻿@namespace BIManagementPlatform.Modules.Users.Pages
-@    using BIManagement.Modules.Users.Domain;
-@    using BIManagement.Modules.Users.Domain.Roles
+@using BIManagement.Modules.Users.Domain
 @page "/costumers"
 
 @inject IUserRepository userRepository;
@@ -20,7 +19,7 @@
             <tr>
                 <td>@user.Id</td>
                 <td>@user.UserName</td>
-                <td>@user.Role</td>
+                @* <td>@user.Role</td> *@
             </tr>
         }
     </tbody>
@@ -31,7 +30,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await userRepository.GetUsersByRole(Role.Costumer);
+        var result = await userRepository.GetUsersByRole(Roles.Costumer);
         if (result.IsSuccess)
         {
             Users = result.Value;
