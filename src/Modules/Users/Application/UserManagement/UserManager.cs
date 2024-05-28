@@ -6,13 +6,8 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace BIManagement.Modules.Users.Application.UserManagement;
 
@@ -24,19 +19,35 @@ internal class UserManager(
     ILogger<UserManager> Logger
     ) : IUserManager, IScoped
 {
-    public Task<Result<ApplicationUser>> CreateAdmin(string email, string password)
-    {
-        throw new NotImplementedException();
+    /// <inheritdoc/>
+    public async Task<Result<ApplicationUser>> CreateAdmin(string email, string name)
+        => await CreateUser(email, name, Roles.Admin);
 
-    }
-
+    /// <inheritdoc/>
     public async Task<Result<ApplicationUser>> CreateCostumerAsync(string email, string name)
+        => await CreateUser(email, email, Roles.Costumer);
+
+    /// <summary>
+    /// Creates an user with the given email, name and role.
+    /// </summary>
+    /// <param name="email">The user's email.</param>
+    /// <param name="name">The user's name.</param>
+    /// <param name="role">The role of the user.</param>
+    /// <returns>
+    /// Task object representing the asynchronous operation
+    /// with <see cref="Result{ApplicationUser}"/> as its value.
+    /// Result object either contains the created user or an error.
+    /// </returns>
+    private async Task<Result<ApplicationUser>> CreateUser(string email, string name, Role role)
     {
         ApplicationUser user = new();
 
+        // TODO: consider using the cancellation tokens
         await UserStore.SetUserNameAsync(user, email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, email, CancellationToken.None);
+        user.Name = name;
+        await UserStore.UpdateAsync(user, CancellationToken.None);
 
         var result = await UserManager.CreateAsync(user);
 
@@ -46,7 +57,9 @@ internal class UserManager(
             return Result.Failure<ApplicationUser>(new("Error.UserCreationFailed", result.ToString()));
         }
 
-        Logger.LogInformation("User created a new account with password.");
+        await UserManager.AddToRoleAsync(user, role);
+
+        Logger.LogInformation("User created a new account with a given role.");
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
@@ -60,16 +73,33 @@ internal class UserManager(
         return Result.Success(user);
     }
 
-    public Task<Result> DeleteUserAsync(string id)
+    /// <inheritdoc/>
+    public async Task<Result> DeleteUserAsync(string id)
     {
-        throw new NotImplementedException();
+        var user = await UserManager.FindByIdAsync(id);
+        if (user is null)
+        {
+            return Result.Failure(new("Error.UserNotFound", "Given user was not found."));
+        }
+
+        return await DeleteUserAsync(user);
     }
 
+    /// <inheritdoc/>
     public Task<Result> DeleteUserAsync(ApplicationUser user)
     {
+        // TODO: IMPLEMENT THIS METHDO.
         throw new NotImplementedException();
     }
 
+    /// <summary>
+    /// Helper method to get the email store.
+    /// </summary>
+    /// <returns>An instance of <see cref="IUserEmailStore{ApplicationUser}"/>.</returns>
+    /// <exception cref="NotSupportedException">
+    /// The instance of the injected <see cref="IUserEmailStore{ApplicationUser}"/>
+    /// does not support emails.
+    /// </exception>
     private IUserEmailStore<ApplicationUser> GetEmailStore()
     {
         if (!UserManager.SupportsUserEmail)
