@@ -9,10 +9,10 @@ namespace BIManagement.Modules.Users.Api.PolicyAttributes;
 /// <summary>
 /// Custom authorization attribute that allows only admins to access the method.
 /// </summary>
-[AttributeUsage(AttributeTargets.Method, Inherited = false)]
-public class AuthorizeOnlyCostumers : AuthorizeAttribute
+[AttributeUsage(AttributeTargets.Method, Inherited = true)]
+public class AuthorizeOnlyCostumersAttribute : AuthorizeAttribute
 {
-    public AuthorizeOnlyCostumers() {
+    public AuthorizeOnlyCostumersAttribute() {
         base.Roles = Domain.Roles.Costumer;
     }
 }

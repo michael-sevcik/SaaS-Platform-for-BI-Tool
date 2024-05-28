@@ -58,4 +58,15 @@ public interface IUserManager
     /// Result is either a success or an error.
     /// </returns>
     Task<Result> DeleteUserAsync(ApplicationUser user);
+
+    /// <summary>
+    /// Asynchronously gets all users by role.
+    /// </summary>
+    /// <param name="role">The role of the users to get.</param>
+    /// <returns>    
+    /// Task object representing the asynchronous operation
+    /// with <see cref="IList{ApplicationUser}"/> as its value.
+    /// </returns>
+    Task<IList<ApplicationUser>> GetUsersByRoleAsync(Role role);
+    Task<Result<ApplicationUser>> GetUser(string Id);
 }

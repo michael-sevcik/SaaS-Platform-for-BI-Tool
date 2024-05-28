@@ -1,44 +1,48 @@
 ﻿@namespace BIManagementPlatform.Modules.Users.Pages
+@using BIManagement.Modules.Users.Application.UserManagement
 @using BIManagement.Modules.Users.Domain
-@page "/costumers"
+@using BIManagement.Modules.Users.Pages
+@using Microsoft.AspNetCore.Identity
+@* Not using @page directive to utilize static routes class *@
+@attribute [Route(Routes.Costumers)]
 
-@inject IUserRepository userRepository;
 
+@inject IUserManager UserManager;
+@* @inject UserManager<ApplicationUser> UserManager; TODO:*@
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">ID</th>
-            <th scope="col">Name</th>
-            <th scope="col">Role</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var user in Users) // Consider using virtualization if the list is too long - https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization
-        {
+@if (Users?.Any() is not null and true)
+{
+    <table class="table">
+        <thead>
             <tr>
-                <td>@user.Id</td>
-                <td>@user.UserName</td>
-                @* <td>@user.Role</td> *@
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var user in Users) // Consider using virtualization if the list is too long - https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization
+            {
+                <tr>
+                    <td><a href="/costumers/@user.Id">@user.Id</a></td>
+                    <td>@user.UserName</td>
+                    @* <td>@user.Name</td> *@
+                    @* <td>@user.Role</td> *@
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No costumers found</p>
+}
 
 @code {
-    private IEnumerable<ApplicationUser> Users { get; set; } = default!;
+    private IEnumerable<ApplicationUser>? Users { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        var result = await userRepository.GetUsersByRole(Roles.Costumer);
-        if (result.IsSuccess)
-        {
-            Users = result.Value;
-        }
-        else
-        {
-            // TODO: Handle error
-            throw new NotImplementedException();
-        }
+        var Users = await UserManager.GetUsersByRoleAsync(Roles.Costumer);
+        // todo: Users = UserManager.Users.ToList(); 
     }
 }

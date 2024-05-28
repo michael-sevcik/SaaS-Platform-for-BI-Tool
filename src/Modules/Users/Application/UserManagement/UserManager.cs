@@ -8,9 +8,19 @@ using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Logging;
 using System.Text;
 using System.Text.Encodings.Web;
+using System.Text.Json;
 
 namespace BIManagement.Modules.Users.Application.UserManagement;
 
+// TODO: put the error messages in the resources.
+/// <summary>
+/// 
+/// </summary>
+/// <param name="UserManager"></param>
+/// <param name="UserStore"></param>
+/// <param name="EmailSender"></param>
+/// <param name="NavigationManager"></param>
+/// <param name="Logger"></param>
 internal class UserManager(
     UserManager<ApplicationUser> UserManager,
     IUserStore<ApplicationUser> UserStore,
@@ -19,6 +29,13 @@ internal class UserManager(
     ILogger<UserManager> Logger
     ) : IUserManager, IScoped
 {
+    public async Task<Result<ApplicationUser>> GetUser(string Id)
+        => await UserManager.FindByIdAsync(Id) switch 
+        {
+            null => Result.Failure<ApplicationUser>(UserErrors.UserNotFoundById),
+            var user => Result.Success(user)
+        };
+
     /// <inheritdoc/>
     public async Task<Result<ApplicationUser>> CreateAdmin(string email, string name)
         => await CreateUser(email, name, Roles.Admin);
@@ -45,6 +62,7 @@ internal class UserManager(
         // TODO: consider using the cancellation tokens
         await UserStore.SetUserNameAsync(user, email, CancellationToken.None);
         var emailStore = GetEmailStore();
+
         await emailStore.SetEmailAsync(user, email, CancellationToken.None);
         user.Name = name;
         await UserStore.UpdateAsync(user, CancellationToken.None);
@@ -53,19 +71,19 @@ internal class UserManager(
 
         if (!result.Succeeded)
         {
-            // CONSIDER : Externalize the error messages.
-            return Result.Failure<ApplicationUser>(new("Error.UserCreationFailed", result.ToString()));
+            Logger.LogError("Error creating user: {0}", result.Errors);
+            return Result.Failure<ApplicationUser>(UserErrors.UserCreationFailed);
         }
 
         await UserManager.AddToRoleAsync(user, role);
 
-        Logger.LogInformation("User created a new account with a given role.");
+        Logger.LogInformation("Created a new user account with a given role.");
 
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
         var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-            NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri,
+            NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri, // TODO: CONSIDER moving this to a constant.
             new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code });
 
         await EmailSender.SendInvitationLinkAsync(email, HtmlEncoder.Default.Encode(callbackUrl));
@@ -108,4 +126,8 @@ internal class UserManager(
         }
         return (IUserEmailStore<ApplicationUser>)UserStore;
     }
+
+    /// <inheritdoc/>
+    public async Task<IList<ApplicationUser>> GetUsersByRoleAsync(Role role)
+        => await UserManager.GetUsersInRoleAsync(role);
 }

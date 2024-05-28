@@ -16,4 +16,19 @@
     <ProjectReference Include="..\..\..\Common\Shared\BIManagement.Common.Shared.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Resources\UserErrors.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>UserErrors.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\UserErrors.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>UserErrors.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+
 </Project>

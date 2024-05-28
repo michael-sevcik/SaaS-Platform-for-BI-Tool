@@ -1,12 +1,55 @@
-﻿@page "/Costumers/{id:int}"
+﻿@using BIManagement.Common.Shared.Results
+@using BIManagement.Modules.Users.Application.UserManagement
+@using BIManagement.Modules.Users.Domain
+@inject IUserManager UserManager;
+@page "/Costumers/{Id}"
 
 <PageTitle>Costumer</PageTitle>
 
 <h3>Costumer</h3>
 
-<p>User Id: @Id</p>
+@if (userResult?.IsSuccess is not null and true)
+{
+    var user = userResult.Value;
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Attribute</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>User Id:</td>
+                <td>@user.Id</td>
+            </tr>
+            <tr>
+                <td>Email:</td>
+                <td>@user.Email</td>
+            </tr>
+            <tr>
+                <td>Confirmed Email:</td>
+                <td>@user.EmailConfirmed</td>
+            </tr>
+            <tr>
+                <td>User Name:</td>
+                <td>@user.Name</td>
+            </tr>
+        </tbody>
+    </table>
+
+    @* TODO: deployment state *@
+}
+else
+{
+    <p>Costumer not found.</p>
+}
 
 @code {
     [Parameter]
-    public int Id { get; set; }
+    public string Id { get; set; } = string.Empty;
+
+    private Result<ApplicationUser>? userResult;
+
+    protected override async Task OnInitializedAsync() => userResult = await UserManager.GetUser(Id);
 }

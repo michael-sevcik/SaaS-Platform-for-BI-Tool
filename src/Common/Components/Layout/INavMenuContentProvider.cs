@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Components;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BIManagement.Common.Components.Layout
+namespace BIManagement.Common.Components.Layout;
+
+/// <summary>
+/// Represents a provider of the content for the <see cref="NavMenu"/> component.
+/// </summary>
+public interface INavMenuContentProvider
 {
-    public interface INavMenuContentProvider
-    {
-        RenderFragment Content { get; }
-    }
+    /// <summary>
+    /// Gets the content for the <see cref="NavMenu"/> component.
+    /// </summary>
+    RenderFragment Content { get; }
 }

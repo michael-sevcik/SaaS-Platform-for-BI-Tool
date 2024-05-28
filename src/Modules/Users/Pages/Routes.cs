@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BIManagement.Modules.DataIntegration.Pages;
+namespace BIManagement.Modules.Users.Pages;
 
 /// <summary>
-/// Represents an encapsulation of routes for the Data Integration module.
+/// Represents an encapsulation of routes for the Users module.
 /// </summary>
 internal static class Routes
 {
     /// <summary>
     /// Represents a base route for the Data Integration module.
     /// </summary>
-    public const string DataIntegration = "/data-integration";
+    public const string Users = "/Users";
 
     /// <summary>
-    /// Represents a route for the Data Integration module.
+    /// Represents a route for the Costumers page.
     /// </summary>
-    public const string Mapper = $"{DataIntegration}/mapper";
+    public const string Costumers = $"{Users}/costumers";
 }
