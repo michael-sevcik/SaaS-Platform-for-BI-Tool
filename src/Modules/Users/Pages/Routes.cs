@@ -21,11 +21,22 @@ internal static class Routes
     /// </summary>
     public const string Costumers = $"{Users}/costumers";
 
+    /// <summary>
+    /// Represents a route for the Admins page.
+    /// </summary>
+    public const string Admins = $"{Users}/admins";
+
 
     public const string CostumerInfo = $"{Costumers}/{{Id}}";
+
+    public const string AdminInfo = $"{Admins}/{{Id}}";
 
     public static string GetCostumerInfo(string id)
         => $"{Costumers}/{id}";
 
+    public static string GetAdminInfo(string id)
+    => $"{Admins}/{id}";
+
     public const string AddCostumer = $"{Costumers}/add";
+    public const string AddAdmin = $"{Admins}/add";
 }

@@ -10,7 +10,7 @@ namespace BIManagement.Modules.DataIntegration.Application;
 public class IntegrationService : IIntegrationService, ISigleton
 {
     /// <inheritdoc/>
-    public Task HandleUserDeletionAsync(string userId)
+    public Task HandleCostumerDeletionAsync(string userId)
     {
         // todo: implement HandleUserDeletionAsync
         return Task.CompletedTask;

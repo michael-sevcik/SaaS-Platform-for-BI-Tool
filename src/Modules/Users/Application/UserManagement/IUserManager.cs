@@ -69,14 +69,23 @@ public interface IUserManager
     /// </returns>
     Task<IList<ApplicationUser>> GetUsersByRoleAsync(Role role);
 
-    /// <summary>Asynchronously gets user with the specified email.</summary>
+    /// <summary>Asynchronously gets an user of role Admin with the specified email.</summary>
     /// <param name="id">The id of the desired user.</param>
     /// <returns>    
     /// Task object representing the asynchronous operation
     /// with <see cref="Result{ApplicationUser}"/> as its value.
     /// The result object contains either the user or an error.
     /// </returns>
-    Task<Result<ApplicationUser>> GetUser(string id);
+    Task<Result<ApplicationUser>> GetAdmin(string id);
+
+    /// <summary>Asynchronously gets an user of role Costumer with the specified email.</summary>
+    /// <param name="id">The id of the desired user.</param>
+    /// <returns>    
+    /// Task object representing the asynchronous operation
+    /// with <see cref="Result{ApplicationUser}"/> as its value.
+    /// The result object contains either the user or an error.
+    /// </returns>
+    Task<Result<ApplicationUser>> GetCostumer(string id);
 
     /// <summary>Asynchronously gets user with the specified email.</summary>
     /// <param name="email">The email address of the desired user.</param>

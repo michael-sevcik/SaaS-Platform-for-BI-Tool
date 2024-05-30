@@ -4,7 +4,7 @@
 @inject IUserManager UserManager;
 @inject NavigationManager NavigationManager;
 @* Not using @page directive to utilize static routes class *@
-@attribute [Route(Routes.CostumerInfo)]
+@attribute [Route(Routes.AdminInfo)]
 @rendermode InteractiveServer
 
 <PageTitle>Costumer</PageTitle>
@@ -41,7 +41,7 @@
         </tbody>
     </table>
 
-    <DeleteUserButtonModal user="@user" OnSuccesfulDelete="() => NavigationManager.NavigateTo(Routes.Costumers)" />
+    <DeleteUserButtonModal user="@user" OnSuccesfulDelete="() => NavigationManager.NavigateTo(Routes.Admins)" />
     
     @* TODO: deployment state *@
 }
@@ -56,5 +56,5 @@ else
 
     private Result<ApplicationUser>? userResult;
 
-    protected override async Task OnInitializedAsync() => userResult = await UserManager.GetCostumer(Id);
+    protected override async Task OnInitializedAsync() => userResult = await UserManager.GetAdmin(Id);
 }

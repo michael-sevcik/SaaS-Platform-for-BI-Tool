@@ -1,0 +1,50 @@
+﻿@namespace BIManagementPlatform.Modules.Users.Pages
+@using BIManagement.Modules.Users.Application.UserManagement
+@using BIManagement.Modules.Users.Domain
+@using BIManagement.Modules.Users.Pages
+@using Microsoft.AspNetCore.Identity
+@* Not using @page directive to utilize static routes class *@
+@attribute [Route(Routes.Admins)]
+
+
+@inject IUserManager UserManager;
+
+<a href=@Routes.AddCostumer class="btn btn-primary">Add Admin</a>
+@if (Users is not null && Users.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">User name</th>
+                <th scope="col">Full name</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Users) // Consider using virtualization if the list is too long - https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization
+            {
+                <tr>
+                    <td><a href=@Routes.GetAdminInfo(user.Id)>@user.Id</a></td>
+                    <td>@user.UserName</td>
+                    <td>@user.Name</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No costumers found</p>
+}
+
+@code {
+    private IList<ApplicationUser>? Users { get; set; }
+
+
+
+    protected override async Task OnInitializedAsync()
+        => Users = await UserManager.GetUsersByRoleAsync(Roles.Admin);
+
+
+}

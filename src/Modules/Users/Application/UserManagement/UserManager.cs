@@ -22,7 +22,7 @@ namespace BIManagement.Modules.Users.Application.UserManagement;
 /// <param name="userStore"></param>
 /// <param name="emailSender"></param>
 /// <param name="logger"></param>
-internal class UserManager(
+internal sealed class UserManager(
     UserManager<ApplicationUser> userManager,
     IUserStore<ApplicationUser> userStore,
     IEmailSender emailSender,
@@ -31,12 +31,27 @@ internal class UserManager(
     ILogger<UserManager> logger
     ) : IUserManager, IScoped
 {
-    public async Task<Result<ApplicationUser>> GetUser(string Id)
-        => await userManager.FindByIdAsync(Id) switch 
-        {
-            null => Result.Failure<ApplicationUser>(UserErrors.UserNotFoundById),
-            var user => Result.Success(user)
-        };
+    private async Task<Result<ApplicationUser>> GetUser(string Id)
+       => await userManager.FindByIdAsync(Id) switch
+       {
+           null => Result.Failure<ApplicationUser>(UserErrors.UserNotFoundById),
+           var user => Result.Success(user)
+       };
+
+    private async Task<Result<ApplicationUser>> CheckThatUserIsInRole(ApplicationUser user, Role role)
+        => await userManager.IsInRoleAsync(user, role) 
+            ? Result.Success(user) 
+            : Result.Failure<ApplicationUser>(UserErrors.UserNotFoundById);
+
+
+    /// <inheritdoc/>
+    public async Task<Result<ApplicationUser>> GetCostumer(string Id)
+        => await GetUser(Id).Bind(async user => await CheckThatUserIsInRole(user, Roles.Costumer));
+
+    /// <inheritdoc/>
+    public async Task<Result<ApplicationUser>> GetAdmin(string Id)
+        => await GetUser(Id).Bind(async user => await CheckThatUserIsInRole(user, Roles.Admin));
+
 
     /// <inheritdoc/>
     public async Task<Result<ApplicationUser>> CreateAdminAsync(string email, string name)
@@ -123,7 +138,11 @@ internal class UserManager(
             return Result.Failure(UserErrors.UserDeletionFailed);
         }
 
-        await integrationNotifier.SentUserDeletionNotification(user.Id);
+        if (await userManager.IsInRoleAsync(user, Roles.Costumer))
+        {
+            await integrationNotifier.SentCostumerDeletionNotification(user.Id);
+        }
+
         return Result.Success();
     }
 
