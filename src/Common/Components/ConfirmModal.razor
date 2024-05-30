@@ -1,0 +1,74 @@
+﻿@using static Microsoft.AspNetCore.Components.Web.RenderMode
+@using Microsoft.AspNetCore.Components
+@rendermode InteractiveServer
+
+
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" @onclick="OpenModal">
+    @OpenButtonContent
+</button>
+
+@if (isModalOpened)
+{
+    <div class="modal fade show" id="exampleModal" tabindex="-1" role="dialog" style="display:block" aria-labelledby="confirm-modal-label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="confirm-modal-label">@Title</h5>
+                    <button type="button" class="close" @onclick="CloseModal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @ModalBody
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CloseModal" >Close</button>
+                    <button type="button" class="btn btn-primary" @onclick="OnConfirmAsync">Confirm</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+@code {
+    private bool isModalOpened = false;
+
+    [Parameter, EditorRequired]
+    public RenderFragment? ModalBody { get; set; }
+
+
+    [Parameter, EditorRequired]
+    public RenderFragment? OpenButtonContent { get; set; }
+
+    [Parameter, EditorRequired]
+    public string? Title { get; set; }
+
+    [Parameter, EditorRequired]
+    public Func<Task>? ConfirmationHandler{ get; set; }
+
+
+    public void OpenModal()
+    {
+        isModalOpened = true;
+        // StateHasChanged();
+    }
+
+    public void CloseModal()
+    {
+        isModalOpened = false;
+        // StateHasChanged();
+    }
+
+    public async Task OnConfirmAsync()
+    {
+        if (ConfirmationHandler is null)
+        {
+            return;            
+        }
+
+        await ConfirmationHandler();
+        CloseModal();
+    }
+
+}

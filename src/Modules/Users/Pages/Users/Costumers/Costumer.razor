@@ -2,8 +2,10 @@
 @using BIManagement.Modules.Users.Application.UserManagement
 @using BIManagement.Modules.Users.Domain
 @inject IUserManager UserManager;
+@inject NavigationManager NavigationManager;
 @* Not using @page directive to utilize static routes class *@
 @attribute [Route(Routes.CostumerInfo)]
+@rendermode InteractiveServer
 
 <PageTitle>Costumer</PageTitle>
 
@@ -39,6 +41,8 @@
         </tbody>
     </table>
 
+    <DeleteUserButtonModal user="@user" OnSuccesfulDelete="() => NavigationManager.NavigateTo(Routes.Costumers)" />
+    
     @* TODO: deployment state *@
 }
 else

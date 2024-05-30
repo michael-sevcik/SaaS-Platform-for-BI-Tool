@@ -18,6 +18,10 @@
                 <th scope="col">ID</th>
                 <th scope="col">User name</th>
                 <th scope="col">Full name</th>
+                @* @if (AdditionalInformation is not null) // TODO: DELETE if not needed
+                {
+                    <th scope="col">@AdditionalInformation.NameOfValue</th>
+                } *@
             </tr>
         </thead>
         <tbody>
@@ -27,6 +31,14 @@
                     <td><a href=@Routes.GetCostumerInfo(user.Id)>@user.Id</a></td>
                     <td>@user.UserName</td>
                     <td>@user.Name</td>
+@*                     @if (AdditionalInformation is not null)
+                    {
+                        <th scope="col">
+                            @{
+                                AdditionalInformation.AdditionalValueFunc(user); 
+                            }
+                        </th>
+                    } *@
                 </tr>
             }
         </tbody>
@@ -40,6 +52,20 @@ else
 @code {
     private IList<ApplicationUser>? Users { get; set; }
 
+    // [Parameter]
+    // public AdditionalInformationPair? AdditionalInformation { get; set; }
+
     protected override async Task OnInitializedAsync()
         => Users = await UserManager.GetUsersByRoleAsync(Roles.Costumer);
+
+    // /// <summary>
+    // /// Encapsulates additional information to be displayed in the user list.
+    // /// </summary>
+    // /// <param name="additionalValueFunc">Function delegate to get the additional information.</param>
+    // /// <param name="nameOfValue">Name of the value to be displayed.</param>
+    // public class AdditionalInformationPair(Func<ApplicationUser, Task<string>> additionalValueFunc, string nameOfValue)
+    // {
+    //     public Func<ApplicationUser, Task<string>> AdditionalValueFunc { get; init; } = additionalValueFunc;
+    //     public string NameOfValue { get; init; } = nameOfValue;
+    // }
 }
