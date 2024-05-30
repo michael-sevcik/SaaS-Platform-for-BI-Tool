@@ -120,6 +120,9 @@
   <data name="UserCreationFailed" xml:space="preserve">
     <value>Creation of the desired user failed.</value>
   </data>
+  <data name="UserDeletionFailed" xml:space="preserve">
+    <value>User cannot be deleted due to internal error</value>
+  </data>
   <data name="UserNotFoundById" xml:space="preserve">
     <value>User with the specified Id was not found.</value>
   </data>

@@ -1,13 +1,12 @@
 ﻿using BIManagement.Common.Infrastructure.Configuration;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BIManagement.Modules.Users.Pages.Account;
 using BIManagement.Common.Infrastructure.Extensions;
 
-namespace BIManagement.Modules.Users.Infrastructure;
 
-public class UsersModuleInstaller : IModuleInstaller
+namespace BIManagement.Modules.DataIntegration.Infrastructure;
+
+public class DataIntegrationModuleInstaller : IModuleInstaller
 {
     public static void Install(IServiceCollection services, IConfiguration configuration)
     {
@@ -21,7 +20,4 @@ public class UsersModuleInstaller : IModuleInstaller
         // TODO: FINISH installer
         //throw new NotImplementedException();
     }
-
-    public static void AddEndpoints(IEndpointRouteBuilder endpoints)
-        => endpoints.MapAdditionalIdentityEndpoints();
 }

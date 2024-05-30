@@ -70,6 +70,15 @@ namespace BIManagement.Modules.Users.Domain.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to User cannot be deleted due to internal error.
+        /// </summary>
+        internal static string UserDeletionFailed {
+            get {
+                return ResourceManager.GetString("UserDeletionFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User with the specified Id was not found..
         /// </summary>
         internal static string UserNotFoundById {

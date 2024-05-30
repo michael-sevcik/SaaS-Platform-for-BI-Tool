@@ -18,20 +18,21 @@ namespace BIManagement.Modules.Users.Application.UserManagement;
 /// <summary>
 /// 
 /// </summary>
-/// <param name="UserManager"></param>
-/// <param name="UserStore"></param>
-/// <param name="EmailSender"></param>
-/// <param name="Logger"></param>
+/// <param name="userManager"></param>
+/// <param name="userStore"></param>
+/// <param name="emailSender"></param>
+/// <param name="logger"></param>
 internal class UserManager(
-    UserManager<ApplicationUser> UserManager,
-    IUserStore<ApplicationUser> UserStore,
-    IEmailSender EmailSender,
-    IConfiguration Configuration,
-    ILogger<UserManager> Logger
+    UserManager<ApplicationUser> userManager,
+    IUserStore<ApplicationUser> userStore,
+    IEmailSender emailSender,
+    IConfiguration configuration,
+    IIntegrationNotifier integrationNotifier,
+    ILogger<UserManager> logger
     ) : IUserManager, IScoped
 {
     public async Task<Result<ApplicationUser>> GetUser(string Id)
-        => await UserManager.FindByIdAsync(Id) switch 
+        => await userManager.FindByIdAsync(Id) switch 
         {
             null => Result.Failure<ApplicationUser>(UserErrors.UserNotFoundById),
             var user => Result.Success(user)
@@ -61,30 +62,30 @@ internal class UserManager(
         ApplicationUser user = new();
 
         // TODO: consider using the cancellation tokens
-        await UserStore.SetUserNameAsync(user, email, CancellationToken.None);
+        await userStore.SetUserNameAsync(user, email, CancellationToken.None);
         var emailStore = GetEmailStore();
 
         await emailStore.SetEmailAsync(user, email, CancellationToken.None);
         user.Name = name;
-        await UserStore.UpdateAsync(user, CancellationToken.None);
+        await userStore.UpdateAsync(user, CancellationToken.None);
 
-        var result = await UserManager.CreateAsync(user);
+        var result = await userManager.CreateAsync(user);
 
         if (!result.Succeeded)
         {
-            Logger.LogError("Error creating user: {0}", result.Errors);
+            logger.LogError("Error creating user: {0}", result.Errors);
             return Result.Failure<ApplicationUser>(UserErrors.UserCreationFailed);
         }
 
-        await UserManager.AddToRoleAsync(user, role);
+        await userManager.AddToRoleAsync(user, role);
 
-        Logger.LogInformation("Created a new user account with a given role.");
+        logger.LogInformation("Created a new user account with a given role.");
 
-        var userId = await UserManager.GetUserIdAsync(user);
-        var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
+        var userId = await userManager.GetUserIdAsync(user);
+        var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-        if (!Uri.TryCreate(Configuration["ManagementApp:FrontendUrl"], UriKind.Absolute, out var frontendUrl) || frontendUrl is null)
+        if (!Uri.TryCreate(configuration["ManagementApp:FrontendUrl"], UriKind.Absolute, out var frontendUrl) || frontendUrl is null)
         {
             throw new InvalidOperationException("The ManagementApp:FrontendUrl is not specified in configuration or it has invalid format.");
         }
@@ -94,7 +95,7 @@ internal class UserManager(
         callbackUrl = QueryHelpers.AddQueryString(callbackUrl, "userId", userId);
         callbackUrl = QueryHelpers.AddQueryString(callbackUrl, "code", code);
 
-        await EmailSender.SendInvitationLinkAsync(email, callbackUrl);
+        await emailSender.SendInvitationLinkAsync(email, callbackUrl);
 
         return Result.Success(user);
     }
@@ -102,7 +103,7 @@ internal class UserManager(
     /// <inheritdoc/>
     public async Task<Result> DeleteUserAsync(string id)
     {
-        var user = await UserManager.FindByIdAsync(id);
+        var user = await userManager.FindByIdAsync(id);
         if (user is null)
         {
             return Result.Failure(new("Error.UserNotFound", "Given user was not found."));
@@ -112,10 +113,18 @@ internal class UserManager(
     }
 
     /// <inheritdoc/>
-    public Task<Result> DeleteUserAsync(ApplicationUser user)
+    public async Task<Result> DeleteUserAsync(ApplicationUser user)
     {
-        // TODO: IMPLEMENT THIS METHDO.
-        throw new NotImplementedException();
+        var result = await userManager.DeleteAsync(user);
+
+        if (!result.Succeeded)
+        {
+            logger.LogError("Error deleting user: {0}", result.Errors);
+            return Result.Failure(UserErrors.UserDeletionFailed);
+        }
+
+        await integrationNotifier.SentUserDeletionNotification(user.Id);
+        return Result.Success();
     }
 
     /// <summary>
@@ -128,19 +137,19 @@ internal class UserManager(
     /// </exception>
     private IUserEmailStore<ApplicationUser> GetEmailStore()
     {
-        if (!UserManager.SupportsUserEmail)
+        if (!userManager.SupportsUserEmail)
         {
             throw new NotSupportedException("The default UI requires a user store with email support.");
         }
-        return (IUserEmailStore<ApplicationUser>)UserStore;
+        return (IUserEmailStore<ApplicationUser>)userStore;
     }
 
     /// <inheritdoc/>
     public async Task<IList<ApplicationUser>> GetUsersByRoleAsync(Role role)
-        => await UserManager.GetUsersInRoleAsync(role);
+        => await userManager.GetUsersInRoleAsync(role);
 
     /// <inheritdoc/>
     public async Task<ApplicationUser?> GetUserByEmail(string email)
-        => await UserManager.FindByEmailAsync(email);
+        => await userManager.FindByEmailAsync(email);
 
 }

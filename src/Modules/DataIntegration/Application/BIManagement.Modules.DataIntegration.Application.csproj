@@ -7,8 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
-    <ProjectReference Include="..\Application\BIManagement.Modules.Deployment.Application.csproj" />
+    <ProjectReference Include="..\..\..\Common\Application\BIManagement.Common.Application.csproj" />
+    <ProjectReference Include="..\Api\BIManagement.Modules.DataIntegration.Api.csproj" />
   </ItemGroup>
 
 </Project>
