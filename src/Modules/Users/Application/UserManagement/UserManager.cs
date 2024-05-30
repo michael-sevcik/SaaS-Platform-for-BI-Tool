@@ -5,7 +5,9 @@ using BIManagement.Modules.Users.Domain;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using System.Data;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Text.Json;
@@ -19,13 +21,12 @@ namespace BIManagement.Modules.Users.Application.UserManagement;
 /// <param name="UserManager"></param>
 /// <param name="UserStore"></param>
 /// <param name="EmailSender"></param>
-/// <param name="NavigationManager"></param>
 /// <param name="Logger"></param>
 internal class UserManager(
     UserManager<ApplicationUser> UserManager,
     IUserStore<ApplicationUser> UserStore,
     IEmailSender EmailSender,
-    NavigationManager NavigationManager,
+    IConfiguration Configuration,
     ILogger<UserManager> Logger
     ) : IUserManager, IScoped
 {
@@ -37,7 +38,7 @@ internal class UserManager(
         };
 
     /// <inheritdoc/>
-    public async Task<Result<ApplicationUser>> CreateAdmin(string email, string name)
+    public async Task<Result<ApplicationUser>> CreateAdminAsync(string email, string name)
         => await CreateUser(email, name, Roles.Admin);
 
     /// <inheritdoc/>
@@ -82,11 +83,18 @@ internal class UserManager(
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
-        var callbackUrl = NavigationManager.GetUriWithQueryParameters(
-            NavigationManager.ToAbsoluteUri("Account/ConfirmEmail").AbsoluteUri, // TODO: CONSIDER moving this to a constant.
-            new Dictionary<string, object?> { ["userId"] = userId, ["code"] = code });
 
-        await EmailSender.SendInvitationLinkAsync(email, HtmlEncoder.Default.Encode(callbackUrl));
+        if (!Uri.TryCreate(Configuration["ManagementApp:FrontendUrl"], UriKind.Absolute, out var frontendUrl) || frontendUrl is null)
+        {
+            throw new InvalidOperationException("The ManagementApp:FrontendUrl is not specified in configuration or it has invalid format.");
+        }
+
+        var uriBuilder = new UriBuilder(frontendUrl) { Path = "/Account/ConfirmEmail" };
+        var callbackUrl = uriBuilder.Uri.ToString();
+        callbackUrl = QueryHelpers.AddQueryString(callbackUrl, "userId", userId);
+        callbackUrl = QueryHelpers.AddQueryString(callbackUrl, "code", code);
+
+        await EmailSender.SendInvitationLinkAsync(email, callbackUrl);
 
         return Result.Success(user);
     }
@@ -130,4 +138,9 @@ internal class UserManager(
     /// <inheritdoc/>
     public async Task<IList<ApplicationUser>> GetUsersByRoleAsync(Role role)
         => await UserManager.GetUsersInRoleAsync(role);
+
+    /// <inheritdoc/>
+    public async Task<ApplicationUser?> GetUserByEmail(string email)
+        => await UserManager.FindByEmailAsync(email);
+
 }

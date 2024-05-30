@@ -20,4 +20,9 @@ internal static class Routes
     /// Represents a route for the Costumers page.
     /// </summary>
     public const string Costumers = $"{Users}/costumers";
+
+    public static string CostumerInfo(string id)
+        => $"{Costumers}/{id}";
+
+    public const string AddCostumer = $"{Costumers}/add";
 }

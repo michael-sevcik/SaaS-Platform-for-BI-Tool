@@ -1,0 +1,9 @@
+﻿@page "/SentNotifications"
+@using BIManagement.Modules.Notifications.Application
+
+@foreach (var message in NoOpEmailSender.Messages)
+{
+    <p>
+        @message
+    </p>
+}

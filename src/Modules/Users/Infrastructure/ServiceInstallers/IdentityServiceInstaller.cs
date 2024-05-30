@@ -33,19 +33,15 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
                 options.UseSqlServer(connectionString));
             services.AddDatabaseDeveloperPageExceptionFilter();
 
-            // TODO: DELETE moved to users.ServiceInstallers.IdentitySrviceInstaller
             services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<UsersContext>()
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
 
+            // TODO: consider using only the notification email sender
             services.AddSingleton<IEmailSender<ApplicationUser>, Identity.IdentityNoOpEmailSender>();
-
-            services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<UsersContext>()
-                .AddSignInManager()
-                .AddDefaultTokenProviders();
+            services.AddHostedService<SeedingStartupTask>();
         }
     }
 }

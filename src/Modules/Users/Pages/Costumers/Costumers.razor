@@ -10,7 +10,8 @@
 @inject IUserManager UserManager;
 @* @inject UserManager<ApplicationUser> UserManager; TODO:*@
 
-@if (Users?.Any() is not null and true)
+<a href=@Routes.AddCostumer class="btn btn-primary">Add Costumer</a>
+@if (Users is not null && Users.Any())
 {
     <table class="table">
         <thead>
@@ -38,11 +39,12 @@ else
 }
 
 @code {
-    private IEnumerable<ApplicationUser>? Users { get; set; }
+    private IList<ApplicationUser>? Users { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        var Users = await UserManager.GetUsersByRoleAsync(Roles.Costumer);
-        // todo: Users = UserManager.Users.ToList(); 
+        Users = await UserManager.GetUsersByRoleAsync(Roles.Costumer);
+        Console.WriteLine(Users.Count);
+        
     }
 }

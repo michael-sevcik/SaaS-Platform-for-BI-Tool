@@ -24,13 +24,13 @@ public interface IUserManager
     /// Creates a new user of type admin asynchronously.
     /// </summary>
     /// <param name="email">The admin's email.</param>
-    /// <param name="password">The password of the admin</param>
+    /// <param name="name">Name of the admin</param>
     /// <returns>
     /// Task object representing the asynchronous operation
     /// with <see cref="Result{ApplicationUser}"/> as its value.
-    /// Result object either contains the created user or an error.
+    /// Result object contains either the created user or an error.
     /// </returns>
-    Task<Result<ApplicationUser>> CreateAdmin(string email, string password);
+    Task<Result<ApplicationUser>> CreateAdminAsync(string email, string name);
 
     /// <summary>
     /// Removes a user from the system.
@@ -68,5 +68,22 @@ public interface IUserManager
     /// with <see cref="IList{ApplicationUser}"/> as its value.
     /// </returns>
     Task<IList<ApplicationUser>> GetUsersByRoleAsync(Role role);
-    Task<Result<ApplicationUser>> GetUser(string Id);
+
+    /// <summary>Asynchronously gets user with the specified email.</summary>
+    /// <param name="id">The id of the desired user.</param>
+    /// <returns>    
+    /// Task object representing the asynchronous operation
+    /// with <see cref="Result{ApplicationUser}"/> as its value.
+    /// The result object contains either the user or an error.
+    /// </returns>
+    Task<Result<ApplicationUser>> GetUser(string id);
+
+    /// <summary>Asynchronously gets user with the specified email.</summary>
+    /// <param name="email">The email address of the desired user.</param>
+    /// <returns>    
+    /// Task object representing the asynchronous operation
+    /// with <see cref="ApplicationUser"/> as its value if the user was found,
+    /// otherwise null..
+    /// </returns>
+    Task<ApplicationUser?> GetUserByEmail(string email);
 }

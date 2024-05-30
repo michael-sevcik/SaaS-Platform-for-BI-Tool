@@ -54,12 +54,18 @@ app.UseAntiforgery();
 app.AddModulesEndpointsFromAssemblies(infrastructureAssemblies);
 
 
-app.MapRazorComponents<App>()
+var razorEndpointBuilder = app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddAdditionalAssemblies(
         BIManagement.Modules.DataIntegration.Pages.AssemblyReference.Assembly,
         BIManagement.Modules.Deployment.Pages.AssemblyReference.Assembly,
         BIManagement.Modules.Users.Pages.AssemblyReference.Assembly
     );
+
+if (builder.Environment.IsDevelopment()) 
+{
+    razorEndpointBuilder
+        .AddAdditionalAssemblies(BIManagement.Modules.Notifications.Pages.AssemblyReference.Assembly);
+}
 
 app.Run();
