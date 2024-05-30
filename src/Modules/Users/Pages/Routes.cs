@@ -21,7 +21,10 @@ internal static class Routes
     /// </summary>
     public const string Costumers = $"{Users}/costumers";
 
-    public static string CostumerInfo(string id)
+
+    public const string CostumerInfo = $"{Costumers}/{{Id}}";
+
+    public static string GetCostumerInfo(string id)
         => $"{Costumers}/{id}";
 
     public const string AddCostumer = $"{Costumers}/add";

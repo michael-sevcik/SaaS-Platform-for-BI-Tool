@@ -8,7 +8,6 @@
 
 
 @inject IUserManager UserManager;
-@* @inject UserManager<ApplicationUser> UserManager; TODO:*@
 
 <a href=@Routes.AddCostumer class="btn btn-primary">Add Costumer</a>
 @if (Users is not null && Users.Any())
@@ -17,17 +16,17 @@
         <thead>
             <tr>
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
+                <th scope="col">User name</th>
+                <th scope="col">Full name</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var user in Users) // Consider using virtualization if the list is too long - https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization
             {
                 <tr>
-                    <td><a href="/costumers/@user.Id">@user.Id</a></td>
+                    <td><a href=@Routes.GetCostumerInfo(user.Id)>@user.Id</a></td>
                     <td>@user.UserName</td>
-                    @* <td>@user.Name</td> *@
-                    @* <td>@user.Role</td> *@
+                    <td>@user.Name</td>
                 </tr>
             }
         </tbody>
@@ -42,9 +41,5 @@ else
     private IList<ApplicationUser>? Users { get; set; }
 
     protected override async Task OnInitializedAsync()
-    {
-        Users = await UserManager.GetUsersByRoleAsync(Roles.Costumer);
-        Console.WriteLine(Users.Count);
-        
-    }
+        => Users = await UserManager.GetUsersByRoleAsync(Roles.Costumer);
 }

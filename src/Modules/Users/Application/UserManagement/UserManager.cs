@@ -43,7 +43,7 @@ internal class UserManager(
 
     /// <inheritdoc/>
     public async Task<Result<ApplicationUser>> CreateCostumerAsync(string email, string name)
-        => await CreateUser(email, email, Roles.Costumer);
+        => await CreateUser(email, name, Roles.Costumer);
 
     /// <summary>
     /// Creates an user with the given email, name and role.

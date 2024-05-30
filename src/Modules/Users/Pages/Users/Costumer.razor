@@ -2,7 +2,8 @@
 @using BIManagement.Modules.Users.Application.UserManagement
 @using BIManagement.Modules.Users.Domain
 @inject IUserManager UserManager;
-@page "/Costumers/{Id}"
+@* Not using @page directive to utilize static routes class *@
+@attribute [Route(Routes.CostumerInfo)]
 
 <PageTitle>Costumer</PageTitle>
 
