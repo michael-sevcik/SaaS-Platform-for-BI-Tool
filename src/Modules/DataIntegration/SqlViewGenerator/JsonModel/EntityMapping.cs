@@ -1,13 +1,13 @@
-﻿namespace SqlViewGenerator.JsonModel;
+﻿namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 public class EntityMapping : IVisitable
 {
     public EntityMapping(string name, ISourceEntity[] sourceEntities, ISourceEntity sourceEntity, Dictionary<string, ColumnMapping> columnMappings)
     {
-        this.Name = name;
-        this.SourceEntities = sourceEntities;
-        this.SourceEntity = sourceEntity;
-        this.ColumnMappings = columnMappings;
+        Name = name;
+        SourceEntities = sourceEntities;
+        SourceEntity = sourceEntity;
+        ColumnMappings = columnMappings;
     }
 
     public string Name { get; }

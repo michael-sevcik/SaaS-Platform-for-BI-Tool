@@ -1,0 +1,88 @@
+﻿
+<h3>AddUser</h3>
+
+@using System.ComponentModel.DataAnnotations
+@using BIManagement.Common.Shared.Results
+@using BIManagement.Modules.Users.Application.UserManagement
+@using BIManagement.Modules.Users.Domain
+@using BIManagement.Modules.Users.Pages.Account
+@using BIManagement.Modules.Users.Pages.Account.Shared
+@using Microsoft.AspNetCore.Identity
+
+@inject IUserManager UserManager
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+
+
+
+<div class="row">
+    <div class="col-md-4"> @* TODO: check if the col md should be here - check how it looks *@
+        <IdentityStatusMessage Message="@Message" />
+        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+            <DataAnnotationsValidator />
+            <h2>Add new user.</h2>
+            <hr />
+            <ValidationSummary class="text-danger" role="alert" />
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                <label for="email">Email</label>
+                <ValidationMessage For="() => Input.Email" class="text-danger" />
+            </div>
+            <div class="form-floating mb-3">
+                <InputText @bind-Value="Input.Name" class="form-control" autocomplete="name" aria-required="true" placeholder="Firm, inc" />
+                <label for="email">Name</label>
+                <ValidationMessage For="() => Input.Name" class="text-danger" />
+            </div>
+            <button type="submit" class="w-100 btn btn-lg btn-primary">Add user</button>
+        </EditForm>
+    </div>
+</div>
+
+@code {
+    private string? error;
+
+    [Parameter]
+    [EditorRequired]
+    public Func<string, string, Task<Result<ApplicationUser>>>? RegisterUserFunc { get; set; }
+
+    [Parameter]
+    [EditorRequired]
+    public string ReturnUrl { get; set; } = "/";
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    private string? Message => error is null ? null : $"Error: {error}";
+
+    public async Task RegisterUser(EditContext editContext)
+    {
+        if (!editContext.Validate() || RegisterUserFunc is null)
+        {
+            return;
+        }
+
+        Result<ApplicationUser> userResult = await RegisterUserFunc(Input.Email, Input.Name);
+
+        if (userResult.IsFailure)
+        {
+            error = userResult.Error.Message;
+            return;
+        }
+
+        RedirectManager.RedirectTo(ReturnUrl);
+    }
+
+    private sealed class InputModel
+    {
+        [Required]
+        [EmailAddress]
+        [Display(Name = "Email")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required]
+        [StringLength(ApplicationUser.NameMaxLength, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 1)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Name of the user")]
+        public string Name { get; set; } = string.Empty;
+    }
+}

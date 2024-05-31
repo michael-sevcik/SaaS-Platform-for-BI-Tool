@@ -2,7 +2,12 @@
 // Copyright © Merica
 // </copyright>
 
-namespace SqlViewGenerator.JsonModel;
+
+// <copyright file="ISourceEntity.cs" company="Merica s.r.o.">
+// Copyright © Merica
+// </copyright>
+
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 /// <summary>
 /// Represents a named entity that is a source of column based data.
@@ -11,17 +16,17 @@ public interface ISourceEntity : IVisitable
 {
     string Name { get; }
 
-    bool HasDependency{ get; }
+    bool HasDependency { get; }
 
     string[] SelectedColumns { get; }
 
     virtual ColumnMapping GetColumnMapping(string columnName)
     {
-        if (!this.SelectedColumns.Contains(columnName))
+        if (!SelectedColumns.Contains(columnName))
         {
             throw new InvalidOperationException($"The source table \"{columnName}\" does not contain a column with name \"{columnName}\".");
         }
 
-        return new (this, columnName);
+        return new(this, columnName);
     }
 }

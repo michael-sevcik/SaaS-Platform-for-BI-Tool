@@ -1,0 +1,27 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+	<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Authorization" Version="8.0.5" />
+	  <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.5" />
+
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Application\BIManagement.Common.Application.csproj" />
+    <ProjectReference Include="..\..\DataIntegration\Api\BIManagement.Modules.DataIntegration.Api.csproj" />
+    <ProjectReference Include="..\..\Deployment\Api\BIManagement.Modules.Deployment.Api.csproj" />
+    <ProjectReference Include="..\Domain\BIManagement.Modules.Users.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

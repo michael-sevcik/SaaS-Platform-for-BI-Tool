@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Persistence;
+namespace BIManagement.Common.Persistence;
 
 /// <summary>
 /// Represents the persistence assembly reference.

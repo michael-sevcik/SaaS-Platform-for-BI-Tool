@@ -1,7 +1,8 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Routing;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Infrastructure.Configuration;
+namespace BIManagement.Common.Infrastructure.Configuration;
 
 /// <summary>
 /// Represents the interface for installing a module.
@@ -13,5 +14,10 @@ public interface IModuleInstaller
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <param name="configuration">The configuration.</param>
-    public void Install(IServiceCollection services, IConfiguration configuration);
+    static abstract void Install(IServiceCollection services, IConfiguration configuration);
+
+    static virtual void AddEndpoints(IEndpointRouteBuilder endpoints)
+    {
+        // Do nothing
+    }
 }

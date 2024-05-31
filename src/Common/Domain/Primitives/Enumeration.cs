@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Domain.Primitives;
+namespace BIManagement.Common.Domain.Primitives;
 
 /// <summary>
 /// Represents an enumeration of objects with a unique numeric identifier and a name.
@@ -62,7 +62,7 @@ public abstract class Enumeration<TEnum> : IEquatable<Enumeration<TEnum>>
     /// Gets the enumeration values.
     /// </summary>
     /// <returns>The read-only collection of enumeration values.</returns>
-    public static IReadOnlyCollection<TEnum> GetValues() => EnumerationsDictionary.Value.Values.ToList();
+    public static IReadOnlyCollection<TEnum> GetValues() => [.. EnumerationsDictionary.Value.Values];
 
     /// <summary>
     /// Creates an enumeration of the specified type based on the specified identifier.

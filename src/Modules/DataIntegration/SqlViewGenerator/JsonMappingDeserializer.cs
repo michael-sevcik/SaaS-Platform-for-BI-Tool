@@ -1,17 +1,10 @@
-﻿using SqlViewGenerator.JsonModel;
-using SqlViewGenerator.JsonModel.Agregators;
-using SqlViewGenerator.MappingParser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Text.Json;
-using System.Text.Json.Nodes;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
+﻿namespace BIManagement.Modules.DataIntegration.SqlViewGenerator;
 
-namespace SqlViewGenerator;
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
 
 public static class JsonMappingDeserializer
 {

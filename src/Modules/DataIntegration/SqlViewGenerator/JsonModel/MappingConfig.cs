@@ -1,16 +1,17 @@
-﻿using System;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator;
+using System;
 using System.Collections.Generic;
 using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlViewGenerator.JsonModel;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 public class MappingConfig : IVisitable
 {
     public MappingConfig(DbConnectionConfig sourceConnection, EntityMapping[] targetMappings)
-        => (this.SourceConnection, this.TargetMappings) = (sourceConnection, targetMappings);
+        => (SourceConnection, TargetMappings) = (sourceConnection, targetMappings);
 
     public DbConnectionConfig SourceConnection { get; }
 

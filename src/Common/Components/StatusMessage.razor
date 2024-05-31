@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Http
+
+@if (!string.IsNullOrEmpty(DisplayMessage))
+{
+    <div class="alert alert-@statusMessageClass" role="alert">
+        @DisplayMessage
+    </div>
+}
+
+@code {
+    private string? messageFromCookie;
+
+    [Parameter]
+    public string? Message { get; set; }
+
+    [Parameter]
+    public string? CookieName { get; set; }
+
+    [Parameter]
+    public bool? IsError { get; set;}
+
+    private string statusMessageClass {
+        get
+        {
+            if (IsError is null)
+            {
+                return DisplayMessage.StartsWith("Error") ? "danger" : "success";
+            }
+
+            return IsError.Value ? "danger" : "success";
+        }
+    }
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    private string DisplayMessage => Message ?? messageFromCookie ?? "";
+
+    protected override void OnInitialized()
+    {
+        if (CookieName is not null)
+        {
+            messageFromCookie = HttpContext.Request.Cookies[CookieName];
+
+            if (messageFromCookie is not null)
+            {
+                HttpContext.Response.Cookies.Delete(CookieName);
+            }
+        }
+    }
+}

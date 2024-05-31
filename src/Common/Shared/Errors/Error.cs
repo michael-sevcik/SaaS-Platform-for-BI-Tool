@@ -1,9 +1,14 @@
-﻿namespace Shared.Errors;
+﻿namespace BIManagement.Common.Shared.Errors;
 
 /// <summary>
 /// Represents an error.
 /// </summary>
-public class Error : IEquatable<Error>
+/// <remarks>
+/// Initializes a new instance of the <see cref="Error"/> class.
+/// </remarks>
+/// <param name="code">The error code.</param>
+/// <param name="message">The error message.</param>
+public class Error(string code, string message) : IEquatable<Error>
 {
     /// <summary>
     /// The empty error instance.
@@ -21,25 +26,14 @@ public class Error : IEquatable<Error>
     public static readonly Error ConditionNotMet = new("Error.ConditionNotMet", "The specified condition was not met.");
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="Error"/> class.
-    /// </summary>
-    /// <param name="code">The error code.</param>
-    /// <param name="message">The error message.</param>
-    public Error(string code, string message)
-    {
-        Code = code;
-        Message = message;
-    }
-
-    /// <summary>
     /// Gets the error code.
     /// </summary>
-    public string Code { get; }
+    public string Code { get; } = code;
 
     /// <summary>
     /// Gets the error message.
     /// </summary>
-    public string Message { get; }
+    public string Message { get; } = message;
 
     public static implicit operator string(Error error) => error.Code;
 

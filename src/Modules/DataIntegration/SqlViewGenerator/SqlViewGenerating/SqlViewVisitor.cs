@@ -2,14 +2,15 @@
 // Copyright © Merica
 // </copyright>
 
-namespace SqlViewGenerator.SqlViewGenerating;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.SqlViewGenerating;
 
 using System.Text;
-using JsonModel;
-using JsonModel.Agregators;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
 using JsonModel.Agregators.Conditions;
-using static JsonModel.Agregators.Conditions.ConditionLink;
-using static JsonModel.Agregators.Conditions.JoinCondition;
+using static BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions.ConditionLink;
+using static BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions.JoinCondition;
 
 public class SqlViewVisitor : IVisitor
 {
@@ -18,14 +19,14 @@ public class SqlViewVisitor : IVisitor
     private readonly string databasePrefix;
 
     public SqlViewVisitor(string tableNamePrefix = "")
-        => this.databasePrefix = tableNamePrefix;
+        => databasePrefix = tableNamePrefix;
 
     internal string GetSqlView() => sb.ToString();
 
     public void Visit(Join join)
     {
-        this.sb.Append('(');
-        this.sb.Append("SELECT ");
+        sb.Append('(');
+        sb.Append("SELECT ");
 
         var leftSource = join.LeftSourceEntity;
         var rightSource = join.RightSourceEntity;
@@ -44,43 +45,43 @@ public class SqlViewVisitor : IVisitor
 
         for (int i = 0; i < outputColumns.Length - 1; ++i)
         {
-            this.sb.AppendColumnMapping(outputColumns[i]).Append(", ");
+            sb.AppendColumnMapping(outputColumns[i]).Append(", ");
         }
 
         var lastColumn = outputColumns[^1];
-        this.sb.AppendColumnMapping(lastColumn);
+        sb.AppendColumnMapping(lastColumn);
 
         // Get the tables
-        this.sb.Append(" FROM ");
+        sb.Append(" FROM ");
 
         // Visit the left source entity
         leftSource.Accept(this);
-        this.sb.Append(' ').Append(leftSource.Name);
+        sb.Append(' ').Append(leftSource.Name);
 
         // Append join type
-        this.sb.Append(' ').Append(join.JoinType.ToString().ToUpperInvariant()).Append(" JOIN ");
+        sb.Append(' ').Append(join.JoinType.ToString().ToUpperInvariant()).Append(" JOIN ");
 
         // Visit the right entity
         rightSource.Accept(this);
-        this.sb.Append(' ').Append(rightSource.Name);
+        sb.Append(' ').Append(rightSource.Name);
 
         // Specify the condition
-        this.sb.Append(" ON ");
+        sb.Append(" ON ");
         join.Condition.Accept(this);
 
-        this.sb.Append(')');
+        sb.Append(')');
     }
 
     public void Visit(JoinCondition joinCondition)
     {
         // Process left column
-        this.sb.AppendColumnMapping(joinCondition.LeftColumn).Append(' ');
+        sb.AppendColumnMapping(joinCondition.LeftColumn).Append(' ');
 
         // Append join condition
-        this.sb.Append(GetCondtionOperatorString(joinCondition.Relation)).Append(' ');
+        sb.Append(GetCondtionOperatorString(joinCondition.Relation)).Append(' ');
 
         // Process right column
-        this.sb.AppendColumnMapping(joinCondition.RightColumn);
+        sb.AppendColumnMapping(joinCondition.RightColumn);
 
         // If there is a linked condition, Visit it
         joinCondition.LinkedCondition?.Accept(this);
@@ -89,7 +90,7 @@ public class SqlViewVisitor : IVisitor
 
     public void Visit(ConditionLink link)
     {
-        this.sb.Append(' ')
+        sb.Append(' ')
             .Append(GetConditionLinkRelationString(link.Relation))
             .Append(' ');
 
@@ -98,15 +99,15 @@ public class SqlViewVisitor : IVisitor
 
     public void Visit(SourceTable table)
     {
-        this.sb.Append('(');
+        sb.Append('(');
 
-        this.sb.Append("SELECT ");
-        this.sb.AppendJoin(", ", table.SelectedColumns);
+        sb.Append("SELECT ");
+        sb.AppendJoin(", ", table.SelectedColumns);
 
-        this.sb.Append(" FROM ");
-        this.sb.Append(this.databasePrefix).Append(table.Name);
+        sb.Append(" FROM ");
+        sb.Append(databasePrefix).Append(table.Name);
 
-        this.sb.Append(')');
+        sb.Append(')');
     }
 
     /// <summary>
@@ -120,7 +121,7 @@ public class SqlViewVisitor : IVisitor
 
     public void Visit(EntityMapping entityMapping)
     {
-        sb.Append("CREATE VIEW ").Append(this.databasePrefix).Append(entityMapping.Name);
+        sb.Append("CREATE VIEW ").Append(databasePrefix).Append(entityMapping.Name);
         sb.Append(" AS SELECT ");
 
         var mappingEnumerator = entityMapping.ColumnMappings.GetEnumerator();
@@ -138,15 +139,15 @@ public class SqlViewVisitor : IVisitor
             lastNamedColumnMapping = mappingEnumerator.Current;
 
             // Append the column and its name
-            this.sb.Append(current.Value.SourceColumn).Append(" AS ").Append(current.Key);
-            this.sb.Append(", ");
+            sb.Append(current.Value.SourceColumn).Append(" AS ").Append(current.Key);
+            sb.Append(", ");
         }
 
         mappingEnumerator.Dispose();
-        this.sb.Append(lastNamedColumnMapping.Value.SourceColumn).Append(" AS ").Append(lastNamedColumnMapping.Key);
+        sb.Append(lastNamedColumnMapping.Value.SourceColumn).Append(" AS ").Append(lastNamedColumnMapping.Key);
 
         // Add source
-        this.sb.Append(" FROM ");
+        sb.Append(" FROM ");
         entityMapping.SourceEntity.Accept(this);
     }
 

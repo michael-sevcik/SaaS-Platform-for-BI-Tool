@@ -9,17 +9,17 @@ using System.Text.Json;
 
 [assembly: InternalsVisibleTo("SqlViewGeneratorTests")]
 
-namespace SqlViewGenerator.MappingParser;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
 
 internal class SourceEntityReferenceResolver : ReferenceResolver
 {
     private uint referenceCount;
-    private readonly Dictionary<string, object> referenceIdToObjectMap = new ();
-    private readonly Dictionary<object, string> objectToReferenceIdMap = new (ReferenceEqualityComparer.Instance);
+    private readonly Dictionary<string, object> referenceIdToObjectMap = new();
+    private readonly Dictionary<object, string> objectToReferenceIdMap = new(ReferenceEqualityComparer.Instance);
 
     public override void AddReference(string referenceId, object value)
     {
-        if (!this.referenceIdToObjectMap.TryAdd(referenceId, value))
+        if (!referenceIdToObjectMap.TryAdd(referenceId, value))
         {
             throw new JsonException();
         }
@@ -27,15 +27,15 @@ internal class SourceEntityReferenceResolver : ReferenceResolver
 
     public override string GetReference(object value, out bool alreadyExists)
     {
-        if (this.objectToReferenceIdMap.TryGetValue(value, out string? referenceId))
+        if (objectToReferenceIdMap.TryGetValue(value, out string? referenceId))
         {
             alreadyExists = true;
         }
         else
         {
-            this.referenceCount++;
-            referenceId = this.referenceCount.ToString();
-            this.objectToReferenceIdMap.Add(value, referenceId);
+            referenceCount++;
+            referenceId = referenceCount.ToString();
+            objectToReferenceIdMap.Add(value, referenceId);
             alreadyExists = false;
         }
 
@@ -44,7 +44,7 @@ internal class SourceEntityReferenceResolver : ReferenceResolver
 
     public override object ResolveReference(string referenceId)
     {
-        if (!this.referenceIdToObjectMap.TryGetValue(referenceId, out object? value))
+        if (!referenceIdToObjectMap.TryGetValue(referenceId, out object? value))
         {
             throw new JsonException();
         }

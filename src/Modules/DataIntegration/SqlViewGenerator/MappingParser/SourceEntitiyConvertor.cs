@@ -4,9 +4,11 @@
 
 using System.Runtime.CompilerServices;
 
-[assembly: InternalsVisibleTo("SqlViewGeneratorTests")]
+[assembly: InternalsVisibleTo("BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests")]
 
-namespace SqlViewGenerator.MappingParser;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
+
+using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 using JsonModel;
 using System.Text.Json;
@@ -33,8 +35,8 @@ internal class SourceEntitiyConvertor : JsonConverter<ISourceEntity>
     /// <param name="sourceTypesByName">The recognized source entity types with their names.</param>
     public SourceEntitiyConvertor(IEnumerable<KeyValuePair<string, Type>> sourceTypesByName)
     {
-        this.sourceEntityTypesByNames = new Dictionary<string, Type>(sourceTypesByName);
-        this.sourceEntityNamesByType = this.sourceEntityTypesByNames.ToDictionary(p => p.Value, p => p.Key);
+        sourceEntityTypesByNames = new Dictionary<string, Type>(sourceTypesByName);
+        sourceEntityNamesByType = sourceEntityTypesByNames.ToDictionary(p => p.Value, p => p.Key);
     }
 
     /// <inheritdoc/>
@@ -58,7 +60,7 @@ internal class SourceEntitiyConvertor : JsonConverter<ISourceEntity>
         }
 
         string typeValue = doc.RootElement.GetProperty("type").GetString() ?? throw new JsonException();
-        if (!this.sourceEntityTypesByNames.TryGetValue(typeValue!, out var type))
+        if (!sourceEntityTypesByNames.TryGetValue(typeValue!, out var type))
         {
             throw new JsonException($"\"{typeValue}\"is not a recognized type name.");
         }

@@ -1,13 +1,26 @@
-﻿@using ManagamentApp.Components.Account.Shared
+﻿@using BIManagement.Common.Components.Layout
+@using BIManagement.ManagementApp.Components.Layout
+@using BIManagement.Modules.DataIntegration.Pages
+@inject NavigationManager NavigationManager
 
-<Router AppAssembly="typeof(Program).Assembly">
-    @* AdditionalAssemblies="new[] { typeof(Component1).Assembly }"> TODO: add all the pages *@
+<Router AppAssembly="typeof(Program).Assembly" >
+   @* AdditionalAssemblies="new[] { Modules.DataIntegration.Pages.AssemblyReference.Assembly } *@
     <Found Context="routeData">
-        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(Layout.MainLayout)">
+        <AuthorizeRouteView RouteData="routeData" DefaultLayout="typeof(BIManagement.Common.Components.Layout.MainLayout)">
             <NotAuthorized>
-                <RedirectToLogin />
+                <RedirectToLogin /> @* TODO: consider placing somewhere else *@
             </NotAuthorized>
         </AuthorizeRouteView>
         <FocusOnNavigate RouteData="routeData" Selector="h1" />
     </Found>
+
+    <NotFound>
+        <h1>404 Not Found</h1>
+    </NotFound>
 </Router>
+
+
+@code {
+    void RedirectToLogin()
+        => NavigationManager.NavigateTo($"Account/Login?returnUrl={Uri.EscapeDataString(NavigationManager.Uri)}", forceLoad: true);
+}

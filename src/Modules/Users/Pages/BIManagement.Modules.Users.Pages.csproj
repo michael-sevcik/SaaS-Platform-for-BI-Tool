@@ -1,0 +1,36 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+	<RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+	<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+	<FrameworkReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <SupportedPlatform Include="browser" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Components\BIManagement.Common.Components.csproj" />
+    <ProjectReference Include="..\..\..\Common\Shared\BIManagement.Common.Shared.csproj" />
+    <ProjectReference Include="..\Api\BIManagement.Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\Application\BIManagement.Modules.Users.Application.csproj" />
+    <ProjectReference Include="..\Domain\BIManagement.Modules.Users.Domain.csproj" />
+  </ItemGroup>
+
+</Project>

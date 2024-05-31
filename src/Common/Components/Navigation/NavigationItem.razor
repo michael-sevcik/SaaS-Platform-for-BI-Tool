@@ -1,0 +1,34 @@
+﻿@using System.Collections.Generic
+@using Microsoft.AspNetCore.Components.Routing
+
+
+<div class="nav-item ">
+    <NavLink class="nav-link" href="@href" >
+        <div class="bi">
+            @ChildContent
+        </div>
+        @label
+    </NavLink>
+</div>
+
+
+@code {
+    /// <summary>
+    /// Label of the submenu element. Label will be displayed in the menu.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string label { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Mandatory href attribute for the NavLink.
+    /// </summary>
+    [Parameter, EditorRequired]
+    public string href { get; set; } = string.Empty;
+
+    /// <summary>
+    /// The logo icon to display in the menu.
+    /// </summary>
+    [Parameter]
+    public RenderFragment? ChildContent { get; set; }
+
+}

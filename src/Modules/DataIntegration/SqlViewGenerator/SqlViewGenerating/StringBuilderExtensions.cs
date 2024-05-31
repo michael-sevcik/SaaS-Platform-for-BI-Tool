@@ -1,11 +1,11 @@
-﻿using SqlViewGenerator.JsonModel;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SqlViewGenerator.SqlViewGenerating;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.SqlViewGenerating;
 
 /// <summary>
 /// Class containing helper extension methods for <see cref="StringBuilder"/> that are used by <see cref="SqlViewVisitor"/>.

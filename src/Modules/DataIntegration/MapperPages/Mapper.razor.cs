@@ -1,32 +1,32 @@
 ﻿using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace MapperPages
+namespace BIManagement.Modules.DataIntegration.MapperComponent
 {
-    public partial class Mapper : IAsyncDisposable
+    public sealed partial class Mapper : IAsyncDisposable
     {
-        private string number = "";
-
         [Inject]
         IJSRuntime JSRuntime { get; set; } = default!;
-        ExampleJsInterop? mapperJSInterop { get; set; }
+        MapperJsInterop? MapperJSInterop { get; set; }
         protected override async Task OnAfterRenderAsync(bool isFirst)
         {
-            if (isFirst && mapperJSInterop == null && JSRuntime != null)
+            Console.WriteLine("OnAfterRenderAsync");
+            Console.WriteLine(isFirst);
+            //if (isFirst && MapperJSInterop == null && JSRuntime != null)
             {
-                mapperJSInterop = new(JSRuntime); // TODO: Uncomment 
+                MapperJSInterop = new(JSRuntime); // TODO: Uncomment 
 
                 //create a variable  in the component and assign it a value from the JSInterop
-                var number = await mapperJSInterop.GetNumber();
+                var number = await MapperJSInterop.GetNumber();
                 Console.WriteLine(number);
             }
-        }      
+        }
 
         public async ValueTask DisposeAsync()
         {
-            if (mapperJSInterop != null)
+            if (MapperJSInterop != null)
             {
-                await mapperJSInterop.DisposeAsync();
+                await MapperJSInterop.DisposeAsync();
             }
         }
 

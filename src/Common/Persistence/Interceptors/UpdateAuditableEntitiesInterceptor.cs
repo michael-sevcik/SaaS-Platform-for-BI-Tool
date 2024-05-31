@@ -1,24 +1,20 @@
-﻿using Application.Time;
-using Domain.Primitives;
+﻿using BIManagement.Common.Application.Time;
+using BIManagement.Common.Domain.Primitives;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace Persistence.Interceptors;
+namespace BIManagement.Common.Persistence.Interceptors;
 
 /// <summary>
 /// Represents the interceptor for updating auditable entity values.
 /// </summary>
-public sealed class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
+/// <remarks>
+/// Initializes a new instance of the <see cref="UpdateAuditableEntitiesInterceptor"/> class.
+/// </remarks>
+/// <param name="systemTime">The system time.</param>
+public sealed class UpdateAuditableEntitiesInterceptor(ISystemTime systemTime) : SaveChangesInterceptor
 {
-    private readonly ISystemTime _systemTime;
-
-    /// <summary>
-    /// Initializes a new instance of the <see cref="UpdateAuditableEntitiesInterceptor"/> class.
-    /// </summary>
-    /// <param name="systemTime">The system time.</param>
-    public UpdateAuditableEntitiesInterceptor(ISystemTime systemTime) => _systemTime = systemTime;
-
     /// <inheritdoc />
     public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
         DbContextEventData eventData,
@@ -30,7 +26,7 @@ public sealed class UpdateAuditableEntitiesInterceptor : SaveChangesInterceptor
             return base.SavingChangesAsync(eventData, result, cancellationToken);
         }
 
-        DateTime utcNow = _systemTime.UtcNow;
+        DateTime utcNow = systemTime.UtcNow;
 
         foreach (EntityEntry<IAuditable> auditable in GetAuditableEntities(eventData.Context))
         {

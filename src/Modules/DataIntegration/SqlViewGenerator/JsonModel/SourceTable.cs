@@ -1,11 +1,12 @@
-﻿using System.Text.Json.Serialization;
+﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator;
+using System.Text.Json.Serialization;
 
-namespace SqlViewGenerator.JsonModel;
+namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 public class SourceTable : ISourceEntity
 {
     public SourceTable(string name, string[] selectedColumns)
-        => (this.Name, this.SelectedColumns) = (name, selectedColumns);
+        => (Name, SelectedColumns) = (name, selectedColumns);
 
     public string Name { get; }
 

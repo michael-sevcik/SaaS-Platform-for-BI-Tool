@@ -1,9 +1,9 @@
-﻿namespace SqlViewGenerator.JsonModel;
+﻿namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
 
 public class ColumnMapping
 {
     public ColumnMapping(ISourceEntity sourceEntity, string sourceColumn)
-        => (this.SourceEntity, this.SourceColumn) = (sourceEntity, sourceColumn);
+        => (SourceEntity, SourceColumn) = (sourceEntity, sourceColumn);
 
     public ISourceEntity SourceEntity { get; }
 

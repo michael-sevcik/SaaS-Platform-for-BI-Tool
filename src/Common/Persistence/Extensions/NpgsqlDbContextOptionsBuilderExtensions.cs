@@ -1,7 +1,7 @@
-﻿using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
-using Persistence.Constants;
+﻿using BIManagement.Common.Persistence.Constants;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
-namespace Persistence.Extensions;
+namespace BIManagement.Common.Persistence.Extensions;
 
 /// <summary>
 /// Contains extension method for the <see cref="NpgsqlDbContextOptionsBuilder"/> class.

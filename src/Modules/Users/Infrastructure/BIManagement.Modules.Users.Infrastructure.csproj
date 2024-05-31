@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+    <!--TODO: consider removing this if the identity registration is moved to the pages module or sth.-->
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.5" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.5" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.5" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+    <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\Api\BIManagement.Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\Application\BIManagement.Modules.Users.Application.csproj" />
+    <ProjectReference Include="..\Pages\BIManagement.Modules.Users.Pages.csproj" />
+    <ProjectReference Include="..\Persistence\BIManagement.Modules.Users.Persistence.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,4 +1,4 @@
-﻿namespace Persistence.Constants;
+﻿namespace BIManagement.Common.Persistence.Constants;
 
 /// <summary>
 /// Contains the table names.

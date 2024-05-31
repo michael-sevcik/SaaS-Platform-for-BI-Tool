@@ -1,0 +1,19 @@
+﻿@using BIManagement.Common.Shared.Results
+@using BIManagement.Modules.Users.Application.UserManagement
+@using BIManagement.Modules.Users.Domain
+@inject IUserManager UserManager
+
+@* Not using @page directive to utilize static routes class *@
+@attribute [Route(Routes.AddCostumer)]
+<PageTitle>AddCostumer</PageTitle>
+
+<h1>Add costumer</h1>
+
+<AddUser RegisterUserFunc=RegisterUser ReturnUrl=@Routes.Costumers />
+
+@code {
+    private Task<Result<ApplicationUser>> RegisterUser(string email, string name)
+    {
+        return UserManager.CreateCostumerAsync(email, name);
+    }
+}

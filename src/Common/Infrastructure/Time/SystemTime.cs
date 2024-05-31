@@ -1,7 +1,7 @@
-﻿using Application.ServiceLifetimes;
-using Application.Time;
+﻿using BIManagement.Common.Application.ServiceLifetimes;
+using BIManagement.Common.Application.Time;
 
-namespace Infrastructure.Time;
+namespace BIManagement.Common.Infrastructure.Time;
 
 /// <summary>
 /// Represents the system time interface.
