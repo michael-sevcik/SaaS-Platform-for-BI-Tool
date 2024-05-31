@@ -3,6 +3,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
 
 namespace BIManagement.Common.Persistence.Extensions;
 
+
+// TODO: IS needed?
 /// <summary>
 /// Contains extension method for the <see cref="NpgsqlDbContextOptionsBuilder"/> class.
 /// </summary>

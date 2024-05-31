@@ -15,7 +15,7 @@ internal sealed class PersistenceServiceInstaller : IServiceInstaller
     /// <inheritdoc />
     public static void Install(IServiceCollection services, IConfiguration configuration) =>
         services
-            .AddMemoryCache() // TODO: CHECK IF THIS WILL BE USEFUL
+            //.AddMemoryCache() // TODO: CHECK IF THIS WILL BE USEFUL
             .ConfigureOptions<ConnectionStringSetup>()
             .AddTransientAsMatchingInterfaces(AssemblyReference.Assembly);
 }

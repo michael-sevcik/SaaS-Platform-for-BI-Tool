@@ -13,7 +13,7 @@ namespace BIManagement.Common.Persistence.Options;
 /// <param name="configuration">The configuration.</param>
 internal sealed class ConnectionStringSetup(IConfiguration configuration) : IConfigureOptions<ConnectionStringOptions>
 {
-    private const string ConnectionStringName = "Database";
+    private const string ConnectionStringName = "DefaultConnection";
 
     /// <inheritdoc />
     public void Configure(ConnectionStringOptions options) => options.Value = configuration.GetConnectionString(ConnectionStringName)
