@@ -21,13 +21,12 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var user in Users) // Consider using virtualization if the list is too long - https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization
+            @foreach (var user in Users) // TODO: Consider using virtualization if the list is too long - https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization
             {
                 <tr>
                     <td><a href=@Routes.GetAdminInfo(user.Id)>@user.Id</a></td>
                     <td>@user.UserName</td>
                     <td>@user.Name</td>
-
                 </tr>
             }
         </tbody>

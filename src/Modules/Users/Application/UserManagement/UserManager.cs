@@ -88,7 +88,7 @@ internal sealed class UserManager(
 
         if (!result.Succeeded)
         {
-            logger.LogError("Error creating user: {0}", result.Errors);
+            logger.LogError("Error creating user: {Errors}", result.Errors);
             return Result.Failure<ApplicationUser>(UserErrors.UserCreationFailed);
         }
 
@@ -134,7 +134,7 @@ internal sealed class UserManager(
 
         if (!result.Succeeded)
         {
-            logger.LogError("Error deleting user: {0}", result.Errors);
+            logger.LogError("Error deleting user: {Errors}", result.Errors);
             return Result.Failure(UserErrors.UserDeletionFailed);
         }
 
