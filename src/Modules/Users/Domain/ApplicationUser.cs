@@ -17,6 +17,7 @@ namespace BIManagement.Modules.Users.Domain
         /// <remarks>
         /// Max length of <see cref="NameMaxLength"/>
         /// </remarks>
+        [ProtectedPersonalData]
         public string Name { get; set; } = string.Empty;
 
         // TODO: fINISH IMPLEMENTATION OF IAuditable

@@ -9,7 +9,8 @@
 
 <h1>Add costumer</h1>
 
-<AddUser RegisterUserFunc=RegisterUser />
+<AddUser RegisterUserFunc=RegisterUser ReturnUrl=@Routes.Costumers />
+
 @code {
     private Task<Result<ApplicationUser>> RegisterUser(string email, string name)
     {

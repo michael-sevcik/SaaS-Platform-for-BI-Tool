@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BIManagement.Modules.Users.Api.PolicyAttributes;
+namespace BIManagement.Modules.Users.Api.Authorization.PolicyAttributes;
 
 /// <summary>
 /// Custom authorization attribute that allows only admins to access the method.
@@ -15,6 +15,6 @@ public class AuthorizeOnlyAdminsAttribute : AuthorizeAttribute
 {
     public AuthorizeOnlyAdminsAttribute()
     {
-        base.Roles = Domain.Roles.Admin;
+        Roles = Domain.Roles.Admin;
     }
 }

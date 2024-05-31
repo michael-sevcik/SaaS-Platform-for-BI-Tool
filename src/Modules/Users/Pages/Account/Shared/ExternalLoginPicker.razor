@@ -38,6 +38,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        throw new NotSupportedException();
         externalLogins = (await SignInManager.GetExternalAuthenticationSchemesAsync()).ToArray();
     }
 }

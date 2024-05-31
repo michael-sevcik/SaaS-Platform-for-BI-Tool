@@ -8,7 +8,9 @@ namespace BIManagement.Modules.Notifications.Application;
 /// </summary>
 public sealed class NoOpEmailSender : IEmailSender
 {
-    public static List<string> Messages = new ();
+    private static readonly List<string> Messages = [];
+
+    public static IReadOnlyList<string> GetMessages() => Messages;
     public Task SendGeneralNotification(string email, string subject, string message)
     {
         Messages.Add($"""

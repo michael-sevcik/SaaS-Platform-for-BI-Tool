@@ -9,7 +9,7 @@
 
 <h1>Add admin</h1>
 
-<AddUser RegisterUserFunc=RegisterAdmin />
+<AddUser RegisterUserFunc=RegisterAdmin ReturnUrl=@Routes.Admins />
 @code {
     private Task<Result<ApplicationUser>> RegisterAdmin(string email, string name)
     {

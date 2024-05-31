@@ -14,17 +14,17 @@ internal static class Routes
     /// <summary>
     /// Represents a base route for the Data Integration module.
     /// </summary>
-    public const string Users = "/Users";
+    public const string UsersGroup = "/Users";
 
     /// <summary>
     /// Represents a route for the Costumers page.
     /// </summary>
-    public const string Costumers = $"{Users}/costumers";
+    public const string Costumers = $"{UsersGroup}/costumers";
 
     /// <summary>
     /// Represents a route for the Admins page.
     /// </summary>
-    public const string Admins = $"{Users}/admins";
+    public const string Admins = $"{UsersGroup}/admins";
 
 
     public const string CostumerInfo = $"{Costumers}/{{Id}}";

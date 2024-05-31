@@ -105,7 +105,7 @@ internal sealed class UserManager(
             throw new InvalidOperationException("The ManagementApp:FrontendUrl is not specified in configuration or it has invalid format.");
         }
 
-        var uriBuilder = new UriBuilder(frontendUrl) { Path = "/Account/ConfirmEmail" };
+        var uriBuilder = new UriBuilder(frontendUrl) { Path = "/Account/ConfirmEmailAndSetPassword" };
         var callbackUrl = uriBuilder.Uri.ToString();
         callbackUrl = QueryHelpers.AddQueryString(callbackUrl, "userId", userId);
         callbackUrl = QueryHelpers.AddQueryString(callbackUrl, "code", code);

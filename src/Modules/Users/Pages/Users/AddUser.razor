@@ -45,11 +45,12 @@
     [EditorRequired]
     public Func<string, string, Task<Result<ApplicationUser>>>? RegisterUserFunc { get; set; }
 
+    [Parameter]
+    [EditorRequired]
+    public string ReturnUrl { get; set; } = "/";
+
     [SupplyParameterFromForm]
     private InputModel Input { get; set; } = new();
-
-    [SupplyParameterFromQuery]
-    private string? ReturnUrl { get; set; }
 
     private string? Message => error is null ? null : $"Error: {error}";
 
@@ -68,10 +69,7 @@
             return;
         }
 
-        // TODO: SHOW success message instead of redirection
-        RedirectManager.RedirectTo(
-            "Account/RegisterConfirmation",
-            new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+        RedirectManager.RedirectTo(ReturnUrl);
     }
 
     private sealed class InputModel
