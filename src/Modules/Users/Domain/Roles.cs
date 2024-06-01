@@ -4,7 +4,7 @@
 /// Represents a user role.
 /// </summary>
 /// <param name="name"></param>
-public struct Role(string name)
+public readonly struct Role(string name)
 {
     public readonly string Name = name;
     public static implicit operator string(Role role) => role.Name;

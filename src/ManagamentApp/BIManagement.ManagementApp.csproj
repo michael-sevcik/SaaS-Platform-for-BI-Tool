@@ -24,6 +24,7 @@
     <ProjectReference Include="..\Common\Application\BIManagement.Common.Application.csproj" />
     <ProjectReference Include="..\Common\Components\BIManagement.Common.Components.csproj" />
     <ProjectReference Include="..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\Common\Persistence\BIManagement.Common.Persistence.csproj" />
     <ProjectReference Include="..\Common\Shared\BIManagement.Common.Shared.csproj" />
     <ProjectReference Include="..\Modules\DataIntegration\Infrastructure\BIManagement.Modules.DataIntegration.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\DataIntegration\MapperPages\BIManagement.Modules.DataIntegration.MapperComponent.csproj" />
