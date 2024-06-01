@@ -26,7 +26,6 @@ internal sealed class UserManager(
     UserManager<ApplicationUser> userManager,
     IUserStore<ApplicationUser> userStore,
     IEmailSender emailSender,
-    IConfiguration configuration,
     IIntegrationNotifier integrationNotifier,
     ILogger<UserManager> logger
     ) : IUserManager, IScoped

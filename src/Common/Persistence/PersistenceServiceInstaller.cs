@@ -1,7 +1,6 @@
 ﻿using BIManagement.Common.Infrastructure.Configuration;
 using BIManagement.Common.Infrastructure.Extensions;
 using BIManagement.Common.Persistence.Options;
-using BIManagement.Common.Shared.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

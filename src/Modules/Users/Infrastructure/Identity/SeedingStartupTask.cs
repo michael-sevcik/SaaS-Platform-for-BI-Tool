@@ -27,7 +27,6 @@ namespace BIManagement.Modules.Users.Infrastructure.Identity;
 internal class SeedingStartupTask(
     IHostEnvironment environment,
     IServiceProvider serviceProvider,
-    IConfiguration configuration,
     ILogger<SeedingStartupTask> logger,
     IOptions<DefaultAdminOptions> adminConfiguration) : BackgroundService
 {
