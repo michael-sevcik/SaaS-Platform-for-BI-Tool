@@ -1,5 +1,6 @@
 ﻿using BIManagement.Common.Components.Layout;
 using BIManagement.Common.Infrastructure.Configuration;
+using BIManagement.Common.Persistence.Options;
 using BIManagement.Modules.Users.Domain;
 using BIManagement.Modules.Users.Infrastructure.Identity;
 using BIManagement.Modules.Users.Pages.Account;
@@ -9,6 +10,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
 {
@@ -28,9 +30,12 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
             })
                 .AddIdentityCookies();
 
-            var connectionString = configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-            services.AddDbContext<UsersContext>(options =>
-                options.UseSqlServer(connectionString));
+            services.AddDbContext<UsersContext>((serviceProvider, options) => {
+                ConnectionStringOptions connectionString = serviceProvider.GetService<IOptions<ConnectionStringOptions>>()?.Value
+                    ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found."); ;
+                options.UseSqlServer(connectionString);
+            });
+
             services.AddDatabaseDeveloperPageExceptionFilter();
 
             services.AddIdentityCore<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
