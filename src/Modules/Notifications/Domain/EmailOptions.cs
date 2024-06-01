@@ -1,5 +1,6 @@
 ﻿namespace BIManagement.Modules.Notifications.Domain;
 
+// TODO: USE
 /// <summary>
 /// Represents the options for mailing configuration.
 /// </summary>

@@ -1,13 +1,16 @@
 ﻿using BIManagement.Modules.Users.Application.UserManagement;
 using BIManagement.Modules.Users.Domain;
+using BIManagement.Modules.Users.Infrastructure.Options.Identity;
 using BIManagement.Modules.Users.Persistence;
 using MassTransit;
+using MassTransit.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,8 +28,11 @@ internal class SeedingStartupTask(
     IHostEnvironment environment,
     IServiceProvider serviceProvider,
     IConfiguration configuration,
-    ILogger<SeedingStartupTask> logger) : BackgroundService
+    ILogger<SeedingStartupTask> logger,
+    IOptions<DefaultAdminOptions> adminConfiguration) : BackgroundService
 {
+    private readonly DefaultAdminOptions adminOptions = adminConfiguration.Value;
+
     /// <inheritdoc />
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
@@ -44,10 +50,7 @@ internal class SeedingStartupTask(
         logger.LogInformation("Roles created.");
         
         var userManager = scope.ServiceProvider.GetRequiredService<IUserManager>();
-        var defaultAdminEmail = configuration["ManagementApp:DefaultAdminEmail"] 
-            ?? throw new InvalidOperationException("The default admin email is not set.");
-
-        await CreateAdmin(userManager, defaultAdminEmail, "Default Admin");
+        await CreateAdmin(userManager, adminOptions.Email, adminOptions.Name);
         logger.LogInformation("Admin Created.");
     }
 
