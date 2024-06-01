@@ -7,8 +7,12 @@ using BIManagement.Common.Infrastructure.Extensions;
 
 namespace BIManagement.Modules.Users.Infrastructure;
 
-public class UsersModuleInstaller : IModuleInstaller
+/// <summary>
+/// Service installer for the Users module.
+/// </summary>
+public sealed class UsersModuleInstaller : IModuleInstaller
 {
+    /// <inheritdoc />
     public static void Install(IServiceCollection services, IConfiguration configuration)
     {
         //services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
@@ -22,6 +26,7 @@ public class UsersModuleInstaller : IModuleInstaller
         //throw new NotImplementedException();
     }
 
+    /// <inheritdoc />
     public static void AddEndpoints(IEndpointRouteBuilder endpoints)
         => endpoints.MapAdditionalIdentityEndpoints();
 }

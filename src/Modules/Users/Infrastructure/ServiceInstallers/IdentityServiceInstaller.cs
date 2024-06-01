@@ -1,5 +1,4 @@
-﻿using BIManagement.Common.Components.Layout;
-using BIManagement.Common.Infrastructure.Configuration;
+﻿using BIManagement.Common.Infrastructure.Configuration;
 using BIManagement.Common.Persistence.Options;
 using BIManagement.Modules.Users.Domain;
 using BIManagement.Modules.Users.Infrastructure.Identity;

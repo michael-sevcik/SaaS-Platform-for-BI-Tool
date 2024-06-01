@@ -77,6 +77,7 @@ internal sealed class UserManager(
         ApplicationUser user = new();
 
         // TODO: consider using the cancellation tokens
+        // create a new user
         await userStore.SetUserNameAsync(user, email, CancellationToken.None);
         var emailStore = GetEmailStore();
 
@@ -92,25 +93,19 @@ internal sealed class UserManager(
             return Result.Failure<ApplicationUser>(UserErrors.UserCreationFailed);
         }
 
+        // register the user in the given role
         await userManager.AddToRoleAsync(user, role);
-
         logger.LogInformation("Created a new user account with a given role.");
 
+        // send an invitation email
         var userId = await userManager.GetUserIdAsync(user);
         var code = await userManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
 
-        if (!Uri.TryCreate(configuration["ManagementApp:FrontendUrl"], UriKind.Absolute, out var frontendUrl) || frontendUrl is null)
-        {
-            throw new InvalidOperationException("The ManagementApp:FrontendUrl is not specified in configuration or it has invalid format.");
-        }
+        var relativeCallbackUrl = QueryHelpers.AddQueryString("/Account/ConfirmEmailAndSetPassword", "userId", userId);
+        relativeCallbackUrl = QueryHelpers.AddQueryString(relativeCallbackUrl, "code", code);
 
-        var uriBuilder = new UriBuilder(frontendUrl) { Path = "/Account/ConfirmEmailAndSetPassword" };
-        var callbackUrl = uriBuilder.Uri.ToString();
-        callbackUrl = QueryHelpers.AddQueryString(callbackUrl, "userId", userId);
-        callbackUrl = QueryHelpers.AddQueryString(callbackUrl, "code", code);
-
-        await emailSender.SendInvitationLinkAsync(email, callbackUrl);
+        await emailSender.SendInvitationLinkAsync(email, relativeCallbackUrl);
 
         return Result.Success(user);
     }
@@ -121,7 +116,7 @@ internal sealed class UserManager(
         var user = await userManager.FindByIdAsync(id);
         if (user is null)
         {
-            return Result.Failure(new("Error.UserNotFound", "Given user was not found."));
+            return Result.Failure(UserErrors.UserNotFoundById);
         }
 
         return await DeleteUserAsync(user);

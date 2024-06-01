@@ -1,18 +1,19 @@
 ﻿using BIManagement.Common.Infrastructure.Configuration;
-using BIManagement.Common.Infrastructure.Extensions;
 using BIManagement.Modules.Notifications.Api;
 using BIManagement.Modules.Notifications.Application;
+using BIManagement.Modules.Notifications.Infrastructure.Email;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace BIManagement.Modules.Notifications.Infrastructure;
+namespace BIManagement.Modules.Notifications.Infrastructure.ServiceInstallers;
 
 /// <summary>
-/// Service installer for the notifications module.
+/// Installs services from the infrastructure layer.
 /// </summary>
-internal class NotificationsModuleInstaller : IModuleInstaller
+internal sealed class InfrastructureServiceInstallers : IServiceInstaller
 {
     /// <inheritdoc />
     public static void Install(IServiceCollection services, IConfiguration configuration)
-        => services.InstallServicesFromAssemblies(configuration, AssemblyReference.Assembly);
+        => services.ConfigureOptions<EmailOptionsSetup>()
+            .AddSingleton<IEmailSender, NoOpEmailSender>();
 }
