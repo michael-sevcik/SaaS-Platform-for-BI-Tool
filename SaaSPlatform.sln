@@ -83,6 +83,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.Notifications.Domain", "src\Modules\Notifications\Domain\BIManagement.Modules.Notifications.Domain.csproj", "{3F0DBC23-7CB8-41CD-ABFB-D3F507FFCEEE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.DataIntegration.DbSchemaScraping", "src\Modules\DataIntegration\DbSchemaScraping\BIManagement.Modules.DataIntegration.DbSchemaScraping.csproj", "{A457B900-8B1C-4BCF-9A16-08D523600EDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -209,6 +211,10 @@ Global
 		{3F0DBC23-7CB8-41CD-ABFB-D3F507FFCEEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F0DBC23-7CB8-41CD-ABFB-D3F507FFCEEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F0DBC23-7CB8-41CD-ABFB-D3F507FFCEEE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A457B900-8B1C-4BCF-9A16-08D523600EDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A457B900-8B1C-4BCF-9A16-08D523600EDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A457B900-8B1C-4BCF-9A16-08D523600EDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A457B900-8B1C-4BCF-9A16-08D523600EDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -252,6 +258,7 @@ Global
 		{4469C3F4-F014-4270-B8C8-DF88374ADF78} = {83EFAECF-9F4D-43E5-93D3-A962F34448AB}
 		{CB081F23-CC0E-4ED4-A0EB-026459200599} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
 		{3F0DBC23-7CB8-41CD-ABFB-D3F507FFCEEE} = {B2F4316F-4904-4497-B224-FF1222691F2A}
+		{A457B900-8B1C-4BCF-9A16-08D523600EDE} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1954CCB7-4EB5-4651-9A8A-1FE50A343FE4}
