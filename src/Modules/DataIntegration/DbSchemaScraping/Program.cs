@@ -7,7 +7,7 @@ using System.Reflection;
 ServiceCollection services = new();
 
 // Add the EF Core services to the service collection
-// Source: https://github.com/dotnet/efcore/issues/23595#issuecomment-740089427
+// Source: https://learn.microsoft.com/en-us/ef/core/cli/services
 var assemblyName = "Microsoft.EntityFrameworkCore.SqlServer";
 var providerAssembly = Assembly.Load(assemblyName);
 var providerServicesAttribute = providerAssembly.GetCustomAttribute<DesignTimeProviderServicesAttribute>()

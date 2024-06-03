@@ -17,26 +17,44 @@ internal static class Routes
     public const string UsersGroup = "/Users";
 
     /// <summary>
-    /// Represents a route for the Costumers page.
+    /// Represents a route to the Costumers page.
     /// </summary>
     public const string Costumers = $"{UsersGroup}/costumers";
 
     /// <summary>
-    /// Represents a route for the Admins page.
+    /// Represents a route to the Admins page.
     /// </summary>
     public const string Admins = $"{UsersGroup}/admins";
 
-
+    /// <summary>
+    /// Represents a route to the Admins page.
+    /// </summary>
     public const string CostumerInfo = $"{Costumers}/{{Id}}";
 
+    /// <summary>
+    /// Represents a route to the Admins page.
+    /// </summary>
     public const string AdminInfo = $"{Admins}/{{Id}}";
 
+    /// <summary>
+    /// Represents a route to the page displaying details about a costumer.
+    /// </summary>
     public static string GetCostumerInfo(string id)
         => $"{Costumers}/{id}";
 
+    /// <summary>
+    /// Represents a route to the page displaying details about admin.
+    /// </summary>
     public static string GetAdminInfo(string id)
     => $"{Admins}/{id}";
 
+    /// <summary>
+    /// Represents a route to the the page for adding costumer's accounts.
+    /// </summary>
     public const string AddCostumer = $"{Costumers}/add";
+
+    /// <summary>
+    /// Represents a route to the page for adding admin users.
+    /// </summary>
     public const string AddAdmin = $"{Admins}/add";
 }
