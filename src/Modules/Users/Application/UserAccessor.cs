@@ -1,0 +1,30 @@
+﻿using BIManagement.Common.Application.ServiceLifetimes;
+using BIManagement.Modules.Users.Api;
+using BIManagement.Modules.Users.Domain;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
+
+namespace BIManagement.Modules.Users.Application;
+
+/// <summary>
+/// Represents helper class that provides access to the current user.
+/// </summary>
+internal class UserAccessor(UserManager<ApplicationUser> userManager) : IUserAccessor, IScoped
+{
+    /// <inheritdoc/>
+    public async Task<string?> GetUserEmailAsync(HttpContext context)
+        => (await GetUser(context))?.Email;
+
+
+    /// <inheritdoc/>
+    public async Task<string?> GetUserIdAsync(HttpContext context)
+        => (await GetUser(context))?.Id;
+
+
+    /// <inheritdoc/>
+    public async Task<string?> GetUserNameAsync(HttpContext context)
+        => (await GetUser(context))?.Name;
+
+    private async Task<ApplicationUser?> GetUser(HttpContext context)
+        => await userManager.GetUserAsync(context.User);
+}

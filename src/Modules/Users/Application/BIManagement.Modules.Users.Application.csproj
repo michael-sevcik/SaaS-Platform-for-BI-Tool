@@ -16,6 +16,7 @@
     <ProjectReference Include="..\..\..\Common\Application\BIManagement.Common.Application.csproj" />
     <ProjectReference Include="..\..\..\Common\Shared\BIManagement.Common.Shared.csproj" />
     <ProjectReference Include="..\..\Notifications\Api\BIManagement.Modules.Notifications.Api.csproj" />
+    <ProjectReference Include="..\Api\BIManagement.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.Users.Domain.csproj" />
   </ItemGroup>
 

@@ -2,15 +2,11 @@
 using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Notifications.Api;
 using BIManagement.Modules.Users.Domain;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using System.Data;
 using System.Text;
-using System.Text.Encodings.Web;
-using System.Text.Json;
 
 namespace BIManagement.Modules.Users.Application.UserManagement;
 
