@@ -25,4 +25,26 @@ internal static class Routes
     /// Represents a route to the costumer's database configuration.
     /// </summary>
     public const string ConfigureDbConnction = $"{DataIntegration}/Configure-db-connection";
+
+    #region AdminsPages
+
+    /// <summary>
+    /// Represents a route to the list of MappingProjects
+    /// </summary>
+    public const string MappingProjects = $"{DataIntegration}/MappingProjects";
+
+    /// <summary>
+    /// Represents a route template for the MappingProjectInfo page.
+    /// </summary>
+    public const string MappingProjectInfo = $"{MappingProjects}/{{id}}";
+
+    /// <summary>
+    /// Gets a route to the page displaying details about a mapping project with a given <paramref name="id"/>.
+    /// </summary>
+    public static string GetMappingProjectInfo(string id)
+        => $"{MappingProjects}/{id}";
+
+
+
+    #endregion
 }

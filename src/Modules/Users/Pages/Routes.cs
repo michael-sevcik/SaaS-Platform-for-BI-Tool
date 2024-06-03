@@ -11,6 +11,8 @@ namespace BIManagement.Modules.Users.Pages;
 /// </summary>
 internal static class Routes
 {
+    #region AdminsPages
+ 
     /// <summary>
     /// Represents a base route for the Data Integration module.
     /// </summary>
@@ -27,23 +29,23 @@ internal static class Routes
     public const string Admins = $"{UsersGroup}/admins";
 
     /// <summary>
-    /// Represents a route to the Admins page.
+    /// Represents a route template for the Admins page.
     /// </summary>
     public const string CostumerInfo = $"{Costumers}/{{Id}}";
 
     /// <summary>
-    /// Represents a route to the Admins page.
+    /// Represents a route template for the Admins page.
     /// </summary>
     public const string AdminInfo = $"{Admins}/{{Id}}";
 
     /// <summary>
-    /// Represents a route to the page displaying details about a costumer.
+    /// Gets a route to the page displaying details about a costumer.
     /// </summary>
     public static string GetCostumerInfo(string id)
         => $"{Costumers}/{id}";
 
     /// <summary>
-    /// Represents a route to the page displaying details about admin.
+    /// Gets a route to the page displaying details about admin.
     /// </summary>
     public static string GetAdminInfo(string id)
     => $"{Admins}/{id}";
@@ -57,4 +59,6 @@ internal static class Routes
     /// Represents a route to the page for adding admin users.
     /// </summary>
     public const string AddAdmin = $"{Admins}/add";
+
+    #endregion
 }
