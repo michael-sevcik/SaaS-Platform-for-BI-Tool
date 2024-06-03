@@ -8,10 +8,21 @@ ServiceCollection services = new();
 
 // Add the EF Core services to the service collection
 // Source: https://github.com/dotnet/efcore/issues/23595#issuecomment-740089427
-var providerAssembly = Assembly.Load("Microsoft.EntityFrameworkCore.SqlServer");
-var providerServicesAttribute = providerAssembly.GetCustomAttribute<DesignTimeProviderServicesAttribute>();
-var providerServicesType = providerAssembly.GetType(providerServicesAttribute.TypeName);
-var providerServices = (IDesignTimeServices)(Activator.CreateInstance(providerServicesType) ?? throw new InvalidOperationException());
+var assemblyName = "Microsoft.EntityFrameworkCore.SqlServer";
+var providerAssembly = Assembly.Load(assemblyName);
+var providerServicesAttribute = providerAssembly.GetCustomAttribute<DesignTimeProviderServicesAttribute>()
+    ?? throw new InvalidOperationException(
+        $"Assembly \"{assemblyName}\" is missing required attribute \"{nameof(DesignTimeProviderServicesAttribute)}\"," +
+        "which serves for identification of design time service provider.");
+
+var providerServicesType = providerAssembly.GetType(providerServicesAttribute.TypeName)
+    ?? throw new InvalidOperationException($"Assembly \"{assemblyName}\" has to provide type " +
+    $"that has \"{nameof(DesignTimeProviderServicesAttribute)}\".");
+
+var providerServices = (IDesignTimeServices)(Activator.CreateInstance(providerServicesType)
+    ?? throw new InvalidOperationException($"EF Core design services provider type \"{providerServicesType.Name}\" is not" +
+    $" initializable through \"{nameof(Activator)}\"."));
+
 providerServices.ConfigureDesignTimeServices(services);
 
 var sp = services.BuildServiceProvider();
