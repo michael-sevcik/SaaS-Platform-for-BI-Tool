@@ -81,9 +81,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Deploy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.Application", "src\Modules\DataIntegration\Application\BIManagement.Modules.DataIntegration.Application.csproj", "{CB081F23-CC0E-4ED4-A0EB-026459200599}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.Notifications.Domain", "src\Modules\Notifications\Domain\BIManagement.Modules.Notifications.Domain.csproj", "{3F0DBC23-7CB8-41CD-ABFB-D3F507FFCEEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Notifications.Domain", "src\Modules\Notifications\Domain\BIManagement.Modules.Notifications.Domain.csproj", "{3F0DBC23-7CB8-41CD-ABFB-D3F507FFCEEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.DataIntegration.DbSchemaScraping", "src\Modules\DataIntegration\DbSchemaScraping\BIManagement.Modules.DataIntegration.DbSchemaScraping.csproj", "{A457B900-8B1C-4BCF-9A16-08D523600EDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.DbSchemaScraping", "src\Modules\DataIntegration\DbSchemaScraping\BIManagement.Modules.DataIntegration.DbSchemaScraping.csproj", "{A457B900-8B1C-4BCF-9A16-08D523600EDE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

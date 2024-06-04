@@ -1,0 +1,91 @@
+﻿@using BIManagement.Modules.Users.Api
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Http
+@using System.ComponentModel.DataAnnotations
+
+@inject IUserAccessor UserAccessor
+
+
+<EditForm Model="Input" FormName="profile" OnValidSubmit="OnValidSubmitAsync" method="post">
+    <DataAnnotationsValidator />
+    <ValidationSummary class="text-danger" role="alert" />
+    <div class="form-floating mb-3">
+@*         <InputText @bind-Value="Input.DatabaseType" class="form-control" placeholder="Please enter your phone number." />
+        <label for="phone-number" class="form-label">Phone number</label>
+        <ValidationMessage For="() => Input.DatabaseType" class="text-danger" /> *@
+
+        <div class="form-group row">
+            <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com">
+            </div>
+        </div>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label" for="body">Select your database provider: </label>
+            <div class="col-sm-10">
+                <InputSelect class="form-control" @bind-Value="@Input.DatabaseType" DisplayName="Database provider selection">
+                    @foreach (var country in Enum.GetValues(typeof(DatabaseType)))
+                    {
+                        <option value="@country">@country</option>
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => Input.DatabaseType)" />
+            </div>
+        </div>
+    </div>
+@*     <div class="form-floating mb-3">
+        <InputText @bind-Value="Input.DatabaseType" class="form-control" placeholder="Please enter your phone number." />
+        <label for="phone-number" class="form-label">Phone number</label>
+        <ValidationMessage For="() => Input.DatabaseType" class="text-danger" />
+    </div> *@
+    <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+</EditForm>
+
+
+@code {
+    private string? userId;
+    private string? username;
+    private string? phoneNumber;
+
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    [SupplyParameterFromForm]
+    private InputModel Input { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        userId = await UserAccessor.GetUserIdAsync(HttpContext) 
+            ?? throw new InvalidOperationException("User ID is not available.");
+
+        
+
+
+        // Input.PhoneNumber ??= phoneNumber;
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        // TODO: USE SQL CONNECTION STRING BUILDER
+        // var builder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder();
+
+        // In case of costumer redirect to mapper
+    }
+
+    public enum DatabaseType
+    {
+        SqlServer,
+        MySql,
+        PostgreSql,
+        Oracle,
+        Sqlite
+    }
+
+    private sealed class InputModel
+    {
+        [Display(Name = "Phone number")]
+        public DatabaseType DatabaseType { get; set; } = DatabaseType.Sqlite;
+    }
+}

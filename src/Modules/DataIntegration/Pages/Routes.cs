@@ -21,10 +21,14 @@ internal static class Routes
     /// </summary>
     public const string Mapper = $"{DataIntegration}/Mapper";
 
+    #region CostumersPages
+
     /// <summary>
     /// Represents a route to the costumer's database configuration.
     /// </summary>
-    public const string ConfigureDbConnction = $"{DataIntegration}/Configure-db-connection";
+    public const string CostumersConfigureDbConnction = $"{DataIntegration}/Configure-db-connection";
+
+    #endregion
 
     #region AdminsPages
 
@@ -43,8 +47,6 @@ internal static class Routes
     /// </summary>
     public static string GetMappingProjectInfo(string id)
         => $"{MappingProjects}/{id}";
-
-
 
     #endregion
 }

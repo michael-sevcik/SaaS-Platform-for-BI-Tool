@@ -18,6 +18,10 @@ class PrograAdo
             Console.WriteLine("Press any key to continue.");
             Console.ReadKey();
         }
+
+        SqlConnectionStringBuilder builder = new();
+        builder.
+
     }
 
     private static string GetConnectionString()
