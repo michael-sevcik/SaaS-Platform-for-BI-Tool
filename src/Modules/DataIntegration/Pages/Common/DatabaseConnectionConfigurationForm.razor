@@ -2,6 +2,7 @@
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Http
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.Data.SqlClient
 
 @inject IUserAccessor UserAccessor
 
@@ -40,14 +41,14 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="initialCatalog">Initial Catalog:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="initialCatalog" @bind="@Input.InitialCatalog" />
+                <input type="text" class="form-control" placeholder="Leave blank if not applicable." id="initialCatalog" @bind="@Input.InitialCatalog" />
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="integratedSecurity">Integrated Security:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="integratedSecurity" @bind="@Input.IntegratedSecurity" />
+                <input type="checkbox" class="form-check-input" id="integratedSecurity" @bind="@Input.IntegratedSecurity" />
             </div>
         </div>
 
@@ -61,14 +62,14 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="encrypt">Encrypt:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="encrypt" @bind="@Input.Encrypt" />
+                <input type="checkbox" class="form-check-input" id="encrypt" @bind="@Input.Encrypt" />
             </div>
         </div>
 
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="trustServerCertificate">Trust Server Certificate:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="trustServerCertificate" @bind="@Input.TrustServerCertificate" />
+                <input type="checkbox" class="form-check-input" id="trustServerCertificate" @bind="@Input.TrustServerCertificate" />
             </div>
         </div>
 
@@ -82,7 +83,7 @@
         <div class="form-group row">
             <label class="col-sm-2 col-form-label" for="multiSubnetFailover">Multi Subnet Failover:</label>
             <div class="col-sm-10">
-                <input type="text" class="form-control" id="multiSubnetFailover" @bind="@Input.MultiSubnetFailover" />
+                <input type="checkbox" class="form-check-input" id="multiSubnetFailover" @bind="@Input.MultiSubnetFailover" />
             </div>
         </div>
     </div>
@@ -94,8 +95,6 @@
 @code {
     private string? userId;
     private string? username;
-    private string? phoneNumber;
-
 
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
@@ -113,8 +112,29 @@
 
     private async Task OnValidSubmitAsync()
     {
+        // TODO: ENSURE client can't connect to the main DB.
         // TODO: USE SQL CONNECTION STRING BUILDER
-        // var builder = new Microsoft.Data.SqlClient.SqlConnectionStringBuilder();
+        Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder = new();
+        builder.DataSource = Input.DataSource;
+        if (Input.InitialCatalog.Length != 0)
+        {
+            builder.InitialCatalog = Input.InitialCatalog;
+        }
+
+        builder.IntegratedSecurity = Input.IntegratedSecurity;
+        builder.ConnectTimeout = Input.ConnectTimeout;
+        builder.Encrypt = Input.Encrypt ?
+            SqlConnectionEncryptOption.Mandatory
+            : SqlConnectionEncryptOption.Optional;
+
+        builder.TrustServerCertificate = Input.TrustServerCertificate;
+        builder.ApplicationIntent = Input.ApplicationIntent == "ReadOnly" ?
+            ApplicationIntent.ReadOnly
+            : ApplicationIntent.ReadWrite;
+
+        builder.MultiSubnetFailover = Input.MultiSubnetFailover;
+
+        // TODO: TRY THE CONNECTION
 
         // In case of costumer redirect to mapper
     }
@@ -128,18 +148,31 @@
         Sqlite
     }
 
-    private sealed class InputModel
+    // TODO: REMOVE defaults
+    internal sealed class InputModel
     {
         [Display(Name = "Phone number")]
         public DatabaseType DatabaseType { get; set; } = DatabaseType.Sqlite;
 
+        [Required(ErrorMessage = "Data Source is required.")]
+        [MinLength(1, ErrorMessage = "Data Source must be at least 1 character long.")]
+        // TODO: USE __INTERNAL__ in internally deployed databases to prevent client from connecting to them.
+        [RegularExpression("^(?!.*__INTERNAL__).+$", ErrorMessage = "Data Source cannot contain '__INTERNAL__', or new lines.")]
         public string DataSource { get; set; } = "(localdb)\\MSSQLLocalDB";
+
         public string InitialCatalog { get; set; } = "SaaSPlatform";
+
         public bool IntegratedSecurity { get; set; } = true;
+
+        [Range(0, 7200, ErrorMessage = "Connect Timeout must be a non-negative integer smaller than or equal to 7200.")]
         public int ConnectTimeout { get; set; } = 30;
+
         public bool Encrypt { get; set; } = false;
         public bool TrustServerCertificate { get; set; } = false;
-        public string ApplicationIntent { get; set; } = "ReadWrite";
+
+        [Required(ErrorMessage = "Application Intent is required.")]
+        public string ApplicationIntent { get; set; } = "ReadOnly";
+
         public bool MultiSubnetFailover { get; set; } = false;
     }
 }
