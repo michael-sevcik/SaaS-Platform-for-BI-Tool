@@ -7,17 +7,15 @@ class PrograAdo
     static void MainAdo()
     {
         string connectionString = GetConnectionString();
-        using (SqlConnection connection = new(connectionString))
-        {
-            // Connect to the database then retrieve the schema information.  
-            connection.Open();
-            DataTable table = connection.GetSchema("Tables");
+        using SqlConnection connection = new(connectionString);
+        // Connect to the database then retrieve the schema information.  
+        connection.Open();
+        DataTable table = connection.GetSchema("Tables");
 
-            // Display the contents of the table.  
-            DisplayData(table);
-            Console.WriteLine("Press any key to continue.");
-            Console.ReadKey();
-        }
+        // Display the contents of the table.  
+        DisplayData(table);
+        Console.WriteLine("Press any key to continue.");
+        Console.ReadKey();
     }
 
     private static string GetConnectionString()
