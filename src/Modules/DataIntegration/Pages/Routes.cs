@@ -17,9 +17,14 @@ internal static class Routes
     public const string DataIntegration = "/Data-integration";
 
     /// <summary>
-    /// Represents a route to the Data Integration module.
+    /// Represents a route to the mapper.
     /// </summary>
     public const string Mapper = $"{DataIntegration}/Mapper";
+
+    /// <summary>
+    /// Represents a route to the database schema loading page.
+    /// </summary>
+    public const string LoadDatabaseSchema= $"{DataIntegration}/LoadDatabaseSchema";
 
     #region CostumersPages
 
