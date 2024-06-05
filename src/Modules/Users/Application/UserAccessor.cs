@@ -1,4 +1,5 @@
 ﻿using BIManagement.Common.Application.ServiceLifetimes;
+using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Users.Api;
 using BIManagement.Modules.Users.Domain;
 using Microsoft.AspNetCore.Http;
@@ -11,6 +12,23 @@ namespace BIManagement.Modules.Users.Application;
 /// </summary>
 internal class UserAccessor(UserManager<ApplicationUser> userManager) : IUserAccessor, IScoped
 {
+    public async Task<Result<string>> GetCostumerId(HttpContext context)
+    {
+        var user = await GetUser(context);
+
+        if (user is null)
+        {
+            return Result.Failure<string>(IUserAccessor.UserNotIdentifiableError);
+        }
+
+        if (!await userManager.IsInRoleAsync(user, Roles.Costumer))
+        {
+            return Result.Failure<string>(IUserAccessor.NotCustomerError);
+        }
+
+        return Result.Success(user.Id);
+    }
+
     /// <inheritdoc/>
     public async Task<string?> GetUserEmailAsync(HttpContext context)
         => (await GetUser(context))?.Email;
