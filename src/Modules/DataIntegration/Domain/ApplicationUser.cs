@@ -10,6 +10,4 @@ namespace BIManagement.Modules.DataIntegration.Domain;
 public class ApplicationUser
 {
     string Id { get; set; } = string.Empty;
-
-    
 }

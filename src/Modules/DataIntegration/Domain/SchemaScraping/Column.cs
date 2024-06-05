@@ -7,6 +7,7 @@ namespace BIManagement.Modules.DataIntegration.Domain.SchemaScraping;
 /// </summary>
 public class Column
 {
+    [JsonRequired]
     string Name { get; set; } = string.Empty;
 
     [JsonRequired]
