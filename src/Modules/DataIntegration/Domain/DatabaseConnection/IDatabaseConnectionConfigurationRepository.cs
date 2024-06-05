@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 
-public interface IDatabaseConnectionConfigurationManager
+public interface IDatabaseConnectionConfigurationRepository
 {
     // TODO: Consider using result to pass potential errors
     Task SaveAsync(string userId, DatabaseConnectionConfiguration configuration);

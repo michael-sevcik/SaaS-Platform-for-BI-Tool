@@ -7,8 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Application\BIManagement.Common.Application.csproj" />
-    <ProjectReference Include="..\Api\BIManagement.Modules.DataIntegration.Api.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.DataIntegration.Domain.csproj" />
   </ItemGroup>
 

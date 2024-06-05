@@ -8,6 +8,11 @@ namespace BIManagement.Modules.DataIntegration.Domain;
 public class DatabaseConnectionConfiguration
 {
     /// <summary>
+    /// Gets or sets the identifier of user with which is this configuration associated.
+    /// </summary>
+    public string UserId { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the provider of the database.
     /// </summary>
     public DatabaseProvider Provider { get; set; } = 0;
