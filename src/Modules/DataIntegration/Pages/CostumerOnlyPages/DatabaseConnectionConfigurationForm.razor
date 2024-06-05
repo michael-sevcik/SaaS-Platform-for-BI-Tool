@@ -135,11 +135,30 @@
         if (costumerIdResult.IsFailure)
         {
             Message = costumerIdResult.Error.Message;
+            return;
         }
-        else
+
+        CostumerId = costumerIdResult.Value;
+
+        var connectionConfiguration = await DatabaseConnectionConfigurationManager.GetAsync(CostumerId);
+        if (connectionConfiguration is null)
         {
-            CostumerId = costumerIdResult.Value;
+            return;
         }
+
+        SqlConnectionStringBuilder connectionStringBuilder = new(connectionConfiguration.ConnectionString);
+        Input = new()
+        {
+            DatabaseType = connectionConfiguration.Provider,
+            DataSource = connectionStringBuilder.DataSource,
+            InitialCatalog = connectionStringBuilder.InitialCatalog,
+            IntegratedSecurity = connectionStringBuilder.IntegratedSecurity,
+            ConnectTimeout = connectionStringBuilder.ConnectTimeout,
+            Encrypt = connectionStringBuilder.Encrypt,
+            TrustServerCertificate = connectionStringBuilder.TrustServerCertificate,
+            ApplicationIntent = connectionStringBuilder.ApplicationIntent.ToString(),   // TODO: use enum instead of string
+            MultiSubnetFailover = connectionStringBuilder.MultiSubnetFailover,
+        };
     }
 
     private async Task OnValidSubmitAsync()
