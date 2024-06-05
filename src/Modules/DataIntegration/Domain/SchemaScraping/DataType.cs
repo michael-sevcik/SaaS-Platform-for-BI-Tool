@@ -1,7 +1,17 @@
-﻿namespace BIManagement.Modules.DataIntegration.Domain.SchemaScraping;
+﻿using System.Text.Json.Serialization;
 
-public class DataType
+namespace BIManagement.Modules.DataIntegration.Domain.SchemaScraping;
+
+[JsonDerivedType(typeof(SimpleType), typeDiscriminator: SimpleType.Descriptor)]
+[JsonDerivedType(typeof(NVarChar), typeDiscriminator: NVarChar.Descriptor)]
+[JsonDerivedType(typeof(VarChar), typeDiscriminator: VarChar.Descriptor)]
+public abstract class DataTypeBase
 {
+}
+
+public class SimpleType : DataTypeBase
+{
+    public const string Descriptor = "simple";
     public enum Simpletype
     {
         Integer,
@@ -12,13 +22,17 @@ public class DataType
         Time,
     }
 
-    public virtual bool IsSimple => true;
-
-    
+    public Simpletype type { get; set; }
 }
 
-public class NVarChar : DataType
+public class NVarChar : DataTypeBase
 {
-    public override bool IsSimple => false;
+    public const string Descriptor = "nVarChar";
+
     public int lenght { get; set; }
+}
+
+public class VarChar : DataTypeBase
+{
+    public const string Descriptor = "varChar";
 }
