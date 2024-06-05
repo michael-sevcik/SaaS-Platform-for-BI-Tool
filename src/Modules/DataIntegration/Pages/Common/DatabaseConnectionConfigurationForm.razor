@@ -194,7 +194,7 @@
         [Display(Name = "Database Type")]
         public DatabaseType DatabaseType { get; set; } = DatabaseType.Sqlite;
 
-        // [Required(ErrorMessage = "Data Source is required.")]
+        [Required(ErrorMessage = "Data Source is required.")]
         [MinLength(1, ErrorMessage = "Data Source must be at least 1 character long.")]
         // TODO: USE __INTERNAL__ in internally deployed databases to prevent client from connecting to them.
         [RegularExpression("^(?!.*__INTERNAL__).+$", ErrorMessage = "Data Source cannot contain '__INTERNAL__', or new lines.")]
@@ -210,7 +210,7 @@
         public bool Encrypt { get; set; } = false;
         public bool TrustServerCertificate { get; set; } = false;
 
-        // [Required(ErrorMessage = "Application Intent is required.")]
+        [Required(ErrorMessage = "Application Intent is required.")]
         public string ApplicationIntent { get; set; } = "ReadOnly";
 
         public bool MultiSubnetFailover { get; set; } = false;
