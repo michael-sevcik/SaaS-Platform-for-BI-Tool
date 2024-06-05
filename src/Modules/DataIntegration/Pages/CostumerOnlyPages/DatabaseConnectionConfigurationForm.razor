@@ -18,7 +18,7 @@
 
 
 <BIManagement.Common.Components.StatusMessage Message="@Message" />
-@if (CostumerId is null)
+@if (CostumerId is not null)
 {
     <EditForm Model="Input" FormName="DatabaseConnection" OnValidSubmit="OnValidSubmitAsync" method="post">
         <DataAnnotationsValidator />
@@ -28,7 +28,7 @@
                 <label class="col-sm-2 col-form-label" for="body">Select your database provider: </label>
                 <div class="col-sm-10">
                     <InputSelect class="form-control" @bind-Value="@Input.DatabaseType" DisplayName="Database provider selection">
-                        @foreach (var country in Enum.GetValues(typeof(DatabaseType)))
+                        @foreach (var country in Enum.GetValues(typeof(DatabaseProvider)))
                         {
                             <option value="@country">@country</option>
                         }
@@ -129,6 +129,7 @@
     {
         Message = null;
         CostumerId = null;
+        showContinueButton = false;
 
         var costumerIdResult = await UserAccessor.GetCostumerId(HttpContext);
         if (costumerIdResult.IsFailure)
@@ -145,6 +146,7 @@
     {
         // TODO: ENSURE client can't connect to the main DB.
         Message = null;
+        showContinueButton = false;
 
         // Create and fill the connection string builder
         Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder = new();
@@ -198,25 +200,23 @@
         var tables = sqlConnection.GetSchema("Tables");
         Logger.LogInformation("Tables: {0}", tables.Rows.Count);
 
-        
+        // ConstumerId in not null because the form is only shown if it's not null
+        await DatabaseConnectionConfigurationManager.SaveAsync(CostumerId!, new()
+        {
+            Provider = Input.DatabaseType,
+            ConnectionString = builder.ConnectionString,
+        });
 
+        Message = "Connection saved successfully.";
+        showContinueButton = true;
         // TODO: In case of costumer redirect to mapper
-    }
-
-    public enum DatabaseType
-    {
-        SqlServer,
-        MySql,
-        PostgreSql,
-        Oracle,
-        Sqlite
     }
 
     // TODO: REMOVE defaults
     internal sealed class InputModel
     {
         [Display(Name = "Database Type")]
-        public DatabaseType DatabaseType { get; set; } = DatabaseType.Sqlite;
+        public DatabaseProvider DatabaseType { get; set; } = DatabaseProvider.SqlServer;
 
         [Required(ErrorMessage = "Data Source is required.")]
         [MinLength(1, ErrorMessage = "Data Source must be at least 1 character long.")]

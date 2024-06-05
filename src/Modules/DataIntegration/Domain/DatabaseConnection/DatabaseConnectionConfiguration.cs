@@ -15,5 +15,5 @@ public class DatabaseConnectionConfiguration
     /// <summary>
     /// Gets or sets the connection string in the native format of specified <see cref="Provider"/>.
     /// </summary>
-    string ConnectionString { get; set; } = string.Empty;
+    public string ConnectionString { get; set; } = string.Empty;
 }
