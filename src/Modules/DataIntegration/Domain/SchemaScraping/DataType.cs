@@ -22,14 +22,14 @@ public class SimpleType : DataTypeBase
         Time,
     }
 
-    public Simpletype type { get; set; }
+    public Simpletype Type { get; set; }
 }
 
 public class NVarChar : DataTypeBase
 {
     public const string Descriptor = "nVarChar";
 
-    public int lenght { get; set; }
+    public int Lenght { get; set; }
 }
 
 public class VarChar : DataTypeBase
