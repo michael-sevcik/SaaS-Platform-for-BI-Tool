@@ -8,10 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.6" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="8.0.6" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Application\BIManagement.Common.Application.csproj" />
+    <ProjectReference Include="..\..\..\Common\Persistence\BIManagement.Common.Persistence.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.DataIntegration.Domain.csproj" />
   </ItemGroup>
 

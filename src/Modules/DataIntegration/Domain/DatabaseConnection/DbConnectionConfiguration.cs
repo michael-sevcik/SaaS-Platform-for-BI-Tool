@@ -5,7 +5,7 @@ namespace BIManagement.Modules.DataIntegration.Domain;
 /// <summary>
 /// Represents the configuration of a database connection.
 /// </summary>
-public class DatabaseConnectionConfiguration
+public class DbConnectionConfiguration
 {
     /// <summary>
     /// Gets or sets the identifier of user with which is this configuration associated.

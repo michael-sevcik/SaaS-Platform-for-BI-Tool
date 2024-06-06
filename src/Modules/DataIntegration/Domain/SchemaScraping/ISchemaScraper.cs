@@ -9,5 +9,5 @@ namespace BIManagement.Modules.DataIntegration.Domain.SchemaScraping;
 
 public interface ISchemaScraper
 {
-    Task<Result<IReadOnlyList<Table>>> ScrapeSchemaAsync(DatabaseConnectionConfiguration configuration);
+    Task<Result<IReadOnlyList<Table>>> ScrapeSchemaAsync(DbConnectionConfiguration configuration);
 }

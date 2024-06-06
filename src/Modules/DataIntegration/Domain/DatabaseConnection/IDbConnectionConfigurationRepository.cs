@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 
-public interface IDatabaseConnectionConfigurationRepository
+public interface IDbConnectionConfigurationRepository
 {
     // TODO: Consider using result to pass potential errors
-    Task SaveAsync(string userId, DatabaseConnectionConfiguration configuration);
+    Task SaveAsync(string userId, DbConnectionConfiguration configuration);
     Task DeleteAsync(string userId);
-    Task<DatabaseConnectionConfiguration?> GetAsync(string userId);
+    Task<DbConnectionConfiguration?> GetAsync(string userId);
 }
