@@ -10,7 +10,7 @@ public class DbConnectionConfiguration
     /// <summary>
     /// Gets or sets the identifier of user with which is this configuration associated.
     /// </summary>
-    public string UserId { get; set; } = string.Empty;
+    public string CostumerId { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the provider of the database.

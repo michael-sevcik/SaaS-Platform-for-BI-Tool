@@ -13,16 +13,12 @@ namespace BIManagement.Modules.DataIntegration.Persistence;
 /// <summary>
 /// Represents the Data integration database context.
 /// </summary>
-public class DataIntegrationDbContext : DbContext
+/// <remarks>
+/// Initializes a new instance of the <see cref="DataIntegrationDbContext"/> class.
+/// </remarks>
+/// <param name="options"></param>
+public class DataIntegrationDbContext(DbContextOptions<DataIntegrationDbContext> options) : DbContext(options)
 {
-    /// <summary>
-    /// Initializes a new instance of the <see cref="DataIntegrationDbContext"/> class.
-    /// </summary>
-    /// <param name="options"></param>
-    public DataIntegrationDbContext(DbContextOptions<DataIntegrationDbContext> options) : base(options)
-    {
-    }
-
     /// <inheritdoc />
     protected override void OnModelCreating(ModelBuilder mb)
     {

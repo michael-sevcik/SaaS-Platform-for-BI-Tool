@@ -14,8 +14,8 @@ internal sealed class DbConnectionConfigurationConfiguration : IEntityTypeConfig
     public void Configure(EntityTypeBuilder<DbConnectionConfiguration> builder)
     {
         builder.ToTable(TableNames.DatabaseConnectionConfigurations);
-        builder.HasKey(x => x.UserId);
-        builder.Property(x => x.UserId)
+        builder.HasKey(x => x.CostumerId);
+        builder.Property(x => x.CostumerId)
             .ValueGeneratedNever()
             .HasMaxLength(PropertyConstants.UserIdMaxLength);
     }

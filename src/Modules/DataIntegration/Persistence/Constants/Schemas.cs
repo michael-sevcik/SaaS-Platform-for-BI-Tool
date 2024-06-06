@@ -3,7 +3,7 @@
 /// <summary>
 /// Encapsulates the schema names used in the DataIntegration module.
 /// </summary>
-internal static class Schemas
+public static class Schemas
 {
     /// <summary>
     /// The schema name for the DataIntegration module.

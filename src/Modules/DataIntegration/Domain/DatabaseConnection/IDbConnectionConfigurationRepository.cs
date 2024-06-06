@@ -9,7 +9,8 @@ namespace BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 public interface IDbConnectionConfigurationRepository
 {
     // TODO: Consider using result to pass potential errors
-    Task SaveAsync(string userId, DbConnectionConfiguration configuration);
+    Task UpdateAsync(DbConnectionConfiguration configuration);
+    Task AddAsync(DbConnectionConfiguration configuration);
     Task DeleteAsync(string userId);
     Task<DbConnectionConfiguration?> GetAsync(string userId);
 }

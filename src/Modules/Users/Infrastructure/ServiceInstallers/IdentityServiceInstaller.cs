@@ -1,5 +1,6 @@
 ﻿using BIManagement.Common.Infrastructure.Configuration;
 using BIManagement.Common.Persistence.Options;
+//using BIManagement.Common.Persistence.Constants;
 using BIManagement.Modules.Users.Domain;
 using BIManagement.Modules.Users.Infrastructure.Identity;
 using BIManagement.Modules.Users.Pages.Account;
@@ -10,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using BIManagement.Common.Persistence.Extensions;
 
 namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
 {
@@ -32,7 +34,9 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
             services.AddDbContext<UsersContext>((serviceProvider, options) => {
                 ConnectionStringOptions connectionString = serviceProvider.GetService<IOptions<ConnectionStringOptions>>()?.Value
                     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found."); ;
-                options.UseSqlServer(connectionString);
+                options.UseSqlServer(
+                    connectionString,
+                    options => options.WithMigrationHistoryTableInSchema(UsersSchema.Name));
             });
 
             services.AddDatabaseDeveloperPageExceptionFilter();

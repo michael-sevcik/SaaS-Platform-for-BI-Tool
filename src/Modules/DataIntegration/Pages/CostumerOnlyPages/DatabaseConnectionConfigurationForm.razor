@@ -20,7 +20,7 @@
 <BIManagement.Common.Components.StatusMessage Message="@Message" />
 @if (CostumerId is not null)
 {
-    <EditForm Model="Input" FormName="DatabaseConnection" OnValidSubmit="OnValidSubmitAsync" method="post">
+    <EditForm Model="Input" FormName="@FormName" OnValidSubmit="OnValidSubmitAsync" method="post">
         <DataAnnotationsValidator />
         <ValidationSummary class="text-danger" role="alert" />
         <div class="form-floating mb-3">
@@ -114,6 +114,17 @@
 }
 
 @code {
+    private const string FormName = nameof(DatabaseConnectionConfigurationForm);
+    private enum Action
+    {
+        Update,
+        Add
+    }
+
+    private Action formAction;
+
+    // initialized by the OnInitializedAsync method
+    private Domain.DbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
     private bool showContinueButton = false;
     private string? CostumerId { get; set; }
 
@@ -122,8 +133,8 @@
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
-    [SupplyParameterFromForm]
-    private InputModel Input { get; set; } = new();
+    [SupplyParameterFromForm(FormName = FormName)]
+    private InputModel? Input { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -140,25 +151,40 @@
 
         CostumerId = costumerIdResult.Value;
 
-        var connectionConfiguration = await DatabaseConnectionConfigurationManager.GetAsync(CostumerId);
-        if (connectionConfiguration is null)
+        var returnedConnectionConfiguration = await DatabaseConnectionConfigurationManager.GetAsync(CostumerId);
+        if (returnedConnectionConfiguration is null)
         {
+            dbConnectionConfiguration = new()
+            {
+                CostumerId = this.CostumerId,
+            };
+
+            formAction = Action.Add;
+            Input ??= new();
             return;
         }
 
-        SqlConnectionStringBuilder connectionStringBuilder = new(connectionConfiguration.ConnectionString);
-        Input = new()
+        dbConnectionConfiguration = returnedConnectionConfiguration;
+        formAction = Action.Update;
+
+        // Initialize the Input model with the values from the database connection configuration if it's not already already submitted.
+        if (Input is null)
         {
-            DatabaseType = connectionConfiguration.Provider,
-            DataSource = connectionStringBuilder.DataSource,
-            InitialCatalog = connectionStringBuilder.InitialCatalog,
-            IntegratedSecurity = connectionStringBuilder.IntegratedSecurity,
-            ConnectTimeout = connectionStringBuilder.ConnectTimeout,
-            Encrypt = connectionStringBuilder.Encrypt,
-            TrustServerCertificate = connectionStringBuilder.TrustServerCertificate,
-            ApplicationIntent = connectionStringBuilder.ApplicationIntent.ToString(), // TODO: use enum instead of string
-            MultiSubnetFailover = connectionStringBuilder.MultiSubnetFailover,
-        };
+            SqlConnectionStringBuilder connectionStringBuilder = new(dbConnectionConfiguration.ConnectionString);
+
+            Input = new()
+            {
+                DatabaseType = dbConnectionConfiguration.Provider,
+                DataSource = connectionStringBuilder.DataSource,
+                InitialCatalog = connectionStringBuilder.InitialCatalog,
+                IntegratedSecurity = connectionStringBuilder.IntegratedSecurity,
+                ConnectTimeout = connectionStringBuilder.ConnectTimeout,
+                Encrypt = connectionStringBuilder.Encrypt,
+                TrustServerCertificate = connectionStringBuilder.TrustServerCertificate,
+                ApplicationIntent = connectionStringBuilder.ApplicationIntent.ToString(), // TODO: use enum instead of string
+                MultiSubnetFailover = connectionStringBuilder.MultiSubnetFailover,
+            };            
+        }
     }
 
     private async Task OnValidSubmitAsync()
@@ -215,16 +241,19 @@
                 break;
         }
 
-        // TODO: DELETE
-        var tables = sqlConnection.GetSchema("Tables");
-        Logger.LogInformation("Tables: {0}", tables.Rows.Count);
+        dbConnectionConfiguration.Provider = Input.DatabaseType;
+        dbConnectionConfiguration.ConnectionString = builder.ConnectionString;
 
         // ConstumerId in not null because the form is only shown if it's not null
-        await DatabaseConnectionConfigurationManager.SaveAsync(CostumerId!, new()
+        switch (formAction)
         {
-            Provider = Input.DatabaseType,
-            ConnectionString = builder.ConnectionString,
-        });
+            case Action.Update:
+                await DatabaseConnectionConfigurationManager.UpdateAsync(dbConnectionConfiguration);
+                break;
+            case Action.Add:
+                await DatabaseConnectionConfigurationManager.AddAsync(dbConnectionConfiguration);
+                break;
+        }
 
         Message = "Connection saved successfully.";
         showContinueButton = true;

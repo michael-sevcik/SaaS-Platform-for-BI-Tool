@@ -1,14 +1,14 @@
 ﻿using BIManagement.Common.Persistence.Constants;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Infrastructure;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 
 namespace BIManagement.Common.Persistence.Extensions;
 
 
 // TODO: IS needed?
 /// <summary>
-/// Contains extension method for the <see cref="NpgsqlDbContextOptionsBuilder"/> class.
+/// Contains extension method for the <see cref="SqlServerDbContextOptionsBuilder"/> class.
 /// </summary>
-public static class NpgsqlDbContextOptionsBuilderExtensions
+public static class SqlSeverDbContextOptionsBuilderExtensions
 {
     /// <summary>
     /// Configures the migration history table to live in the specified schema.
@@ -16,8 +16,8 @@ public static class NpgsqlDbContextOptionsBuilderExtensions
     /// <param name="dbContextOptionsBuilder">The database context options builder.</param>
     /// <param name="schema">The schema.</param>
     /// <returns>The same database context options builder.</returns>
-    public static NpgsqlDbContextOptionsBuilder WithMigrationHistoryTableInSchema(
-        this NpgsqlDbContextOptionsBuilder dbContextOptionsBuilder,
-        string schema) =>
-        dbContextOptionsBuilder.MigrationsHistoryTable(TableNames.MigrationHistory, schema);
+    public static SqlServerDbContextOptionsBuilder WithMigrationHistoryTableInSchema(
+        this SqlServerDbContextOptionsBuilder dbContextOptionsBuilder,
+        string schema)
+            => dbContextOptionsBuilder.MigrationsHistoryTable(TableNames.MigrationHistory, schema);
 }

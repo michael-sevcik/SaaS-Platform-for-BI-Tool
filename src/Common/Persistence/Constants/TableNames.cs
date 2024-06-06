@@ -8,5 +8,5 @@ internal static class TableNames
     /// <summary>
     /// The migration history table.
     /// </summary>
-    internal const string MigrationHistory = "__EFMigrationsHistory";
+    public const string MigrationHistory = "__EFMigrationsHistory";
 }

@@ -22,10 +22,17 @@ internal class DbConnectionConfigurationRepository(DataIntegrationDbContext dbCo
 
     /// <inheritdoc/>
     public async Task<DbConnectionConfiguration?> GetAsync(string userId)
-        => await databaseConnectionConfigurations.FirstOrDefaultAsync(x => x.UserId == userId);
+        => await databaseConnectionConfigurations.FirstOrDefaultAsync(x => x.CostumerId == userId);
 
     /// <inheritdoc/>
-    public async Task SaveAsync(string userId, DbConnectionConfiguration configuration)
+    public async Task UpdateAsync(DbConnectionConfiguration configuration)
+    {
+        databaseConnectionConfigurations.Update(configuration);
+        await dbContext.SaveChangesAsync();
+    }
+
+    /// <inheritdoc/>
+    public async Task AddAsync(DbConnectionConfiguration configuration)
     {
         await databaseConnectionConfigurations.AddAsync(configuration);
         await dbContext.SaveChangesAsync();
