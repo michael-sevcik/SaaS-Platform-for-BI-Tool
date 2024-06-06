@@ -87,7 +87,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.Persistence", "src\Modules\DataIntegration\Persistence\BIManagement.Modules.DataIntegration.Persistence.csproj", "{CEC30980-3231-43C2-825E-18A774E379C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Modules.Deployment.Persistence", "src\Modules\Deployment\Persistence\BIManagement.Modules.Deployment.Persistence.csproj", "{70AD50EE-EDED-45E2-8416-0F03C0ABF768}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Deployment.Persistence", "src\Modules\Deployment\Persistence\BIManagement.Modules.Deployment.Persistence.csproj", "{70AD50EE-EDED-45E2-8416-0F03C0ABF768}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Test.Modules.DataIntegration.DbModelling", "test\Modules\DataIntegration\DbModelling\BIManagement.Test.Modules.DataIntegration.DbModelling.csproj", "{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -227,6 +229,10 @@ Global
 		{70AD50EE-EDED-45E2-8416-0F03C0ABF768}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70AD50EE-EDED-45E2-8416-0F03C0ABF768}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70AD50EE-EDED-45E2-8416-0F03C0ABF768}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -273,6 +279,7 @@ Global
 		{A457B900-8B1C-4BCF-9A16-08D523600EDE} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
 		{CEC30980-3231-43C2-825E-18A774E379C2} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
 		{70AD50EE-EDED-45E2-8416-0F03C0ABF768} = {83EFAECF-9F4D-43E5-93D3-A962F34448AB}
+		{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B} = {C3DE0035-ADCD-48D9-9D34-D7B51BDD8BFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1954CCB7-4EB5-4651-9A8A-1FE50A343FE4}
