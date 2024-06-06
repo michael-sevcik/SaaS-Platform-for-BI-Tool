@@ -8,5 +8,5 @@ public static class Schemas
     /// <summary>
     /// The schema name for the DataIntegration module.
     /// </summary>
-    public const string DataIntegration = "DataIntegration";
+    public const string DataIntegration = "dataIntegration";
 }
