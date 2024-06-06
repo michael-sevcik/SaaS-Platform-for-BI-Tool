@@ -7,8 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\..\Common\Persistence\BIManagement.Common.Persistence.csproj" />
     <ProjectReference Include="..\Application\BIManagement.Modules.DataIntegration.Application.csproj" />
+    <ProjectReference Include="..\Persistence\BIManagement.Modules.DataIntegration.Persistence.csproj" />
   </ItemGroup>
 
 </Project>

@@ -14,10 +14,44 @@ internal static class Routes
     /// <summary>
     /// Represents a base route for the Data Integration module.
     /// </summary>
-    public const string DataIntegration = "/data-integration";
+    public const string DataIntegration = "/Data-integration";
 
     /// <summary>
-    /// Represents a route for the Data Integration module.
+    /// Represents a route to the mapper.
     /// </summary>
-    public const string Mapper = $"{DataIntegration}/mapper";
+    public const string Mapper = $"{DataIntegration}/Mapper";
+
+    /// <summary>
+    /// Represents a route to the database schema loading page.
+    /// </summary>
+    public const string LoadDatabaseSchema= $"{DataIntegration}/LoadDatabaseSchema";
+
+    #region CostumersPages
+
+    /// <summary>
+    /// Represents a route to the costumer's database configuration.
+    /// </summary>
+    public const string CostumersConfigureDbConnction = $"{DataIntegration}/Configure-db-connection";
+
+    #endregion
+
+    #region AdminsPages
+
+    /// <summary>
+    /// Represents a route to the list of MappingProjects
+    /// </summary>
+    public const string MappingProjects = $"{DataIntegration}/MappingProjects";
+
+    /// <summary>
+    /// Represents a route template for the MappingProjectInfo page.
+    /// </summary>
+    public const string MappingProjectInfo = $"{MappingProjects}/{{id}}";
+
+    /// <summary>
+    /// Gets a route to the page displaying details about a mapping project with a given <paramref name="id"/>.
+    /// </summary>
+    public static string GetMappingProjectInfo(string id)
+        => $"{MappingProjects}/{id}";
+
+    #endregion
 }

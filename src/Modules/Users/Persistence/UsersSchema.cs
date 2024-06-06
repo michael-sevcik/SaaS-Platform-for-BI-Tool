@@ -3,7 +3,7 @@
 /// <summary>
 /// Contains the schema names for the Users module.
 /// </summary>
-internal static class UsersSchema
+public static class UsersSchema
 {
     /// <summary>
     /// The users schema name.

@@ -1,12 +1,7 @@
 ﻿using BIManagement.Common.Application.ServiceLifetimes;
 using BIManagement.Modules.Users.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BIManagement.Modules.Users.Api;
+namespace BIManagement.Modules.Users.Api.ExternalCommunication;
 
 /// <summary>
 /// Implementation of the <see cref="IIntegrationNotifier"/> interface.
