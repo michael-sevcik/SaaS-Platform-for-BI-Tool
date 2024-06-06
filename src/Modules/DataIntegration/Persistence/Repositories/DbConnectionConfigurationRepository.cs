@@ -1,5 +1,4 @@
 ﻿using BIManagement.Common.Application.ServiceLifetimes;
-using BIManagement.Modules.DataIntegration.Domain;
 using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 using Microsoft.EntityFrameworkCore;
 

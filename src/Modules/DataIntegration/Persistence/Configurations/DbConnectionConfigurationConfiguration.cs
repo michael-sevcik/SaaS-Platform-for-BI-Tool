@@ -1,8 +1,8 @@
-﻿using BIManagement.Modules.DataIntegration.Domain;
-using BIManagement.Modules.DataIntegration.Persistence.Constants;
+﻿using BIManagement.Modules.DataIntegration.Persistence.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using BIManagement.Common.Persistence.Constants;
+using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 
 namespace BIManagement.Modules.DataIntegration.Persistence.Configurations;
 

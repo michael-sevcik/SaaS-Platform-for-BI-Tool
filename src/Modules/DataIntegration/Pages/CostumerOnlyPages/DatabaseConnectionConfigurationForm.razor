@@ -1,10 +1,10 @@
-﻿@using BIManagement.Modules.Users.Api
-@using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
-@using Microsoft.AspNetCore.Components.Forms
-@using Microsoft.AspNetCore.Http
-@using System.ComponentModel.DataAnnotations
-@using Microsoft.Data.SqlClient
-@using Microsoft.Extensions.Logging
+﻿@    using BIManagement.Modules.Users.Api
+@    using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
+@    using Microsoft.AspNetCore.Components.Forms
+@    using Microsoft.AspNetCore.Http
+@    using System.ComponentModel.DataAnnotations
+@    using Microsoft.Data.SqlClient
+@    using Microsoft.Extensions.Logging
 @inject ILogger<DatabaseConnectionConfigurationForm> Logger
 @inject IUserAccessor UserAccessor
 @inject NavigationManager NavigationManager
@@ -124,7 +124,7 @@
     private Action formAction;
 
     // initialized by the OnInitializedAsync method
-    private Domain.DbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
+    private DbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
     private bool showContinueButton = false;
     private string? CostumerId { get; set; }
 

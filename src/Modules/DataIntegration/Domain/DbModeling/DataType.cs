@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace BIManagement.Modules.DataIntegration.Domain.SchemaScraping;
+namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
 
 /// <summary>
 /// Represents a base class data type of a <see cref="Column"/> in a database <see cref="Table"/>.

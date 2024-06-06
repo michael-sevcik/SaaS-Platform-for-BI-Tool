@@ -1,6 +1,4 @@
-﻿using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
-
-namespace BIManagement.Modules.DataIntegration.Domain;
+﻿namespace BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 
 /// <summary>
 /// Represents the configuration of a database connection.
