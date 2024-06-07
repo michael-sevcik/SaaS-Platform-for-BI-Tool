@@ -11,11 +11,11 @@ public class Column
     /// The name of the column.
     /// </summary>
     [JsonRequired]
-    string Name { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     /// <summary>
     /// The data type of the column.
     /// </summary>
     [JsonRequired]
-    DataTypeBase DataType { get; set; } = default!;
+    public DataTypeBase DataType { get; set; } = default!;
 }
