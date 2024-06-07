@@ -53,13 +53,12 @@ public class MSSQLDbModelBuilder(ILogger<MSSQLDbModelBuilder> logger) : IDbModel
 
     private static DbModel EfCoreModelToDbModel(DatabaseModel efCoreModel)
     {
-        var dbModel = new DbModel
+        return new()
         {
             Name = efCoreModel.DatabaseName ?? string.Empty,
             Tables = efCoreModel.Tables.Select(EfCoreTableToTable).ToList()
         };
 
-        return dbModel;
     }
 
     private static Domain.DbModelling.Table EfCoreTableToTable(DatabaseTable efCoreTable)
@@ -68,7 +67,7 @@ public class MSSQLDbModelBuilder(ILogger<MSSQLDbModelBuilder> logger) : IDbModel
         {
             Name = efCoreTable.Name ?? string.Empty,
             Columns = efCoreTable.Columns.Select(EfCoreColumnToColumn).ToList(),
-            PrimaryKeys = efCoreTable.PrimaryKey?.Columns.Select(EfCoreColumnToColumn).ToList() ?? new List<Domain.DbModelling.Column>()
+            PrimaryKeys = efCoreTable.PrimaryKey?.Columns.Select(EfCoreColumnToColumn).ToList() ?? []
         };
     }
 
