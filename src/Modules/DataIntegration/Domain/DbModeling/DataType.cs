@@ -85,6 +85,7 @@ public sealed class SimpleType : DataTypeBase
         Boolean,
         Date,
         Datetime,
+        DatetimeOffset,
         Timestamp,
         Time,
     }

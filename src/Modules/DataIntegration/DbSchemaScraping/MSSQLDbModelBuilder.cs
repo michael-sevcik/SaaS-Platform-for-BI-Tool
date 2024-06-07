@@ -24,7 +24,7 @@ public class MSSQLDbModelBuilder(ILogger<MSSQLDbModelBuilder> logger) : IDbModel
         var modelFactory = CreateEfCoreModelFactory();
 
         var efCoreDbModel = await Task.Run(() => modelFactory.Create(configuration.ConnectionString, new()));
-        if (efCoreDbModel == null)
+        if (efCoreDbModel is null)
         {
             return Result.Failure<DbModel>(new(
                 $"{Errors.ModelCreationErrorNamespace}.ModelCreationFailed",
@@ -97,6 +97,7 @@ public class MSSQLDbModelBuilder(ILogger<MSSQLDbModelBuilder> logger) : IDbModel
             "money" => new SimpleType(SimpleType.Types.Money),
             string storeType when storeType.StartsWith("float") => new SimpleType(SimpleType.Types.Boolean), // TODO: Consider creating a separate class for this.
             "datetime" => new SimpleType(SimpleType.Types.Datetime),
+            "datetimeoffset" => new SimpleType(SimpleType.Types.DatetimeOffset),
             "date" => new SimpleType(SimpleType.Types.Date),
             "time" => new SimpleType(SimpleType.Types.Time),
             "timestamp" => new SimpleType(SimpleType.Types.Timestamp),
@@ -113,12 +114,12 @@ public class MSSQLDbModelBuilder(ILogger<MSSQLDbModelBuilder> logger) : IDbModel
     private static DataTypeBase CreateComplexTypeOrUnknown(string storeType)
     {
 
-        if (!storeType.StartsWith("nvarchar"))
+        if (!storeType.StartsWith("nvarchar(") && !storeType.StartsWith("varchar("))
         {
             return new UnknownDataType(storeType);
         }
 
-        if (storeType == "nvarchar(max)")
+        if (storeType is "nvarchar(max)" or "varchar(max)")
         {
             return new NVarCharMax();
         }
