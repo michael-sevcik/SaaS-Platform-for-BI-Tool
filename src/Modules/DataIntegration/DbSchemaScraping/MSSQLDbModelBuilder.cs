@@ -66,6 +66,7 @@ public class MSSQLDbModelBuilder(ILogger<MSSQLDbModelBuilder> logger) : IDbModel
         return new()
         {
             Name = efCoreTable.Name ?? string.Empty,
+            Schema = efCoreTable.Schema ?? string.Empty,
             Columns = efCoreTable.Columns.Select(EfCoreColumnToColumn).ToList(),
             PrimaryKeys = efCoreTable.PrimaryKey?.Columns.Select(EfCoreColumnToColumn).ToList() ?? []
         };

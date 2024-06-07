@@ -17,12 +17,17 @@ public class Table
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
+    ///  Gets or sets the name of the table.
+    /// </summary>
+    public string Schema { get; set; } = string.Empty;
+
+    /// <summary>
     /// Gets or sets the columns that are part of the primary key of the table.
     /// </summary>
-    public ICollection<Column> PrimaryKeys { get; set; } = new List<Column>();
+    public ICollection<Column> PrimaryKeys { get; set; } = [];
 
     /// <summary>
     /// Gets or sets the columns that are part of the foreign key of the table.
     /// </summary>
-    public ICollection<Column> Columns { get; set; } = new List<Column>();
+    public ICollection<Column> Columns { get; set; } = [];
 }
