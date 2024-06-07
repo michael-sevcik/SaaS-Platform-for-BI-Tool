@@ -7,9 +7,9 @@ namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 /// </summary>
 [JsonDerivedType(typeof(SimpleType), typeDiscriminator: SimpleType.Descriptor)]
 [JsonDerivedType(typeof(NVarChar), typeDiscriminator: NVarChar.Descriptor)]
-[JsonDerivedType(typeof(VarChar), typeDiscriminator: VarChar.Descriptor)]
 [JsonDerivedType(typeof(NVarCharMax), typeDiscriminator: NVarCharMax.Descriptor)]
-[JsonDerivedType(typeof(VarCharMax), typeDiscriminator: VarCharMax.Descriptor)]
+//[JsonDerivedType(typeof(VarChar), typeDiscriminator: VarChar.Descriptor)]
+//[JsonDerivedType(typeof(VarCharMax), typeDiscriminator: VarCharMax.Descriptor)]
 [JsonDerivedType(typeof(UnknownDataType), typeDiscriminator: UnknownDataType.Descriptor)]
 public abstract class DataTypeBase
 {
@@ -145,51 +145,51 @@ public sealed class NVarCharMax : DataTypeBase
 }
 
 
-/// <summary>
-/// Represents a string data type with a variable length.
-/// </summary>
-public sealed class VarCharMax : DataTypeBase
-{
-    /// <summary>
-    /// Descriptor for the serialization of <see cref="VarCharMax"/> data type.
-    /// </summary>
-    public const string Descriptor = "varCharMax";
-}
+///// <summary>
+///// Represents a string data type with a variable length.
+///// </summary>
+//public sealed class VarCharMax : DataTypeBase
+//{
+//    /// <summary>
+//    /// Descriptor for the serialization of <see cref="VarCharMax"/> data type.
+//    /// </summary>
+//    public const string Descriptor = "varCharMax";
+//}
 
 
-/// <summary>
-/// Represents a string data type with a fixed length.
-/// </summary>
-public sealed class VarChar : DataTypeBase
-{
-    /// <summary>
-    /// Descriptor for the serialization of <see cref="NVarChar"/> data type.
-    /// </summary>
-    public const string Descriptor = "nVarChar";
+///// <summary>
+///// Represents a string data type with a fixed length.
+///// </summary>
+//public sealed class VarChar : DataTypeBase
+//{
+//    /// <summary>
+//    /// Descriptor for the serialization of <see cref="NVarChar"/> data type.
+//    /// </summary>
+//    public const string Descriptor = "nVarChar";
 
-    /// <summary>
-    /// Constructs a new instance of <see cref="VarChar"/>.
-    /// </summary>
-    /// <remarks>Meant for Deserialization purposes.</remarks>
-    public VarChar() { }
+//    /// <summary>
+//    /// Constructs a new instance of <see cref="VarChar"/>.
+//    /// </summary>
+//    /// <remarks>Meant for Deserialization purposes.</remarks>
+//    public VarChar() { }
 
-    /// <summary>
-    /// Constructs a new instance of <see cref="VarChar"/> with a given <paramref name="lenght"/>.
-    /// </summary>
-    /// <param name="lenght">The type of the simple data type. Must be positive.</param>
-    /// <exception cref="ArgumentException">Thrown when the <paramref name="lenght"/> is not positive.</exception>
-    public VarChar(int lenght)
-    {
-        if (lenght <= 0)
-        {
-            throw new ArgumentException("The length of the string must be positive.", nameof(lenght));
-        }
+//    /// <summary>
+//    /// Constructs a new instance of <see cref="VarChar"/> with a given <paramref name="lenght"/>.
+//    /// </summary>
+//    /// <param name="lenght">The type of the simple data type. Must be positive.</param>
+//    /// <exception cref="ArgumentException">Thrown when the <paramref name="lenght"/> is not positive.</exception>
+//    public VarChar(int lenght)
+//    {
+//        if (lenght <= 0)
+//        {
+//            throw new ArgumentException("The length of the string must be positive.", nameof(lenght));
+//        }
 
-        Lenght = lenght;
-    }
+//        Lenght = lenght;
+//    }
 
-    /// <summary>
-    /// Gets or sets the length limit of the string.
-    /// </summary>
-    public int Lenght { get; set; }
-}
+//    /// <summary>
+//    /// Gets or sets the length limit of the string.
+//    /// </summary>
+//    public int Lenght { get; set; }
+//}
