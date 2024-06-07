@@ -1,4 +1,4 @@
-﻿namespace BIManagement.Modules.DataIntegration.Domain.DbModeling
+﻿namespace BIManagement.Modules.DataIntegration.Domain.DbModelling
 {
     public class PrimaryKey
     {

@@ -1,7 +1,7 @@
 ﻿using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 
-namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
+namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
 /// Represents a object for building a model of a database.

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
+namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
 /// Represents a table in a database schema.

@@ -1,6 +1,6 @@
 ﻿using BIManagement.Common.Shared.Errors;
 
-namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
+namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
 /// Encapsulates errors that can occur during database modeling.

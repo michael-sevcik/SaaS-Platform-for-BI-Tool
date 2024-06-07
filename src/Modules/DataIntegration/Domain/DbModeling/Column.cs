@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
+namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
 /// Represents a column in a database table - <see cref="Table"/>.
