@@ -12,9 +12,9 @@ namespace BIManagement.Modules.DataIntegration.DbSchemaScraping;
 
 // TODO: Refactor throwing exceptions to using Result<T> instead
 /// <summary>
-/// Implementation of <see cref="IDbModelBuilder"/> for building a model of a MSSQL database.
+/// Implementation of <see cref="IDbModelFactory"/> for building a model of a MSSQL database.
 /// </summary>
-public class MSSQLDbModelBuilder(ILogger<MSSQLDbModelBuilder> logger) : IDbModelBuilder
+public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModelFactory
 {
     private static readonly Lazy<ServiceProvider> serviceProvider = new(CreateDesignTimeServiceProvider);
 

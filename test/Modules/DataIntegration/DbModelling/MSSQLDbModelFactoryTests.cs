@@ -6,23 +6,23 @@ using Moq;
 namespace BIManagement.Test.Modules.DataIntegration.DbModelling
 {
     [TestFixture]
-    public class MSSQLDbModelBuilderTests
+    public class MSSQLDbModelFactoryTests
     {
         private MockRepository mockRepository;
 
-        private Mock<ILogger<MSSQLDbModelBuilder>> mockLogger;
+        private Mock<ILogger<MSSQLDbModelFactory>> mockLogger;
 
         [SetUp]
         public void SetUp()
         {
             this.mockRepository = new MockRepository(MockBehavior.Strict);
 
-            this.mockLogger = this.mockRepository.Create<ILogger<MSSQLDbModelBuilder>>();
+            this.mockLogger = this.mockRepository.Create<ILogger<MSSQLDbModelFactory>>();
         }
 
-        private MSSQLDbModelBuilder CreateMSSQLDbModelBuilder()
+        private MSSQLDbModelFactory CreateMSSQLDbModelBuilder()
         {
-            return new MSSQLDbModelBuilder(
+            return new MSSQLDbModelFactory(
                 this.mockLogger.Object);
         }
 

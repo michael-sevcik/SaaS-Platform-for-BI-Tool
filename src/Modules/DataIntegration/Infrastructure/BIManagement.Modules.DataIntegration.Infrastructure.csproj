@@ -14,6 +14,7 @@
     <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\Common\Persistence\BIManagement.Common.Persistence.csproj" />
     <ProjectReference Include="..\Application\BIManagement.Modules.DataIntegration.Application.csproj" />
+    <ProjectReference Include="..\DbSchemaScraping\BIManagement.Modules.DataIntegration.DbSchemaScraping.csproj" />
     <ProjectReference Include="..\Persistence\BIManagement.Modules.DataIntegration.Persistence.csproj" />
   </ItemGroup>
 
