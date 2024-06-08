@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore;
 namespace BIManagement.Modules.DataIntegration.Persistence.Repositories;
 
 /// <summary>
-/// Default implementation of <see cref="IDbConnectionConfigurationRepository"/>.
+/// Default implementation of <see cref="ICostumerDbConnectionConfigurationRepository"/>.
 /// </summary>
 /// <param name="dbContext">The context of database in which Database connection configurations are stored.</param>
-internal class DbConnectionConfigurationRepository(DataIntegrationDbContext dbContext)
-    : IDbConnectionConfigurationRepository, IScoped
+internal class CostumerDbConnectionConfigurationRepository(DataIntegrationDbContext dbContext)
+    : ICostumerDbConnectionConfigurationRepository, IScoped
 {
-    private readonly DbSet<DbConnectionConfiguration> databaseConnectionConfigurations = dbContext.Set<DbConnectionConfiguration>();
+    private readonly DbSet<CostumerDbConnectionConfiguration> databaseConnectionConfigurations = dbContext.Set<CostumerDbConnectionConfiguration>();
 
     /// <inheritdoc/>
     public Task DeleteAsync(string userId)
@@ -20,18 +20,18 @@ internal class DbConnectionConfigurationRepository(DataIntegrationDbContext dbCo
     }
 
     /// <inheritdoc/>
-    public async Task<DbConnectionConfiguration?> GetAsync(string userId)
+    public async Task<CostumerDbConnectionConfiguration?> GetAsync(string userId)
         => await databaseConnectionConfigurations.FirstOrDefaultAsync(x => x.CostumerId == userId);
 
     /// <inheritdoc/>
-    public async Task UpdateAsync(DbConnectionConfiguration configuration)
+    public async Task UpdateAsync(CostumerDbConnectionConfiguration configuration)
     {
         databaseConnectionConfigurations.Update(configuration);
         await dbContext.SaveChangesAsync();
     }
 
     /// <inheritdoc/>
-    public async Task AddAsync(DbConnectionConfiguration configuration)
+    public async Task AddAsync(CostumerDbConnectionConfiguration configuration)
     {
         await databaseConnectionConfigurations.AddAsync(configuration);
         await dbContext.SaveChangesAsync();

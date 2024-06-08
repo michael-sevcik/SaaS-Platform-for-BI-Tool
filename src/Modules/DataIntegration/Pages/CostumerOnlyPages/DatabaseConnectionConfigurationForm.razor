@@ -8,7 +8,7 @@
 @inject ILogger<DatabaseConnectionConfigurationForm> Logger
 @inject IUserAccessor UserAccessor
 @inject NavigationManager NavigationManager
-@inject IDbConnectionConfigurationRepository DatabaseConnectionConfigurationManager
+@inject ICostumerDbConnectionConfigurationRepository CostumerDatabaseConnectionConfigurationManager
 
 
 @* Not using @page directive to utilize static routes class *@
@@ -17,7 +17,7 @@
 <h3>DatabaseConnectionConfiguration</h3>
 
 
-<BIManagement.Common.Components.StatusMessage Message="@Message" />
+<BIManagement.Common.Components.StatusMessage Message="@Message" IsError="@isError" />
 @if (CostumerId is not null)
 {
     <EditForm Model="Input" FormName="@FormName" OnValidSubmit="OnValidSubmitAsync" method="post">
@@ -124,11 +124,12 @@
     private Action formAction;
 
     // initialized by the OnInitializedAsync method
-    private DbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
+    private CostumerDbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
     private bool showContinueButton = false;
     private string? CostumerId { get; set; }
 
     private string? Message { get; set; }
+    private bool isError = false;
 
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
@@ -139,6 +140,7 @@
     protected override async Task OnInitializedAsync()
     {
         Message = null;
+        isError = false;
         CostumerId = null;
         showContinueButton = false;
 
@@ -146,12 +148,13 @@
         if (costumerIdResult.IsFailure)
         {
             Message = costumerIdResult.Error.Message;
+            isError = true;
             return;
         }
 
         CostumerId = costumerIdResult.Value;
 
-        var returnedConnectionConfiguration = await DatabaseConnectionConfigurationManager.GetAsync(CostumerId);
+        var returnedConnectionConfiguration = await CostumerDatabaseConnectionConfigurationManager.GetAsync(CostumerId);
         if (returnedConnectionConfiguration is null)
         {
             dbConnectionConfiguration = new()
@@ -191,6 +194,7 @@
     {
         // TODO: ENSURE client can't connect to the main DB.
         Message = null;
+        isError = false;
         showContinueButton = false;
 
         // Create and fill the connection string builder
@@ -224,14 +228,20 @@
         catch (InvalidOperationException)
         {
             Message = "Cannot open a connection without specifying a data source or server.";
+            isError = true;
+            return;
         }
         catch (SqlException)
         {
             Message = "There was a problem establishing a connection with the specified user name and password.";
+            isError = true;
+            return;
         }
         catch (System.Configuration.ConfigurationErrorsException)
         {
             Message = "There was a problem establishing a connection with the specified user name and password.";
+            isError = true;
+            return;
         }
 
         switch (sqlConnection.State)
@@ -248,10 +258,10 @@
         switch (formAction)
         {
             case Action.Update:
-                await DatabaseConnectionConfigurationManager.UpdateAsync(dbConnectionConfiguration);
+                await CostumerDatabaseConnectionConfigurationManager.UpdateAsync(dbConnectionConfiguration);
                 break;
             case Action.Add:
-                await DatabaseConnectionConfigurationManager.AddAsync(dbConnectionConfiguration);
+                await CostumerDatabaseConnectionConfigurationManager.AddAsync(dbConnectionConfiguration);
                 break;
         }
 
