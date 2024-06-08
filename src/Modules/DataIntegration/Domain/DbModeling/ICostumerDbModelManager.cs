@@ -10,6 +10,7 @@ namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
 /// </summary>
 public interface ICostumerDbModelManager
 {
+    // TODO: Add methods for managing the database model of a costumer.
     /// <summary>
     /// Asynchronously gets a <see cref="CostumerDbModel"/> by its <paramref name="costumerId"/>.
     /// </summary>
