@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Application\BIManagement.Common.Application.csproj" />
     <ProjectReference Include="..\Api\BIManagement.Modules.DataIntegration.Api.csproj" />
+    <ProjectReference Include="..\DbSchemaScraping\BIManagement.Modules.DataIntegration.DbSchemaScraping.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.DataIntegration.Domain.csproj" />
   </ItemGroup>
 
