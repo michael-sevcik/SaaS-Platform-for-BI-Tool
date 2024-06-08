@@ -7,7 +7,7 @@ using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 namespace BIManagement.Modules.DataIntegration.Persistence.Configurations;
 
 /// <summary>
-/// Represents the <see cref="CostumerDbConnectionConfiguration"/>
+/// Represents the EF core configuration for <see cref="CostumerDbConnectionConfiguration"/>
 /// </summary>
 internal sealed class CostumerDbConnectionConfigurationConfiguration : IEntityTypeConfiguration<CostumerDbConnectionConfiguration>
 {
