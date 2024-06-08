@@ -3,6 +3,7 @@ using BIManagement.Modules.DataIntegration.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BIManagement.Modules.DataIntegration.Persistence.Migrations
 {
     [DbContext(typeof(DataIntegrationDbContext))]
-    partial class DataIntegrationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240608154659_AddCostumerDbModels")]
+    partial class AddCostumerDbModels
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

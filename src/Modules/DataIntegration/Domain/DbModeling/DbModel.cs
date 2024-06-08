@@ -19,5 +19,5 @@ public class DbModel
     /// <summary>
     /// Gets or sets the tables of the database.
     /// </summary>
-    public List<Table> Tables { get; set; } = new();
+    public ICollection<Table> Tables { get; set; } = [];
 }
