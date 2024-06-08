@@ -35,7 +35,7 @@ namespace BIManagement.Test.Modules.DataIntegration.DbModelling
 
             // Arrange
             var mSSQLDbModelBuilder = this.CreateMSSQLDbModelBuilder();
-            DbConnectionConfiguration configuration = new()
+            CostumerDbConnectionConfiguration configuration = new()
             { 
                 ConnectionString =  "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=SaaSPlatform;" +
                                     "Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server" +
