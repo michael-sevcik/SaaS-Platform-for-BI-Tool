@@ -1,4 +1,5 @@
 ﻿using BIManagement.Common.Persistence.Constants;
+using BIManagement.Modules.DataIntegration.Domain;
 using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 using BIManagement.Modules.DataIntegration.Persistence.Constants;
@@ -18,7 +19,6 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Configurations;
 /// </summary>
 internal sealed class CostumerDbModelsConfiguration : IEntityTypeConfiguration<CostumerDbModel>
 {
-    private static readonly JsonSerializerOptions jsonSerializerOptions = new ();
     public void Configure(EntityTypeBuilder<CostumerDbModel> builder)
     {
         builder.ToTable(TableNames.CostumerDbModels);
@@ -31,8 +31,8 @@ internal sealed class CostumerDbModelsConfiguration : IEntityTypeConfiguration<C
 
         builder.Property(x => x.DbModel)
             .HasConversion(
-                v => JsonSerializer.Serialize(v, jsonSerializerOptions),
-                v => JsonSerializer.Deserialize<DbModel>(v, jsonSerializerOptions) // TODO: HANDLE NULL
+                v => JsonSerializer.Serialize(v, SerializationOptions.Default),
+                v => JsonSerializer.Deserialize<DbModel>(v, SerializationOptions.Default) // TODO: HANDLE NULL
             );
 
         //builder.OwnsOne(x => x.DbModel, ownedDbModelBuilder =>
