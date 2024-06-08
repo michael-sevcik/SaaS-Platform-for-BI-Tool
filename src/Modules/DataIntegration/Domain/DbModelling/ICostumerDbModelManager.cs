@@ -1,8 +1,7 @@
 ﻿using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
-using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
-namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
+namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
 /// Represents a manager for <see cref="CostumerDbModel"/>, which is responsible for managing

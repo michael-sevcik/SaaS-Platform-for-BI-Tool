@@ -1,6 +1,6 @@
 ﻿using BIManagement.Common.Shared.Results;
 
-namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
+namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
 /// Represents a repository for <see cref="CostumerDbModel"/>.

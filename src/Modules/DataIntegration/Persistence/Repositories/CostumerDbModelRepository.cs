@@ -1,6 +1,6 @@
 ﻿using BIManagement.Common.Application.ServiceLifetimes;
 using BIManagement.Common.Shared.Results;
-using BIManagement.Modules.DataIntegration.Domain.DbModeling;
+using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 using BIManagement.Modules.DataIntegration.Domain.Errors;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;

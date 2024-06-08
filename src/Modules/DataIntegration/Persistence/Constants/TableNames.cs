@@ -1,5 +1,5 @@
 ﻿using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
-using BIManagement.Modules.DataIntegration.Domain.DbModeling;
+using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 namespace BIManagement.Modules.DataIntegration.Persistence.Constants;
 

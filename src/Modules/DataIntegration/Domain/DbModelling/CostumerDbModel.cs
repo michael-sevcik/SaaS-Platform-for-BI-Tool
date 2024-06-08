@@ -1,6 +1,4 @@
-﻿using BIManagement.Modules.DataIntegration.Domain.DbModelling;
-
-namespace BIManagement.Modules.DataIntegration.Domain.DbModeling;
+﻿namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
 /// Represents a model of a costumer's database.

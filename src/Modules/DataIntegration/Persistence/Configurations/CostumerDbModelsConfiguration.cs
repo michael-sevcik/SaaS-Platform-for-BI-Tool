@@ -1,6 +1,5 @@
 ﻿using BIManagement.Common.Persistence.Constants;
 using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
-using BIManagement.Modules.DataIntegration.Domain.DbModeling;
 using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 using BIManagement.Modules.DataIntegration.Persistence.Constants;
 using Microsoft.EntityFrameworkCore;
