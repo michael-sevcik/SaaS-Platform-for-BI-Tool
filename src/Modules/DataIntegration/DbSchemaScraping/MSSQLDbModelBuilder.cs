@@ -139,6 +139,7 @@ public class MSSQLDbModelBuilder(ILogger<MSSQLDbModelBuilder> logger) : IDbModel
     // TODO: use classic DI instead of this
     private static ServiceProvider CreateDesignTimeServiceProvider()
     {
+        // Source: https://learn.microsoft.com/en-us/ef/core/cli/services
         ServiceCollection services = new();
 
         // Add the EF Core services to the service collection

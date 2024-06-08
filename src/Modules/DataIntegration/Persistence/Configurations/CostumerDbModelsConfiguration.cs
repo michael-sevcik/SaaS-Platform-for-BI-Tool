@@ -1,16 +1,10 @@
 ﻿using BIManagement.Common.Persistence.Constants;
 using BIManagement.Modules.DataIntegration.Domain;
-using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 using BIManagement.Modules.DataIntegration.Persistence.Constants;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace BIManagement.Modules.DataIntegration.Persistence.Configurations;
 
@@ -52,7 +46,5 @@ internal sealed class CostumerDbModelsConfiguration : IEntityTypeConfiguration<C
         //        });
         //    });
         //});
-
-        // TODO: TEST
     }
 }

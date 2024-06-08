@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
+﻿namespace BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 
 /// <summary>
 /// Represents a repository for <see cref="CostumerDbConnectionConfiguration"/>.

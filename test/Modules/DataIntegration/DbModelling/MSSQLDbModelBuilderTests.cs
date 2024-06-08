@@ -2,9 +2,6 @@
 using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 using Microsoft.Extensions.Logging;
 using Moq;
-using NUnit.Framework;
-using System;
-using System.Threading.Tasks;
 
 namespace BIManagement.Test.Modules.DataIntegration.DbModelling
 {
