@@ -47,6 +47,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Users\Api\BIManagement.Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\Domain\BIManagement.Modules.DataIntegration.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="wwwroot\mapperInterop.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
