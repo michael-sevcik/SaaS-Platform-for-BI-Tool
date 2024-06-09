@@ -30,7 +30,7 @@ internal class CostumerDbModelManager(IDbModelBuilderAccessor modelBuilderAccess
             return modelResult;
         }
 
-        var additionResult = await costumerDbModelRepository.AddAsync(new() {
+        var additionResult = await costumerDbModelRepository.SaveAsync(new() {
             CostumerId = configuration.CostumerId,
             DbModel = modelResult.Value
         });

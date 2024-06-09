@@ -197,7 +197,7 @@
         dbConnectionConfiguration = returnedConnectionConfiguration;
         formAction = Action.Update;
 
-        // Initialize the Input model with the values from the database connection configuration if it's not already already submitted.
+        // Initialize the Input model with the values from the database connection configuration if it's not already submitted.
         if (Input is null)
         {
             SqlConnectionStringBuilder connectionStringBuilder = new(dbConnectionConfiguration.ConnectionString);
@@ -220,6 +220,7 @@
     private async Task CreateModelAsync()
     {
         isError = false;
+        Message = null;
         bool spinnerStaus = showSpinner;
         showSpinner = true;
         var dbModelResult = await CostumerDbModelManager.CreateDbModelAsync(dbConnectionConfiguration);

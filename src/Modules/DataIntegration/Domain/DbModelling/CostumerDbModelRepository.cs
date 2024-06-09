@@ -19,24 +19,13 @@ public interface ICostumerDbModelRepository
     Task<CostumerDbModel?> GetAsync(string costumerId);
 
     /// <summary>
-    /// Asynchronously adds a new <see cref="CostumerDbModel"/> to the repository.
+    /// Asynchronously adds or updates the given instance of <see cref="CostumerDbModel"/>.
     /// </summary>
-    /// <param name="costumerDbModel">The model to add.</param>
+    /// <param name="costumerDbModel">The model to save.</param>
     /// <returns>
     /// Task object that represents the asynchronous operation.
     /// The Value property returns instance of <see cref="Result"/> that represents the result
     /// of the operation.
     /// </returns>
-    Task<Result> AddAsync(CostumerDbModel costumerDbModel);
-
-    /// <summary>
-    /// Asynchronously adds a new <see cref="CostumerDbModel"/> to the repository.
-    /// </summary>
-    /// <param name="costumerDbModel">The model to update.</param>
-    /// <returns>
-    /// Task object that represents the asynchronous operation.
-    /// The Value property returns instance of <see cref="Result"/> that represents the result
-    /// of the operation.
-    /// </returns>
-    Task<Result> UpdateAsync(CostumerDbModel costumerDbModel);
+    Task<Result> SaveAsync(CostumerDbModel costumerDbModel);
 }
