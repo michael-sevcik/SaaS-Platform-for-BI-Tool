@@ -6,6 +6,7 @@ using System.Reflection;
 
 ServiceCollection services = new();
 
+// todo: is this necessary?
 // Add the EF Core services to the service collection
 // Source: https://learn.microsoft.com/en-us/ef/core/cli/services
 var assemblyName = "Microsoft.EntityFrameworkCore.SqlServer";

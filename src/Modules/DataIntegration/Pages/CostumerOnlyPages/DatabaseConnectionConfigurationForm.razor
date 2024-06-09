@@ -1,5 +1,7 @@
-﻿@using BIManagement.Modules.Users.Api
+﻿@using BIManagement.Modules.DataIntegration.Domain.DbModelling
+@using BIManagement.Modules.Users.Api
 @using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
+@using BlazorBootstrap
 @using Microsoft.AspNetCore.Components.Forms
 @using Microsoft.AspNetCore.Http
 @using System.ComponentModel.DataAnnotations
@@ -8,7 +10,10 @@
 @inject ILogger<DatabaseConnectionConfigurationForm> Logger
 @inject IUserAccessor UserAccessor
 @inject NavigationManager NavigationManager
-@inject IDbConnectionConfigurationRepository DatabaseConnectionConfigurationManager
+@inject ICostumerDbConnectionConfigurationRepository CostumerDatabaseConnectionConfigurationManager
+@inject IHttpContextAccessor HttpContextAccessor
+@inject ICostumerDbModelManager CostumerDbModelManager
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 
 @* Not using @page directive to utilize static routes class *@
@@ -17,7 +22,7 @@
 <h3>DatabaseConnectionConfiguration</h3>
 
 
-<BIManagement.Common.Components.StatusMessage Message="@Message" />
+<BIManagement.Common.Components.StatusMessage Message="@Message" IsError="@isError" />
 @if (CostumerId is not null)
 {
     <EditForm Model="Input" FormName="@FormName" OnValidSubmit="OnValidSubmitAsync" method="post">
@@ -104,14 +109,29 @@
             </div>
         </div>
 
-        <button type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
+        <button type="submit" class="btn btn-lg btn-primary">Save</button>
     </EditForm>
 }
 
 @if (showContinueButton)
 {
-    <a class="btn btn-primary" href="@Routes.CostumersConfigureDbConnction">Continue</a>
+    @* <a class="btn btn-primary" >Create model</a> *@
+    @* <BlazorBootstrap.Button id="CreateModelButton" @onclick="CreateModelAsync">Create model</BlazorBootstrap.Button> *@
+    <button class="btn btn-primary" @onclick="CreateModelAsync">Create model</button>
 }
+
+@if (showSpinner)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <span class="sr-only">Loading...</span>
+    </div>
+}
+
+
 
 @code {
     private const string FormName = nameof(DatabaseConnectionConfigurationForm);
@@ -124,14 +144,14 @@
     private Action formAction;
 
     // initialized by the OnInitializedAsync method
-    private Domain.DbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
+    private CostumerDbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
     private bool showContinueButton = false;
     private string? CostumerId { get; set; }
 
     private string? Message { get; set; }
+    private bool isError = false;
 
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+    private bool showSpinner = false;
 
     [SupplyParameterFromForm(FormName = FormName)]
     private InputModel? Input { get; set; }
@@ -139,19 +159,29 @@
     protected override async Task OnInitializedAsync()
     {
         Message = null;
+        isError = false;
         CostumerId = null;
         showContinueButton = false;
 
-        var costumerIdResult = await UserAccessor.GetCostumerId(HttpContext);
+        var httpContext = HttpContextAccessor.HttpContext;
+
+        if (httpContext is null)
+        {
+            Message = "User cannot be identified.";
+            return;
+        }
+
+        var costumerIdResult = await UserAccessor.GetCostumerId(httpContext);
         if (costumerIdResult.IsFailure)
         {
             Message = costumerIdResult.Error.Message;
+            isError = true;
             return;
         }
 
         CostumerId = costumerIdResult.Value;
 
-        var returnedConnectionConfiguration = await DatabaseConnectionConfigurationManager.GetAsync(CostumerId);
+        var returnedConnectionConfiguration = await CostumerDatabaseConnectionConfigurationManager.GetAsync(CostumerId);
         if (returnedConnectionConfiguration is null)
         {
             dbConnectionConfiguration = new()
@@ -167,7 +197,7 @@
         dbConnectionConfiguration = returnedConnectionConfiguration;
         formAction = Action.Update;
 
-        // Initialize the Input model with the values from the database connection configuration if it's not already already submitted.
+        // Initialize the Input model with the values from the database connection configuration if it's not already submitted.
         if (Input is null)
         {
             SqlConnectionStringBuilder connectionStringBuilder = new(dbConnectionConfiguration.ConnectionString);
@@ -187,10 +217,31 @@
         }
     }
 
+    private async Task CreateModelAsync()
+    {
+        isError = false;
+        Message = null;
+        bool spinnerStaus = showSpinner;
+        showSpinner = true;
+        var dbModelResult = await CostumerDbModelManager.CreateDbModelAsync(dbConnectionConfiguration);
+        if (dbModelResult.IsFailure)
+        {
+            Message = dbModelResult.Error.Message;
+            isError = true;
+        }
+        else
+        {
+            Message = "Model created successfully.";
+        }
+
+        showSpinner = spinnerStaus;
+    }
+
     private async Task OnValidSubmitAsync()
     {
         // TODO: ENSURE client can't connect to the main DB.
         Message = null;
+        isError = false;
         showContinueButton = false;
 
         // Create and fill the connection string builder
@@ -224,14 +275,20 @@
         catch (InvalidOperationException)
         {
             Message = "Cannot open a connection without specifying a data source or server.";
+            isError = true;
+            return;
         }
         catch (SqlException)
         {
             Message = "There was a problem establishing a connection with the specified user name and password.";
+            isError = true;
+            return;
         }
         catch (System.Configuration.ConfigurationErrorsException)
         {
             Message = "There was a problem establishing a connection with the specified user name and password.";
+            isError = true;
+            return;
         }
 
         switch (sqlConnection.State)
@@ -248,10 +305,10 @@
         switch (formAction)
         {
             case Action.Update:
-                await DatabaseConnectionConfigurationManager.UpdateAsync(dbConnectionConfiguration);
+                await CostumerDatabaseConnectionConfigurationManager.UpdateAsync(dbConnectionConfiguration);
                 break;
             case Action.Add:
-                await DatabaseConnectionConfigurationManager.AddAsync(dbConnectionConfiguration);
+                await CostumerDatabaseConnectionConfigurationManager.AddAsync(dbConnectionConfiguration);
                 break;
         }
 
