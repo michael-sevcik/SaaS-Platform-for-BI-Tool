@@ -123,6 +123,3 @@ export function ahoj(): number {
 
     return 800;
 }
-
-
-ahoj();
