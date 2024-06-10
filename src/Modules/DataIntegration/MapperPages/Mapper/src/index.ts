@@ -108,17 +108,20 @@ entityMapping.createBackwardConnections();
 const plainEntitiyMapping = EntityMappingConvertor.convertEntityMappingToPlain(entityMapping);
 const deserializedEntityMapping = EntityMappingConvertor.convertPlainToEntityMapping(plainEntitiyMapping);
 
+const mappingEditor = new MappingEditor(sourceDb, targetDb);
 // TODO:
 //const mappingEditor = new MappingEditor(sourceDb, targetDb);
 //mappingEditor.loadEntityMapping(deserializedEntityMapping);
 
 
-//function getMappingEditor(): MappingEditor {
-//    return mappingEditor;
-//}
+// function getMappingEditor(): MappingEditor {
+//    return M;
+// }
+
+
+
 
 export function ahoj(): number {
-    const mappingEditor = new MappingEditor(sourceDb, targetDb);
     mappingEditor.loadEntityMapping(deserializedEntityMapping);
 
     return 800;

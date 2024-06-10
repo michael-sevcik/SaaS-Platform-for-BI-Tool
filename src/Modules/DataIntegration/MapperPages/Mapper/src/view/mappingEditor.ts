@@ -1,8 +1,5 @@
-import * as dagre from 'dagre';
-
 import { dia, elementTools, layout, linkTools, shapes } from '@joint/core';
 import { DirectedGraph } from '@joint/layout-directed-graph';
-
 import { SHAPE_NAMESPACE } from './shapes/shapeNamespace';
 import { GRID_SIZE, TARGET_DATABASE_ENTITY_GROUP_NAME, LIGHT_COLOR, contentDiv } from '../constants';
 import { PropertyLink } from './shapes/propertyLink';
@@ -11,7 +8,7 @@ import { JoinLink } from './shapes/joinLink';
 import { EntityMapping } from '../mappingModel/entityMapping';
 import { SourceEntitiesToShapesTransformer } from './sourceEntitiesToShapesTransformer';
 import { TargetTableShape } from './shapes/targetTableShape';
-import { Column, ColumnType, Database, Table } from '../dbModel/database';
+import { Database, Table } from '../dbModel/database';
 import { Link } from './shapes/link';
 import { PropertyPort } from './shapes/propertyPort';
 import { SourceTable } from '../mappingModel/sourceTable';
@@ -25,26 +22,49 @@ import { JoinCondition } from '../mappingModel/aggregators/conditions/joinCondit
 import { BaseEntityShape } from './shapes/baseEntityShape';
 import { BaseSourceEntityShape } from './shapes/baseSourceEntityShape';
 import { EntityMappingConvertor } from '../mappingModel/converting/entityMappingConvertor';
-  
+
+
+/**
+ * Helper class for encapsulating objects needed to finish joining process
+ * that starts after an addition of a new source table.
+ */
 class IntermediateSourceTableData {
+
+    /**
+     * Initializes a new instance o of {@link IntermediateSourceTableData}.
+     * @param tableToAdd The table that is being added in needs to be joined.
+     * @param joinModal the modal responsible for joining the new table.
+     * @param unfinishedJoin Entity representing the join between old table and newly added.
+     */
     public constructor(
-        public readonly table: SourceTable,
+        public readonly tableToAdd: SourceTable,
         public readonly joinModal: JoinModal,
-        public readonly join: Join)
+        public readonly unfinishedJoin: Join)
         {}
 }
 
+/**
+ * Helper {@link MappingVisitor} derived class for finding the rightmost 
+ * source table in the joining tree.
+ */
 class SourceTableFinder extends MappingVisitor {
     public desiredSourceEntity : SourceTable | null;
+
+    // Intentionally left not implemented
     public visitSourceColumn(sourceColumn: SourceColumn): void {
         throw new Error('Method not implemented.');
     }
+
+    // Intentionally left not implemented
     public visitConditionLink(conditionLink: ConditionLink): void {
         throw new Error('Method not implemented.');
     }
+
+    // Intentionally left not implemented
     public visitJoinCondition(joinCondition: JoinCondition): void {
         throw new Error('Method not implemented.');
     }
+
     public visitSourceTable(sourceTable: SourceTable): void {
         this.desiredSourceEntity = sourceTable;
     }
@@ -56,7 +76,7 @@ class SourceTableFinder extends MappingVisitor {
 
 export class MappingEditor {
     public static readonly containerId = 'paper';
-
+//#region static event hadler methods
     private static onPaperElementMouseEnter(elementView: dia.ElementView) {
         const baseEntityShape = elementView.model as BaseEntityShape;
 
@@ -100,13 +120,15 @@ export class MappingEditor {
         const link = linkView.model as Link;
         link.unhighlight();
     }
+//#endregion 
 
     private entityMapping : EntityMapping | null = null;
     private readonly sourceTablePickerModal: SourceTablePickerModal;
     private readonly toolbar = document.getElementById('toolbar');
     public readonly graph = new dia.Graph({}, { cellNamespace: SHAPE_NAMESPACE });
     public readonly paper : dia.Paper;
-    // todo: consider creating map of target tables with their names as keys
+
+    // TODO: consider creating map of target tables with their names as keys
     public constructor(private readonly sourceDb: Database, private readonly targetDb: Database) {
         this.paper = new dia.Paper({
             el: document.getElementById('paper'),
@@ -276,6 +298,18 @@ export class MappingEditor {
 
     }
  
+    // TODO: use in mapping
+    public CreateSerializedMapping() {
+        console.log(this.entityMapping);
+
+        const plainEntityMapping = EntityMappingConvertor.convertEntityMappingToPlain(this.entityMapping);
+
+        console.log(plainEntityMapping);
+
+        // Convert the mappings array to a JSON string
+        return JSON.stringify(plainEntityMapping, null, 2); // Use 2 spaces for indentation
+    }
+
     public exportMapping() {
         console.log(this.entityMapping);
         
@@ -326,6 +360,7 @@ export class MappingEditor {
     }
 
     private addSourceTable(table: Table) {
+        //
         const sourceTable = new SourceTable(table.name, table.columns.map(column => new SourceColumn(column)));
         sourceTable.createBackwardConnections();
 
@@ -345,11 +380,10 @@ export class MappingEditor {
         const sourceTableData = new IntermediateSourceTableData(sourceTable, joinModal, join);
         joinModal.open(() => this.finishJoiningSourceTable(sourceTableData));
     }
-
-    private finishJoiningSourceTable(sourceTableData: IntermediateSourceTableData) {
+    private finishJoiningSourceTable(sourceTableData: IntermediateSourceTableData) : void {
         // TODO: handle first add
 
-        const rightSourceTableShape = new SourceTableShape(sourceTableData.table)
+        const rightSourceTableShape = new SourceTableShape(sourceTableData.tableToAdd)
         const sourceTableFinder = new SourceTableFinder();
         this.entityMapping.sourceEntity.accept(sourceTableFinder);
         const leftSourceTable = sourceTableFinder.desiredSourceEntity; 
@@ -364,18 +398,17 @@ export class MappingEditor {
             return false;
         }) as SourceTableShape;
 
-        const joinLink = new JoinLink(sourceTableData.join, sourceTableData.joinModal);
+        const joinLink = new JoinLink(sourceTableData.unfinishedJoin, sourceTableData.joinModal);
         joinLink.source(leftSourceTableShape);
         joinLink.target(rightSourceTableShape);
 
-        this.entityMapping.sourceEntity = sourceTableData.join;
+        this.entityMapping.sourceEntity = sourceTableData.unfinishedJoin;
         this.entityMapping.createBackwardConnections();
 
         this.paper.freeze();
         this.graph.addCells([rightSourceTableShape, joinLink]);
         this.paper.unfreeze();
     }
-
     private convertEntityMappingToShapes(entityMapping: EntityMapping): dia.Cell[] {
         // initialize the transformer
         const correspondingTable = this.targetDb.tables.find(
