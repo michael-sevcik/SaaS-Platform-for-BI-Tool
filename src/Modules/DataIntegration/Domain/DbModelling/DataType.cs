@@ -127,8 +127,8 @@ public sealed class NVarChar : DataTypeBase
     /// Constructs a new instance of <see cref="NVarChar"/> with a given <paramref name="length"/>.
     /// </summary>
     /// <param name="length">The number of allowed characters. Must be positive.</param>
-    /// <exception cref="ArgumentException">Thrown when the <paramref name="length"/> is not positive.</exception>
     /// <param name="isNullable">Value indicating whether this data type is nullable.</param>
+    /// <exception cref="ArgumentException">Thrown when the <paramref name="length"/> is not positive.</exception>
     public NVarChar(int length, bool isNullable) : base(isNullable)
     {
         if (length <= 0)
