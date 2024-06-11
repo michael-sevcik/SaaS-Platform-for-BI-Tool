@@ -25,7 +25,7 @@ export class SourceColumn extends Column implements Ownable, Visitable {
     public referenceHolders = new Set<ReferenceHolder>();
 
     constructor(column: Column) { 
-        super(column.name, column.type);
+        super(column.name, column.dataType);
     }
 
     /**

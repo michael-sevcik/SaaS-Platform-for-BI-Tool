@@ -143,7 +143,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
             result = {
                 $id: (this.id++).toString(),
                 name: sourceColumn.name,
-                type: sourceColumn.type
+                type: sourceColumn.dataType
             }
 
             this.plainSourceColumnsByOriginal.set(sourceColumn, result);

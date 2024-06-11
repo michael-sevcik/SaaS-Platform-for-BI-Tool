@@ -1,7 +1,15 @@
+import { Type } from "class-transformer";
+
 /**
  * Represents a base class data type of a {@link Column} in a database {@link Table}
  */
 export abstract class DataTypeBase {
+    protected abstract get TypeDescriptor(): string; 
+
+    public get Descriptor(): string {
+        return this.TypeDescriptor + (this.isNullable ? "?" : "");
+    }
+
     /**
      * @param isNullable Value indicating whether the data type is nullable.
      */
@@ -13,6 +21,9 @@ export abstract class DataTypeBase {
  * Represents an unknown data type. Used when the data type name is not recognized
  */
 export class UnknownDataType extends DataTypeBase {
+    protected get TypeDescriptor(): string {
+        return this.storeType;
+    }
     /**
      * Descriptor for the serialization of {@link UnknownDataType}.
      */
@@ -33,27 +44,31 @@ export class UnknownDataType extends DataTypeBase {
  * Represents the type of the simple data type.
  */
 export enum SimpleDataTypes {
-    TinyInteger,
-    SmallInteger,
-    Integer,
-    BigInteger,
-    Money,
-    Float,
-    Decimal,
-    Numeric, // TODO: consider creating a separate class for this type with precision and scale properties
-    Boolean,
-    Date,
-    Datetime,
-    DatetimeOffset,
-    Timestamp,
-    Time,
+    TinyInteger = "TinyInteger",
+    SmallInteger = "SmallInteger",
+    Integer = "Integer",
+    BigInteger = "BigInteger",
+    Money = "Money",
+    Float = "Float",
+    Decimal = "Decimal",
+    Numeric = "Numeric", // TODO: consider creating a separate class for this type with precision and scale properties
+    Boolean = "Boolean",
+    Date = "Date",
+    Datetime = "Datetime",
+    DatetimeOffset = "DatetimeOffset",
+    Timestamp = "Timestamp",
+    Time = "Time",
 }
 
 /**
- * Encapsulates simple data types - <see cref="SimpleType.SimpleType"/>.
+ * Encapsulates simple data types - {@link SimpleDataTypes}.
  */
 export class SimpleType extends DataTypeBase
 {
+    protected get TypeDescriptor(): string {
+        return this.type;
+    }
+
     /**
      * Descriptor for the serialization of simple data types.
      */
@@ -66,7 +81,7 @@ export class SimpleType extends DataTypeBase
      */
     constructor(
         public readonly type: SimpleDataTypes,
-        isNullable : boolean ) { super(isNullable); }
+        isNullable : boolean ) { super(isNullable);}
 }
 
 /**
@@ -74,6 +89,10 @@ export class SimpleType extends DataTypeBase
  */
 export class NVarChar extends DataTypeBase
 {
+    protected get TypeDescriptor(): string {
+        return `NVarChar(${this.length})`;
+    }
+
     /**
      * Descriptor for the serialization of {@link NVarChar} data type.
      */
@@ -92,6 +111,10 @@ export class NVarChar extends DataTypeBase
  */
 export class NVarCharMax extends DataTypeBase
 {
+    protected get TypeDescriptor(): string {
+        return "NVarChar(Max)";
+    }
+
     /**
      * Descriptor for the serialization of {@link NVarCharMax} data type.
      */

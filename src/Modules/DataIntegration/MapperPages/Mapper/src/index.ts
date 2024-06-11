@@ -6,9 +6,10 @@ import { SourceTable } from './mappingModel/sourceTable';
 import { Join, JoinType } from './mappingModel/aggregators/join';
 import { JoinCondition, Operator } from './mappingModel/aggregators/conditions/joinCondition';
 import { EntityMapping } from './mappingModel/entityMapping';
-import { Column, ColumnType, Database, Table } from './dbModel/database';
+import { Column, Database, Table } from './dbModel/database';
 import { SourceColumn } from './mappingModel/sourceColumn';
 import { EntityMappingConvertor } from './mappingModel/converting/entityMappingConvertor';
+import { NVarCharMax, SimpleDataTypes, SimpleType } from './dbModel/dataTypes';
 //export { getMappingEditor };
 
 
@@ -45,16 +46,16 @@ const tabPohybyZboziProperties = [
 ];
 
 const table1 = new Table("TabMzdList", [
-    new Column("ZamestnanecId", ColumnType.int, "Id zamestnance"),
-    new Column("OdpracHod", ColumnType.decimal, "Odpracované hodiny"),
-    new Column("HodSaz", ColumnType.decimal),
-    new Column("IdObdobi", ColumnType.int)
+    new Column("ZamestnanecId", new SimpleType(SimpleDataTypes.Integer, false), "Id zamestnance"),
+    new Column("OdpracHod", new SimpleType(SimpleDataTypes.Decimal, false), "Odpracované hodiny"),
+    new Column("HodSaz", new SimpleType(SimpleDataTypes.Decimal, false)),
+    new Column("IdObdobi", new SimpleType(SimpleDataTypes.Integer, false))
 ]);
 
 const table2 = new Table("TabMzdObd", [
-    new Column("MzdObd_DatumOd", ColumnType.date),
-    new Column("MzdObd_DatumDo", ColumnType.date),
-    new Column("IdObdobi", ColumnType.int)
+    new Column("MzdObd_DatumOd", new SimpleType(SimpleDataTypes.Date, false)),
+    new Column("MzdObd_DatumDo", new SimpleType(SimpleDataTypes.Date, false)),
+    new Column("IdObdobi", new SimpleType(SimpleDataTypes.Integer, false))
 ]);
 
 const sourceDb = new Database("SourceDatabase", [table1, table2]);
@@ -77,11 +78,11 @@ const join = new Join(
 );
 
 const targetColumns = [
-    new Column("PersonalId", ColumnType.int, "Id zamestnance"),
-    new Column("HoursCount", ColumnType.decimal, "Odpracované hodiny"),
-    new Column("DateFrom", ColumnType.date, "Začátek období"),
-    new Column("DateTo", ColumnType.date, "Konec období"),
-    new Column("note", ColumnType.string, "Poznámka"),
+    new Column("PersonalId", new SimpleType(SimpleDataTypes.Integer, false), "Id zamestnance"),
+    new Column("HoursCount", new SimpleType(SimpleDataTypes.Decimal, false), "Odpracované hodiny"),
+    new Column("DateFrom", new SimpleType(SimpleDataTypes.Date, false), "Začátek období"),
+    new Column("DateTo", new SimpleType(SimpleDataTypes.Date, false), "Konec období"),
+    new Column("note", new NVarCharMax(true), "Poznámka"),
 ]
 
 const targetTable = new Table("EmployeeHoursWorked2", targetColumns);

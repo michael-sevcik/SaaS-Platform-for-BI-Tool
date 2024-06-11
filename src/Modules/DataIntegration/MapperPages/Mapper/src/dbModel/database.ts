@@ -1,20 +1,81 @@
+import { Type } from "class-transformer";
+import { NVarChar, NVarCharMax, SimpleType, UnknownDataType, DataTypeBase } from "./dataTypes";
+
 /**
  * Represents model of a database.
  */
 export class Database {
     /**
+     * the Tables of the database
+     */
+    @Type(() => Table)
+    public readonly tables: Table[];
+
+    /**
      * Initializes a new instance of {@link Database}
      * @param name the name of the database
      * @param tables the tables of the database.
      */
-    constructor(public readonly name: string, public readonly tables: Table[]) {
+    constructor(public readonly name: string, tables: Table[]) {
+        this.tables = tables;
     }
 }
+
+/**
+ * Represents a column in a database table.
+ */
+export class Column {
+    /**
+     * Type of column.
+     */
+    @Type(() => DataTypeBase, {
+        discriminator: {
+            property: '$type',
+            subTypes: [
+                { value: UnknownDataType, name: UnknownDataType.Descriptor },
+                { value: SimpleType, name: SimpleType.Descriptor },
+                { value: NVarChar, name: NVarChar.Descriptor },
+                { value: NVarCharMax, name: NVarCharMax.Descriptor },
+            ],
+        },
+        keepDiscriminatorProperty: false,
+    })
+    public readonly dataType: DataTypeBase;
+
+
+    /**
+     * Creates a new instance of the Column class.
+     * @param name The name of the column.
+     * @param dataType The type of the column.
+     */
+    constructor(
+        public readonly name: string,
+        dataType: DataTypeBase,
+        public readonly description: string | null = null) {
+        this.dataType = dataType;
+    }
+
+    /**
+     * Checks if the current column is assignable with another column.
+     * @param column The column to compare with.
+     * @returns True if the columns have the same type, false otherwise.
+     */
+    public isAssignableWith(column: Column): boolean {
+        return this.dataType === column.dataType;
+    }
+}
+
 
 /**
  * Represents a table in a database schema.
  */
 export class Table {
+    /**
+     * Columns of the table.
+     */
+    @Type(() => Column)
+    public readonly columns: Column[];
+
     /**
      * Initializes a new instance of {@link Table}
      * @param name the name of the table.
@@ -24,42 +85,17 @@ export class Table {
      */
     constructor(
         public readonly name: string,
-        public readonly columns: Column[],
+        columns: Column[],
         public readonly schema: string | null = null,
-        public readonly description: string | null = null) { }
-}
-
-export enum ColumnType {
-    string = 'string',
-    int = 'int',
-    decimal = 'decimal',
-    date = 'date',
-    boolean = 'boolean'
-}
-
-
-
-/**
- * Represents a column in a database table.
- */
-export class Column {
-    /**
-     * Creates a new instance of the Column class.
-     * @param name The name of the column.
-     * @param type The type of the column.
-     */
-    constructor(
-        public readonly name: string,
-        public readonly type: ColumnType,
         public readonly description: string | null = null) {
-    }
-
-    /**
-     * Checks if the current column is assignable with another column.
-     * @param column The column to compare with.
-     * @returns True if the columns have the same type, false otherwise.
-     */
-    public isAssignableWith(column: Column): boolean {
-        return this.type === column.type;
-    }
+        this.columns = columns;
+        }
 }
+
+// export enum ColumnType {
+//     string = 'string',
+//     int = 'int',
+//     decimal = 'decimal',
+//     date = 'date',
+//     boolean = 'boolean'
+// }

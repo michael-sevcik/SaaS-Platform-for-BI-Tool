@@ -8,20 +8,25 @@ import { Join, JoinType } from "../src/mappingModel/aggregators/join";
 import { EntityMapping } from "../src/mappingModel/entityMapping";
 import { DbConnectionConfig } from "../src/mappingModel/dbConnectionConfig";
 import { MappingConfig } from "../src/mappingModel/mappingConfig";
-import { Column, ColumnType, Table } from "../src/dbModel/database";
+import { Column, Table } from "../src/dbModel/database";
 import { SourceColumn } from "../src/mappingModel/sourceColumn";
+import { SimpleDataTypes, SimpleType } from "../src/dbModel/dataTypes";
+
+function SimpleTypeFactory(type: SimpleDataTypes) : SimpleType {
+    return new SimpleType(type, false);
+}
 
 const table1 = new Table("TabMzdList", [
-    new Column("ZamestnanecId", ColumnType.int),
-    new Column("OdpracHod", ColumnType.decimal),
-    new Column("ZamestnanecId", ColumnType.int),
-    new Column("IdObdobi", ColumnType.int)
+    new Column("ZamestnanecId", SimpleTypeFactory(SimpleDataTypes.Integer)),
+    new Column("OdpracHod", SimpleTypeFactory(SimpleDataTypes.Decimal)),
+    new Column("ZamestnanecId", SimpleTypeFactory(SimpleDataTypes.Integer)),
+    new Column("IdObdobi", SimpleTypeFactory(SimpleDataTypes.Integer)),
 ]);
 
 const table2 = new Table("TabMzdObd", [
-    new Column("MzdObd_DatumOd", ColumnType.date),
-    new Column("MzdObd_DatumDo", ColumnType.date),
-    new Column("IdObdobi", ColumnType.int)
+    new Column("MzdObd_DatumOd", SimpleTypeFactory(SimpleDataTypes.Date)),
+    new Column("MzdObd_DatumDo", SimpleTypeFactory(SimpleDataTypes.Date)),
+    new Column("IdObdobi", SimpleTypeFactory(SimpleDataTypes.Integer))
 ]);
 
 const sourceTable1 = new SourceTable(table1.name, table1.columns.map(c => new SourceColumn(c)));
@@ -80,7 +85,7 @@ const mappingConfig = new MappingConfig(dbConnectionConfig, [entityMapping]);
 //     });
 // });
 
-fdescribe('Join serialization', () => { 
+describe('Join serialization', () => { 
     it('should serialize a join', () => {
         // Serialize
         const visitor = new MappingToPlainConverterVisiter();
