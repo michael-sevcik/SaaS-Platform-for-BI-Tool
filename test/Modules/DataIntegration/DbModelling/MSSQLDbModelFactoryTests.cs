@@ -1,7 +1,9 @@
 ﻿using BIManagement.Modules.DataIntegration.DbSchemaScraping;
+using BIManagement.Modules.DataIntegration.Domain;
 using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 using Microsoft.Extensions.Logging;
 using Moq;
+using System.Text.Json;
 
 namespace BIManagement.Test.Modules.DataIntegration.DbModelling
 {
@@ -43,8 +45,10 @@ namespace BIManagement.Test.Modules.DataIntegration.DbModelling
 
 
             // Act
-            var result = await mSSQLDbModelBuilder.CreateAsync(
-                configuration);
+            var result = await mSSQLDbModelBuilder.CreateAsync(configuration);
+
+            var serializedDbModel = JsonSerializer.Serialize(result.Value, SerializationOptions.Default);
+            
 
             // Assert
             //Assert.Fail();
