@@ -113,8 +113,12 @@ const deserializedEntityMapping = EntityMappingConvertor.convertPlainToEntityMap
 //mappingEditor.loadEntityMapping(deserializedEntityMapping);
 
 
+// We need to get model of source db and entity to map
+// We have the model prepared
+// We need to change the mapper to accept only current target table.
+    
 export function getMappingEditor(): MappingEditor {
-    const mappingEditor = new MappingEditor(sourceDb, targetDb);
+    const mappingEditor = new MappingEditor(sourceDb);
    return mappingEditor;
 }
 
@@ -124,9 +128,9 @@ export function loadDevelopmentView() {
 
 
 export function ahoj(): number {
-    const mappingEditor = new MappingEditor(sourceDb, targetDb);
+    const mappingEditor = new MappingEditor(sourceDb);
 
-    mappingEditor.loadEntityMapping(deserializedEntityMapping);
+    mappingEditor.loadEntityMapping(deserializedEntityMapping, targetTable);
 
     return 800;
 }

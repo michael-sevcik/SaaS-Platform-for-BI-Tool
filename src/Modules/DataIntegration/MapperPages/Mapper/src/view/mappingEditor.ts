@@ -123,13 +123,14 @@ export class MappingEditor {
 //#endregion 
 
     private entityMapping : EntityMapping | null = null;
+    private targetTable : Table | null;
     private readonly sourceTablePickerModal: SourceTablePickerModal;
     private readonly toolbar = document.getElementById('toolbar');
     public readonly graph = new dia.Graph({}, { cellNamespace: SHAPE_NAMESPACE });
     public readonly paper : dia.Paper;
 
     // TODO: consider creating map of target tables with their names as keys
-    public constructor(private readonly sourceDb: Database, private readonly targetDb: Database) {
+    public constructor(private readonly sourceDb: Database) {
         this.paper = new dia.Paper({
             el: document.getElementById('paper'),
             width: '100%',
@@ -279,6 +280,7 @@ export class MappingEditor {
 
         this.sourceTablePickerModal = new SourceTablePickerModal(this.sourceDb.tables);
 
+        // TODO: DELETE for production
         const importFile = document.getElementById('source-file');
         importFile.addEventListener('change', (event) => {
             const file = (event.target as HTMLInputElement).files?.[0];
@@ -290,7 +292,7 @@ export class MappingEditor {
                 if (result === null) return;
 
                 const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(JSON.parse(result as string));
-                this.loadEntityMapping(entityMapping);
+                this.loadEntityMapping(entityMapping, this.targetTable);
             }
 
             reader.readAsText(file);
@@ -337,7 +339,29 @@ export class MappingEditor {
         URL.revokeObjectURL(url);
     }
 
-    public loadEntityMapping(entityMapping : EntityMapping) {
+    /**
+     * Creates entity mapping for the given table.
+     * @param table The target table that should be mapped.
+     */
+    public createFromTargetTable(table: Table) {
+        const columnMappings = new Map<string, SourceColumn | null>();
+        for (const column of table.columns) {
+            columnMappings[column.name] = null;
+        }
+
+        this.targetTable = table;
+
+        this.entityMapping = new EntityMapping(
+            table.name,
+            null,
+            [],
+            columnMappings);
+
+        this.convertEntityMappingToShapes(this.entityMapping);
+    }
+
+    public loadEntityMapping(entityMapping : EntityMapping, targetTable: Table) {
+        this.targetTable = targetTable;
         this.entityMapping = entityMapping;
         this.paper.freeze();
         const cells = this.convertEntityMappingToShapes(entityMapping);
@@ -353,27 +377,14 @@ export class MappingEditor {
         });
 
         this.paper.unfreeze();
-    }
+    } 
 
-    public loadSerializedEntityMapping(serializedEntityMapping: string) {
+    public loadSerializedEntityMapping(serializedEntityMapping: string, serializedTable: string) {
         const plainEntityMapping = JSON.parse(serializedEntityMapping);
         const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(plainEntityMapping);
 
-        this.entityMapping = entityMapping;
-        this.paper.freeze();
-        const cells = this.convertEntityMappingToShapes(entityMapping);
-
-        // Add the cells to the graph
-        this.graph.resetCells(cells);
-
-        // layout the cells - source https://www.jointjs.com/demos/directed-graph-layout
-        DirectedGraph.layout(this.graph, {
-            nodeSep: 200,
-            edgeSep: 80,
-            rankDir: "LR"
-        });
-
-        this.paper.unfreeze();
+        // TODO: deserialize the serializedTable and map it
+        // this.loadEntityMapping(entityMapping);
     }
 
     private openSourceTableSelectionModal() {
@@ -431,11 +442,7 @@ export class MappingEditor {
         this.paper.unfreeze();
     }
     private convertEntityMappingToShapes(entityMapping: EntityMapping): dia.Cell[] {
-        // initialize the transformer
-        const correspondingTable = this.targetDb.tables.find(
-            (table) => table.name === entityMapping.name);
-            
-        if (correspondingTable === undefined) throw new Error(`Cannot find the corresponding table with name ${entityMapping.name}.`);    
+        // initialize the transformer            
         const transformer = new SourceEntitiesToShapesTransformer(this.sourceDb.tables);
         
         // transform the source entities to shapes
@@ -448,7 +455,7 @@ export class MappingEditor {
         const targetShape = new TargetTableShape(entityMapping, []);
         for (const [targetColumnName, sourceColumn] of entityMapping.columnMappings) {
             // Add port to the target entity
-            const targetColumn = correspondingTable.columns.find((column) => column.name === targetColumnName);
+            const targetColumn = this.targetTable.columns.find((column) => column.name === targetColumnName);
             if (targetColumn === undefined) throw new Error('Cannot find the corresponding column');
 
             const targetPort = targetShape.addPropertyPort(targetColumn);
