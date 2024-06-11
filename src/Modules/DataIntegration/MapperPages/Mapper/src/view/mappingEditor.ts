@@ -468,8 +468,8 @@ export class MappingEditor {
                     magnet: "portBody",
                     port: targetPort.id
                 });
-                console.log('Adding a link');
-                console.log(link);
+                console.debug('Adding a link');
+                console.debug(link);
                 cells.push(link);
             }
         }
