@@ -11,16 +11,38 @@ export abstract class DataTypeBase {
     }
 
     /**
+     * Checks whether this data type is assignable with another data type.
+     * @param dataType The other data type. 
+     */
+    public abstract isAssignableWith(dataType: DataTypeBase): boolean;
+
+    /**
      * @param isNullable Value indicating whether the data type is nullable.
      */
     constructor(public readonly isNullable: boolean) { }
 
+    /**
+     * The method checks if the data type is compatible with another data type.
+     * @param otherDataType The data type to compare with.
+     * @returns Returns true if the other data type is not nullable
+     *  or if the nullability of the data types is the same.   
+     */
+    protected isNullabilityCompatible(otherDataType: DataTypeBase): boolean {
+        return this.isNullable === false || this.isNullable === otherDataType.isNullable;
+    }
 }
 
 /**
  * Represents an unknown data type. Used when the data type name is not recognized
  */
 export class UnknownDataType extends DataTypeBase {
+    /** @inheritdoc */
+    public isAssignableWith(dataType: DataTypeBase) : boolean {
+         return dataType instanceof UnknownDataType &&
+            this.isNullabilityCompatible(dataType) &&
+            this.storeType === dataType.storeType;
+    }
+
     protected get TypeDescriptor(): string {
         return this.storeType;
     }
@@ -65,6 +87,20 @@ export enum SimpleDataTypes {
  */
 export class SimpleType extends DataTypeBase
 {
+    /** @inheritdoc */
+    public isAssignableWith(dataType: DataTypeBase): boolean {
+        return dataType instanceof SimpleType
+         && this.isNullabilityCompatible(dataType)
+         // check if the types are the same or if the types are compatible
+            && (this.type === dataType.type ||
+                (this.type === SimpleDataTypes.Numeric && dataType.type === SimpleDataTypes.Decimal) ||
+                (this.type === SimpleDataTypes.Decimal && dataType.type === SimpleDataTypes.Numeric) ||
+                (this.type === SimpleDataTypes.Integer && dataType.type === SimpleDataTypes.TinyInteger) ||
+                (this.type === SimpleDataTypes.BigInteger &&
+                    (dataType.type === SimpleDataTypes.Integer ||
+                        dataType.type === SimpleDataTypes.SmallInteger)));
+    }
+    
     protected get TypeDescriptor(): string {
         return this.type;
     }
@@ -89,6 +125,13 @@ export class SimpleType extends DataTypeBase
  */
 export class NVarChar extends DataTypeBase
 {
+    /** @inheritdoc */
+    public isAssignableWith(dataType: DataTypeBase): boolean {
+        return dataType instanceof NVarChar
+         && this.isNullabilityCompatible(dataType)
+         && this.length >= dataType.length;
+    }
+    
     protected get TypeDescriptor(): string {
         return `NVarChar(${this.length})`;
     }
@@ -111,6 +154,12 @@ export class NVarChar extends DataTypeBase
  */
 export class NVarCharMax extends DataTypeBase
 {
+    /** @inheritdoc */
+    public isAssignableWith(dataType: DataTypeBase): boolean {
+        return this.isNullabilityCompatible(dataType) && 
+        (dataType instanceof NVarCharMax || dataType instanceof NVarChar);
+    }
+
     protected get TypeDescriptor(): string {
         return "NVarChar(Max)";
     }
