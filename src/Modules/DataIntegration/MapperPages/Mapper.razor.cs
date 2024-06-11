@@ -78,7 +78,8 @@ public sealed partial class Mapper : IAsyncDisposable
 
         if (mappingEditorObjectRefernce != null)
         {
-            await mappingEditorObjectRefernce.InvokeVoidAsync("loadSerializedEntityMapping", SerializedMapping);
+            // TODO: it now accepts 2 parameters, the second is serialized table
+            //await mappingEditorObjectRefernce.InvokeVoidAsync("loadSerializedEntityMapping", SerializedMapping);
         }
 
     }
