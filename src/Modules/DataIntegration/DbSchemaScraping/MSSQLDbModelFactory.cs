@@ -84,24 +84,25 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
     private static DataTypeBase EfCoreDataTypeToDataType(DatabaseColumn efCoreColumn)
     {
         ArgumentNullException.ThrowIfNull(efCoreColumn.StoreType);
+        bool isNullable = efCoreColumn.IsNullable;
         return efCoreColumn.StoreType switch
         {
-            "bit" => new SimpleType(SimpleType.Types.Boolean),
-            "tinyint" => new SimpleType(SimpleType.Types.TinyInteger),
-            "smallint" => new SimpleType(SimpleType.Types.SmallInteger),
-            "int" => new SimpleType(SimpleType.Types.Integer),
-            "bigint" => new SimpleType(SimpleType.Types.BigInteger),
-            "decimal" => new SimpleType(SimpleType.Types.Decimal),
-            "numeric" => new SimpleType(SimpleType.Types.Numeric),
-            "smallmoney" => new SimpleType(SimpleType.Types.Money), // TODO: consider creating a separate value for this.
-            "money" => new SimpleType(SimpleType.Types.Money),
-            string storeType when storeType.StartsWith("float") => new SimpleType(SimpleType.Types.Boolean), // TODO: Consider creating a separate class for this.
-            "datetime" => new SimpleType(SimpleType.Types.Datetime),
-            "datetimeoffset" => new SimpleType(SimpleType.Types.DatetimeOffset),
-            "date" => new SimpleType(SimpleType.Types.Date),
-            "time" => new SimpleType(SimpleType.Types.Time),
-            "timestamp" => new SimpleType(SimpleType.Types.Timestamp),
-            string storeType => CreateComplexTypeOrUnknown(storeType)
+            "bit" => new SimpleType(SimpleType.Types.Boolean, isNullable),
+            "tinyint" => new SimpleType(SimpleType.Types.TinyInteger, isNullable),
+            "smallint" => new SimpleType(SimpleType.Types.SmallInteger, isNullable),
+            "int" => new SimpleType(SimpleType.Types.Integer, isNullable),
+            "bigint" => new SimpleType(SimpleType.Types.BigInteger, isNullable),
+            "decimal" => new SimpleType(SimpleType.Types.Decimal, isNullable),
+            "numeric" => new SimpleType(SimpleType.Types.Numeric, isNullable),
+            "smallmoney" => new SimpleType(SimpleType.Types.Money, isNullable), // TODO: consider creating a separate value for this.
+            "money" => new SimpleType(SimpleType.Types.Money, isNullable),
+            string storeType when storeType.StartsWith("float") => new SimpleType(SimpleType.Types.Float, isNullable), // TODO: Consider creating a separate class for this.
+            "datetime" => new SimpleType(SimpleType.Types.Datetime, isNullable),
+            "datetimeoffset" => new SimpleType(SimpleType.Types.DatetimeOffset, isNullable),
+            "date" => new SimpleType(SimpleType.Types.Date, isNullable),
+            "time" => new SimpleType(SimpleType.Types.Time, isNullable),
+            "timestamp" => new SimpleType(SimpleType.Types.Timestamp, isNullable),
+            string storeType => CreateComplexTypeOrUnknown(storeType, isNullable)
         };
     }
 
@@ -109,19 +110,20 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
     /// Parses the store type and creates a new instance of <see cref="DataTypeBase"/> for complex types or unknown types.
     /// </summary>
     /// <param name="storeType">The store type to parse</param>
+    /// <param name="isNullable">Indicates whether the data type should be nullable</param>
     /// <returns>Instance of <see cref="DataTypeBase"/>representing the type.</returns>
     /// <exception cref=""></exception>
-    private static DataTypeBase CreateComplexTypeOrUnknown(string storeType)
+    private static DataTypeBase CreateComplexTypeOrUnknown(string storeType, bool isNullable)
     {
 
         if (!storeType.StartsWith("nvarchar(") && !storeType.StartsWith("varchar("))
         {
-            return new UnknownDataType(storeType);
+            return new UnknownDataType(storeType, isNullable);
         }
 
         if (storeType is "nvarchar(max)" or "varchar(max)")
         {
-            return new NVarCharMax();
+            return new NVarCharMax(isNullable);
         }
 
         var lengthString = storeType[(storeType.IndexOf('(') + 1)..^1];
@@ -130,7 +132,7 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
             throw new FormatException($"Cannot parse length from store type: {storeType}");
         }
 
-        return new NVarChar(lenght);
+        return new NVarChar(lenght, isNullable);
     }
 
 
