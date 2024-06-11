@@ -12,12 +12,12 @@ namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 public class Table
 {
     /// <summary>
-    ///  Gets or sets the name of the table.
+    /// Gets or sets the name of the table.
     /// </summary>
     public string Name { get; set; } = string.Empty;
 
     /// <summary>
-    ///  Gets or sets the name of the table.
+    /// Gets or sets the schema (prefix) of the table.
     /// </summary>
     public string Schema { get; set; } = string.Empty;
 
@@ -27,7 +27,12 @@ public class Table
     public ICollection<Column> PrimaryKeys { get; set; } = [];
 
     /// <summary>
-    /// Gets or sets the columns that are part of the foreign key of the table.
+    /// Gets or sets columns of the table.
     /// </summary>
     public ICollection<Column> Columns { get; set; } = [];
+
+    /// <summary>
+    /// Gets or sets the description of the table.
+    /// </summary>
+    public string? Description { get; set; }
 }
