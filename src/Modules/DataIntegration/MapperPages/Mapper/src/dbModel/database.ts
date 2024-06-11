@@ -1,11 +1,31 @@
+/**
+ * Represents model of a database.
+ */
 export class Database {
-    constructor(public name: string, public tables: Table[]) {
+    /**
+     * Initializes a new instance of {@link Database}
+     * @param name the name of the database
+     * @param tables the tables of the database.
+     */
+    constructor(public readonly name: string, public readonly tables: Table[]) {
     }
 }
 
+/**
+ * Represents a table in a database schema.
+ */
 export class Table {
-    constructor(public readonly name: string,
-        public columns: Column[],
+    /**
+     * Initializes a new instance of {@link Table}
+     * @param name the name of the table.
+     * @param schema the schema (prefix) of the table. 
+     * @param columns the columns of the table. 
+     * @param description the description of the table.
+     */
+    constructor(
+        public readonly name: string,
+        public readonly columns: Column[],
+        public readonly schema: string | null = null,
         public readonly description: string | null = null) { }
 }
 
@@ -16,6 +36,8 @@ export enum ColumnType {
     date = 'date',
     boolean = 'boolean'
 }
+
+
 
 /**
  * Represents a column in a database table.
