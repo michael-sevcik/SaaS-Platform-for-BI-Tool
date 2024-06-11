@@ -355,6 +355,27 @@ export class MappingEditor {
         this.paper.unfreeze();
     }
 
+    public loadSerializedEntityMapping(serializedEntityMapping: string) {
+        const plainEntityMapping = JSON.parse(serializedEntityMapping);
+        const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(plainEntityMapping);
+
+        this.entityMapping = entityMapping;
+        this.paper.freeze();
+        const cells = this.convertEntityMappingToShapes(entityMapping);
+
+        // Add the cells to the graph
+        this.graph.resetCells(cells);
+
+        // layout the cells - source https://www.jointjs.com/demos/directed-graph-layout
+        DirectedGraph.layout(this.graph, {
+            nodeSep: 200,
+            edgeSep: 80,
+            rankDir: "LR"
+        });
+
+        this.paper.unfreeze();
+    }
+
     private openSourceTableSelectionModal() {
         this.sourceTablePickerModal.open(() => this.addSourceTable(this.sourceTablePickerModal.tableToAdd));
     }
@@ -414,7 +435,7 @@ export class MappingEditor {
         const correspondingTable = this.targetDb.tables.find(
             (table) => table.name === entityMapping.name);
             
-        if (correspondingTable === undefined) throw new Error('Cannot find the corresponding table');    
+        if (correspondingTable === undefined) throw new Error(`Cannot find the corresponding table with name ${entityMapping.name}.`);    
         const transformer = new SourceEntitiesToShapesTransformer(this.sourceDb.tables);
         
         // transform the source entities to shapes

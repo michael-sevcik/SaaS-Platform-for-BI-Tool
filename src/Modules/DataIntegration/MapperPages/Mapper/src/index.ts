@@ -84,7 +84,7 @@ const targetColumns = [
     new Column("note", ColumnType.string, "Poznámka"),
 ]
 
-const targetTable = new Table("EmployeeHoursWorked", targetColumns);
+const targetTable = new Table("EmployeeHoursWorked2", targetColumns);
 
 const targetEntityColumnMapping = new Map<string, SourceColumn | null>([
     [targetColumns[0].name, sourceTable1.getSelectedColumn("ZamestnanecId")],
@@ -108,20 +108,24 @@ entityMapping.createBackwardConnections();
 const plainEntitiyMapping = EntityMappingConvertor.convertEntityMappingToPlain(entityMapping);
 const deserializedEntityMapping = EntityMappingConvertor.convertPlainToEntityMapping(plainEntitiyMapping);
 
-const mappingEditor = new MappingEditor(sourceDb, targetDb);
 // TODO:
 //const mappingEditor = new MappingEditor(sourceDb, targetDb);
 //mappingEditor.loadEntityMapping(deserializedEntityMapping);
 
 
-// function getMappingEditor(): MappingEditor {
-//    return M;
-// }
+export function getMappingEditor(): MappingEditor {
+    const mappingEditor = new MappingEditor(sourceDb, targetDb);
+   return mappingEditor;
+}
 
+export function loadDevelopmentView() {
 
+}
 
 
 export function ahoj(): number {
+    const mappingEditor = new MappingEditor(sourceDb, targetDb);
+
     mappingEditor.loadEntityMapping(deserializedEntityMapping);
 
     return 800;

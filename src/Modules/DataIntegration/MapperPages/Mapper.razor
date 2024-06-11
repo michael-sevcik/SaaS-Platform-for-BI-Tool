@@ -1,5 +1,5 @@
 ﻿@using static Microsoft.AspNetCore.Components.Web.RenderMode;
-@rendermode InteractiveServer
+@rendermode @(new InteractiveServerRenderMode(false))
 
 @* TODO: INJECT CostumerDbModelManager, get the db Model and pass it to the mapper. Also we need to call create model somewhere*@
 
