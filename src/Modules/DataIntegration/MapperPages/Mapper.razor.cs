@@ -68,6 +68,7 @@ namespace BIManagement.Modules.DataIntegration.MapperComponent
                 isFirst,
                 mapperJSInterop,
                 JSRuntime);
+
             if (isFirst)
             {
                 dbModel = await CostumerDbModelManager.GetAsync(CostumerId!);
@@ -86,12 +87,6 @@ namespace BIManagement.Modules.DataIntegration.MapperComponent
         {
             try
             {
-                if (mappingEditorObjectRefernce is not null)
-                {
-                    Logger.LogDebug("MappingEditorObjectRefernce is being disposed.");
-                    await mappingEditorObjectRefernce.DisposeAsync();
-                }
-                
                 if (mapperJSInterop is not null)
                 {
                     Logger.LogDebug("MapperJSInterop is being disposed.");
