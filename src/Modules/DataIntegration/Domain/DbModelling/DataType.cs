@@ -124,25 +124,25 @@ public sealed class NVarChar : DataTypeBase
     public NVarChar() { }
 
     /// <summary>
-    /// Constructs a new instance of <see cref="NVarChar"/> with a given <paramref name="lenght"/>.
+    /// Constructs a new instance of <see cref="NVarChar"/> with a given <paramref name="length"/>.
     /// </summary>
-    /// <param name="lenght">The type of the simple data type. Must be positive.</param>
-    /// <exception cref="ArgumentException">Thrown when the <paramref name="lenght"/> is not positive.</exception>
+    /// <param name="length">The number of allowed characters. Must be positive.</param>
+    /// <exception cref="ArgumentException">Thrown when the <paramref name="length"/> is not positive.</exception>
     /// <param name="isNullable">Value indicating whether this data type is nullable.</param>
-    public NVarChar(int lenght, bool isNullable) : base(isNullable)
+    public NVarChar(int length, bool isNullable) : base(isNullable)
     {
-        if (lenght <= 0)
+        if (length <= 0)
         {
-            throw new ArgumentException("The length of the string must be positive.", nameof(lenght));
+            throw new ArgumentException("The length of the string must be positive.", nameof(length));
         }
 
-        Lenght = lenght;
+        Length = length;
     }
 
     /// <summary>
     /// Gets or sets the length limit of the string.
     /// </summary>
-    public int Lenght { get; set; }
+    public int Length { get; set; }
 }
 
 
