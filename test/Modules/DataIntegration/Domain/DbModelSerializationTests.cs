@@ -19,7 +19,7 @@ namespace Domain
                             new ()
                             {
                                 Name = "Id",
-                                DataType = new SimpleType(SimpleType.Types.Integer) { IsNullable = false },
+                                DataType = new SimpleType(SimpleType.Types.Integer, false) { IsNullable = false },
                             }
                         ]
                     }
@@ -47,8 +47,11 @@ namespace Domain
             var dbModel = JsonSerializer.Deserialize<DbModel>(ExpectedSerialization, SerializationOptions.Default);
 
             var serializeDeserialization = JsonSerializer.Serialize(dbModel, SerializationOptions.Default);
-            Assert.That(dbModel, Is.Not.Null);
-            Assert.That(serializeDeserialization, Is.EqualTo(ExpectedSerialization));
+            Assert.Multiple(() =>
+            {
+                Assert.That(dbModel, Is.Not.Null);
+                Assert.That(serializeDeserialization, Is.EqualTo(ExpectedSerialization));
+            });
         }
     }
 }
