@@ -61,7 +61,7 @@ export class Column {
      * @returns True if the columns have the same type, false otherwise.
      */
     public isAssignableWith(column: Column): boolean {
-        return this.dataType === column.dataType;
+        return this.dataType.isAssignableWith(column.dataType);
     }
 }
 
