@@ -353,6 +353,7 @@ export class MappingEditor {
 
         this.entityMapping = new EntityMapping(
             table.name,
+            table.schema,
             null,
             [],
             columnMappings);

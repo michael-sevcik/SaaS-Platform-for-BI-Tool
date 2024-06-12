@@ -67,6 +67,7 @@ export class EntityMappingConvertor {
 
         const entityMapping = new EntityMapping(
             value["name"],
+            value["schema"],
             sourceEntity,
             sourceEntities,
             columnMappings);

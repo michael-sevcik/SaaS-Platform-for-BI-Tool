@@ -99,6 +99,7 @@ const targetDb = new Database("TargetDatabase", [targetTable]);
 
 const entityMapping = new EntityMapping(
     targetTable.name,
+    targetTable.schema,
     join,
     [ sourceTable1, sourceTable2, join ],
     targetEntityColumnMapping
