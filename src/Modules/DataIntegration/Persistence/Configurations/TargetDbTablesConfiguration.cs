@@ -24,5 +24,20 @@ internal sealed class TargetDbTablesConfiguration : IEntityTypeConfiguration<Tar
                 v => JsonSerializer.Serialize(v, SerializationOptions.Default),
                 v => JsonSerializer.Deserialize<Table>(v, SerializationOptions.Default) // TODO: HANDLE NULL
             );
+
+        List<TargetDbTable> targetTables = new();
+        int id = 1;
+        foreach (var table in TargetDbModel.model.Tables)
+        {
+            targetTables.Add(new TargetDbTable()
+            {
+                Id = id++,
+                TableModel = table,
+                TableName = table.Name,
+                Schema = table.Schema,
+            });
+        }
+
+        builder.HasData(targetTables);
     }
 }
