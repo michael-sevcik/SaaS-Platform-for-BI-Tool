@@ -23,7 +23,21 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
     {
         var modelFactory = CreateEfCoreModelFactory();
 
-        var efCoreDbModel = await Task.Run(() => modelFactory.Create(configuration.ConnectionString, new()));
+        DatabaseModel? efCoreDbModel;
+
+        try
+        {
+            efCoreDbModel = await Task.Run(() => modelFactory.Create(configuration.ConnectionString, new()));
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Reading of database metadata failed.");
+            return Result.Failure<DbModel>(new(
+                $"{Errors.ModelCreationErrorNamespace}.ModelCreationFailed",
+                "Reading of database metadata failed."));
+        }
+        
+
         if (efCoreDbModel is null)
         {
             return Result.Failure<DbModel>(new(
@@ -51,7 +65,7 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
         return result;
     }
 
-    private static DbModel EfCoreModelToDbModel(DatabaseModel efCoreModel)
+    private DbModel EfCoreModelToDbModel(DatabaseModel efCoreModel)
     {
         return new()
         {
@@ -61,7 +75,7 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
 
     }
 
-    private static Domain.DbModelling.Table EfCoreTableToTable(DatabaseTable efCoreTable)
+    private Domain.DbModelling.Table EfCoreTableToTable(DatabaseTable efCoreTable)
     {
         return new()
         {
@@ -72,7 +86,7 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
         };
     }
 
-    private static Domain.DbModelling.Column EfCoreColumnToColumn(DatabaseColumn efCoreColumn)
+    private Domain.DbModelling.Column EfCoreColumnToColumn(DatabaseColumn efCoreColumn)
     {
         return new()
         {
@@ -81,7 +95,7 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
         };
     }
 
-    private static DataTypeBase EfCoreDataTypeToDataType(DatabaseColumn efCoreColumn)
+    private DataTypeBase EfCoreDataTypeToDataType(DatabaseColumn efCoreColumn)
     {
         ArgumentNullException.ThrowIfNull(efCoreColumn.StoreType);
         bool isNullable = efCoreColumn.IsNullable;
@@ -98,7 +112,9 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
             "money" => new SimpleType(SimpleType.Types.Money, isNullable),
             string storeType when storeType.StartsWith("float") => new SimpleType(SimpleType.Types.Float, isNullable), // TODO: Consider creating a separate class for this.
             string storeType when storeType.StartsWith("numeric") => new SimpleType(SimpleType.Types.Numeric, isNullable), // TODO: Consider creating a separate class for this.
+            string storeType when storeType.StartsWith("decimal") => new SimpleType(SimpleType.Types.Decimal, isNullable), // TODO: Consider creating a separate class for this.
             "datetime" => new SimpleType(SimpleType.Types.Datetime, isNullable),
+            "datetime2" => new SimpleType(SimpleType.Types.Datetime, isNullable),
             "datetimeoffset" => new SimpleType(SimpleType.Types.DatetimeOffset, isNullable),
             "date" => new SimpleType(SimpleType.Types.Date, isNullable),
             "time" => new SimpleType(SimpleType.Types.Time, isNullable),
@@ -114,11 +130,12 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
     /// <param name="isNullable">Indicates whether the data type should be nullable</param>
     /// <returns>Instance of <see cref="DataTypeBase"/>representing the type.</returns>
     /// <exception cref=""></exception>
-    private static DataTypeBase CreateComplexTypeOrUnknown(string storeType, bool isNullable)
+    private DataTypeBase CreateComplexTypeOrUnknown(string storeType, bool isNullable)
     {
 
         if (!storeType.StartsWith("nvarchar(") && !storeType.StartsWith("varchar("))
         {
+            logger.LogWarning("Unknown data type: {storeType}", storeType);
             return new UnknownDataType(storeType, isNullable);
         }
 

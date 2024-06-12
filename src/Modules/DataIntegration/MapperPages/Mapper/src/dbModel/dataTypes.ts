@@ -77,6 +77,7 @@ export enum SimpleDataTypes {
     Boolean = "Boolean",
     Date = "Date",
     Datetime = "Datetime",
+    Datetime2 = "Datetime2",
     DatetimeOffset = "DatetimeOffset",
     Timestamp = "Timestamp",
     Time = "Time",
