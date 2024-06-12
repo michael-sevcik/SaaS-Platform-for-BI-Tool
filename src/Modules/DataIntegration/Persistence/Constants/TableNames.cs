@@ -1,5 +1,6 @@
 ﻿using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 using BIManagement.Modules.DataIntegration.Domain.DbModelling;
+using BIManagement.Modules.DataIntegration.Domain.Mapping;
 
 namespace BIManagement.Modules.DataIntegration.Persistence.Constants;
 
@@ -18,5 +19,13 @@ internal static class TableNames
     /// </summary>
     public const string CostumerDbModels = "CostumerDbModels";
 
-    // TODO: Add more table names here
+    /// <summary>
+    /// The table name for the schema mappings - <see cref="SchemaMapping"/>.
+    /// </summary>
+    public const string SchemaMappings = "SchemaMappings";
+
+    /// <summary>
+    /// The table name for the models of target database - <see cref="TargetDbTable"/>.
+    /// </summary>
+    public const string TargetDbTables = "TargetDbTables";
 }
