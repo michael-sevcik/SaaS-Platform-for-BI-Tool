@@ -170,6 +170,7 @@ public sealed class NVarCharMax : DataTypeBase
 }
 
 
+// TODO: CONSIDER DELETING
 ///// <summary>
 ///// Represents a string data type with a variable length.
 ///// </summary>
