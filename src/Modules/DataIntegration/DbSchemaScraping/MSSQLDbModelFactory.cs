@@ -97,6 +97,7 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
             "smallmoney" => new SimpleType(SimpleType.Types.Money, isNullable), // TODO: consider creating a separate value for this.
             "money" => new SimpleType(SimpleType.Types.Money, isNullable),
             string storeType when storeType.StartsWith("float") => new SimpleType(SimpleType.Types.Float, isNullable), // TODO: Consider creating a separate class for this.
+            string storeType when storeType.StartsWith("numeric") => new SimpleType(SimpleType.Types.Numeric, isNullable), // TODO: Consider creating a separate class for this.
             "datetime" => new SimpleType(SimpleType.Types.Datetime, isNullable),
             "datetimeoffset" => new SimpleType(SimpleType.Types.DatetimeOffset, isNullable),
             "date" => new SimpleType(SimpleType.Types.Date, isNullable),
