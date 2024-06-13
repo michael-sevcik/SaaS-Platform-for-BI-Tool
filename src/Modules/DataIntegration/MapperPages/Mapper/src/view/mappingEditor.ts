@@ -304,8 +304,21 @@ export class MappingEditor {
 
     }
  
-    // TODO: use in mapping
-    public CreateSerializedMapping() {
+    /**
+     * Checks if the mapping is complete.
+     * @returns True if mapper is initialized and all non-nullable columns are mapped, false otherwise.
+     */
+    public isMappingComplete() : boolean {
+        if (this.entityMapping === null || this.targetTable === null) return false;
+        for (const column of this.targetTable!.columns) {
+            if (!column.dataType.isNullable && this.entityMapping.columnMappings.get(column.name) == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public createSerializedMapping() {
         console.debug(this.entityMapping);
 
         const plainEntityMapping = EntityMappingConvertor.convertEntityMappingToPlain(this.entityMapping
@@ -320,7 +333,7 @@ export class MappingEditor {
 
     public downloadMapping() {
         // Convert the mappings array to a JSON string
-        const jsonString = this.CreateSerializedMapping();
+        const jsonString = this.createSerializedMapping();
 
         // Create a Blob with the JSON data
         const blob = new Blob([jsonString], { type: 'application/json' });

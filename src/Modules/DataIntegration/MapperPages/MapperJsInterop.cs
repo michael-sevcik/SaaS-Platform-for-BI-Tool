@@ -35,13 +35,32 @@ internal sealed class MapperJsInterop : IAsyncDisposable
         return await module.InvokeAsync<string>("showPrompt", "ahoj");
     }
 
-    public async ValueTask<IJSObjectReference> GetMappingEditor() => await mapperObject.Value;
+    public async ValueTask<IJSObjectReference> GetMappingEditorAsync() => await mapperObject.Value;
 
-    public async ValueTask InitializeMapperWithTargetTable(TargetDbTable targetTable)
+    public async ValueTask InitializeMapperWithTargetTableAsync(TargetDbTable targetTable)
     {
         var mapper = await mapperObject.Value;
         var serializedTableModel = JsonSerializer.Serialize(targetTable.TableModel, SerializationOptions.Default);
         await mapper.InvokeVoidAsync("createFromSerializedTargetTable", serializedTableModel);
+    }
+
+    /// <summary>
+    /// Asynchronously checks if the mapping is complete.
+    /// </summary>
+    public async ValueTask<bool> IsMappingCompleteAsync()
+    {
+        var mapper = await mapperObject.Value;
+        // TODO: TODO: IMPLEMENT
+        return await mapper.InvokeAsync<bool>("isMappingComplete");
+    }
+
+    /// <summary>
+    /// Asynchronously checks if the mapping is complete.
+    /// </summary>
+    public async ValueTask<string> GetSerializedMappingAsync()
+    {
+        var mapper = await mapperObject.Value;
+        return await mapper.InvokeAsync<string>("createSerializedMapping");
     }
 
     /// <inheritdoc/>

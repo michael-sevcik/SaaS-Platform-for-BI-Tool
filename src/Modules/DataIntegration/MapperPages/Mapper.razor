@@ -3,9 +3,13 @@
 
 @* TODO: INJECT CostumerDbModelManager, get the db Model and pass it to the mapper. Also we need to call create model somewhere*@
 
+@using BIManagement.Common.Components.InteractiveAlerts
 @using BIManagement.Modules.DataIntegration.Domain.DbModelling
 @using Microsoft.JSInterop;
 
+<SuccessAlert @ref="successAlert" />
+
+<ErrorAlert @ref="errorAlert" />
 
 <div class="embed-responsive">
     <div class="my-component">
@@ -20,6 +24,7 @@
                         <option value="3">3</option>
                         <option value="4">4</option>
                     </Microsoft.AspNetCore.Components.Forms.InputSelect>
+                    <button @onclick=SaveMappingAsync id="save-button">Save</button>
                 </div>
                 <div id="paper"></div>
             </div>
