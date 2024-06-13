@@ -26,6 +26,7 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
 
     public constructor(sourceTables: Table[]) {
         super();
+        // TODO: Consider using also the schema name as a key
         sourceTables.forEach((table) =>
             this.sourceTablesByName.set(table.name, table)
         );
@@ -39,15 +40,16 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         const joinModal = new JoinModal(join);
         
         join.leftSourceEntity.accept(this);
-        let leftSourceEntityShape = this.cellStack.pop();
+        let leftSourceEntityShape = this.safeStackPop();
         if (leftSourceEntityShape.isLink()) {
             const link = leftSourceEntityShape as JoinLink;
             const joinTargetEntity = link.join.rightSourceEntity;
-            leftSourceEntityShape = this.elementMap.get(joinTargetEntity);
+            leftSourceEntityShape = this.elementMap.get(joinTargetEntity)
+                ?? (() => { throw new Error('Source entity shape not found.'); })();
         }
         
         join.rightSourceEntity.accept(this);
-        const rightSourceEntityShape = this.cellStack.pop();
+        const rightSourceEntityShape = this.safeStackPop();
         
         const joinLink = new JoinLink(join, joinModal);
         joinLink.source(leftSourceEntityShape);
@@ -72,5 +74,14 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         this.elementMap.set(sourceTable, shape);
         this.cells.push(shape);
         this.cellStack.push(shape);
+    }
+
+    private safeStackPop(): dia.Cell {
+        const value = this.cellStack.pop();
+        if (value === undefined) {
+            throw new Error('Cell stack is empty');
+        }
+
+        return value;
     }
 }

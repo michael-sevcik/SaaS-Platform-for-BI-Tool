@@ -22,6 +22,8 @@ import { JoinCondition } from '../mappingModel/aggregators/conditions/joinCondit
 import { BaseEntityShape } from './shapes/baseEntityShape';
 import { BaseSourceEntityShape } from './shapes/baseSourceEntityShape';
 import { EntityMappingConvertor } from '../mappingModel/converting/entityMappingConvertor';
+import { plainToInstance } from 'class-transformer';
+import { getElementOrThrow } from '../utils';
 
 
 /**
@@ -153,7 +155,8 @@ export class MappingEditor {
             validateConnection: (sourceView, _sourceMagnet, targetView, _targetMagnet) => {
                 // TODO: use the types of columns to validate connections
                 const targetElement = targetView.model as dia.Element;
-                const targetPortId = targetView.findAttribute('port', _targetMagnet);
+                const targetPortId = targetView.findAttribute('port', _targetMagnet)
+                    ?? (() => { throw new Error('Target port not found.'); })();
                 const targetPort = targetElement.getPort(targetPortId) as PropertyPort; 
 
                 if (sourceView === targetView) return false;
@@ -174,7 +177,8 @@ export class MappingEditor {
                 }
 
                 const sourceEntity = sourceView.model as dia.Element;
-                const sourcePortId = sourceView.findAttribute('port', _sourceMagnet);
+                const sourcePortId = sourceView.findAttribute('port', _sourceMagnet)
+                    ?? (() => { throw new Error('Source port not found.'); })();
                 const sourcePort = sourceEntity.getPort(sourcePortId) as PropertyPort;
         
                 if (!targetPort.isAssignableWith(sourcePort)) {
@@ -275,13 +279,13 @@ export class MappingEditor {
 
         const exportMappingButton = document.createElement('button');
         exportMappingButton.innerText = 'Exportovat mapování';
-        exportMappingButton.addEventListener('click', () => this.exportMapping());
+        exportMappingButton.addEventListener('click', () => this.downloadMapping());
         this.toolbar?.appendChild(exportMappingButton);
 
         this.sourceTablePickerModal = new SourceTablePickerModal(this.sourceDb.tables);
 
         // TODO: DELETE for production
-        const importFile = document.getElementById('source-file');
+        const importFile = getElementOrThrow('source-file');
         importFile.addEventListener('change', (event) => {
             const file = (event.target as HTMLInputElement).files?.[0];
             if (file === undefined) return;
@@ -292,7 +296,7 @@ export class MappingEditor {
                 if (result === null) return;
 
                 const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(JSON.parse(result as string));
-                this.loadEntityMapping(entityMapping, this.targetTable);
+                this.loadEntityMapping(entityMapping, this.targetTable!);
             }
 
             reader.readAsText(file);
@@ -302,25 +306,21 @@ export class MappingEditor {
  
     // TODO: use in mapping
     public CreateSerializedMapping() {
-        console.log(this.entityMapping);
+        console.debug(this.entityMapping);
 
-        const plainEntityMapping = EntityMappingConvertor.convertEntityMappingToPlain(this.entityMapping);
+        const plainEntityMapping = EntityMappingConvertor.convertEntityMappingToPlain(this.entityMapping
+            ?? (() => { throw new Error('Entity mapping was not yet initialized.'); })()
+        );
 
-        console.log(plainEntityMapping);
+        console.debug(plainEntityMapping);
 
         // Convert the mappings array to a JSON string
         return JSON.stringify(plainEntityMapping, null, 2); // Use 2 spaces for indentation
     }
 
-    public exportMapping() {
-        console.log(this.entityMapping);
-        
-        const plainEntityMapping = EntityMappingConvertor.convertEntityMappingToPlain(this.entityMapping);
-
-        console.log(plainEntityMapping);
-        
+    public downloadMapping() {
         // Convert the mappings array to a JSON string
-        const jsonString = JSON.stringify(plainEntityMapping, null, 2); // Use 2 spaces for indentation
+        const jsonString = this.CreateSerializedMapping();
 
         // Create a Blob with the JSON data
         const blob = new Blob([jsonString], { type: 'application/json' });
@@ -341,24 +341,31 @@ export class MappingEditor {
 
     /**
      * Creates entity mapping for the given table.
-     * @param table The target table that should be mapped.
+     * @param targetTable The target table that should be mapped.
      */
-    public createFromTargetTable(table: Table) {
+    public createFromTargetTable(targetTable: Table) {
         const columnMappings = new Map<string, SourceColumn | null>();
-        for (const column of table.columns) {
-            columnMappings[column.name] = null;
+        for (const column of targetTable.columns) {
+            columnMappings.set(column.name, null);
         }
 
-        this.targetTable = table;
-
-        this.entityMapping = new EntityMapping(
-            table.name,
-            table.schema,
+        const entityMapping = new EntityMapping(
+            targetTable.name,
+            targetTable.schema,
             null,
             [],
             columnMappings);
 
-        this.convertEntityMappingToShapes(this.entityMapping);
+        this.loadEntityMapping(entityMapping, targetTable);
+    }
+
+    /**
+     * Creates entity mapping for the given serialized table.
+     * @param serializedTable The serialized target table that should be mapped.
+     */
+    public createFromSerializedTargetTable(serializedTable: string) {
+        const table = plainToInstance(Table, JSON.parse(serializedTable));
+        this.createFromTargetTable(table);
     }
 
     public loadEntityMapping(entityMapping : EntityMapping, targetTable: Table) {
@@ -389,7 +396,8 @@ export class MappingEditor {
     }
 
     private openSourceTableSelectionModal() {
-        this.sourceTablePickerModal.open(() => this.addSourceTable(this.sourceTablePickerModal.tableToAdd));
+        this.sourceTablePickerModal.open(() => this.addSourceTable(this.sourceTablePickerModal.tableToAdd
+             ?? (() => { throw new Error('Table to add should be initialized by the modal.'); })()));
     }
 
     private addSourceTable(table: Table) {
@@ -397,12 +405,12 @@ export class MappingEditor {
         const sourceTable = new SourceTable(table.name, table.columns.map(column => new SourceColumn(column)));
         sourceTable.createBackwardConnections();
 
-        const sourceEntity = this.entityMapping.sourceEntity;
+        const sourceEntity = this.entityMapping!.sourceEntity;
         console.log(this.entityMapping);
         if (sourceEntity === null) {
             const sourceTableShape = new SourceTableShape(sourceTable)
-            this.entityMapping.sourceEntity = sourceTable;
-            this.entityMapping.createBackwardConnections();
+            this.entityMapping!.sourceEntity = sourceTable;
+            this.entityMapping!.createBackwardConnections();
             this.graph.addCell(sourceTableShape);
             return;
         }
@@ -413,12 +421,20 @@ export class MappingEditor {
         const sourceTableData = new IntermediateSourceTableData(sourceTable, joinModal, join);
         joinModal.open(() => this.finishJoiningSourceTable(sourceTableData));
     }
+    
+    /**
+     * After join definition is finished, this method is called to finish the joining process.
+     * Handles the creation of the join link and the right source table shape.
+     * @param sourceTableData The intermediate that encapsulates the objects needed to finish the joining process.
+     */
     private finishJoiningSourceTable(sourceTableData: IntermediateSourceTableData) : void {
         // TODO: handle first add
 
         const rightSourceTableShape = new SourceTableShape(sourceTableData.tableToAdd)
         const sourceTableFinder = new SourceTableFinder();
-        this.entityMapping.sourceEntity.accept(sourceTableFinder);
+        
+        if (this.entityMapping!.sourceEntity == null) throw new Error('Source entity should be initialized.');
+        this.entityMapping!.sourceEntity.accept(sourceTableFinder);
         const leftSourceTable = sourceTableFinder.desiredSourceEntity; 
 
         const leftSourceTableShape = this.graph.getElements().find(element => { 
@@ -435,8 +451,8 @@ export class MappingEditor {
         joinLink.source(leftSourceTableShape);
         joinLink.target(rightSourceTableShape);
 
-        this.entityMapping.sourceEntity = sourceTableData.unfinishedJoin;
-        this.entityMapping.createBackwardConnections();
+        this.entityMapping!.sourceEntity = sourceTableData.unfinishedJoin;
+        this.entityMapping!.createBackwardConnections();
 
         this.paper.freeze();
         this.graph.addCells([rightSourceTableShape, joinLink]);
@@ -456,14 +472,19 @@ export class MappingEditor {
         const targetShape = new TargetTableShape(entityMapping, []);
         for (const [targetColumnName, sourceColumn] of entityMapping.columnMappings) {
             // Add port to the target entity
-            const targetColumn = this.targetTable.columns.find((column) => column.name === targetColumnName);
+            // note: target table must be set by public methods
+            const targetColumn = this.targetTable!.columns.find((column) => column.name === targetColumnName);
             if (targetColumn === undefined) throw new Error('Cannot find the corresponding column');
 
             const targetPort = targetShape.addPropertyPort(targetColumn);
+            if (targetPort === undefined) {
+                throw new Error('Cannot create the port for the target column');
+            }
 
             // if it has mapping, add a link
             if (sourceColumn !== null) {
-                const sourceElement = transformer.elementMap.get(sourceColumn.owner);
+                const sourceElement = transformer.elementMap.get(sourceColumn.owner)
+                    ?? (() => { throw new Error('Source element not found.'); })();
                 const sourcePort = sourceElement.getPortByColumn(sourceColumn);                
                 const link = new PropertyLink();
                 link.source({

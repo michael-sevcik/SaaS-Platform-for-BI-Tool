@@ -69,6 +69,9 @@ export class JoinLink extends Link {
     public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
         const sourceEntity = this.getTargetElement() as BaseSourceEntityShape;
         sourceEntity.handleRemoving();
+        if (this.join.owner === null) {
+            throw new Error('Owner of join is null');
+        }
         this.join.owner.replaceChild(this.join, this.join.leftSourceEntity);
         this.joinModal.finalize();
         return this.remove(opt);

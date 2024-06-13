@@ -81,6 +81,9 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
             // Prepare othrer properties. The order is important!
             join.leftSourceEntity.accept(this);
             join.rightSourceEntity.accept(this);
+            if (join.condition == null) {
+                throw new Error("Join condition is not defined.");
+            }
             join.condition.accept(this);
 
             const plainCondition = this.intermediateResult.pop();
@@ -91,7 +94,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
             console.log(this.plainSourceColumnsByOriginal);
             
             // Prepare output columns - convert them to plain objects
-            const plainSelectedColumns = [];
+            const plainSelectedColumns : any[] = [];
             for (let i = 0; i < join.selectedColumns.length; i++) {
                 plainSelectedColumns.push(this.getSourceColumnRef(join.selectedColumns[i]));
             }
@@ -159,9 +162,9 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
     public visitSourceTable(sourceTable: SourceTable): void {
         this.useReferenceOrCreateNew(sourceTable, (id : string) => {
             sourceTable.selectedColumns.forEach(column => column.accept(this));
-            let plainColumns = []
+            const plainColumns : any[] = []
             for (let i = 0; i < sourceTable.selectedColumns.length; i++) {
-                plainColumns.push(this.intermediateResult.pop())
+                plainColumns.push(this.safeIntermediateResultPop())
             }
 
             return { 
@@ -171,5 +174,14 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
                 selectedColumns: plainColumns,
             };
         });
+    }
+
+    public safeIntermediateResultPop(): any {
+        const result = this.intermediateResult.pop();
+        if (result === undefined) {
+            throw new Error("Intermediate result is empty");
+        }
+
+        return result;
     }
 }

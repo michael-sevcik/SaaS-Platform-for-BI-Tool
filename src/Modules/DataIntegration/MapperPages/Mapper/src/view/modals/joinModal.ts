@@ -6,7 +6,7 @@ import { BaseModal } from "./baseModal";
 
 export class JoinModal extends BaseModal{
     private static getColumnDescription(column: SourceColumn) : string {
-        return `${column.owner.name}_${column.name}: ${column.dataType}`;
+        return `${column.owner?.name}_${column.name}: ${column.dataType}`;
     }
 
     private leftColumn: SourceColumn | null = null;

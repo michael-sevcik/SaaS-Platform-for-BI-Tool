@@ -38,7 +38,7 @@ public constructor(
         this.rightSourceEntity.owner = this;
         this.leftSourceEntity.createBackwardConnections();
         this.rightSourceEntity.createBackwardConnections();
-        this.condition.createBackwardConnections();
+        this.condition?.createBackwardConnections();
     }
 
     public isInitialized() : boolean {

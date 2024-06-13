@@ -68,6 +68,9 @@ export class SearchableDropdown {
     private handleOptionClick(optionIndex: number) {
         this.displayCorrect();
 
+        if (this.optionValues === null) {
+            throw new Error('Option are not Initialized. HandleInput must run before this method');
+        }
         const optionValue = this.optionValues[optionIndex];
         this.input.value = optionValue;
         this.onOptionSelected(optionIndex);

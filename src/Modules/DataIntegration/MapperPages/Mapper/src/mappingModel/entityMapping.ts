@@ -9,7 +9,7 @@ import { Column } from '../dbModel/database';
 export class EntityMapping implements Owner{
     public constructor(
         public readonly name: string,
-        public readonly schema: string,
+        public readonly schema: string | null,
         public sourceEntity : SourceEntity | null,
         public sourceEntities : SourceEntity[],
         public columnMappings : Map<string, SourceColumn | null>,

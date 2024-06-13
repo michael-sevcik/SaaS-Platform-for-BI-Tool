@@ -13,10 +13,10 @@ export class SourceColumn extends Column implements Ownable, Visitable {
 
     /**
      * Gets the owner of the source column.
-     * @returns The owner entity or null if not set.
+     * @returns The owner entity or throws error.
      */
-    get owner(): SourceEntity | null {
-        return this._owner;
+    get owner(): SourceEntity {
+        return this._owner ?? (() => { throw new Error('Owner not set.'); })();
     }
 
     /**

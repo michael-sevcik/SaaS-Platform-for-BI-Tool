@@ -72,7 +72,7 @@ export abstract class BaseEntityShape extends dia.Element {
         this.prop(['size', 'height'], HEADER_HEIGHT + (DATABASE_ENTITY_PROPERTY_HEIGHT + DATABASE_ENTITY_PROPERTY_GAP) * length + PADDING_L);
     }
 
-    public addPropertyPort(column: Column) : PropertyPort {
+    public addPropertyPort(column: Column) : PropertyPort | undefined {
         if (!this.canAddPort(this.groupName)) {
             console.log('Cannot add more ports');
             return;
@@ -94,8 +94,12 @@ export abstract class BaseEntityShape extends dia.Element {
         return Object.keys(this.getGroupPorts(group)).length < DATABASE_ENTITY_MAX_PORT_COUNT;
     }
 
-    public getPortByColumn(column: Column): PropertyPort | undefined {
-        return this._portsByColumns.get(column);
+    public getPortByColumn(column: Column): PropertyPort {
+        const port = this._portsByColumns.get(column);
+        if (port === undefined) {
+            throw new Error('Port not found');
+        }
+        return port;
     }
 
     abstract handleDoubleClick(): void;

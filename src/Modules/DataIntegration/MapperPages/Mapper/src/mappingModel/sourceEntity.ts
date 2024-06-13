@@ -11,8 +11,8 @@ export abstract class SourceEntity implements Visitable, Owner, Ownable {
   /**
    * Sets the owner of this entity for propagating changes.
    */
-  public get owner() : Owner | null {
-    return this._owner;
+  public get owner() : Owner {
+    return this._owner ?? (() => { throw new Error('Owner not set.'); })();
   }
 
   public abstract get selectedColumns() : SourceColumn[];

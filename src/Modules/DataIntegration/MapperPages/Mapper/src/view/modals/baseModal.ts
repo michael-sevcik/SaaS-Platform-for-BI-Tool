@@ -1,10 +1,14 @@
 import { mapperElement } from "../../constants";
 
+type CallbackFunction = () => void;
+type OptionalCallbackFunction = CallbackFunction | null;
 export abstract class BaseModal {
     private static counter = 0;
-    protected static readonly overlay = document.getElementById('overlay');
+    protected static readonly overlay = document.getElementById('overlay')
+        ?? (() => { throw new Error('Overlay not found') })();
+        
     private readonly cancelAction = () => this.handleCancelClick();
-    private saveCallback: () => void | null = null;
+    private saveCallback: OptionalCallbackFunction;
     private readonly title: HTMLHeadingElement;
     protected readonly modal : HTMLDivElement;
     protected readonly modalContent: HTMLDivElement
@@ -99,7 +103,7 @@ export abstract class BaseModal {
      * Frees the resources used by the modal
      */
     public finalize() { 
-        this.modal.parentNode.removeChild(this.modal);
+        this.modal.parentNode?.removeChild(this.modal);
     }
 
     /**
@@ -109,7 +113,7 @@ export abstract class BaseModal {
      * 
      * @param saveCallback callback to be called when the modal is closed and the changes are saved
      */
-    public open(saveCallback: () => void | null = null) {
+    public open(saveCallback: OptionalCallbackFunction = null) {
         this.saveCallback = saveCallback;
         this.modal.classList.add('active');
         BaseModal.overlay.classList.add('active');

@@ -51,7 +51,7 @@ export class PropertyLink extends Link {
     }
 
     handleConnection() {
-        const targetElement = this.getTargetElement();
+        const targetElement = this.accessTargetElement();
         
         // HACK: this is a workaround for a for getting TargetElementShape
         const targetEntity = targetElement as unknown as TargetElementShape;
@@ -59,18 +59,18 @@ export class PropertyLink extends Link {
             throw new Error('Cannot find the target element.');
         }
 
-        const targetPort = targetElement.getPort(this.target().port) as PropertyPort;
+        const targetPort = targetElement.getPort(this.accessTargetPort()) as PropertyPort;
         if (targetPort === undefined) {
             throw new Error('Cannot find the target port.');
         }
 
-        const sourceEntity = this.getSourceElement();
-        const sourcePort = sourceEntity.getPort(this.source().port) as PropertyPort;
+        const sourceEntity = this.accessSourceElement();
+        const sourcePort = sourceEntity.getPort(this.accessSourcePort()) as PropertyPort;
 
         targetEntity.setColumnMapping(sourcePort, targetPort);
     }
     public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
-        const element = this.getTargetElement();
+        const element = this.accessTargetElement();
         
         // HACK: this is a workaround for a for getting TargetElementShape
         const targetElement = element as unknown as TargetElementShape;
@@ -78,7 +78,7 @@ export class PropertyLink extends Link {
             throw new Error('Cannot find the target element.');
         }
 
-        const targetPort = element.getPort(this.target().port) as PropertyPort;
+        const targetPort = element.getPort(this.accessTargetPort()) as PropertyPort;
         if (targetPort === undefined) {
             throw new Error('Cannot find the target port.');
         }
@@ -87,5 +87,39 @@ export class PropertyLink extends Link {
 
         // TODO: update references source column references
         return this.remove(opt);
+    }
+
+    private accessTargetElement() : dia.Element {
+        const element = this.getTargetElement();
+        if (element == null) {
+            throw new Error('Cannot find the target element.');
+        }
+
+        return element
+    }
+
+    private accessSourceElement(): dia.Element {
+        const element = this.getSourceElement();
+        if (element == null) {
+            throw new Error('Cannot find the target element.');
+        }
+
+        return element
+    }
+
+    private accessTargetPort() : string {
+        const targetPort = this.target().port;
+        if (targetPort === undefined) {
+            throw new Error('Target port is undefined.');
+        }
+        return targetPort;
+    }
+
+    private accessSourcePort(): string {
+        const sourcePort = this.source().port;
+        if (sourcePort === undefined) {
+            throw new Error('Source port is undefined.');
+        }
+        return sourcePort;
     }
 }

@@ -47,7 +47,8 @@ export class PlainToSourceEntityConvertor {
         if (plainConditionLink != null) {
             conditionLink  = new ConditionLink(
                 plainConditionLink["relation"], // TODO: check the type of the relation
-                 this.convertToJoinCondition(plainConditionLink["leftCondition"]));
+                this.convertToJoinCondition(plainConditionLink["leftCondition"])
+                    ?? (() => { throw new Error("Chained condition cannot be null.") })())
         }
 
         return new JoinCondition(
@@ -65,7 +66,8 @@ export class PlainToSourceEntityConvertor {
 
         const refValue = value["$ref"];
         if (refValue !== undefined) {
-            return this.sourceEntityReferences.get(refValue);
+            return this.sourceEntityReferences.get(refValue)
+                ?? (() => { throw new Error("Source entity with id ${refValue} does not exist") })();
         }
 
         let result : SourceEntity;

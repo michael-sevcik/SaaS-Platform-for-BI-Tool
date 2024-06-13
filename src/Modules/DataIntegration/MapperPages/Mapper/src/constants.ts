@@ -1,4 +1,5 @@
 import { dia, g } from '@joint/core'
+import { getElementOrThrow } from './utils';
 
 export const GRID_SIZE = 8;
 export const PADDING_S = GRID_SIZE;
@@ -159,12 +160,12 @@ export const headerAttributes = {
     }]
 };
 
-export const mapperElement = document.getElementById('mapper');
+export const mapperElement = getElementOrThrow('mapper');
 
-export const mainToolbar = document.getElementById('toolbar');
+export const mainToolbar = getElementOrThrow('toolbar');
 
-export const paperDiv = document.getElementById('paper');
+export const paperDiv = getElementOrThrow('paper');
 
-export const contentDiv = document.getElementById('content');
+export const contentDiv = getElementOrThrow('content');
 
-export const sourceFileInput = document.getElementById('source-file');
+export const sourceFileInput = getElementOrThrow('source-file');
