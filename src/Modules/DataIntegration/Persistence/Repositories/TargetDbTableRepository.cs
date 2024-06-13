@@ -16,9 +16,5 @@ internal class TargetDbTableRepository(ILogger<TargetDbTableRepository> logger, 
     IScoped
 {
     /// <inheritdoc/>
-    public async Task<Result<IEnumerable<TargetDbTable>>> GetTargetDbTables()
-    {
-        IEnumerable<TargetDbTable> targetDbTables = await entities.AsNoTracking().ToListAsync();
-        return Result.Success(targetDbTables);
-    }
+    public async Task<IReadOnlyList<TargetDbTable>> GetTargetDbTables() => await entities.AsNoTracking().ToListAsync();
 }

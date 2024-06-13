@@ -12,8 +12,7 @@ public interface ITargetDbTableRepository
     /// </summary>
     /// <returns>
     /// Task object that represents the asynchronous operation.
-    /// The Value property returns instance of <see cref="Result{IEnumerable{TargetDbTable}}"/> which contains
-    /// The <see cref="IEnumerable{TargetDbTable}"/> on success, otherwise an error message.
+    /// The Value property returns <see cref="IEnumerable{TargetDbTable}"/>.
     /// </returns>
-    Task<Result<IEnumerable<TargetDbTable>>> GetTargetDbTables();
+    Task<IReadOnlyList<TargetDbTable>> GetTargetDbTables();
 }

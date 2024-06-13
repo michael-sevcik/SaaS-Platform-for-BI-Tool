@@ -13,10 +13,9 @@ public interface ISchemaMappingRepository
     /// <param name="costumerId">Id of the respective costumer</param>
     /// <returns>
     /// Task object that represents the asynchronous operation.
-    /// The Value property returns instance of <see cref="Result{IEnumerable{SchemaMapping}}"/> which contains
-    /// The <see cref="IEnumerable{SchemaMapping}"/> on success, otherwise an error message.
+    /// The Value property returns instance of <see cref="IEnumerable{SchemaMapping}"/> on success.
     /// </returns>
-    Task<Result<IEnumerable<SchemaMapping>>> GetSchemaMappings(string costumerId);
+    Task<IReadOnlyList<SchemaMapping>> GetSchemaMappings(string costumerId);
 
     /// <summary>
     /// Gets a schema mapping of a given costumer and target database table.

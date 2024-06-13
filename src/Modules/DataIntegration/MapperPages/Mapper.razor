@@ -6,6 +6,7 @@
 @using BIManagement.Modules.DataIntegration.Domain.DbModelling
 @using Microsoft.JSInterop;
 
+
 <div class="embed-responsive">
     <div class="my-component">
         <div id="mapper">
@@ -13,6 +14,12 @@
             <div id="content">
                 <div id="toolbar">
                     <input id="source-file" type="file" />
+                    <Microsoft.AspNetCore.Components.Forms.InputSelect @bind-Value=@testint>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                    </Microsoft.AspNetCore.Components.Forms.InputSelect>
                 </div>
                 <div id="paper"></div>
             </div>

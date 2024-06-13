@@ -9,6 +9,6 @@ export function showPrompt(message) {
     return "ahojka14"; 
 }
 
-export function getMappingEditor() {
-    return gme();
+export function getMappingEditor(serializedSourceDb) {
+    return gme(serializedSourceDb);
 }

@@ -1,5 +1,9 @@
+using BIManagement.Modules.DataIntegration.Domain;
+using BIManagement.Modules.DataIntegration.Domain.DbModelling;
+using BIManagement.Modules.DataIntegration.Domain.Mapping;
 using Microsoft.Extensions.Logging;
 using Microsoft.JSInterop;
+using System.Text.Json;
 
 namespace BIManagement.Modules.DataIntegration.MapperComponent;
 
@@ -13,13 +17,14 @@ internal sealed class MapperJsInterop : IAsyncDisposable
 
     private Lazy<Task<IJSObjectReference>> mapperObject;
 
-    public MapperJsInterop(IJSRuntime jsRuntime, ILogger<MapperJsInterop> logger)
+    public MapperJsInterop(IJSRuntime jsRuntime, ILogger<MapperJsInterop> logger, DbModel sourceDbModel)
     {
         this.logger = logger;
         moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
             "import", "./_content/BIManagement.Modules.DataIntegration.MapperComponent/mapperInterop.js").AsTask());
 
-        mapperObject = new(async () => await (await moduleTask.Value).InvokeAsync<IJSObjectReference>("getMappingEditor"));
+        var serializedSourceDbModel = JsonSerializer.Serialize(sourceDbModel, SerializationOptions.Default);
+        mapperObject = new(async () => await (await moduleTask.Value).InvokeAsync<IJSObjectReference>("getMappingEditor", serializedSourceDbModel));
     }
 
     // TODO: PROVIDE more reasonable methods
@@ -31,6 +36,13 @@ internal sealed class MapperJsInterop : IAsyncDisposable
     }
 
     public async ValueTask<IJSObjectReference> GetMappingEditor() => await mapperObject.Value;
+
+    public async ValueTask InitializeMapperWithTargetTable(TargetDbTable targetTable)
+    {
+        var mapper = await mapperObject.Value;
+        var serializedTableModel = JsonSerializer.Serialize(targetTable.TableModel, SerializationOptions.Default);
+        await mapper.InvokeVoidAsync("createFromSerializedTargetTable", serializedTableModel);
+    }
 
     /// <inheritdoc/>
     public async ValueTask DisposeAsync()
