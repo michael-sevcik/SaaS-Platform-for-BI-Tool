@@ -6,7 +6,7 @@ import { BaseModal } from "./baseModal";
 
 export class JoinModal extends BaseModal{
     private static getColumnDescription(column: SourceColumn) : string {
-        return `${column.owner?.name}_${column.name}: ${column.dataType}`;
+        return `${column.owner?.name}_${column.name}: ${column.dataType.Descriptor}`;
     }
 
     private leftColumn: SourceColumn | null = null;
@@ -94,10 +94,11 @@ export class JoinModal extends BaseModal{
             return false;
         }
 
-        if (!this.leftColumn.isAssignableWith(this.rightColumn)) {
+        // TODO: handle different types of joins
+        if (!this.leftColumn.isAssignableWith(this.rightColumn) || !this.rightColumn.isAssignableWith(this.leftColumn)) {
             this.leftColumnPicker.displayIncorrect();
             this.rightColumnPicker.displayIncorrect();
-            alert('Sloupce musí být stejného typu');
+            alert('Sloupce musí být kompatibilního typu.');
             return false;
         }
 
