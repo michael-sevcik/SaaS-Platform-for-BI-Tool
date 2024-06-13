@@ -3,7 +3,7 @@
     contain: content;
     background-image: url('background.png');
     min-height: 500px;
-    height: 800px;
+    height: 95vh;
 }
 
 #content {
