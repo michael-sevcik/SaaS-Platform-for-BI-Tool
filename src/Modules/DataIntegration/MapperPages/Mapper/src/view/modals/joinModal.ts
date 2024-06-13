@@ -95,10 +95,10 @@ export class JoinModal extends BaseModal{
         }
 
         // TODO: handle different types of joins
-        if (!this.leftColumn.isAssignableWith(this.rightColumn) || !this.rightColumn.isAssignableWith(this.leftColumn)) {
+        if (!this.leftColumn.isAssignableWith(this.rightColumn)) {
             this.leftColumnPicker.displayIncorrect();
             this.rightColumnPicker.displayIncorrect();
-            alert('Sloupce musí být kompatibilního typu.');
+            alert('Sloupce musí být porovnatelného typu.');
             return false;
         }
 

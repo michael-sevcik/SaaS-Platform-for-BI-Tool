@@ -58,11 +58,21 @@ export class Column {
     /**
      * Checks if the current column is assignable with another column.
      * @param column The column to compare with.
-     * @returns True if the columns have the same type, false otherwise.
+     * @returns True if the if the other column can be assigned to this column, false otherwise.
      */
     public isAssignableWith(column: Column): boolean {
         return this.dataType.isAssignableWith(column.dataType);
     }
+
+    /**
+     * Checks if the current column is comparable with the other column.
+     * @param column The column to compare with.
+     * @returns True if the columns are comparable, false otherwise.
+     */
+    public isComparableWith(column: Column): boolean {
+        return this.dataType.isComparableWith(column.dataType);
+    }
+
 }
 
 

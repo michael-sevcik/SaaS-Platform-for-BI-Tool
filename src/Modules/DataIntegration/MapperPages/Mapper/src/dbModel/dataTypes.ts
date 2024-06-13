@@ -12,9 +12,15 @@ export abstract class DataTypeBase {
 
     /**
      * Checks whether this data type is assignable with another data type.
-     * @param dataType The other data type. 
+     * @param otherDataType The other data type. 
      */
-    public abstract isAssignableWith(dataType: DataTypeBase): boolean;
+    public abstract isAssignableWith(otherDataType: DataTypeBase): boolean;
+
+    /**
+     * Checks whether this data type is comparable with another data type.
+     * @param otherDataType The other data type.
+     */
+    public abstract isComparableWith(otherDataType: DataTypeBase): boolean;
 
     // TODO: Consider defining a method isComparableWith(dataType: DataTypeBase): boolean for join conditions
 
@@ -39,10 +45,13 @@ export abstract class DataTypeBase {
  */
 export class UnknownDataType extends DataTypeBase {
     /** @inheritdoc */
+    public isComparableWith(otherDataType: DataTypeBase): boolean {
+        return otherDataType instanceof UnknownDataType && this.storeType === otherDataType.storeType;
+    }
+    
+    /** @inheritdoc */
     public isAssignableWith(dataType: DataTypeBase) : boolean {
-         return dataType instanceof UnknownDataType &&
-            this.isNullabilityCompatible(dataType) &&
-            this.storeType === dataType.storeType;
+         return this.isNullabilityCompatible(dataType) && this.isComparableWith(dataType);
     }
 
     protected get TypeDescriptor(): string {
@@ -91,6 +100,19 @@ export enum SimpleDataTypes {
 export class SimpleType extends DataTypeBase
 {
     /** @inheritdoc */
+    public isComparableWith(otherDataType: DataTypeBase): boolean {
+        return otherDataType instanceof SimpleType && (
+            this.type === otherDataType.type ||
+            (SimpleType.isNumericType(this.type) && SimpleType.isNumericType(otherDataType.type)) ||
+            (this.type === SimpleDataTypes.Datetime && otherDataType.type === SimpleDataTypes.DatetimeOffset) ||
+            (this.type === SimpleDataTypes.DatetimeOffset && otherDataType.type === SimpleDataTypes.Datetime) ||
+            (this.type === SimpleDataTypes.Datetime2 && otherDataType.type === SimpleDataTypes.DatetimeOffset) ||
+            (this.type === SimpleDataTypes.DatetimeOffset && otherDataType.type === SimpleDataTypes.Datetime2) ||
+            (this.type === SimpleDataTypes.Datetime && otherDataType.type === SimpleDataTypes.Datetime2) ||
+            (this.type === SimpleDataTypes.Datetime2 && otherDataType.type === SimpleDataTypes.Datetime));
+    }
+
+    /** @inheritdoc */
     public isAssignableWith(dataType: DataTypeBase): boolean {
         return dataType instanceof SimpleType
          && this.isNullabilityCompatible(dataType)
@@ -122,6 +144,17 @@ export class SimpleType extends DataTypeBase
         
         }
     }
+
+    private static isNumericType(type: SimpleDataTypes): boolean {
+        switch (type) {
+            case SimpleDataTypes.Numeric:
+            case SimpleDataTypes.Decimal:
+            case SimpleDataTypes.Money:
+                return true;
+            default:
+                return this.isIntegralType(type);
+        }
+    }
     
     protected get TypeDescriptor(): string {
         return this.type;
@@ -147,6 +180,11 @@ export class SimpleType extends DataTypeBase
  */
 export class NVarChar extends DataTypeBase
 {
+    /** @inheritdoc */
+    public isComparableWith(otherDataType: DataTypeBase): boolean {
+        return otherDataType instanceof NVarChar || otherDataType instanceof NVarCharMax;
+    }
+
     /** @inheritdoc */
     public isAssignableWith(dataType: DataTypeBase): boolean {
         return dataType instanceof NVarChar
@@ -176,6 +214,11 @@ export class NVarChar extends DataTypeBase
  */
 export class NVarCharMax extends DataTypeBase
 {
+    /** @inheritdoc */
+    public isComparableWith(otherDataType: DataTypeBase): boolean {
+        return otherDataType instanceof NVarChar || otherDataType instanceof NVarCharMax;
+    }
+
     /** @inheritdoc */
     public isAssignableWith(dataType: DataTypeBase): boolean {
         return this.isNullabilityCompatible(dataType) && 
