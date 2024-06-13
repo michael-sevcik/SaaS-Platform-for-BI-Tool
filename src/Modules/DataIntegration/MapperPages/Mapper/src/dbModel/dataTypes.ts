@@ -16,6 +16,8 @@ export abstract class DataTypeBase {
      */
     public abstract isAssignableWith(dataType: DataTypeBase): boolean;
 
+    // TODO: Consider defining a method isComparableWith(dataType: DataTypeBase): boolean for join conditions
+
     /**
      * @param isNullable Value indicating whether the data type is nullable.
      */
@@ -95,11 +97,30 @@ export class SimpleType extends DataTypeBase
          // check if the types are the same or if the types are compatible
             && (this.type === dataType.type ||
                 (this.type === SimpleDataTypes.Numeric && dataType.type === SimpleDataTypes.Decimal) ||
-                (this.type === SimpleDataTypes.Decimal && dataType.type === SimpleDataTypes.Numeric) ||
-                (this.type === SimpleDataTypes.Integer && dataType.type === SimpleDataTypes.TinyInteger) ||
-                (this.type === SimpleDataTypes.BigInteger &&
-                    (dataType.type === SimpleDataTypes.Integer ||
-                        dataType.type === SimpleDataTypes.SmallInteger)));
+                (this.type === SimpleDataTypes.Decimal && 
+                    (dataType.type === SimpleDataTypes.Numeric ||
+                         SimpleType.isIntegralType(dataType.type))) ||
+                (this.type === SimpleDataTypes.Numeric &&
+                    (dataType.type === SimpleDataTypes.Decimal ||
+                        SimpleType.isIntegralType(dataType.type))) ||
+                (this.type === SimpleDataTypes.SmallInteger && dataType.type === SimpleDataTypes.TinyInteger) ||
+                (this.type === SimpleDataTypes.Integer && 
+                    (dataType.type === SimpleDataTypes.TinyInteger ||
+                        dataType.type === SimpleDataTypes.SmallInteger)) ||
+                (this.type === SimpleDataTypes.BigInteger && SimpleType.isIntegralType(dataType.type)));
+    }
+
+    private static isIntegralType(type: SimpleDataTypes): boolean {
+        switch (type) {
+            case SimpleDataTypes.TinyInteger:
+            case SimpleDataTypes.SmallInteger:
+            case SimpleDataTypes.Integer:
+            case SimpleDataTypes.BigInteger:
+                return true;
+            default:
+                return false;
+        
+        }
     }
     
     protected get TypeDescriptor(): string {
