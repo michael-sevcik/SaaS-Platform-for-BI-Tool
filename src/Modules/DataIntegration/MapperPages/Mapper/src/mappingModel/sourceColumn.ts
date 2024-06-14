@@ -4,12 +4,16 @@ import { Ownable } from "./ownable";
 import { MappingVisitor } from "./mappingVisitor";
 import { Visitable } from "./converting/visitable";
 import { SourceEntity } from "./sourceEntity";
+import { Exclude } from "class-transformer";
+import { UnknownDataType } from "../dbModel/dataTypes";
 
 /**
  * Represents a column in the source entity of a mapping.
  */
 export class SourceColumn extends Column implements Ownable, Visitable {
+    @Exclude()
     private _owner: SourceEntity | null = null;
+    private static readonly _emptyDataType = new UnknownDataType("", false);
 
     /**
      * Gets the owner of the source column.
@@ -22,11 +26,18 @@ export class SourceColumn extends Column implements Ownable, Visitable {
     /**
      * Holders of references to this column.
      */
+    @Exclude()
     public referenceHolders = new Set<ReferenceHolder>();
 
-    constructor(column: Column) { 
-        super(column.name, column.dataType);
+    /**
+     * Creates a new source column.
+     * @param column The column to create the source column from. Except for deserialization must be provided.
+     * @note The {@link column} parameter is optional for deserialization purposes.
+     */
+    constructor(column?: Column) {
+        super(column ? column.name : "", column ? column.dataType : SourceColumn._emptyDataType);
     }
+
 
     /**
      * Accepts a mapping visitor and calls the appropriate visit method.

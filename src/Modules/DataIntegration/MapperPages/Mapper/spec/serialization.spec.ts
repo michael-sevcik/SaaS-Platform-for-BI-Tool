@@ -10,7 +10,8 @@ import { DbConnectionConfig } from "../src/mappingModel/dbConnectionConfig";
 import { MappingConfig } from "../src/mappingModel/mappingConfig";
 import { Column, Table } from "../src/dbModel/database";
 import { SourceColumn } from "../src/mappingModel/sourceColumn";
-import { SimpleDataTypes, SimpleType } from "../src/dbModel/dataTypes";
+import { NVarChar, SimpleDataTypes, SimpleType } from "../src/dbModel/dataTypes";
+import { inspect } from "util";
 
 function SimpleTypeFactory(type: SimpleDataTypes) : SimpleType {
     return new SimpleType(type, false);
@@ -85,6 +86,20 @@ const mappingConfig = new MappingConfig(dbConnectionConfig, [entityMapping]);
 //         expect(stringifiedResult).toBe('{"relation":"equals","leftColumn":{"sourceEntity":{"$id":"1","type":"sourceTable","name":"table1","selectedColumns":["col1","col2"]},"sourceColumn":"col1"},"rightColumn":{"sourceEntity":{"$id":"0","type":"sourceTable","name":"table1","selectedColumns":["col1","col2"]},"sourceColumn":"col1"},"linkedCondition":null}');
 //     });
 // });
+
+describe('sourceColumn serialization', () => {
+    it('should serialize a sourceColumn with simple data type', () => {
+        const column = sourceTable1.getSelectedColumn("ZamestnanecId");
+        const plain = instanceToPlain(column);
+        expect(JSON.stringify(plain)).toBe('{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"type":"Integer","$type":"simple"}}');
+    });
+    it('should serialize a sourceColumn with nvchar datatype', () => {
+        const column = new Column("note", new NVarChar(450, true), "note");
+        const sourceColumn = new SourceColumn(column);
+        const plain = instanceToPlain(sourceColumn);
+        expect(JSON.stringify(plain)).toBe('{"name":"note","description":null,"dataType":{"isNullable":true,"length":450,"$type":"nVarChar"}}');
+    });
+});
 
 describe('Join serialization', () => { 
     it('should serialize a join', () => {

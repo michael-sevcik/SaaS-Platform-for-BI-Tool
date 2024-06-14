@@ -2,12 +2,22 @@ import { plainToInstance } from "class-transformer";
 import { MappingModelConvertor } from "../src/mappingModel/converting/mappingModelConverter";
 import { DbConnectionConfig } from "../src/mappingModel/dbConnectionConfig";
 import { PlainToSourceEntityConvertor } from "../src/mappingModel/converting/deserialization/plainToSourceEntityConvertor";
+import { SourceColumn } from "../src/mappingModel/sourceColumn";
+import { inspect } from "util";
 
 // TODO: shares data with the serialization tests - consider separating it to a shared file.
 
 /** 
  * RUN TESTS
 **/
+
+describe('sourceColumnDeserialization', () => {
+    it('should deserialize a sourceColumn with simple data type', () => {
+        const jsonText = '{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"type":"Integer","$type":"simple"}}';
+        const sourceColumn = plainToInstance(SourceColumn, JSON.parse(jsonText));
+        expect(JSON.stringify(sourceColumn)).toBe('{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"type":"Integer"},"_owner":null,"referenceHolders":{}}');
+    });
+});
 
 describe('DbConnectionConfig deserialization', () => {
     it('should deserialize a DbConnectionConfig', () => {

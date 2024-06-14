@@ -5,6 +5,7 @@ import { SourceColumn } from "../../sourceColumn";
 import { SourceEntity } from "../../sourceEntity";
 import { SourceTable } from "../../sourceTable";
 import { MappingVisitor } from "../../mappingVisitor";
+import { instanceToPlain } from "class-transformer";
 
 
 // TODO: IMPLEMENT NESTED JOIN VISITATION
@@ -143,11 +144,8 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
         if (result === undefined) {
             console.log("undefined column - creating new plain");
             
-            result = {
-                $id: (this.id++).toString(),
-                name: sourceColumn.name,
-                type: sourceColumn.dataType
-            }
+            result = instanceToPlain(sourceColumn);
+            result["$id"] = (this.id++).toString();
 
             this.plainSourceColumnsByOriginal.set(sourceColumn, result);
         }
@@ -176,7 +174,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
         });
     }
 
-    public safeIntermediateResultPop(): any {
+    private safeIntermediateResultPop(): any {
         const result = this.intermediateResult.pop();
         if (result === undefined) {
             throw new Error("Intermediate result is empty");

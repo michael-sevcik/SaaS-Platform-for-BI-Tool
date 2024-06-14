@@ -6,6 +6,7 @@ import { SourceColumn } from "../../sourceColumn";
 import { SourceEntityBase } from "../../sourceEntityBase";
 import { SourceEntity } from "../../sourceEntity";
 import { SourceTable } from "../../sourceTable";
+import { plainToInstance } from "class-transformer";
 
 export class PlainToSourceEntityConvertor {
     private columnReferences = new Map<string, SourceColumn>();
@@ -27,14 +28,12 @@ export class PlainToSourceEntityConvertor {
         return result;
     }
 
-    public convertToColumn(column: any) : SourceColumn {
-        if (column == null) {
-            throw new Error("plainColumnMapping cannot be null");
+    public convertToColumn(plainColumn: any) : SourceColumn {
+        if (plainColumn == null) {
+            throw new Error("plainColumnMapping cannot be null or undefined");
         }
         
-        return new SourceColumn(new Column (
-            column["name"],
-            column["type"]));
+        return plainToInstance(SourceColumn, plainColumn);
     }
 
     public convertToJoinCondition(plainJoinCondition: any) : null | JoinCondition {
