@@ -33,42 +33,8 @@ export function getMappingEditor(serializedSourceDbModel: string): MappingEditor
    return mappingEditor;
 }
 
-export function loadDevelopmentView() {
-
-}
-
-
-export function ahoj(): number {
+export function loadDevelopmentView(): number {
     // Example Diagram
-
-    const articleMovementRowsProperties = [
-        'Quantity: decimal',
-        'RowNumber: int',
-        'TotalPrice: decimal',
-        'ArticleGroupId: string',
-        'ArticleRegistrationNumber: string',
-        'ArticleName: string',
-        'ArticleMovementExternalId: int'
-    ];
-
-    const tabPohybyZboziProperties = [
-        'Id: int',
-        'IdzboSklad: int',
-        'Iddoklad: int',
-        'SkupZbo: string',
-        'RegCis: string',
-        'Nazev1: string',
-        'Nazev2: string',
-        'Mnozstvi: decimal',
-        'MnozstviReal: decimal',
-        'Poradi: int',
-        'VstupniCena: byte',
-        'JcbezDaniKc: decimal',
-        'CcbezDaniKc: decimal',
-        'CcbezDaniVal: decimal',
-        'Autor: string',
-    ];
-
     const table1 = new Table("TabMzdList", [
         new Column("ZamestnanecId", new SimpleType(SimpleDataTypes.Integer, false), "Id zamestnance"),
         new Column("OdpracHod", new SimpleType(SimpleDataTypes.Decimal, false), "Odpracované hodiny"),
