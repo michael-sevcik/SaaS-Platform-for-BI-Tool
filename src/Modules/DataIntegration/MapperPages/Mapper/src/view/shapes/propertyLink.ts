@@ -3,6 +3,13 @@ import { HIGHLIGHTED_OUTLINE_COLOR, LIGHT_COLOR, SECONDARY_DARK_COLOR } from "..
 import { Link } from "./link";
 import { TargetElementShape } from "./targetElementShape";
 import { PropertyPort } from "./propertyPort";
+import type { TargetTableShape } from "./targetTableShape";
+import type { SourceTableShape } from "./sourceTableShape";
+import type { EntityMapping } from "../../mappingModel/entityMapping";
+import type { SourceTable } from "../../mappingModel/sourceTable";
+import type { BaseSourceEntityShape } from "./baseSourceEntityShape";
+import type { BaseEntityShape } from "./baseEntityShape";
+import type { Column } from "../../dbModel/database";
 
 export class PropertyLink extends Link {
     private clickMethod() {
@@ -53,40 +60,36 @@ export class PropertyLink extends Link {
     handleConnection() {
         const targetElement = this.accessTargetElement();
         
-        // HACK: this is a workaround for a for getting TargetElementShape
+        // HACK: this is a workaround for getting TargetElementShape
         const targetEntity = targetElement as unknown as TargetElementShape;
-        if (targetEntity === undefined) {
-            throw new Error('Cannot find the target element.');
-        }
-
         const targetPort = targetElement.getPort(this.accessTargetPort()) as PropertyPort;
-        if (targetPort === undefined) {
-            throw new Error('Cannot find the target port.');
-        }
 
         const sourceEntity = this.accessSourceElement();
         const sourcePort = sourceEntity.getPort(this.accessSourcePort()) as PropertyPort;
 
-        targetEntity.setColumnMapping(sourcePort, targetPort);
+        const sourceTableShape = sourceEntity as BaseSourceEntityShape;
+
+        const sourceColumn = sourceTableShape.getSourceColumnByPortId(sourcePort.id!);
+        const targetColumn = targetEntity.getColumnByPortId(targetPort.id!);
+
+        targetEntity.setColumnMapping(sourceColumn, targetColumn);
     }
-    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
-        const element = this.accessTargetElement();
-        
-        // HACK: this is a workaround for a for getting TargetElementShape
+    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {        
+        const element = this.accessTargetElement() as BaseEntityShape;
         const targetElement = element as unknown as TargetElementShape;
         if (targetElement === undefined) {
             throw new Error('Cannot find the target element.');
         }
 
-        const targetPort = element.getPort(this.accessTargetPort()) as PropertyPort;
-        if (targetPort === undefined) {
-            throw new Error('Cannot find the target port.');
-        }
-
-        targetElement.removeColumnMapping(targetPort);
+        targetElement.removeColumnMapping(this.accessTargetColumn(element));
 
         // TODO: update references source column references
         return this.remove(opt);
+    }
+
+    private accessTargetColumn(targetEntity: BaseEntityShape): Column {
+        const targetPort = targetEntity.getPort(this.accessTargetPort());
+        return targetEntity.getColumnByPortId(targetPort.id!);
     }
 
     private accessTargetElement() : dia.Element {

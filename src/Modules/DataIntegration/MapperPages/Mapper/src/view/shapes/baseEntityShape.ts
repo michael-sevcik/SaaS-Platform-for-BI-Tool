@@ -18,7 +18,8 @@ import { PropertyPort } from './propertyPort';
 // Provides a base implementation for database entity shapes.
 export abstract class BaseEntityShape extends dia.Element {
     
-    private _portsByColumns : Map<Column, PropertyPort>;
+    private _portsByColumns: Map<Column, PropertyPort>;
+    private _columnsByPortId: Map<string, Column>;
 // This entity must be implemented by the extending class for adding ports during initializetion.
     protected abstract groupName : string;
     defaults() {
@@ -52,6 +53,7 @@ export abstract class BaseEntityShape extends dia.Element {
         console.log('BaseEntityShape.initialize()');
         console.log(columns);
         this._portsByColumns = new Map<Column, PropertyPort>();
+        this._columnsByPortId = new Map<string, Column>();
         this.on('change:ports', () => this.resizeToFitPorts());
         console.log(columns);
         this.addPropertyPorts(columns);
@@ -81,6 +83,11 @@ export abstract class BaseEntityShape extends dia.Element {
         const port = new PropertyPort(column, this.groupName);
         this.addPort(port);
         this._portsByColumns.set(column, port);
+        if (!port.id) {
+            throw new Error('Port ID is not set');
+        }
+
+        this._columnsByPortId.set(port.id, column);
         return port;
     }
 
@@ -100,6 +107,14 @@ export abstract class BaseEntityShape extends dia.Element {
             throw new Error('Port not found');
         }
         return port;
+    }
+
+    public getColumnByPortId(portId: string): Column {
+        const column = this._columnsByPortId.get(portId);
+        if (column === undefined) {
+            throw new Error('Column not found');
+        }
+        return column;
     }
 
     abstract handleDoubleClick(): void;

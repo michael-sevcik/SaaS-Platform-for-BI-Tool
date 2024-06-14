@@ -7,4 +7,9 @@ export interface ReferenceHolder {
     * Sets the ownerships and registers references to sourceColumns 
     */
     createBackwardConnections(): void;
+
+    /**
+     * Unregisters all references that the entity and its children hold. Used when the entity is removed from the mapping.
+     */
+    removeReferences(): void;
 }

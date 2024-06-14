@@ -31,6 +31,13 @@ export class JoinCondition implements Visitable, ReferenceHolder {
         this._leftColumn = leftColumn;
         this._rightColumn = rightColumn;
     }
+    removeReferences(): void {
+        this.leftColumn.removeReference(this);
+        this.rightColumn.removeReference(this);
+        if (this.linkedCondition !== undefined) {
+            this.linkedCondition.removeReferences();
+        }
+    }
 
     accept(visitor: MappingVisitor): void {
         visitor.visitJoinCondition(this);

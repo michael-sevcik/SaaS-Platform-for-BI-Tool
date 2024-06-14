@@ -72,7 +72,9 @@ export class JoinLink extends Link {
         if (this.join.owner === null) {
             throw new Error('Owner of join is null');
         }
+
         this.join.owner.replaceChild(this.join, this.join.leftSourceEntity);
+        this.join.removeReferences();
         this.joinModal.finalize();
         return this.remove(opt);
     }

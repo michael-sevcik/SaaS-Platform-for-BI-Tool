@@ -14,6 +14,13 @@ export class EntityMapping implements Owner{
         public sourceEntities : SourceEntity[],
         public columnMappings : Map<string, SourceColumn | null>,
         public readonly description : string | null = null) { }
+    removeReferences(): void {
+        this.columnMappings.forEach((value, key) => {
+            if (value !== null) {
+                value.removeReference(this);
+            }
+        });
+    }
     
     public createBackwardConnections(): void {
         if (this.sourceEntity !== null) {

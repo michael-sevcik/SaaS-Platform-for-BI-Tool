@@ -4,9 +4,13 @@ import { SourceColumn } from "./sourceColumn";
 import { Column } from "../dbModel/database";
 
 export class SourceTable extends SourceEntityBase {
+    public removeReferences(): void {
+        // no references to remove
+    }
     replaceChild(oldChild: any, newChild: any): void {
     }
     
+    /** @inheritdoc */
     public createBackwardConnections(): void {
         for (const column of this._selectedColumns) {
             column.owner = this;
@@ -14,6 +18,7 @@ export class SourceTable extends SourceEntityBase {
     }
 
     // TODO: Consider moving this to SourceConcreteEntity
+    /** @inheritdoc */
     public get selectedColumns(): SourceColumn[] {
         return this._selectedColumns;
     }
@@ -41,6 +46,7 @@ export class SourceTable extends SourceEntityBase {
         // this.createBackwardConnections(); // TODO: Is this needed?
     }
 
+    /** @inheritdoc */
     public accept(visitor: MappingVisitor): void {
         visitor.visitSourceTable(this);  
     }

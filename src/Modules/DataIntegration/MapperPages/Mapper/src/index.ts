@@ -50,22 +50,22 @@ export function loadDevelopmentView(): number {
 
     const sourceDb = new Database("SourceDatabase", [table1, table2]);
 
-    const sourceTable1 = new SourceTable(table1.name, table1.columns.map(c => new SourceColumn(c)));
-    const sourceTable2 = new SourceTable(table2.name, table2.columns.map(c => new SourceColumn(c)));
+    // const sourceTable1 = new SourceTable(table1.name, table1.columns.map(c => new SourceColumn(c)));
+    // const sourceTable2 = new SourceTable(table2.name, table2.columns.map(c => new SourceColumn(c)));
 
-    const joinCondition = new JoinCondition(
-        Operator.equals,
-        sourceTable1.getSelectedColumn("IdObdobi"),
-        sourceTable2.getSelectedColumn("IdObdobi")
-    )
+    // const joinCondition = new JoinCondition(
+    //     Operator.equals,
+    //     sourceTable1.getSelectedColumn("IdObdobi"),
+    //     sourceTable2.getSelectedColumn("IdObdobi")
+    // )
 
-    const join = new Join(
-        "join1",
-        JoinType.inner,
-        sourceTable1,
-        sourceTable2,
-        joinCondition
-    );
+    // const join = new Join(
+    //     "join1",
+    //     JoinType.inner,
+    //     sourceTable1,
+    //     sourceTable2,
+    //     joinCondition
+    // );
 
     const targetColumns = [
         new Column("PersonalId", new SimpleType(SimpleDataTypes.Integer, false), "Id zamestnance"),
@@ -77,21 +77,28 @@ export function loadDevelopmentView(): number {
 
     const targetTable = new Table("EmployeeHoursWorked2", targetColumns);
 
+    // const targetEntityColumnMapping = new Map<string, SourceColumn | null>([
+    //     [targetColumns[0].name, sourceTable1.getSelectedColumn("ZamestnanecId")],
+    //     [targetColumns[1].name, sourceTable1.getSelectedColumn("OdpracHod")],
+    //     [targetColumns[2].name, sourceTable2.getSelectedColumn("MzdObd_DatumOd")],
+    //     [targetColumns[3].name, null],
+    //     [targetColumns[4].name, null]
+    // ]);
+
     const targetEntityColumnMapping = new Map<string, SourceColumn | null>([
-        [targetColumns[0].name, sourceTable1.getSelectedColumn("ZamestnanecId")],
-        [targetColumns[1].name, sourceTable1.getSelectedColumn("OdpracHod")],
-        [targetColumns[2].name, sourceTable2.getSelectedColumn("MzdObd_DatumOd")],
+        [targetColumns[0].name, null],
+        [targetColumns[1].name, null],
+        [targetColumns[2].name, null],
         [targetColumns[3].name, null],
         [targetColumns[4].name, null]
     ]);
-
     const targetDb = new Database("TargetDatabase", [targetTable]);
 
     const entityMapping = new EntityMapping(
         targetTable.name,
         targetTable.schema === null ? "" : targetTable.schema,
-        join,
-        [sourceTable1, sourceTable2, join],
+        null,
+        [],
         targetEntityColumnMapping
     );
 

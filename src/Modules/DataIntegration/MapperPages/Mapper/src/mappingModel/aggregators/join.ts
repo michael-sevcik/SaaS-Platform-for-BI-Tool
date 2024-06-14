@@ -6,7 +6,15 @@ import { MappingVisitor } from "../mappingVisitor";
 import { JoinCondition } from "./conditions/joinCondition";
 import { SourceColumn } from "../sourceColumn";
 
+/**
+ * Represents a join between two source entities.
+ * @note join is creating 
+ */
 export class Join extends SourceEntity{
+    public removeReferences(): void {
+        this.condition?.removeReferences();
+        // this.rightSourceEntity.removeReferences();
+    }
     public get selectedColumns() : SourceColumn[] {
         return this.leftSourceEntity.selectedColumns.concat(this.rightSourceEntity.selectedColumns);
     }

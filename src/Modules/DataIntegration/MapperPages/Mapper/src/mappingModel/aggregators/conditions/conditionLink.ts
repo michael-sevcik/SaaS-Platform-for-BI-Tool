@@ -19,6 +19,9 @@ export class ConditionLink implements Visitable, ReferenceHolder {
         public relation : LinkRelation,
         public condition : JoinCondition) {
     }
+    removeReferences(): void {
+        this.condition.removeReferences();
+    }
 
     accept(visitor: MappingVisitor): void {
         visitor.visitConditionLink(this);

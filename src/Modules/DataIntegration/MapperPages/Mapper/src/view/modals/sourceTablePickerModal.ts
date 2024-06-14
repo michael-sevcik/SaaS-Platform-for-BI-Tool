@@ -25,7 +25,7 @@ export class SourceTablePickerModal extends BaseModal {
     }
 
     protected cancel(): void {
-        
+        this.tablePicker.clear();
     }
 
     protected save(): boolean {
@@ -35,6 +35,7 @@ export class SourceTablePickerModal extends BaseModal {
             return false;
         }
         
+        this.tablePicker.clear();
         return true;
     }
 }

@@ -18,6 +18,9 @@ export abstract class SourceEntity implements Visitable, Owner, Ownable {
   public abstract get selectedColumns() : SourceColumn[];
   public constructor(public name: string) { }
 
+  /** @inheritdoc */
+  public abstract removeReferences(): void;
+
   public abstract accept(visitor: MappingVisitor): void;
   public abstract createBackwardConnections(): void;
   abstract replaceChild(oldChild: any, newChild: any): void;

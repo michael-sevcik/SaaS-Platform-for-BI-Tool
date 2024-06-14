@@ -95,7 +95,7 @@ export class JoinModal extends BaseModal{
         }
 
         // TODO: handle different types of joins
-        if (!this.leftColumn.isAssignableWith(this.rightColumn)) {
+        if (!this.leftColumn.isComparableWith(this.rightColumn)) {
             this.leftColumnPicker.displayIncorrect();
             this.rightColumnPicker.displayIncorrect();
             alert('Sloupce musí být porovnatelného typu.');
