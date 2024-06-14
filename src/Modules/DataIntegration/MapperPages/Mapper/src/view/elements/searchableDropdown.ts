@@ -112,6 +112,13 @@ export class SearchableDropdown {
     }
 
     /**
+     * Clears the input
+     */
+    public clear() {
+        this.input.value = '';
+    }
+
+    /**
      * Sets place holder
      * @param placeholder the placeholder 
      */
