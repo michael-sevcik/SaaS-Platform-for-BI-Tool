@@ -78,6 +78,7 @@ export class PlainToSourceEntityConvertor {
             case "sourceTable": {
                 result = new SourceTable(
                     value["name"],
+                    value["schema"] ? value["schema"] : null,
                     this.convertSourceColumns(value.selectedColumns));
                 break;
             }

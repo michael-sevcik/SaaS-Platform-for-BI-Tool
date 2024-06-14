@@ -39,6 +39,7 @@ export class SourceTable extends SourceEntityBase {
     } 
 
     public constructor(name: string,
+        public readonly schema: string | null,
         selectedColumns: SourceColumn[] = [],
         public readonly description: string | null = null) {
         super(name);
