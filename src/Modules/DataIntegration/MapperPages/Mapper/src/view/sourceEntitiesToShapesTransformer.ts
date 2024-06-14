@@ -28,7 +28,7 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         super();
         // TODO: Consider using also the schema name as a key
         sourceTables.forEach((table) =>
-            this.sourceTablesByName.set(table.name, table)
+            this.sourceTablesByName.set(table.schema + table.name, table)
         );
     }
 
@@ -70,7 +70,7 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
     }
 
     public visitSourceTable(sourceTable: SourceTable): void {
-        const shape = new SourceTableShape(sourceTable);
+        const shape = new SourceTableShape(sourceTable, this.getCorrespondingTable(sourceTable));
         this.elementMap.set(sourceTable, shape);
         this.cells.push(shape);
         this.cellStack.push(shape);
@@ -83,5 +83,14 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         }
 
         return value;
+    }
+
+    private getCorrespondingTable(sourceTable: SourceTable): Table {
+        const table = this.sourceTablesByName.get(sourceTable.schema + sourceTable.name);
+        if (table === undefined) {
+            throw new Error('Table not found');
+        }
+
+        return table;
     }
 }

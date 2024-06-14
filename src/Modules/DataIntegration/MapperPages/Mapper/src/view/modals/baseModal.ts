@@ -89,6 +89,7 @@ export abstract class BaseModal {
      * Cancels the changes
      */
     protected abstract cancel(): void;
+    
     /**
      * Saves base modal
      * @returns true if saving was successful, false otherwise - invalid data, etc. 
@@ -107,6 +108,13 @@ export abstract class BaseModal {
     }
 
     /**
+     * Called when the modal is opened
+     */
+    protected onOpen() {
+        // nothing to do here
+    }
+
+    /**
      * Opens the modal
      * 
      * The callback might never be called if the modal is closed by the cancel button
@@ -115,6 +123,7 @@ export abstract class BaseModal {
      */
     public open(saveCallback: OptionalCallbackFunction = null) {
         this.saveCallback = saveCallback;
+        this.onOpen();
         this.modal.classList.add('active');
         BaseModal.overlay.classList.add('active');
         BaseModal.overlay.addEventListener('click', this.cancelAction);

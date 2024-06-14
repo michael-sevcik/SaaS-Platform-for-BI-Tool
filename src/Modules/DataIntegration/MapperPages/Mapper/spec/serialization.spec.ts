@@ -30,14 +30,14 @@ const table2 = new Table("TabMzdObd", [
     new Column("IdObdobi", SimpleTypeFactory(SimpleDataTypes.Integer))
 ]);
 
-const sourceTable1 = new SourceTable(table1.name, table1.columns.map(c => new SourceColumn(c)));
-const sourceTable2 = new SourceTable(table2.name, table2.columns.map(c => new SourceColumn(c)));
+const sourceTable1 = new SourceTable(table1.name, table1.schema, table1.columns.map(c => new SourceColumn(c)));
+const sourceTable2 = new SourceTable(table2.name, table2.schema, table2.columns.map(c => new SourceColumn(c)));
 
 const joinCondition = new JoinCondition(
     Operator.equals,
     sourceTable1.getSelectedColumn("IdObdobi"),
     sourceTable2.getSelectedColumn("IdObdobi")
-)
+);
 
 const join = new Join(
     "join1",

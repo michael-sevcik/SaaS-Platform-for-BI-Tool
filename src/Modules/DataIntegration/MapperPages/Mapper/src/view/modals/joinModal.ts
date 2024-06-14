@@ -15,7 +15,7 @@ export class JoinModal extends BaseModal{
     private readonly operatorPicker: SearchableDropdown;
     private rightColumn: SourceColumn | null = null;
     private readonly rightColumnPicker: SearchableDropdown;
-    protected name = 'JoinModal';
+    protected name = 'Join definition';
 
     public constructor(public join : Join) {
         super();
