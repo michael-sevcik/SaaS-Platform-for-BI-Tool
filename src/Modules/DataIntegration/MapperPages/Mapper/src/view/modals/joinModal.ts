@@ -58,14 +58,14 @@ export class JoinModal extends BaseModal{
     private setDefaultValues() : void {
         const joinCondition = this.join.condition;
         if (joinCondition !== null) {
-            this.leftColumnPicker.setPlaceHolder(JoinModal.getColumnDescription(joinCondition.leftColumn));
+            this.leftColumnPicker.setPlaceholder(JoinModal.getColumnDescription(joinCondition.leftColumn));
             this.leftColumn = joinCondition.leftColumn;	
 
             this.operator = joinCondition.relation;
-            this.operatorPicker.setPlaceHolder(joinCondition.relation);
+            this.operatorPicker.setPlaceholder(joinCondition.relation);
 
             this.rightColumn = joinCondition.rightColumn;
-            this.rightColumnPicker.setPlaceHolder(JoinModal.getColumnDescription(joinCondition.rightColumn));
+            this.rightColumnPicker.setPlaceholder(JoinModal.getColumnDescription(joinCondition.rightColumn));
         }
         
         this.leftColumnPicker.displayCorrect();
