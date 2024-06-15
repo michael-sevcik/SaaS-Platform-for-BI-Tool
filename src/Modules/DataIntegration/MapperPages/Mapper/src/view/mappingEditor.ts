@@ -152,20 +152,21 @@ export class MappingEditor {
             background: {
                 color: '#F3F7F6'
             },
-            defaultRouter: { name: 'manhattan', args: { step: 2*GRID_SIZE }},
-            // defaultConnector: { name: 'jumpover', args: { size: 10 }}, // TODO: change the connecter and router
+            defaultRouter: { name: 'metro', args: { step: 2*GRID_SIZE }},
+            defaultConnector: { name: 'jumpover', args: { size: 8 } },
             cellViewNamespace: SHAPE_NAMESPACE,
             validateConnection: (sourceView, _sourceMagnet, targetView, _targetMagnet) => {
-                // TODO: use the types of columns to validate connections
                 const targetElement = targetView.model as dia.Element;
                 const targetPortId = targetView.findAttribute('port', _targetMagnet)
                     ?? (() => { throw new Error('Target port not found.'); })();
                 const targetPort = targetElement.getPort(targetPortId) as PropertyPort; 
 
+                // disallow connecting to the same element
                 if (sourceView === targetView) return false;
-                // TODO: Create an abstract class for source elements
+
+                // disallow targeting source entities
                 if (targetElement instanceof BaseSourceEntityShape) {
-                    console.log('paper<validateConnection>', 'Cannot connect to source database entity.');
+                    console.debug('paper<validateConnection>: Cannot connect to source database entity.');
                     return false;
                 };
         
@@ -175,7 +176,7 @@ export class MappingEditor {
                         .getConnectedLinks(targetElement, { inbound: true })
                         .find((link) => link.target().port === targetPortId)
                 ) {
-                    console.log('paper<validateConnection>', 'The port has already an inbound link (we allow only one link per port)');
+                    console.debug('paper<validateConnection>', 'The port has already an inbound link (we allow only one link per port)');
                     return false;
                 }
 
@@ -185,7 +186,7 @@ export class MappingEditor {
                 const sourcePort = sourceEntity.getPort(sourcePortId) as PropertyPort;
         
                 if (!targetPort.isAssignableWith(sourcePort)) {
-                    console.log('paper<validateConnection>', 'The types of the ports are not compatible.');
+                    console.debug('paper<validateConnection>', 'The types of the ports are not compatible.');
                     return false;
                 }
                 
@@ -197,31 +198,29 @@ export class MappingEditor {
                 
                 const source = sourceView.model;
             
-                console.log(sourceMagnet);
-                console.log(sourceView);
-                console.log(sourceGroup);
+                console.debug(sourceMagnet);
+                console.debug(sourceView);
+                console.debug(sourceGroup);
                 
                 if (sourceGroup === TARGET_DATABASE_ENTITY_GROUP_NAME) {
-                    console.log(
+                    console.debug(
                     "paper<validateMagnet>",
                     "It's not possible to create a link from an inbound port.");
                     return false;
                 }
             
-                if (
-                    this.graph
-                        .getConnectedLinks(source, { outbound: true })
-                        .find((link) => link.source().port === sourcePort)
-                ) {
-                        console.log(
-                        "paper<validateMagnet>",
-                        "The port has already an outbound link (we allow only one link per port)"
-                    );
-                    return false;
-                }
+                // uncomment if you want to forbid multiple links from the same port
+                // if (
+                //     this.graph
+                //         .getConnectedLinks(source, { outbound: true })
+                //         .find((link) => link.source().port === sourcePort)
+                // ) {
+                //     console.log("paper<validateMagnet>: The port has already an outbound link (we allow only one link per port)");
+                //     return false;
+                // }
             
                 return true;
-              },
+            },
         });
         
         this.paper.el.style.border = `1px solid #e2e2e2`;
