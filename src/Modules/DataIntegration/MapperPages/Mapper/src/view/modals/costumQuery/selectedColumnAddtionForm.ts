@@ -4,6 +4,9 @@ import { CheckboxInput } from "../../elements/checkboxInput";
 import { SelectInput } from "../../elements/selectInput";
 import { TextInput } from "../../elements/textInput";
 import { ColumnItem } from "./columnItem";
+/**
+ * Represents a form for adding selected columns.
+ */
 export class SelectedColumnAdditionForm {
     private container: HTMLElement;
     private columnMap: Map<string, Column>;
@@ -33,6 +36,7 @@ export class SelectedColumnAdditionForm {
 
         form.appendChild(this.createFormRow1());
         form.appendChild(this.createFormRow2());
+        form.appendChild(this.createCheckboxRow());
         form.appendChild(this.createAddColumnButton());
         form.appendChild(this.createColumnsHeading());
         form.appendChild(this.createColumnList());
@@ -42,7 +46,7 @@ export class SelectedColumnAdditionForm {
 
     /**
      * Creates the first form row containing column name input and data type selection.
-     * @returns {HTMLDivElement} The first form row element.
+     * @returns The first form row element.
      */
     private createFormRow1(): HTMLDivElement {
         const formRow1 = document.createElement('div');
@@ -56,7 +60,7 @@ export class SelectedColumnAdditionForm {
 
     /**
      * Creates the column name input field.
-     * @returns {HTMLDivElement} The column name input field div.
+     * @returns The column name input field div.
      */
     private createColNameDiv(): HTMLDivElement {
         const colNameDiv = document.createElement('div');
@@ -72,7 +76,7 @@ export class SelectedColumnAdditionForm {
 
     /**
      * Creates the data type selection field.
-     * @returns {HTMLDivElement} The data type selection field div.
+     * @returns The data type selection field div.
      */
     private createDataTypeDiv(): HTMLDivElement {
         const dataTypeDiv = document.createElement('div');
@@ -94,8 +98,8 @@ export class SelectedColumnAdditionForm {
     }
 
     /**
-     * Creates the second form row containing additional inputs for data types and nullability.
-     * @returns {HTMLDivElement} The second form row element.
+     * Creates the second form row containing additional inputs for data types.
+     * @returns The second form row element.
      */
     private createFormRow2(): HTMLDivElement {
         const formRow2 = document.createElement('div');
@@ -103,14 +107,13 @@ export class SelectedColumnAdditionForm {
 
         formRow2.appendChild(this.createLengthInputDiv());
         formRow2.appendChild(this.createOtherTypeDiv());
-        formRow2.appendChild(this.createNullabilityDiv());
 
         return formRow2;
     }
 
     /**
      * Creates the length input field for nvarchar data type.
-     * @returns {HTMLDivElement} The length input field div.
+     * @returns The length input field div.
      */
     private createLengthInputDiv(): HTMLDivElement {
         this.lengthInputDiv = document.createElement('div');
@@ -128,7 +131,7 @@ export class SelectedColumnAdditionForm {
 
     /**
      * Creates the other type input field for custom data types.
-     * @returns {HTMLDivElement} The other type input field div.
+     * @returns The other type input field div.
      */
     private createOtherTypeDiv(): HTMLDivElement {
         this.otherInputDiv = document.createElement('div');
@@ -145,20 +148,25 @@ export class SelectedColumnAdditionForm {
     }
 
     /**
-     * Creates the nullability input field for specifying if a column can be null.
-     * @returns {HTMLDivElement} The nullability input field div.
+     * Creates the checkbox input row for nullability.
+     * @returns The checkbox input row div.
      */
-    private createNullabilityDiv(): HTMLDivElement {
-        const nullabilityDiv = document.createElement('div');
-        nullabilityDiv.classList.add('form-group', 'form-check', 'col-md-6');
-        this.nullabilityCheckbox = new CheckboxInput('column-nullable', 'Nullable');
-        nullabilityDiv.appendChild(this.nullabilityCheckbox.checkbox);
-        return nullabilityDiv;
+    private createCheckboxRow(): HTMLDivElement {
+        const checkboxRow = document.createElement('div');
+        checkboxRow.classList.add('form-row', 'justify-content-center', 'mt-3');
+
+        const checkboxDiv = document.createElement('div');
+        checkboxDiv.classList.add('col-md-6', 'text-center');
+        this.nullabilityCheckbox = new CheckboxInput('column-nullable', 'Is nullable');
+        checkboxDiv.appendChild(this.nullabilityCheckbox.container);
+
+        checkboxRow.appendChild(checkboxDiv);
+        return checkboxRow;
     }
 
     /**
      * Creates the button to add selected columns to the list.
-     * @returns {HTMLButtonElement} The add column button element.
+     * @returns The add column button element.
      */
     private createAddColumnButton(): HTMLButtonElement {
         this.addColumnBtn = document.createElement('button');
@@ -171,7 +179,7 @@ export class SelectedColumnAdditionForm {
 
     /**
      * Creates the heading for the selected columns section.
-     * @returns {HTMLHeadingElement} The columns heading element.
+     * @returns The columns heading element.
      */
     private createColumnsHeading(): HTMLHeadingElement {
         const columnsHeading = document.createElement('h3');
@@ -182,7 +190,7 @@ export class SelectedColumnAdditionForm {
 
     /**
      * Creates the list to display selected columns.
-     * @returns {HTMLUListElement} The column list element.
+     * @returns The column list element.
      */
     private createColumnList(): HTMLUListElement {
         this.columnList = document.createElement('ul');

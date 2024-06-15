@@ -1,3 +1,6 @@
+/**
+ * Represents a form for defining a query.
+ */
 export class QueryDefinitionForm {
     private container: HTMLElement;
     private queryTextArea: HTMLTextAreaElement;
@@ -21,7 +24,7 @@ export class QueryDefinitionForm {
 
     /**
      * Creates the SQL query text area.
-     * @returns {HTMLTextAreaElement} The SQL query text area element.
+     * @returns The SQL query text area element.
      */
     private createQueryTextArea(): HTMLTextAreaElement {
         this.queryTextArea = document.createElement('textarea');

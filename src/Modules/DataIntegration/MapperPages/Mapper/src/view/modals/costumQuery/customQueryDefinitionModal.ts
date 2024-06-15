@@ -3,7 +3,7 @@ import { BaseModal } from "../baseModal";
 import { QueryDefinitionForm } from "./QueryDefinitionForm";
 import { SelectedColumnAdditionForm } from "./selectedColumnAddtionForm";
 
-export class CostumQueryDefinitionModal extends BaseModal {
+export class CustomQueryDefinitionModal extends BaseModal {
     /** @inheritdoc */
     protected name: string = 'Define a custom query for the source table';
 
@@ -24,7 +24,7 @@ export class CostumQueryDefinitionModal extends BaseModal {
 
     /**
      * Extracts the selected columns from the form.
-     * @returns {Column[]} The list of selected columns as Column instances.
+     * @returns The list of selected columns as Column instances.
      */
     private extractSelectedColumns(): Column[] {
         return this.columnForm.extractSelectedColumns();
@@ -32,7 +32,7 @@ export class CostumQueryDefinitionModal extends BaseModal {
 
     /**
      * Gets the SQL query from the form.
-     * @returns {string} The SQL query.
+     * @returns The SQL query.
      */
     private getSqlQuery(): string {
         return this.queryForm.getSqlQuery();

@@ -2,21 +2,13 @@
 import 'reflect-metadata';
 
 import { MappingEditor } from './view/mappingEditor';
-import { SourceTable } from './mappingModel/sourceTable';
-import { Join, JoinType } from './mappingModel/aggregators/join';
-import { JoinCondition, Operator } from './mappingModel/aggregators/conditions/joinCondition';
 import { EntityMapping } from './mappingModel/entityMapping';
 import { Column, Database, Table } from './dbModel/database';
 import { SourceColumn } from './mappingModel/sourceColumn';
 import { EntityMappingConvertor } from './mappingModel/converting/entityMappingConvertor';
 import { NVarCharMax, SimpleDataTypes, SimpleType } from './dbModel/dataTypes';
 import { plainToInstance } from 'class-transformer';
-import { CostumQueryDefinitionModal } from './view/modals/costumQuery/costumQueryDefinitionModal';
-//export { getMappingEditor };
-
-
- 
-
+import { CustomQueryDefinitionModal } from './view/modals/costumQuery/customQueryDefinitionModal';
 
 
 // TODO:
@@ -111,7 +103,7 @@ export function loadDevelopmentView(): number {
 
     mappingEditor.loadEntityMapping(deserializedEntityMapping, targetTable);
 
-    const testModal = new CostumQueryDefinitionModal();
+    const testModal = new CustomQueryDefinitionModal();
     testModal.open(null, true);
     return 800;
 }
