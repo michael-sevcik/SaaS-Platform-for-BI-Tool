@@ -101,11 +101,3 @@ export class Table {
         this.columns = columns;
         }
 }
-
-// export enum ColumnType {
-//     string = 'string',
-//     int = 'int',
-//     decimal = 'decimal',
-//     date = 'date',
-//     boolean = 'boolean'
-// }
