@@ -134,6 +134,36 @@ export class MappingEditor {
     public readonly graph = new dia.Graph({}, { cellNamespace: SHAPE_NAMESPACE });
     public readonly paper : dia.Paper;
 
+    private initializeToolBox() {
+        const addSourceTableButton = document.createElement('button');
+        addSourceTableButton.innerText = 'Přidat zdrojovou tabulku';
+        addSourceTableButton.addEventListener('click', () => this.openSourceTableSelectionModal());
+        this.toolbar?.appendChild(addSourceTableButton);
+
+        const exportMappingButton = document.createElement('button');
+        exportMappingButton.innerText = 'Exportovat mapování';
+        exportMappingButton.addEventListener('click', () => this.downloadMapping());
+        this.toolbar?.appendChild(exportMappingButton);
+
+        // TODO: DELETE for production
+        const importFile = getElementOrThrow('source-file');
+        importFile.addEventListener('change', (event) => {
+            const file = (event.target as HTMLInputElement).files?.[0];
+            if (file === undefined) return;
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                const result = reader.result;
+                if (result === null) return;
+
+                const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(JSON.parse(result as string));
+                this.loadEntityMapping(entityMapping, this.targetTable!);
+            }
+
+            reader.readAsText(file);
+        });
+    }
+
     // TODO: consider creating map of target tables with their names as keys
     public constructor(private readonly sourceDb: Database) {
         this.paper = new dia.Paper({
@@ -274,36 +304,8 @@ export class MappingEditor {
             }
         });
 
-        const addSourceTableButton = document.createElement('button');
-        addSourceTableButton.innerText = 'Přidat zdrojovou tabulku';
-        addSourceTableButton.addEventListener('click', () => this.openSourceTableSelectionModal());
-        this.toolbar?.appendChild(addSourceTableButton);
-
-        const exportMappingButton = document.createElement('button');
-        exportMappingButton.innerText = 'Exportovat mapování';
-        exportMappingButton.addEventListener('click', () => this.downloadMapping());
-        this.toolbar?.appendChild(exportMappingButton);
-
         this.sourceTablePickerModal = new SourceTablePickerModal(this.sourceDb.tables);
-
-        // TODO: DELETE for production
-        const importFile = getElementOrThrow('source-file');
-        importFile.addEventListener('change', (event) => {
-            const file = (event.target as HTMLInputElement).files?.[0];
-            if (file === undefined) return;
-
-            const reader = new FileReader();
-            reader.onload = () => {
-                const result = reader.result;
-                if (result === null) return;
-
-                const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(JSON.parse(result as string));
-                this.loadEntityMapping(entityMapping, this.targetTable!);
-            }
-
-            reader.readAsText(file);
-        });
-
+        this.initializeToolBox();
     }
  
     /**
