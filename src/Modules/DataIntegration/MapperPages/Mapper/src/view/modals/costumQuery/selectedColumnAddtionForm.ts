@@ -3,6 +3,15 @@ import { NVarChar, NVarCharMax, SimpleDataTypes, SimpleType, UnknownDataType, ty
 export class SelectedColumnAdditionForm {
     private container: HTMLElement;
     private columnMap: Map<string, Column>;
+    private colNameInput: HTMLInputElement;
+    private dataTypeSelect: HTMLSelectElement;
+    private nvarcharLengthInput: HTMLInputElement;
+    private otherTypeInput: HTMLInputElement;
+    private nullabilityCheckbox: HTMLInputElement;
+    private columnList: HTMLUListElement;
+    private addColumnBtn: HTMLButtonElement;
+    private lengthInputDiv: HTMLDivElement;
+    private otherInputDiv: HTMLDivElement;
 
     constructor(container: HTMLElement) {
         this.container = container;
@@ -51,13 +60,13 @@ export class SelectedColumnAdditionForm {
         const colNameLabel = document.createElement('label');
         colNameLabel.htmlFor = 'selected-column';
         colNameLabel.innerText = 'Selected Column Name:';
-        const colNameInput = document.createElement('input');
-        colNameInput.type = 'text';
-        colNameInput.classList.add('form-control');
-        colNameInput.id = 'selected-column';
-        colNameInput.placeholder = 'Enter column name';
+        this.colNameInput = document.createElement('input');
+        this.colNameInput.type = 'text';
+        this.colNameInput.classList.add('form-control');
+        this.colNameInput.id = 'selected-column';
+        this.colNameInput.placeholder = 'Enter column name';
         colNameDiv.appendChild(colNameLabel);
-        colNameDiv.appendChild(colNameInput);
+        colNameDiv.appendChild(this.colNameInput);
         return colNameDiv;
     }
 
@@ -71,10 +80,10 @@ export class SelectedColumnAdditionForm {
         const dataTypeLabel = document.createElement('label');
         dataTypeLabel.htmlFor = 'data-type';
         dataTypeLabel.innerText = 'Select Data Type:';
-        const dataTypeSelect = document.createElement('select');
-        dataTypeSelect.classList.add('form-control');
-        dataTypeSelect.id = 'data-type';
-        dataTypeSelect.onchange = this.handleSelectionChange;
+        this.dataTypeSelect = document.createElement('select');
+        this.dataTypeSelect.classList.add('form-control');
+        this.dataTypeSelect.id = 'data-type';
+        this.dataTypeSelect.onchange = this.handleSelectionChange.bind(this);
 
         const dataTypes = [
             'TinyInteger', 'SmallInteger', 'Integer', 'BigInteger', 'Money',
@@ -86,11 +95,11 @@ export class SelectedColumnAdditionForm {
             const option = document.createElement('option');
             option.value = type;
             option.text = type;
-            dataTypeSelect.appendChild(option);
+            this.dataTypeSelect.appendChild(option);
         });
 
         dataTypeDiv.appendChild(dataTypeLabel);
-        dataTypeDiv.appendChild(dataTypeSelect);
+        dataTypeDiv.appendChild(this.dataTypeSelect);
         return dataTypeDiv;
     }
 
@@ -114,21 +123,21 @@ export class SelectedColumnAdditionForm {
      * @returns {HTMLDivElement} The length input field div.
      */
     private createLengthInputDiv(): HTMLDivElement {
-        const lengthInputDiv = document.createElement('div');
-        lengthInputDiv.classList.add('form-group', 'col-md-6');
-        lengthInputDiv.id = 'length-input';
-        lengthInputDiv.style.display = 'none';
+        this.lengthInputDiv = document.createElement('div');
+        this.lengthInputDiv.classList.add('form-group', 'col-md-6');
+        this.lengthInputDiv.id = 'length-input';
+        this.lengthInputDiv.style.display = 'none';
         const lengthInputLabel = document.createElement('label');
         lengthInputLabel.htmlFor = 'nvarchar-length';
         lengthInputLabel.innerText = 'Specify Length for nvarchar';
-        const lengthInput = document.createElement('input');
-        lengthInput.type = 'number';
-        lengthInput.classList.add('form-control');
-        lengthInput.id = 'nvarchar-length';
-        lengthInput.placeholder = 'Enter length';
-        lengthInputDiv.appendChild(lengthInputLabel);
-        lengthInputDiv.appendChild(lengthInput);
-        return lengthInputDiv;
+        this.nvarcharLengthInput = document.createElement('input');
+        this.nvarcharLengthInput.type = 'number';
+        this.nvarcharLengthInput.classList.add('form-control');
+        this.nvarcharLengthInput.id = 'nvarchar-length';
+        this.nvarcharLengthInput.placeholder = 'Enter length';
+        this.lengthInputDiv.appendChild(lengthInputLabel);
+        this.lengthInputDiv.appendChild(this.nvarcharLengthInput);
+        return this.lengthInputDiv;
     }
 
     /**
@@ -136,21 +145,21 @@ export class SelectedColumnAdditionForm {
      * @returns {HTMLDivElement} The other type input field div.
      */
     private createOtherTypeDiv(): HTMLDivElement {
-        const otherTypeDiv = document.createElement('div');
-        otherTypeDiv.classList.add('form-group', 'col-md-6');
-        otherTypeDiv.id = 'other-input';
-        otherTypeDiv.style.display = 'none';
+        this.otherInputDiv = document.createElement('div');
+        this.otherInputDiv.classList.add('form-group', 'col-md-6');
+        this.otherInputDiv.id = 'other-input';
+        this.otherInputDiv.style.display = 'none';
         const otherTypeLabel = document.createElement('label');
         otherTypeLabel.htmlFor = 'other-type';
         otherTypeLabel.innerText = 'Specify Other Type';
-        const otherTypeInput = document.createElement('input');
-        otherTypeInput.type = 'text';
-        otherTypeInput.classList.add('form-control');
-        otherTypeInput.id = 'other-type';
-        otherTypeInput.placeholder = 'Enter type name';
-        otherTypeDiv.appendChild(otherTypeLabel);
-        otherTypeDiv.appendChild(otherTypeInput);
-        return otherTypeDiv;
+        this.otherTypeInput = document.createElement('input');
+        this.otherTypeInput.type = 'text';
+        this.otherTypeInput.classList.add('form-control');
+        this.otherTypeInput.id = 'other-type';
+        this.otherTypeInput.placeholder = 'Enter type name';
+        this.otherInputDiv.appendChild(otherTypeLabel);
+        this.otherInputDiv.appendChild(this.otherTypeInput);
+        return this.otherInputDiv;
     }
 
     /**
@@ -160,15 +169,15 @@ export class SelectedColumnAdditionForm {
     private createNullabilityDiv(): HTMLDivElement {
         const nullabilityDiv = document.createElement('div');
         nullabilityDiv.classList.add('form-group', 'form-check', 'col-md-6');
-        const nullabilityCheckbox = document.createElement('input');
-        nullabilityCheckbox.type = 'checkbox';
-        nullabilityCheckbox.id = 'column-nullable';
-        nullabilityCheckbox.classList.add('form-check-input');
+        this.nullabilityCheckbox = document.createElement('input');
+        this.nullabilityCheckbox.type = 'checkbox';
+        this.nullabilityCheckbox.id = 'column-nullable';
+        this.nullabilityCheckbox.classList.add('form-check-input');
         const nullabilityLabel = document.createElement('label');
         nullabilityLabel.classList.add('form-check-label');
         nullabilityLabel.htmlFor = 'column-nullable';
         nullabilityLabel.innerText = 'Nullable';
-        nullabilityDiv.appendChild(nullabilityCheckbox);
+        nullabilityDiv.appendChild(this.nullabilityCheckbox);
         nullabilityDiv.appendChild(nullabilityLabel);
         return nullabilityDiv;
     }
@@ -178,12 +187,12 @@ export class SelectedColumnAdditionForm {
      * @returns {HTMLButtonElement} The add column button element.
      */
     private createAddColumnButton(): HTMLButtonElement {
-        const addColumnBtn = document.createElement('button');
-        addColumnBtn.type = 'button';
-        addColumnBtn.classList.add('btn', 'btn-primary');
-        addColumnBtn.id = 'add-column-btn';
-        addColumnBtn.innerText = 'Add Selected Column';
-        return addColumnBtn;
+        this.addColumnBtn = document.createElement('button');
+        this.addColumnBtn.type = 'button';
+        this.addColumnBtn.classList.add('btn', 'btn-primary');
+        this.addColumnBtn.id = 'add-column-btn';
+        this.addColumnBtn.innerText = 'Add Selected Column';
+        return this.addColumnBtn;
     }
 
     /**
@@ -202,40 +211,32 @@ export class SelectedColumnAdditionForm {
      * @returns {HTMLUListElement} The column list element.
      */
     private createColumnList(): HTMLUListElement {
-        const columnList = document.createElement('ul');
-        columnList.classList.add('list-group');
-        columnList.id = 'column-list';
-        return columnList;
+        this.columnList = document.createElement('ul');
+        this.columnList.classList.add('list-group');
+        this.columnList.id = 'column-list';
+        return this.columnList;
     }
 
     /**
      * Adds event listeners for dynamic form behavior.
      */
     private addEventListeners(): void {
-        const addColumnBtn = document.getElementById('add-column-btn') as HTMLButtonElement;
-        const columnList = document.getElementById('column-list') as HTMLUListElement;
-        const colNameInput = document.getElementById('selected-column') as HTMLInputElement;
-        const dataTypeSelect = document.getElementById('data-type') as HTMLSelectElement;
-        const nvarcharLengthInput = document.getElementById('nvarchar-length') as HTMLInputElement;
-        const otherTypeInput = document.getElementById('other-type') as HTMLInputElement;
-        const nullabilityCheckbox = document.getElementById('column-nullable') as HTMLInputElement;
-
-        addColumnBtn.addEventListener('click', () => {
-            const columnName = colNameInput.value.trim();
+        this.addColumnBtn.addEventListener('click', () => {
+            const columnName = this.colNameInput.value.trim();
             let dataType: DataTypeBase;
             let additionalInfo = '';
-            const isNullable = nullabilityCheckbox.checked;
+            const isNullable = this.nullabilityCheckbox.checked;
 
-            if (dataTypeSelect.value === 'nvarchar(length)') {
-                const length = parseInt(nvarcharLengthInput.value, 10);
+            if (this.dataTypeSelect.value === 'nvarchar(length)') {
+                const length = parseInt(this.nvarcharLengthInput.value, 10);
                 dataType = new NVarChar(length, isNullable);
                 additionalInfo = `(${length})`;
-            } else if (dataTypeSelect.value === 'nvarchar(max)') {
+            } else if (this.dataTypeSelect.value === 'nvarchar(max)') {
                 dataType = new NVarCharMax(isNullable);
-            } else if (dataTypeSelect.value in SimpleDataTypes) {
-                dataType = new SimpleType(SimpleDataTypes[dataTypeSelect.value], isNullable);
+            } else if (this.dataTypeSelect.value in SimpleDataTypes) {
+                dataType = new SimpleType(SimpleDataTypes[this.dataTypeSelect.value], isNullable);
             } else {
-                dataType = new UnknownDataType(dataTypeSelect.value, isNullable);
+                dataType = new UnknownDataType(this.dataTypeSelect.value, isNullable);
             }
 
             if (columnName && dataType) {
@@ -249,23 +250,23 @@ export class SelectedColumnAdditionForm {
                 removeBtn.className = 'btn btn-danger btn-sm';
                 removeBtn.textContent = 'Remove';
                 removeBtn.addEventListener('click', () => {
-                    columnList.removeChild(listItem);
+                    this.columnList.removeChild(listItem);
                     this.columnMap.delete(itemId);
                 });
 
                 listItem.appendChild(removeBtn);
-                columnList.appendChild(listItem);
+                this.columnList.appendChild(listItem);
 
                 // Add to the column map
                 const column = new Column(columnName, dataType);
                 this.columnMap.set(itemId, column);
 
                 // Clear inputs
-                colNameInput.value = '';
-                nvarcharLengthInput.value = '';
-                otherTypeInput.value = '';
-                dataTypeSelect.value = '';
-                nullabilityCheckbox.checked = false;
+                this.colNameInput.value = '';
+                this.nvarcharLengthInput.value = '';
+                this.otherTypeInput.value = '';
+                this.dataTypeSelect.value = '';
+                this.nullabilityCheckbox.checked = false;
                 this.handleSelectionChange();
             } else {
                 alert('Please enter a column name and select a data type.');
@@ -277,21 +278,17 @@ export class SelectedColumnAdditionForm {
      * Handles the change event for data type selection, showing or hiding additional inputs.
      */
     private handleSelectionChange(): void {
-        const dataTypeSelect = document.getElementById('data-type') as HTMLSelectElement;
-        const lengthInputDiv = document.getElementById('length-input') as HTMLDivElement;
-        const otherInputDiv = document.getElementById('other-input') as HTMLDivElement;
-
-        const dataType = dataTypeSelect.value;
+        const dataType = this.dataTypeSelect.value;
 
         if (dataType === 'nvarchar(length)') {
-            lengthInputDiv.style.display = 'block';
-            otherInputDiv.style.display = 'none';
+            this.lengthInputDiv.style.display = 'block';
+            this.otherInputDiv.style.display = 'none';
         } else if (dataType === 'other') {
-            lengthInputDiv.style.display = 'none';
-            otherInputDiv.style.display = 'block';
+            this.lengthInputDiv.style.display = 'none';
+            this.otherInputDiv.style.display = 'block';
         } else {
-            lengthInputDiv.style.display = 'none';
-            otherInputDiv.style.display = 'none';
+            this.lengthInputDiv.style.display = 'none';
+            this.otherInputDiv.style.display = 'none';
         }
     }
 
