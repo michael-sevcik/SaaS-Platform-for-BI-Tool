@@ -11,6 +11,7 @@ import { SourceColumn } from './mappingModel/sourceColumn';
 import { EntityMappingConvertor } from './mappingModel/converting/entityMappingConvertor';
 import { NVarCharMax, SimpleDataTypes, SimpleType } from './dbModel/dataTypes';
 import { plainToInstance } from 'class-transformer';
+import { CostumQueryDefinitionModal } from './view/modals/costumQuery/costumQueryDefinitionModal';
 //export { getMappingEditor };
 
 
@@ -110,5 +111,7 @@ export function loadDevelopmentView(): number {
 
     mappingEditor.loadEntityMapping(deserializedEntityMapping, targetTable);
 
+    const testModal = new CostumQueryDefinitionModal();
+    testModal.open(null, true);
     return 800;
 }
