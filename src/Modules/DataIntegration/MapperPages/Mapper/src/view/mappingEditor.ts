@@ -437,7 +437,7 @@ export class MappingEditor {
 
         const joinModal = new JoinModal(join);
         const sourceTableData = new IntermediateSourceTableData(sourceTable, table, joinModal, join);
-        joinModal.open(() => this.finishJoiningSourceTable(sourceTableData));
+        joinModal.open(() => this.finishJoiningSourceTable(sourceTableData), true);
     }
     
     /**

@@ -5,8 +5,13 @@ type OptionalCallbackFunction = CallbackFunction | null;
 export abstract class BaseModal {
     private static counter = 0;
     protected static readonly overlay = document.getElementById('overlay')
-        ?? (() => { throw new Error('Overlay not found') })();
-        
+    ?? (() => { throw new Error('Overlay not found') })();
+    
+    /**
+     * Indicates whether the modal should be finalized when closed without saving.
+     */
+    private finalizeOnClose: boolean = false;
+    private finalized: boolean = false;
     private readonly cancelAction = () => this.handleCancelClick();
     private saveCallback: OptionalCallbackFunction;
     private readonly title: HTMLHeadingElement;
@@ -55,6 +60,9 @@ export abstract class BaseModal {
         this.modal.classList.remove('active');
         BaseModal.overlay.classList.remove('active');
         BaseModal.overlay.removeEventListener('click', this.cancelAction);
+        if (this.finalizeOnClose) {
+            this.finalize();
+        }
     }
 
     /**
@@ -102,9 +110,15 @@ export abstract class BaseModal {
 
     /**
      * Frees the resources used by the modal
+     * @throws Error if the modal has been already finalized.
      */
     public finalize() { 
+        if (this.finalized) {
+            throw new Error('Modal already finalized');
+        }
+        
         this.modal.parentNode?.removeChild(this.modal);
+        this.finalized = true;
     }
 
     /**
@@ -115,14 +129,16 @@ export abstract class BaseModal {
     }
 
     /**
-     * Opens the modal
+     * Opens the modal.
      * 
-     * The callback might never be called if the modal is closed by the cancel button
+     * The callback might never be called, the modal might be closed using the cancel button.
      * 
-     * @param saveCallback callback to be called when the modal is closed and the changes are saved
+     * @param saveCallback Callback to be called when the modal is closed and the changes are saved.
+     * @param finalizeOnClose  Finalizes the modal when closed without saving.
      */
-    public open(saveCallback: OptionalCallbackFunction = null) {
+    public open(saveCallback: OptionalCallbackFunction = null, finalizeOnClose = false) {
         this.saveCallback = saveCallback;
+        this.finalizeOnClose = finalizeOnClose;
         this.onOpen();
         this.modal.classList.add('active');
         BaseModal.overlay.classList.add('active');
