@@ -164,7 +164,7 @@ export class MappingEditor {
 
                 if (sourceView === targetView) return false;
                 // TODO: Create an abstract class for source elements
-                if (targetElement instanceof SourceTableShape) {
+                if (targetElement instanceof BaseSourceEntityShape) {
                     console.log('paper<validateConnection>', 'Cannot connect to source database entity.');
                     return false;
                 };
