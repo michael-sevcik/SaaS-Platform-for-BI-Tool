@@ -17,6 +17,12 @@ internal sealed class MapperJsInterop : IAsyncDisposable
 
     private Lazy<Task<IJSObjectReference>> mapperObject;
 
+    /// <summary>
+    /// Initializes a new instance of the <see cref="MapperJsInterop"/> class.
+    /// </summary>
+    /// <param name="jsRuntime">The JavaScript runtime.</param>
+    /// <param name="logger">The logger.</param>
+    /// <param name="sourceDbModel">The source database model.</param>
     public MapperJsInterop(IJSRuntime jsRuntime, ILogger<MapperJsInterop> logger, DbModel sourceDbModel)
     {
         this.logger = logger;
@@ -27,8 +33,16 @@ internal sealed class MapperJsInterop : IAsyncDisposable
         mapperObject = new(async () => await (await moduleTask.Value).InvokeAsync<IJSObjectReference>("getMappingEditor", serializedSourceDbModel));
     }
 
+    /// <summary>
+    /// Gets the mapping editor.
+    /// </summary>
+    /// <returns>The mapping editor.</returns>
     public async ValueTask<IJSObjectReference> GetMappingEditorAsync() => await mapperObject.Value;
 
+    /// <summary>
+    /// Initializes the mapper with the target table.
+    /// </summary>
+    /// <param name="targetTable">The target database table.</param>
     public async ValueTask InitializeMapperWithTargetTableAsync(TargetDbTable targetTable)
     {
         var mapper = await mapperObject.Value;
@@ -36,6 +50,11 @@ internal sealed class MapperJsInterop : IAsyncDisposable
         await mapper.InvokeVoidAsync("createFromSerializedTargetTable", serializedTableModel);
     }
 
+    /// <summary>
+    /// Loads the entity mapping.
+    /// </summary>
+    /// <param name="serializedEntityMapping">The serialized entity mapping.</param>
+    /// <param name="targetTable">The target database table.</param>
     public async ValueTask LoadEntityMapping(string serializedEntityMapping, TargetDbTable targetTable)
     {
         var mapper = await mapperObject.Value;
@@ -46,6 +65,7 @@ internal sealed class MapperJsInterop : IAsyncDisposable
     /// <summary>
     /// Asynchronously checks if the mapping is complete.
     /// </summary>
+    /// <returns><c>true</c> if the mapping is complete; otherwise, <c>false</c>.</returns>
     public async ValueTask<bool> IsMappingCompleteAsync()
     {
         var mapper = await mapperObject.Value;
@@ -53,8 +73,9 @@ internal sealed class MapperJsInterop : IAsyncDisposable
     }
 
     /// <summary>
-    /// Asynchronously checks if the mapping is complete.
+    /// Asynchronously gets the serialized mapping.
     /// </summary>
+    /// <returns>The serialized mapping.</returns>
     public async ValueTask<string> GetSerializedMappingAsync()
     {
         var mapper = await mapperObject.Value;

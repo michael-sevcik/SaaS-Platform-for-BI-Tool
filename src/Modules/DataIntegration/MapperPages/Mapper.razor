@@ -18,11 +18,16 @@
             <div id="content">
                 <div id="toolbar">
                     <input id="source-file" type="file" />
-                    <Microsoft.AspNetCore.Components.Forms.InputSelect @bind-Value=@testint>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                    <Microsoft.AspNetCore.Components.Forms.InputSelect @bind-Value=@testint @bind-Value:after="HandleTargetTableSelectionChange">
+                        @* <option value="1">1</option> *@
+                        @if (targetTables != null)
+                        {
+                            for (int i = 0; i < targetTables.Count; ++i)
+                            {
+                                var table = targetTables[i];
+                                <option value="@i">@table.Schema.@table.TableName</option>
+                            }
+                        }
                     </Microsoft.AspNetCore.Components.Forms.InputSelect>
                     <button @onclick=SaveMappingAsync id="save-button">Save</button>
                 </div>
