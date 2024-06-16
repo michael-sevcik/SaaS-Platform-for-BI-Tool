@@ -77,7 +77,7 @@ export class ColumnSelectionModal extends BaseModal {
     /**
      * Disables checkboxes of columns which are referenced.
      */
-    private disableCheckboxesOfReferencedColumns() {
+    private disableCheckboxesOfReferencedColumns(): void {
         for (const sourceColumn of this.sourceTableShape.sourceTable.selectedColumns) {
             const checkbox = this.columnCheckboxesByNames.get(sourceColumn.name)
                 ?? (() => { throw new Error(`Checkbox for column ${sourceColumn.name} not found`) })();

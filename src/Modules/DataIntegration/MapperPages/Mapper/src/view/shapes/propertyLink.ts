@@ -8,7 +8,7 @@ import type { BaseEntityShape } from "./baseEntityShape";
 import type { Column } from "../../dbModel/database";
 
 export class PropertyLink extends Link {
-    private clickMethod() {
+    private clickMethod(): void {
         console.log('clickMethod');
     }
 
@@ -53,7 +53,7 @@ export class PropertyLink extends Link {
         }, super.defaults);
     }
 
-    handleConnection() {
+    handleConnection(): void {
         const targetElement = this.accessTargetElement();
         
         // HACK: this is a workaround for getting TargetElementShape

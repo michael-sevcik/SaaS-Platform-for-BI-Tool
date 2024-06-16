@@ -267,7 +267,7 @@ export class SelectedColumnAdditionForm {
 
     /**
      * Extracts the selected columns from the map.
-     * @returns {Column[]} The list of selected columns as Column instances.
+     * @returns The list of selected columns as Column instances.
      */
     public extractSelectedColumns(): Column[] {
         return Array.from(this.columnMap.values());

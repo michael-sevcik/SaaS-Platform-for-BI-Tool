@@ -67,7 +67,7 @@ export abstract class BaseModal {
         mapperElement.appendChild(modal); 
     }
 
-    private close() {
+    private close(): void {
         this.modal.classList.remove('active');
         BaseModal.overlay.classList.remove('active');
         BaseModal.overlay.removeEventListener('click', this.cancelAction);
@@ -89,7 +89,7 @@ export abstract class BaseModal {
      * 
      * Closes the modal if saving was successful
      */
-    private handleSaveRequest() {
+    private handleSaveRequest(): void {
         if (!this.save()) {
             return;
         }
@@ -123,7 +123,7 @@ export abstract class BaseModal {
      * Frees the resources used by the modal
      * @throws Error if the modal has been already finalized.
      */
-    public finalize() { 
+    public finalize(): void { 
         this.checkFinalized();
         this.modal.parentNode?.removeChild(this.modal);
         this.finalized = true;
@@ -132,11 +132,11 @@ export abstract class BaseModal {
     /**
      * Called when the modal is opened
      */
-    protected onOpen() {
+    protected onOpen(): void {
         // nothing to do here
     }
 
-    private checkFinalized() {
+    private checkFinalized(): void {
         if (this.finalized) {
             throw new Error('Modal has been already finalized');
         }

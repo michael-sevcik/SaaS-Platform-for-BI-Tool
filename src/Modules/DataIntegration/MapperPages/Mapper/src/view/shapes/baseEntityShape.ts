@@ -69,7 +69,7 @@ export abstract class BaseEntityShape extends dia.Element {
         this.attr('description/text', title);
     }
 
-    private resizeToFitPorts() {
+    private resizeToFitPorts(): void {
         const { length } = this.getPorts();
         this.prop(['size', 'height'], HEADER_HEIGHT + (DATABASE_ENTITY_PROPERTY_HEIGHT + DATABASE_ENTITY_PROPERTY_GAP) * length + PADDING_L);
     }

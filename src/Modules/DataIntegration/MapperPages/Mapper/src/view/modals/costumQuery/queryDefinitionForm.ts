@@ -49,7 +49,7 @@ export class QueryDefinitionForm {
 
     /**
      * Gets the SQL query from the text area.
-     * @returns {string} The SQL query.
+     * @returns The SQL query.
      */
     public getSqlQuery(): string {
         return this.queryTextArea.value.trim();

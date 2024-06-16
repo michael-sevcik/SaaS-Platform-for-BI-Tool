@@ -60,7 +60,7 @@ export class SearchableDropdown {
     /**
      * Handles input events to filter and display dropdown options.
      */
-    private handleInput() {
+    private handleInput(): void {
         const options = this.optionsProvider();
         this.optionValues = options;
         this.dropdownContent.innerHTML = '';
@@ -118,14 +118,14 @@ export class SearchableDropdown {
     /**
      * Shows the dropdown.
      */
-    private showDropdown() {
+    private showDropdown(): void {
         this.dropdownContent.classList.add('show');
     }
 
     /**
      * Hides the dropdown.
      */
-    private hideDropdown() {
+    private hideDropdown(): void {
         this.dropdownContent.classList.remove('show');
     }
 
