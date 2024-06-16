@@ -4,6 +4,8 @@ import { SourceColumn } from "../sourceColumn";
 import { Column } from "../../dbModel/database";
 
 export class SourceTable extends SourceEntityBase {
+    public static readonly typeDescriptor = 'sourceTable';
+
     /** @inheritdoc */
     public get fullName(): string {
         return this.schema ? `${this.schema}.${this.name}` : this.name;

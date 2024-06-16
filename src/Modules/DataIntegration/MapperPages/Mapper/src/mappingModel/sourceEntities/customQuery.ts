@@ -7,6 +7,8 @@ import { SourceColumn } from "../sourceColumn";
  * Represents a custom query source entity.
  */
 export class CustomQuery extends SourceEntityBase {
+    public static readonly typeDescriptor = 'customQuery';
+    
     /** @inheritdoc */
     public get fullName(): string {
         return this.name;

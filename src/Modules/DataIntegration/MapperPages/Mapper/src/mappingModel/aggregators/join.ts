@@ -1,5 +1,3 @@
-import { Type } from "class-transformer";
-
 import { SourceEntityBase } from "../sourceEntities/sourceEntityBase";
 import { MappingVisitor } from "../mappingVisitor";
 import { JoinCondition } from "./conditions/joinCondition";
@@ -11,6 +9,8 @@ import { SourceEntity } from "../sourceEntities/sourceEntity";
  * @note join is creating 
  */
 export class Join extends SourceEntity{
+    public static readonly typeDescriptor = 'join';
+
     public removeReferences(): void {
         this.condition?.removeReferences();
         // this.rightSourceEntity.removeReferences();

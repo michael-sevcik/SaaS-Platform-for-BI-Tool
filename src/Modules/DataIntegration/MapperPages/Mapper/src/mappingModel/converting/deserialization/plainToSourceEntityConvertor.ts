@@ -91,14 +91,14 @@ export class PlainToSourceEntityConvertor {
         let id : string = value["$id"];
 
         switch (value["type"]) {
-            case "sourceTable": {
+            case SourceTable.typeDescriptor: {
                 result = new SourceTable(
                     PlainToSourceEntityConvertor.safeGetProperty(value, "name"),
                     value["schema"] ? value["schema"] : null,
                     this.convertSourceColumns(value.selectedColumns));
                 break;
             }
-            case "join": {
+            case Join.typeDescriptor: {
                 const leftSourceEntity = this.convertToSourceEntity(value["leftSourceEntity"]);
                 const rightSourceEntity = this.convertToSourceEntity(value["rightSourceEntity"]);
 
@@ -117,11 +117,13 @@ export class PlainToSourceEntityConvertor {
 
                     break;
             }
-            case "customQuery": {
+            case CustomQuery.typeDescriptor: {
                 result = new CustomQuery(
                     PlainToSourceEntityConvertor.safeGetProperty(value, "name"),
                     PlainToSourceEntityConvertor.safeGetProperty(value, "query"),
                     this.convertSourceColumns(value.selectedColumns));
+
+                break;
             }
             default:{
                 throw new Error("type property is missing");
@@ -151,7 +153,9 @@ export class PlainToSourceEntityConvertor {
             throw new Error("joinType property is missing");
         }
 
-        if (!(result in Object.values(JoinType))) {
+        const values = Object.values(JoinType);
+
+        if (!values.includes(result)) {
             throw new Error("joinType property is not a valid JoinType");
         }
 

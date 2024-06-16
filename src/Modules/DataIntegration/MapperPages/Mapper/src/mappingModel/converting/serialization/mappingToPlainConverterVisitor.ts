@@ -6,7 +6,7 @@ import { SourceTable } from "../../sourceEntities/sourceTable";
 import { MappingVisitor } from "../../mappingVisitor";
 import { instanceToPlain } from "class-transformer";
 import type { SourceEntity } from "../../sourceEntities/sourceEntity";
-import type { CustomQuery } from "../../sourceEntities/customQuery";
+import { CustomQuery } from "../../sourceEntities/customQuery";
 
 
 // TODO: check NESTED JOIN VISITATION
@@ -26,7 +26,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
 
             return { 
                 $id: id,
-                type: "customQuery", // TODO: move this to a map to constatns or something
+                type: CustomQuery.typeDescriptor, // TODO: move this to a map to constatns or something
                 name: customQuery.name,
                 query: customQuery.query,
                 selectedColumns: plainColumns,
@@ -126,7 +126,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
 
             return { 
                 $id: id,
-                type: "join", // TODO: move this to a map to constatns or something
+                type: Join.typeDescriptor, // TODO: move this to a map to constatns or something
                 name: join.name,
                 joinType: join.type,
                 leftSourceEntity: plainLeftSourceEntity,
@@ -185,7 +185,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
 
             return { 
                 $id: id,
-                type: "sourceTable", // TODO: move this to a map to constants or something
+                type: SourceTable.typeDescriptor, // TODO: move this to a map to constants or something
                 name: sourceTable.name,
                 selectedColumns: plainColumns,
             };
