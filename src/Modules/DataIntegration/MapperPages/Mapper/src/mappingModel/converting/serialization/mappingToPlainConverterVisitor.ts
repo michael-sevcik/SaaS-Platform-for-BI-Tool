@@ -187,6 +187,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
                 $id: id,
                 type: SourceTable.typeDescriptor, // TODO: move this to a map to constants or something
                 name: sourceTable.name,
+                schema: sourceTable.schema,
                 selectedColumns: plainColumns,
             };
         });

@@ -94,7 +94,7 @@ export class PlainToSourceEntityConvertor {
             case SourceTable.typeDescriptor: {
                 result = new SourceTable(
                     PlainToSourceEntityConvertor.safeGetProperty(value, "name"),
-                    value["schema"] ? value["schema"] : null,
+                    value["schema"] !== undefined ? value["schema"] : null,
                     this.convertSourceColumns(value.selectedColumns));
                 break;
             }

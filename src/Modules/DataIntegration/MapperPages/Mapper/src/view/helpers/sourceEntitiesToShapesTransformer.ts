@@ -27,7 +27,7 @@ export class SourceEntitiesToShapesTransformer extends SourceEntityVisitor {
         super();
         // TODO: Consider using also the schema name as a key
         sourceTables.forEach((table) =>
-            this.sourceTablesByName.set(table.schema + table.name, table)
+            this.sourceTablesByName.set(table.fullName, table)
         );
     }
 
@@ -81,7 +81,7 @@ export class SourceEntitiesToShapesTransformer extends SourceEntityVisitor {
     }
 
     private getCorrespondingTable(sourceTable: SourceTable): Table {
-        const table = this.sourceTablesByName.get(sourceTable.schema + sourceTable.name);
+        const table = this.sourceTablesByName.get(sourceTable.fullName);
         if (table === undefined) {
             throw new Error('Table not found');
         }

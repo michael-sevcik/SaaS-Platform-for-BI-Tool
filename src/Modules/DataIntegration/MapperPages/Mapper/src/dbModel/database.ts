@@ -1,4 +1,4 @@
-import { Type } from "class-transformer";
+import { Exclude, Type } from "class-transformer";
 import { NVarChar, NVarCharMax, SimpleType, UnknownDataType, DataTypeBase } from "./dataTypes";
 
 /**
@@ -80,6 +80,11 @@ export class Column {
  * Represents a table in a database schema.
  */
 export class Table {
+    @Exclude()
+    public get fullName(): string {
+        return this.schema ? `${this.schema}.${this.name}` : this.name;
+    }
+
     /**
      * Columns of the table.
      */
