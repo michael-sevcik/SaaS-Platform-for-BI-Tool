@@ -29,43 +29,8 @@ import type { SourceEntityBase } from '../mappingModel/sourceEntities/sourceEnti
 import { CustomQueryShape } from './shapes/customQueryShape';
 import { CustomQueryDefinitionModal } from './modals/costumQuery/customQueryDefinitionModal';
 import { JoinedSourceEntityData, type SourceEntityShapeFactory } from './helpers/joinedSourceEntityData';
-
-
-
-
-/**
- * Helper {@link MappingVisitor} derived class for finding the rightmost 
- * source table in the joining tree.
- */
-class SourceTableFinder extends MappingVisitor {
-    public desiredSourceEntity : SourceEntityBase | null;
-    public visitCustomQuery(customQuery: CustomQuery): void {
-        this.desiredSourceEntity = customQuery;
-    }
-
-    // Intentionally left not implemented
-    public visitSourceColumn(sourceColumn: SourceColumn): void {
-        throw new Error('Method not implemented.');
-    }
-
-    // Intentionally left not implemented
-    public visitConditionLink(conditionLink: ConditionLink): void {
-        throw new Error('Method not implemented.');
-    }
-
-    // Intentionally left not implemented
-    public visitJoinCondition(joinCondition: JoinCondition): void {
-        throw new Error('Method not implemented.');
-    }
-
-    public visitSourceTable(sourceTable: SourceTable): void {
-        this.desiredSourceEntity = sourceTable;
-    }
-    public visitJoin(join: Join): void {
-        join.rightSourceEntity.accept(this);
-    }
-
-}
+import { SourceEntityVisitor } from '../mappingModel/sourceEntityVisitor';
+import { ConcreteSourceEntityFinder } from './helpers/concreteSourceEntityFinder';
 
 export class MappingEditor {
     public static readonly containerId = 'paper';
@@ -475,7 +440,7 @@ export class MappingEditor {
      */
     private finishJoiningSourceTable(joinedSourceEntityData: JoinedSourceEntityData) : void {
         const rightSourceEntityShape = joinedSourceEntityData.sourceEntityShapeFactory();
-        const sourceTableFinder = new SourceTableFinder();
+        const sourceTableFinder = new ConcreteSourceEntityFinder();
         
         if (this.entityMapping!.sourceEntity == null) throw new Error('Source entity should be initialized.');
         this.entityMapping!.sourceEntity.accept(sourceTableFinder);
