@@ -8,7 +8,7 @@ import { SourceColumn } from './mappingModel/sourceColumn';
 import { EntityMappingConvertor } from './mappingModel/converting/entityMappingConvertor';
 import { NVarCharMax, SimpleDataTypes, SimpleType } from './dbModel/dataTypes';
 import { plainToInstance } from 'class-transformer';
-import { CustomQueryDefinitionModal } from './view/modals/costumQuery/customQueryDefinitionModal';
+import { CustomQueryDefinitionModal } from './view/modals/customQuery/customQueryDefinitionModal';
 
 
 // TODO:

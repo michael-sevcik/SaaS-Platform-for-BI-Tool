@@ -4,7 +4,7 @@ import { EntityMapping } from '../../mappingModel/entityMapping';
 import type { CustomQuery } from '../../mappingModel/sourceEntities/customQuery';
 import { SourceTable } from '../../mappingModel/sourceEntities/sourceTable';
 import { ColumnSelectionModal } from '../modals/columnSelectionModal';
-import { QueryPreviewModal } from '../modals/costumQuery/queryPreviewModal';
+import { QueryPreviewModal } from '../modals/customQuery/queryPreviewModal';
 import { BaseSourceEntityShape } from './baseSourceEntityShape';
 import { PropertyLink } from './propertyLink';
 

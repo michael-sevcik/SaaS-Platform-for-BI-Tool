@@ -12,7 +12,7 @@ import { SourceTablePickerModal } from './modals/sourceTablePickerModal';
 import type { BaseEntityShape } from './shapes/baseEntityShape';
 import { JoinLink } from './shapes/joinLink';
 import { EntityMappingConvertor } from '../mappingModel/converting/entityMappingConvertor';
-import { CustomQueryDefinitionModal } from './modals/costumQuery/customQueryDefinitionModal';
+import { CustomQueryDefinitionModal } from './modals/customQuery/customQueryDefinitionModal';
 import { SourceColumn } from '../mappingModel/sourceColumn';
 import { plainToInstance } from 'class-transformer';
 import { DirectedGraph } from '@joint/layout-directed-graph';
