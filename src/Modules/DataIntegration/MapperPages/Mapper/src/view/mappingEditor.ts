@@ -1,7 +1,7 @@
-import { dia, elementTools, layout, linkTools, shapes } from '@joint/core';
+import { dia, elementTools, linkTools } from '@joint/core';
 import { DirectedGraph } from '@joint/layout-directed-graph';
 import { SHAPE_NAMESPACE } from './shapes/shapeNamespace';
-import { GRID_SIZE, TARGET_DATABASE_ENTITY_GROUP_NAME, LIGHT_COLOR, contentDiv } from '../constants';
+import { GRID_SIZE, TARGET_DATABASE_ENTITY_GROUP_NAME, contentDiv } from '../constants';
 import { PropertyLink } from './shapes/propertyLink';
 import { SourceTableShape } from './shapes/sourceTableShape';
 import { JoinLink } from './shapes/joinLink';
@@ -16,9 +16,6 @@ import { SourceColumn } from '../mappingModel/sourceColumn';
 import { Join, JoinType } from '../mappingModel/aggregators/join';
 import { JoinModal } from './modals/joinModal';
 import { SourceTablePickerModal } from './modals/sourceTablePickerModal';
-import { MappingVisitor } from '../mappingModel/mappingVisitor';
-import { ConditionLink } from '../mappingModel/aggregators/conditions/conditionLink';
-import { JoinCondition } from '../mappingModel/aggregators/conditions/joinCondition';
 import { BaseEntityShape } from './shapes/baseEntityShape';
 import { BaseSourceEntityShape } from './shapes/baseSourceEntityShape';
 import { EntityMappingConvertor } from '../mappingModel/converting/entityMappingConvertor';
@@ -29,7 +26,6 @@ import type { SourceEntityBase } from '../mappingModel/sourceEntities/sourceEnti
 import { CustomQueryShape } from './shapes/customQueryShape';
 import { CustomQueryDefinitionModal } from './modals/costumQuery/customQueryDefinitionModal';
 import { JoinedSourceEntityData, type SourceEntityShapeFactory } from './helpers/joinedSourceEntityData';
-import { SourceEntityVisitor } from '../mappingModel/sourceEntityVisitor';
 import { ConcreteSourceEntityFinder } from './helpers/concreteSourceEntityFinder';
 
 export class MappingEditor {
