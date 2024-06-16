@@ -11,6 +11,9 @@ import { PropertyLink } from './propertyLink';
  * Represents a shape for a {@link SourceTable} in the mapper view.
  */
 export class SourceTableShape extends BaseSourceEntityShape {
+    public onPaperPlacement(): void {
+        this.columnSelectionModal.open();
+    }
     public get uniqueName(): string {
         return this.sourceTable.fullName;
     }

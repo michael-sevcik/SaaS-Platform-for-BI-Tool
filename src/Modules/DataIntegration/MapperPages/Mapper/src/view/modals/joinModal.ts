@@ -4,6 +4,7 @@ import { SourceColumn } from "../../mappingModel/sourceColumn";
 import { SearchableDropdown } from "../elements/searchableDropdown";
 import { BaseModal } from "./baseModal";
 
+// TODO: HANDLE different join types.
 export class JoinModal extends BaseModal{
     private static getColumnDescription(column: SourceColumn) : string {
         return `${column.owner?.name}_${column.name}: ${column.dataType.Descriptor}`;

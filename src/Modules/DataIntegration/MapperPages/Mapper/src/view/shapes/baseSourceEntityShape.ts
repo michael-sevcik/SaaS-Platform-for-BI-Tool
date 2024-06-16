@@ -33,6 +33,11 @@ export abstract class BaseSourceEntityShape extends BaseEntityShape {
     public abstract get uniqueName(): string;
 
     /**
+     * Handles the placement of the source entity shape on the paper.
+     */
+    public abstract onPaperPlacement(): void;
+
+    /**
      * Gets the source column by its port ID.
      * @param portId The port ID of the source column.
      * @returns The source column with the specified port ID.

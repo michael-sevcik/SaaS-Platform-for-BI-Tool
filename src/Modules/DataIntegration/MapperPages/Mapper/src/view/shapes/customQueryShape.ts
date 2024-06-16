@@ -13,6 +13,9 @@ import { PropertyLink } from './propertyLink';
  * Represents a shape for a {@link CustomQuery} in the mapper view.
  */
 export class CustomQueryShape extends BaseSourceEntityShape {
+    public onPaperPlacement(): void {
+        // nothing to do here.
+    }
     public get uniqueName(): string {
         return this.customQuery.fullName;
     }

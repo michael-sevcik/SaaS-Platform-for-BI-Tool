@@ -28,29 +28,10 @@ import { CustomQuery } from '../mappingModel/sourceEntities/customQuery';
 import type { SourceEntityBase } from '../mappingModel/sourceEntities/sourceEntityBase';
 import { CustomQueryShape } from './shapes/customQueryShape';
 import { CustomQueryDefinitionModal } from './modals/costumQuery/customQueryDefinitionModal';
+import { JoinedSourceEntityData, type SourceEntityShapeFactory } from './helpers/joinedSourceEntityData';
 
 
-/**
- * Helper class for encapsulating objects needed to finish joining process
- * that starts after an addition of a new source table.
- */
-class IntermediateSourceTableData {
 
-    /**
-     * Initializes a new instance o of {@link IntermediateSourceTableData}.
-     * @param tableToAdd The table that is being added and needs to be joined.
-     * @param tableModel The model of table that is being added.
-     *  Used for construction of {@link SourceTableShape}.
-     * @param joinModal the modal responsible for joining the new table.
-     * @param unfinishedJoin Entity representing the join between old table and newly added.
-     */
-    public constructor(
-        public readonly tableToAdd: SourceTable,
-        public readonly tableModel: Table,
-        public readonly joinModal: JoinModal,
-        public readonly unfinishedJoin: Join)
-        {}
-}
 
 /**
  * Helper {@link MappingVisitor} derived class for finding the rightmost 
@@ -439,62 +420,61 @@ export class MappingEditor {
 
     private addSourceTable(table: Table) {
         // first select all columns - they might be used in join 
-        const sourceTable = new SourceTable(table.name, table.schema, table.columns.map(column => new SourceColumn(column)));
+        const sourceTable = new SourceTable(
+            table.name,
+            table.schema,
+            table.columns.map(column => new SourceColumn(column)));
+
         sourceTable.createBackwardConnections();
-
-        const sourceEntity = this.entityMapping!.sourceEntity;
-        console.debug(this.entityMapping);
-        // if there is no source entity, add the source table to the graph
-        if (sourceEntity === null) {
-            const sourceTableShape = new SourceTableShape(sourceTable, table);
-            this.entityMapping!.sourceEntity = sourceTable;
-            this.entityMapping!.createBackwardConnections();
-            this.graph.addCell(sourceTableShape);
-            sourceTableShape.columnSelectionModal.open();
-            return;
-        }
-
-        // otherwise, create a join between the source entity and the new source table
-        const join = new Join(`join_${sourceEntity.name}_${sourceTable.name}`, JoinType.inner, sourceEntity, sourceTable);
-
-        const joinModal = new JoinModal(join);
-        const sourceTableData = new IntermediateSourceTableData(sourceTable, table, joinModal, join);
-        joinModal.open(() => this.finishJoiningSourceTable(sourceTableData), true);
+        this.handleSourceEntityShapeAddition(
+            () => new SourceTableShape(sourceTable, table),
+            sourceTable);
     }
 
     private addCustomQuery(customQuery: CustomQuery) : void {
-        // first select all columns - they might be used in join 
-        const sourceEntity = this.entityMapping!.sourceEntity;
-        console.debug(this.entityMapping);
-        // if there is no source entity, add the source table to the graph
-        if (sourceEntity === null) {
-            const sourceTableShape = new CustomQueryShape(customQuery);
-            this.entityMapping!.sourceEntity = customQuery;
+        customQuery.createBackwardConnections();
+        this.handleSourceEntityShapeAddition(() =>
+                new CustomQueryShape(customQuery),
+            customQuery);
+    }
+
+    private handleSourceEntityShapeAddition(
+        sourceEntityShapeFactory : SourceEntityShapeFactory,
+        sourceEntity : SourceEntityBase) {
+        // if there is no source entity, add the new source entity to the graph
+        const currentSourceEntity = this.entityMapping!.sourceEntity;
+        if (currentSourceEntity === null) {
+            const sourceTableShape = sourceEntityShapeFactory();
+            this.entityMapping!.sourceEntity = sourceEntity;
             this.entityMapping!.createBackwardConnections();
             this.graph.addCell(sourceTableShape);
             return;
         }
 
-        throw new Error('Not implemented yet');
+        // otherwise, create a join between the current source entity and the new source entity
+        const join = new Join(
+            `join_${currentSourceEntity.name}_${sourceEntity.fullName}`,
+            JoinType.inner,
+            currentSourceEntity,
+            sourceEntity);
 
-        // TODO: HANDLE different join types.
-        // otherwise, create a join between the source entity and the new source table
-        // const join = new Join(`join_${sourceEntity.name}_${customQuery.name}`, JoinType.inner, sourceEntity, customQuery);
+        const joinModal = new JoinModal(join);
 
-        // const joinModal = new JoinModal(join);
-        // const sourceTableData = new IntermediateSourceTableData(sourceTable, table, joinModal, join);
-        // joinModal.open(() => this.finishJoiningSourceTable(sourceTableData), true);
+        const sourceTableData = new JoinedSourceEntityData(
+            sourceEntityShapeFactory,
+            joinModal,
+            join);
+
+        joinModal.open(() => this.finishJoiningSourceTable(sourceTableData), true);
     }
     
     /**
      * After join definition is finished, this method is called to finish the joining process.
      * Handles the creation of the join link and the right source table shape.
-     * @param sourceTableData The intermediate that encapsulates the objects needed to finish the joining process.
+     * @param joinedSourceEntityData Encapsulation of objects needed to finish the joining process.
      */
-    private finishJoiningSourceTable(sourceTableData: IntermediateSourceTableData) : void {
-        // TODO: handle first add
-
-        const rightSourceTableShape = new SourceTableShape(sourceTableData.tableToAdd, sourceTableData.tableModel);
+    private finishJoiningSourceTable(joinedSourceEntityData: JoinedSourceEntityData) : void {
+        const rightSourceEntityShape = joinedSourceEntityData.sourceEntityShapeFactory();
         const sourceTableFinder = new SourceTableFinder();
         
         if (this.entityMapping!.sourceEntity == null) throw new Error('Source entity should be initialized.');
@@ -510,18 +490,18 @@ export class MappingEditor {
             return false;
         }) as BaseSourceEntityShape;
 
-        const joinLink = new JoinLink(sourceTableData.unfinishedJoin, sourceTableData.joinModal);
+        const joinLink = new JoinLink(joinedSourceEntityData.unfinishedJoin, joinedSourceEntityData.joinModal);
         joinLink.source(leftSourceTableShape);
-        joinLink.target(rightSourceTableShape);
+        joinLink.target(rightSourceEntityShape);
 
-        this.entityMapping!.sourceEntity = sourceTableData.unfinishedJoin;
+        this.entityMapping!.sourceEntity = joinedSourceEntityData.unfinishedJoin;
         this.entityMapping!.createBackwardConnections();
         
         this.paper.freeze();
-        this.graph.addCells([rightSourceTableShape, joinLink]);
+        this.graph.addCells([rightSourceEntityShape, joinLink]);
         this.paper.unfreeze();
         
-        rightSourceTableShape.columnSelectionModal.open();
+        rightSourceEntityShape.onPaperPlacement();
     }
 
     private convertEntityMappingToShapes(entityMapping: EntityMapping): dia.Cell[] {
