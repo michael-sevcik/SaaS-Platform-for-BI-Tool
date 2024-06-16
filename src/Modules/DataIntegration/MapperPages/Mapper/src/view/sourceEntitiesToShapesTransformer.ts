@@ -12,14 +12,11 @@ import { SourceTableShape } from "./shapes/sourceTableShape";
 
 import { dia } from "@joint/core";
 import type { SourceEntity } from "../mappingModel/sourceEntities/sourceEntity";
-import type { CustomQuery } from "../mappingModel/sourceEntities/customQuery";
+import { CustomQuery } from "../mappingModel/sourceEntities/customQuery";
+import { CustomQueryShape } from "./shapes/customQueryShape";
 
 
 export class SourceEntitiesToShapesTransformer extends MappingVisitor{
-    public visitCustomQuery(customQuery: CustomQuery): void {
-        // TODO: IMPLement method
-        throw new Error("Method not implemented.");
-    }
     /**
      * Element stack of source entity shapes
      */
@@ -35,6 +32,13 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         sourceTables.forEach((table) =>
             this.sourceTablesByName.set(table.schema + table.name, table)
         );
+    }
+
+    public visitCustomQuery(customQuery: CustomQuery): void {
+        const shape = new CustomQueryShape(customQuery);
+        this.elementMap.set(customQuery, shape);
+        this.cells.push(shape);
+        this.cellStack.push(shape);
     }
 
     public visitConditionLink(conditionLink: ConditionLink): void {
@@ -64,6 +68,7 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         this.cells.push(joinLink);
         console.log('Join link');
         console.log(joinLink);
+        this.cellStack.push(joinLink);
     }
 
     public visitJoinCondition(joinCondition: JoinCondition): void {
