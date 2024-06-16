@@ -1,5 +1,19 @@
-﻿@inherits Alert
+﻿
+<Alert @ref="alert" AlertClass="@AlertClass" Message="@Message"/>
 
 @code {
-    public override string? AlertClass { get; set; } = "alert-success";
+    const string AlertClass = "alert-success";
+    private Alert? alert;
+
+    [Parameter] public string? Message { get; set; }
+
+    public void Show()
+    {
+        alert?.Show();
+    }
+
+    public void Hide()
+    {
+        alert?.Hide();
+    }
 }

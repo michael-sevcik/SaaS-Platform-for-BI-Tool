@@ -3,12 +3,6 @@
 import { getMappingEditor as gme} from './dist/bundle.js'
 // TODO: REFACTOR
 
-// TODO: DELETE
-export function showPrompt(message) {
-
-    return ""; 
-}
-
 export function getMappingEditor(serializedSourceDb) {
     return gme(serializedSourceDb);
 }

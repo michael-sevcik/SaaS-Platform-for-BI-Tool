@@ -53,7 +53,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Update="wwwroot\mapperInterop.js">
+    <Content Update="wwwroot\mapperJsInteropBridge.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

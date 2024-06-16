@@ -196,7 +196,8 @@ export class MappingEditor {
     public loadSerializedEntityMapping(serializedEntityMapping: string, serializedTable: string) {
         const plainEntityMapping = JSON.parse(serializedEntityMapping);
         const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(plainEntityMapping);
-        // TODO: Deserialize the serializedTable and map it
+        const targetTable = plainToInstance(Table, JSON.parse(serializedTable));
+        this.loadEntityMapping(entityMapping, targetTable);
     }
 
     /**

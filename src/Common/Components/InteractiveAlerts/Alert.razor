@@ -2,9 +2,8 @@
 
 @rendermode InteractiveServer
 
-<div class="alert @AlertClass alert-dismissible fade @(show? "show" : "") " role="alert">
+<div class="alert @AlertClass alert-dismissible fade @(show? "show" : "d-none") " role="alert">
     @Message
-    @ChildContent
     <button @onclick=Hide type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -13,17 +12,18 @@
 @code {
     private bool show = false;
 
-    [Parameter] public RenderFragment? ChildContent { get; set; }
     [Parameter] public string? Message { get; set; }
     [Parameter] public virtual string? AlertClass { get; set; }
 
     public void Show()
     {
         show = true;
+        StateHasChanged();
     }
 
     public void Hide()
     {
         show = false;
+        StateHasChanged();
     }
 }

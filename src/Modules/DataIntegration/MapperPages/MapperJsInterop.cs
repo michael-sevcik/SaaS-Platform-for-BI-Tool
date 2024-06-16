@@ -21,18 +21,10 @@ internal sealed class MapperJsInterop : IAsyncDisposable
     {
         this.logger = logger;
         moduleTask = new(() => jsRuntime.InvokeAsync<IJSObjectReference>(
-            "import", "./_content/BIManagement.Modules.DataIntegration.MapperComponent/mapperInterop.js").AsTask());
+            "import", "./_content/BIManagement.Modules.DataIntegration.MapperComponent/mapperJsInteropBridge.js").AsTask());
 
         var serializedSourceDbModel = JsonSerializer.Serialize(sourceDbModel, SerializationOptions.Default);
         mapperObject = new(async () => await (await moduleTask.Value).InvokeAsync<IJSObjectReference>("getMappingEditor", serializedSourceDbModel));
-    }
-
-    // TODO: PROVIDE more reasonable methods
-    public async ValueTask<string> GetNumber()
-    {
-        var module = await moduleTask.Value;
-        
-        return await module.InvokeAsync<string>("showPrompt", "ahoj");
     }
 
     public async ValueTask<IJSObjectReference> GetMappingEditorAsync() => await mapperObject.Value;
@@ -44,13 +36,19 @@ internal sealed class MapperJsInterop : IAsyncDisposable
         await mapper.InvokeVoidAsync("createFromSerializedTargetTable", serializedTableModel);
     }
 
+    public async ValueTask LoadEntityMapping(string serializedEntityMapping, TargetDbTable targetTable)
+    {
+        var mapper = await mapperObject.Value;
+        var serializedTableModel = JsonSerializer.Serialize(targetTable.TableModel, SerializationOptions.Default);
+        await mapper.InvokeVoidAsync("loadSerializedEntityMapping", serializedEntityMapping, serializedTableModel);
+    }
+
     /// <summary>
     /// Asynchronously checks if the mapping is complete.
     /// </summary>
     public async ValueTask<bool> IsMappingCompleteAsync()
     {
         var mapper = await mapperObject.Value;
-        // TODO: TODO: IMPLEMENT
         return await mapper.InvokeAsync<bool>("isMappingComplete");
     }
 
