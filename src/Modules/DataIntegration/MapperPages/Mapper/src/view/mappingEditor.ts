@@ -6,7 +6,7 @@ import { PropertyLink } from './shapes/propertyLink';
 import { SourceTableShape } from './shapes/sourceTableShape';
 import { JoinLink } from './shapes/joinLink';
 import { EntityMapping } from '../mappingModel/entityMapping';
-import { SourceEntitiesToShapesTransformer } from './sourceEntitiesToShapesTransformer';
+import { SourceEntitiesToShapesTransformer } from './helpers/sourceEntitiesToShapesTransformer';
 import { TargetTableShape } from './shapes/targetTableShape';
 import { Database, Table } from '../dbModel/database';
 import { Link } from './shapes/link';

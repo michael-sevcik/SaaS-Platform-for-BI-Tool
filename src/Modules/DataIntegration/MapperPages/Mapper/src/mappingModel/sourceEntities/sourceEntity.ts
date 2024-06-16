@@ -1,10 +1,12 @@
 import { Ownable } from "../ownable";
 import { Owner } from "../owner";
 import { MappingVisitor } from "../mappingVisitor";
-import { Visitable } from "../converting/visitable";
+import { MappingVisitable } from "../converting/mappingVisitable";
 import { SourceColumn } from "../sourceColumn";
+import type { VisitableSourceEntity } from "../visitable";
+import type { SourceEntityVisitor } from "../sourceEntityVisitor";
 
-export abstract class SourceEntity implements Visitable, Owner, Ownable {
+export abstract class SourceEntity implements MappingVisitable, VisitableSourceEntity, Owner, Ownable {
   public _owner : Owner | null = null;
 
   /**
@@ -20,7 +22,7 @@ export abstract class SourceEntity implements Visitable, Owner, Ownable {
   /** @inheritdoc */
   public abstract removeReferences(): void;
 
-  public abstract accept(visitor: MappingVisitor): void;
+  public abstract accept(visitor: SourceEntityVisitor): void;
   public abstract createBackwardConnections(): void;
   abstract replaceChild(oldChild: any, newChild: any): void;
   /**

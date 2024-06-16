@@ -1,22 +1,19 @@
-import { Column, Database, Table } from "../dbModel/database";
-import { ConditionLink } from "../mappingModel/aggregators/conditions/conditionLink";
-import { JoinCondition } from "../mappingModel/aggregators/conditions/joinCondition";
-import { Join } from "../mappingModel/aggregators/join";
-import { MappingVisitor } from "../mappingModel/mappingVisitor";
-import { SourceColumn } from "../mappingModel/sourceColumn";
-import { SourceTable } from "../mappingModel/sourceEntities/sourceTable";
-import { BaseEntityShape } from "./shapes/baseEntityShape";
-import { JoinLink } from "./shapes/joinLink";
-import { JoinModal } from "./modals/joinModal";
-import { SourceTableShape } from "./shapes/sourceTableShape";
+import { Table } from "../../dbModel/database";
+import { Join } from "../../mappingModel/aggregators/join";
+import { SourceTable } from "../../mappingModel/sourceEntities/sourceTable";
+import { BaseEntityShape } from "../shapes/baseEntityShape";
+import { JoinLink } from "../shapes/joinLink";
+import { JoinModal } from "../modals/joinModal";
+import { SourceTableShape } from "../shapes/sourceTableShape";
 
 import { dia } from "@joint/core";
-import type { SourceEntity } from "../mappingModel/sourceEntities/sourceEntity";
-import { CustomQuery } from "../mappingModel/sourceEntities/customQuery";
-import { CustomQueryShape } from "./shapes/customQueryShape";
+import type { SourceEntity } from "../../mappingModel/sourceEntities/sourceEntity";
+import { CustomQuery } from "../../mappingModel/sourceEntities/customQuery";
+import { CustomQueryShape } from "../shapes/customQueryShape";
+import { SourceEntityVisitor } from "../../mappingModel/sourceEntityVisitor";
 
 
-export class SourceEntitiesToShapesTransformer extends MappingVisitor{
+export class SourceEntitiesToShapesTransformer extends SourceEntityVisitor {
     /**
      * Element stack of source entity shapes
      */
@@ -39,10 +36,6 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         this.elementMap.set(customQuery, shape);
         this.cells.push(shape);
         this.cellStack.push(shape);
-    }
-
-    public visitConditionLink(conditionLink: ConditionLink): void {
-        throw new Error("Method not implemented.");
     }
 
     public visitJoin(join: Join): void {
@@ -69,14 +62,6 @@ export class SourceEntitiesToShapesTransformer extends MappingVisitor{
         console.log('Join link');
         console.log(joinLink);
         this.cellStack.push(joinLink);
-    }
-
-    public visitJoinCondition(joinCondition: JoinCondition): void {
-        throw new Error("Method not implemented.");
-    }
-
-    public visitSourceColumn(sourceColumn: SourceColumn): void {
-        throw new Error("Method not implemented.");
     }
 
     public visitSourceTable(sourceTable: SourceTable): void {
