@@ -3,9 +3,9 @@ import { ReferenceHolder } from "./referenceHolder";
 import { Ownable } from "./ownable";
 import { MappingVisitor } from "./mappingVisitor";
 import { Visitable } from "./converting/visitable";
-import { SourceEntity } from "./sourceEntity";
 import { Exclude } from "class-transformer";
 import { UnknownDataType } from "../dbModel/dataTypes";
+import type { SourceEntity } from "./sourceEntities/sourceEntity";
 
 /**
  * Represents a column in the source entity of a mapping.

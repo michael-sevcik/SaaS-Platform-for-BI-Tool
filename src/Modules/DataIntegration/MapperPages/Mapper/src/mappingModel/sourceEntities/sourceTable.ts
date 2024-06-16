@@ -1,12 +1,20 @@
-import { MappingVisitor } from "./mappingVisitor";
+import { MappingVisitor } from "../mappingVisitor";
 import { SourceEntityBase } from "./sourceEntityBase";
-import { SourceColumn } from "./sourceColumn";
-import { Column } from "../dbModel/database";
+import { SourceColumn } from "../sourceColumn";
+import { Column } from "../../dbModel/database";
 
 export class SourceTable extends SourceEntityBase {
+    /** @inheritdoc */
+    public get fullName(): string {
+        return this.schema ? `${this.schema}.${this.name}` : this.name;
+    }
+
+    /** @inheritdoc */
     public removeReferences(): void {
         // no references to remove
     }
+    
+    /** @inheritdoc */
     replaceChild(oldChild: any, newChild: any): void {
     }
     
@@ -17,13 +25,6 @@ export class SourceTable extends SourceEntityBase {
         }
     }
 
-    // TODO: Consider moving this to SourceConcreteEntity
-    /** @inheritdoc */
-    public get selectedColumns(): SourceColumn[] {
-        return this._selectedColumns;
-    }
-
-    // TODO: Consider moving this to an interface
     public addSelectedColumn(column: Column) : SourceColumn {
         const sourceColumn = new SourceColumn(column);
         sourceColumn.owner = this;
@@ -53,21 +54,5 @@ export class SourceTable extends SourceEntityBase {
     /** @inheritdoc */
     public accept(visitor: MappingVisitor): void {
         visitor.visitSourceTable(this);  
-    }
-
-    /** Finds a selected column by its name and returns it.
-     * 
-     * @param columnName of the column to be returned.
-     * @returns the column mapping for the given column name.
-     * @throws Error if the columnName is not name of any selected column.
-     */
-    public getSelectedColumn(columnName : string): SourceColumn {
-        // TODO: document this
-        const column = this._selectedColumns.find((value) => value.name === columnName);
-        if (column === undefined) {
-            throw new Error(`Column ${columnName} is not selected in source table ${this.name}`);
-        }
-
-        return column;
     }
 }

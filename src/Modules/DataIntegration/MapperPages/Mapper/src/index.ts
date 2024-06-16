@@ -102,8 +102,5 @@ export function loadDevelopmentView(): number {
     const mappingEditor = new MappingEditor(sourceDb);
 
     mappingEditor.loadEntityMapping(deserializedEntityMapping, targetTable);
-
-    const testModal = new CustomQueryDefinitionModal();
-    testModal.open(null, true);
     return 800;
 }

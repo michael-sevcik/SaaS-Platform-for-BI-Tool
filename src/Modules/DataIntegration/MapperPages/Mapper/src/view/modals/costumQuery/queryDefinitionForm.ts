@@ -5,9 +5,19 @@ export class QueryDefinitionForm {
     private container: HTMLElement;
     private queryTextArea: HTMLTextAreaElement;
 
-    constructor(container: HTMLElement) {
+    /**
+     * Initializes an instance of QueryDefinitionForm.
+     * @constructor
+     * @param container - The container element for the form.
+     * @param {string} [defaultText=''] - The default text for the query text area.
+     * @param {boolean} [editable=true] - Indicates whether the query text area is editable.
+     */
+    constructor(container: HTMLElement, defaultText: string = '', editable: boolean = true) {
         this.container = container;
         this.initializeForm();
+
+        this.queryTextArea.value = defaultText;
+        this.queryTextArea.readOnly = !editable;
     }
 
     /**
@@ -21,6 +31,8 @@ export class QueryDefinitionForm {
 
         this.container.appendChild(form);
     }
+
+
 
     /**
      * Creates the SQL query text area.

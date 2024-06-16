@@ -11,7 +11,7 @@ import { TargetTableShape } from './shapes/targetTableShape';
 import { Database, Table } from '../dbModel/database';
 import { Link } from './shapes/link';
 import { PropertyPort } from './shapes/propertyPort';
-import { SourceTable } from '../mappingModel/sourceTable';
+import { SourceTable } from '../mappingModel/sourceEntities/sourceTable';
 import { SourceColumn } from '../mappingModel/sourceColumn';
 import { Join, JoinType } from '../mappingModel/aggregators/join';
 import { JoinModal } from './modals/joinModal';
@@ -24,6 +24,10 @@ import { BaseSourceEntityShape } from './shapes/baseSourceEntityShape';
 import { EntityMappingConvertor } from '../mappingModel/converting/entityMappingConvertor';
 import { plainToInstance } from 'class-transformer';
 import { getElementOrThrow } from '../utils';
+import { CustomQuery } from '../mappingModel/sourceEntities/customQuery';
+import type { SourceEntityBase } from '../mappingModel/sourceEntities/sourceEntityBase';
+import { CustomQueryShape } from './shapes/customQueryShape';
+import { CustomQueryDefinitionModal } from './modals/costumQuery/customQueryDefinitionModal';
 
 
 /**
@@ -53,7 +57,10 @@ class IntermediateSourceTableData {
  * source table in the joining tree.
  */
 class SourceTableFinder extends MappingVisitor {
-    public desiredSourceEntity : SourceTable | null;
+    public desiredSourceEntity : SourceEntityBase | null;
+    public visitCustomQuery(customQuery: CustomQuery): void {
+        this.desiredSourceEntity = customQuery;
+    }
 
     // Intentionally left not implemented
     public visitSourceColumn(sourceColumn: SourceColumn): void {
@@ -136,12 +143,12 @@ export class MappingEditor {
 
     private initializeToolBox() {
         const addSourceTableButton = document.createElement('button');
-        addSourceTableButton.innerText = 'Přidat zdrojovou tabulku';
+        addSourceTableButton.innerText = 'Add source table';
         addSourceTableButton.addEventListener('click', () => this.openSourceTableSelectionModal());
         this.toolbar?.appendChild(addSourceTableButton);
 
         const exportMappingButton = document.createElement('button');
-        exportMappingButton.innerText = 'Exportovat mapování';
+        exportMappingButton.innerText = 'Export mapping';
         exportMappingButton.addEventListener('click', () => this.downloadMapping());
         this.toolbar?.appendChild(exportMappingButton);
 
@@ -162,6 +169,19 @@ export class MappingEditor {
 
             reader.readAsText(file);
         });
+
+        const addCustomQueryButton = document.createElement('button');
+        addCustomQueryButton.innerText = 'Add custom query';
+        addCustomQueryButton.addEventListener('click', () => {
+            const modal = new CustomQueryDefinitionModal();
+            modal.open(() => {
+                this.addCustomQuery(modal.customQuery
+                    ?? (() => { throw new Error('Custom query should be initialized by the modal.'); })());
+                modal.finalize();
+            },
+            true); // true means that the modal will be finalized on cancelling
+        });
+        this.toolbar?.appendChild(addCustomQueryButton);
     }
 
     // TODO: consider creating map of target tables with their names as keys
@@ -441,6 +461,30 @@ export class MappingEditor {
         const sourceTableData = new IntermediateSourceTableData(sourceTable, table, joinModal, join);
         joinModal.open(() => this.finishJoiningSourceTable(sourceTableData), true);
     }
+
+    private addCustomQuery(customQuery: CustomQuery) : void {
+        // first select all columns - they might be used in join 
+        const sourceEntity = this.entityMapping!.sourceEntity;
+        console.debug(this.entityMapping);
+        // if there is no source entity, add the source table to the graph
+        if (sourceEntity === null) {
+            const sourceTableShape = new CustomQueryShape(customQuery);
+            this.entityMapping!.sourceEntity = customQuery;
+            this.entityMapping!.createBackwardConnections();
+            this.graph.addCell(sourceTableShape);
+            return;
+        }
+
+        throw new Error('Not implemented yet');
+
+        // TODO: HANDLE different join types.
+        // otherwise, create a join between the source entity and the new source table
+        // const join = new Join(`join_${sourceEntity.name}_${customQuery.name}`, JoinType.inner, sourceEntity, customQuery);
+
+        // const joinModal = new JoinModal(join);
+        // const sourceTableData = new IntermediateSourceTableData(sourceTable, table, joinModal, join);
+        // joinModal.open(() => this.finishJoiningSourceTable(sourceTableData), true);
+    }
     
     /**
      * After join definition is finished, this method is called to finish the joining process.
@@ -455,17 +499,16 @@ export class MappingEditor {
         
         if (this.entityMapping!.sourceEntity == null) throw new Error('Source entity should be initialized.');
         this.entityMapping!.sourceEntity.accept(sourceTableFinder);
-        const leftSourceTable = sourceTableFinder.desiredSourceEntity; 
+        const leftEntity = sourceTableFinder.desiredSourceEntity; 
 
-        const leftSourceTableShape = this.graph.getElements().find(element => { 
-            if (element instanceof SourceTableShape) {
-                const sourceTableShape = element as SourceTableShape;
-                if (sourceTableShape.sourceTable === leftSourceTable) {
+        const leftSourceTableShape = this.graph.getElements().find(element => {
+            if (element instanceof BaseSourceEntityShape) {
+                if (element.uniqueName === leftEntity?.fullName) {
                     return true;
                 }
             }
             return false;
-        }) as SourceTableShape;
+        }) as BaseSourceEntityShape;
 
         const joinLink = new JoinLink(sourceTableData.unfinishedJoin, sourceTableData.joinModal);
         joinLink.source(leftSourceTableShape);
@@ -480,6 +523,7 @@ export class MappingEditor {
         
         rightSourceTableShape.columnSelectionModal.open();
     }
+
     private convertEntityMappingToShapes(entityMapping: EntityMapping): dia.Cell[] {
         // initialize the transformer            
         const transformer = new SourceEntitiesToShapesTransformer(this.sourceDb.tables);

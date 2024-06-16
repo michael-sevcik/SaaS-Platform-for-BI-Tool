@@ -13,7 +13,6 @@ export class TargetTableShape extends BaseEntityShape implements TargetElementSh
         super(columns, ...args);
         this.setTitle(entityMapping.name);
         this.setDescription(entityMapping.description ?? DEFAULT_TARGET_ENTITY_DESCRIPTION);
-        // TODO: add description
     }
 
     defaults() {

@@ -1,15 +1,15 @@
 import { EntityMapping } from "../entityMapping";
 import { SourceColumn } from "../sourceColumn";
-import { SourceEntity } from "../sourceEntity";
 import { MappingToPlainConverterVisiter } from "./serialization/mappingToPlainConverterVisitor";
 import { PlainToSourceEntityConvertor } from "./deserialization/plainToSourceEntityConvertor";
+import type { SourceEntity } from "../sourceEntities/sourceEntity";
 
 export class EntityMappingConvertor {
     static convertEntityMappingToPlain(entityMapping: EntityMapping) : any {
         let plainSourceEntity : any | null = null;
         let plainSourceEntities : SourceEntity[] = [];
         const visitor = new MappingToPlainConverterVisiter();
-        entityMapping.createBackwardConnections(); // TODO: is this needed?
+        entityMapping.createBackwardConnections();
         if (entityMapping.sourceEntity !== null) {
             entityMapping.sourceEntity.accept(visitor);
             plainSourceEntity = visitor.popResult();
@@ -40,7 +40,6 @@ export class EntityMappingConvertor {
         };
     }
 
-    // TODO: catch errors
     static convertPlainToEntityMapping(value: any) : EntityMapping {
         const convertor = new PlainToSourceEntityConvertor();
         const plainSourceEntities = value["sourceEntities"];

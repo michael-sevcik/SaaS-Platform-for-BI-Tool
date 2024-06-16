@@ -1,7 +1,7 @@
 import { SOURCE_DATABASE_ENTITY_GROUP_NAME, DEFAULT_SOURCE_ENTITY_DESCRIPTION } from '../../constants';
 import type { Column, Table } from '../../dbModel/database';
 import { EntityMapping } from '../../mappingModel/entityMapping';
-import { SourceTable } from '../../mappingModel/sourceTable';
+import { SourceTable } from '../../mappingModel/sourceEntities/sourceTable';
 import { ColumnSelectionModal } from '../modals/columnSelectionModal';
 import { BaseSourceEntityShape } from './baseSourceEntityShape';
 import { PropertyLink } from './propertyLink';
@@ -11,6 +11,10 @@ import { PropertyLink } from './propertyLink';
  * Represents a shape for a {@link SourceTable} in the mapper view.
  */
 export class SourceTableShape extends BaseSourceEntityShape {
+    public get uniqueName(): string {
+        return this.sourceTable.fullName;
+    }
+
     groupName: string;
     public readonly columnSelectionModal: ColumnSelectionModal;
 

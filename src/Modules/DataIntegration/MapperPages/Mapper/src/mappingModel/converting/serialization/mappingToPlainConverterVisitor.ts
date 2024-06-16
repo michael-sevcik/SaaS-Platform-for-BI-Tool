@@ -2,19 +2,37 @@ import { ConditionLink } from "../../aggregators/conditions/conditionLink";
 import { JoinCondition } from "../../aggregators/conditions/joinCondition";
 import { Join } from "../../aggregators/join";
 import { SourceColumn } from "../../sourceColumn";
-import { SourceEntity } from "../../sourceEntity";
-import { SourceTable } from "../../sourceTable";
+import { SourceTable } from "../../sourceEntities/sourceTable";
 import { MappingVisitor } from "../../mappingVisitor";
 import { instanceToPlain } from "class-transformer";
+import type { SourceEntity } from "../../sourceEntities/sourceEntity";
+import type { CustomQuery } from "../../sourceEntities/customQuery";
 
 
-// TODO: IMPLEMENT NESTED JOIN VISITATION
+// TODO: check NESTED JOIN VISITATION
 
 /**
  * This class is used to convert a SourceEntity to a plain JS object
  * with use of the visitor pattern and id / ref / type properties
  */
 export class MappingToPlainConverterVisiter extends MappingVisitor {
+    public visitCustomQuery(customQuery: CustomQuery): void {
+        this.useReferenceOrCreateNew(customQuery, (id : string) => {
+            customQuery.selectedColumns.forEach(column => column.accept(this));
+            const plainColumns : any[] = []
+            for (let i = 0; i < customQuery.selectedColumns.length; i++) {
+                plainColumns.push(this.safeIntermediateResultPop())
+            }
+
+            return { 
+                $id: id,
+                type: "customQuery", // TODO: move this to a map to constatns or something
+                name: customQuery.name,
+                query: customQuery.query,
+                selectedColumns: plainColumns,
+            };
+        });
+    }
     private id = 0;
     private intermediateResult: any[] = [];
     private plainSourceEntitiesByOriginal: Map<SourceEntity, any> = new Map<SourceEntity, any>();
@@ -153,7 +171,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
             result = {$ref: result.$id}
         }
 
-        // HACK: to prevent circular refernces
+        // HACK: to prevent circular references
         this.intermediateResult.push(result);
     }
 
@@ -167,7 +185,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
 
             return { 
                 $id: id,
-                type: "sourceTable", // TODO: move this to a map to constatns or something
+                type: "sourceTable", // TODO: move this to a map to constants or something
                 name: sourceTable.name,
                 selectedColumns: plainColumns,
             };

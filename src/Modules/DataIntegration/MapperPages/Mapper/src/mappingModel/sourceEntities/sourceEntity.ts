@@ -1,9 +1,8 @@
-import { Column } from "../dbModel/database";
-import { Ownable } from "./ownable";
-import { Owner } from "./owner";
-import { MappingVisitor } from "./mappingVisitor";
-import { Visitable } from "./converting/visitable";
-import { SourceColumn } from "./sourceColumn";
+import { Ownable } from "../ownable";
+import { Owner } from "../owner";
+import { MappingVisitor } from "../mappingVisitor";
+import { Visitable } from "../converting/visitable";
+import { SourceColumn } from "../sourceColumn";
 
 export abstract class SourceEntity implements Visitable, Owner, Ownable {
   public _owner : Owner | null = null;

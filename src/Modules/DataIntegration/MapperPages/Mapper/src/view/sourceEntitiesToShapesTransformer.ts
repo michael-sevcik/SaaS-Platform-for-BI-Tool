@@ -4,17 +4,22 @@ import { JoinCondition } from "../mappingModel/aggregators/conditions/joinCondit
 import { Join } from "../mappingModel/aggregators/join";
 import { MappingVisitor } from "../mappingModel/mappingVisitor";
 import { SourceColumn } from "../mappingModel/sourceColumn";
-import { SourceEntity } from "../mappingModel/sourceEntity";
-import { SourceTable } from "../mappingModel/sourceTable";
+import { SourceTable } from "../mappingModel/sourceEntities/sourceTable";
 import { BaseEntityShape } from "./shapes/baseEntityShape";
 import { JoinLink } from "./shapes/joinLink";
 import { JoinModal } from "./modals/joinModal";
 import { SourceTableShape } from "./shapes/sourceTableShape";
 
 import { dia } from "@joint/core";
+import type { SourceEntity } from "../mappingModel/sourceEntities/sourceEntity";
+import type { CustomQuery } from "../mappingModel/sourceEntities/customQuery";
 
 
 export class SourceEntitiesToShapesTransformer extends MappingVisitor{
+    public visitCustomQuery(customQuery: CustomQuery): void {
+        // TODO: IMPLement method
+        throw new Error("Method not implemented.");
+    }
     /**
      * Element stack of source entity shapes
      */

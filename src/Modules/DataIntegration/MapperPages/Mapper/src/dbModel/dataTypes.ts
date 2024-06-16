@@ -1,5 +1,3 @@
-import { Type } from "class-transformer";
-
 /**
  * Represents a base class data type of a {@link Column} in a database {@link Table}
  */
@@ -21,8 +19,6 @@ export abstract class DataTypeBase {
      * @param otherDataType The other data type.
      */
     public abstract isComparableWith(otherDataType: DataTypeBase): boolean;
-
-    // TODO: Consider defining a method isComparableWith(dataType: DataTypeBase): boolean for join conditions
 
     /**
      * @param isNullable Value indicating whether the data type is nullable.

@@ -68,7 +68,7 @@ export class SelectedColumnAdditionForm {
         const colNameLabel = document.createElement('label');
         colNameLabel.htmlFor = 'selected-column';
         colNameLabel.innerText = 'Selected Column Name:';
-        this.colNameInput = new TextInput('selected-column', 'Enter column name');
+        this.colNameInput = new TextInput('selected-column', 'Enter column name', undefined, false);
         colNameDiv.appendChild(colNameLabel);
         colNameDiv.appendChild(this.colNameInput.input);
         return colNameDiv;
@@ -123,7 +123,7 @@ export class SelectedColumnAdditionForm {
         const lengthInputLabel = document.createElement('label');
         lengthInputLabel.htmlFor = 'nvarchar-length';
         lengthInputLabel.innerText = 'Specify Length for nvarchar';
-        this.nvarcharLengthInput = new TextInput('nvarchar-length', 'Enter length', 'number');
+        this.nvarcharLengthInput = new TextInput('nvarchar-length', 'Enter length', 'number', false);
         this.lengthInputDiv.appendChild(lengthInputLabel);
         this.lengthInputDiv.appendChild(this.nvarcharLengthInput.input);
         return this.lengthInputDiv;
@@ -141,7 +141,7 @@ export class SelectedColumnAdditionForm {
         const otherTypeLabel = document.createElement('label');
         otherTypeLabel.htmlFor = 'other-type';
         otherTypeLabel.innerText = 'Specify Other Type';
-        this.otherTypeInput = new TextInput('other-type', 'Enter type name');
+        this.otherTypeInput = new TextInput('other-type', 'Enter type name', undefined, false);
         this.otherInputDiv.appendChild(otherTypeLabel);
         this.otherInputDiv.appendChild(this.otherTypeInput.input);
         return this.otherInputDiv;

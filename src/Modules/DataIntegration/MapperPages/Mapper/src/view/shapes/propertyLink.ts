@@ -1,12 +1,8 @@
-import { dia, shapes, util } from "@joint/core";
+import { dia, util } from "@joint/core";
 import { HIGHLIGHTED_OUTLINE_COLOR, LIGHT_COLOR, SECONDARY_DARK_COLOR } from "../../constants";
 import { Link } from "./link";
 import { TargetElementShape } from "./targetElementShape";
 import { PropertyPort } from "./propertyPort";
-import type { TargetTableShape } from "./targetTableShape";
-import type { SourceTableShape } from "./sourceTableShape";
-import type { EntityMapping } from "../../mappingModel/entityMapping";
-import type { SourceTable } from "../../mappingModel/sourceTable";
 import type { BaseSourceEntityShape } from "./baseSourceEntityShape";
 import type { BaseEntityShape } from "./baseEntityShape";
 import type { Column } from "../../dbModel/database";
@@ -82,8 +78,6 @@ export class PropertyLink extends Link {
         }
 
         targetElement.removeColumnMapping(this.accessTargetColumn(element));
-
-        // TODO: update references source column references
         return this.remove(opt);
     }
 

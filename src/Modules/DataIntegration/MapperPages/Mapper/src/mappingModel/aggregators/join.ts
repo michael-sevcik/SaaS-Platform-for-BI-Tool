@@ -1,10 +1,10 @@
 import { Type } from "class-transformer";
 
-import { SourceEntity } from "../sourceEntity";
-import { SourceEntityBase } from "../sourceEntityBase";
+import { SourceEntityBase } from "../sourceEntities/sourceEntityBase";
 import { MappingVisitor } from "../mappingVisitor";
 import { JoinCondition } from "./conditions/joinCondition";
 import { SourceColumn } from "../sourceColumn";
+import { SourceEntity } from "../sourceEntities/sourceEntity";
 
 /**
  * Represents a join between two source entities.

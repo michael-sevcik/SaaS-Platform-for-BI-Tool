@@ -21,7 +21,6 @@ export class ColumnSelectionModal extends BaseModal {
         optionDiv.style.height = '40vh';
         this.modalContent.appendChild(optionDiv);
 
-        // TODO: FOR each column in sourceTableShape.tableModel.columns create a checkbox and add it to the modalContent
         this.sourceTableShape.tableModel.columns.sort((a, b) => a.name > b.name ? 1 : -1)
         .forEach((column) => {
             const [div, checkbox] = this.createCheckbox(column);

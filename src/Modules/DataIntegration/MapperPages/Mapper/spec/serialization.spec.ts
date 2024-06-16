@@ -3,7 +3,7 @@ import { EntityMappingConvertor } from "../src/mappingModel/converting/entityMap
 import { MappingToPlainConverterVisiter } from "../src/mappingModel/converting/serialization/mappingToPlainConverterVisitor";
 import { MappingModelConvertor } from "../src/mappingModel/converting/mappingModelConverter";
 import { JoinCondition, Operator } from "../src/mappingModel/aggregators/conditions/joinCondition";
-import { SourceTable } from "../src/mappingModel/sourceTable";
+import { SourceTable } from "../src/mappingModel/sourceEntities/sourceTable";
 import { Join, JoinType } from "../src/mappingModel/aggregators/join";
 import { EntityMapping } from "../src/mappingModel/entityMapping";
 import { DbConnectionConfig } from "../src/mappingModel/dbConnectionConfig";
