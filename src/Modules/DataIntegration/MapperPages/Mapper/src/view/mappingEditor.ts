@@ -90,6 +90,14 @@ export class MappingEditor {
     private initializeToolBox() : void {
         this.toolbar?.appendChild(createButton('Add source table', () => this.openSourceTableSelectionModal()));
         this.toolbar?.appendChild(createButton('Export mapping', () => this.downloadMapping()));
+        this.toolbar?.appendChild(createButton('Add custom query', () => {
+            const modal = new CustomQueryDefinitionModal();
+            modal.open(() => {
+                this.addCustomQuery(modal.customQuery ?? (() => { throw new Error('Custom query should be initialized by the modal.'); })());
+                modal.finalize();
+            }, true);
+        }));
+        this.toolbar?.appendChild(createButton('Layout graph', this.layoutGraph.bind(this)));
 
         attachChangeEvent('source-file', (event) => {
             const file = (event.target as HTMLInputElement).files?.[0];
@@ -103,14 +111,6 @@ export class MappingEditor {
             };
             reader.readAsText(file);
         });
-
-        this.toolbar?.appendChild(createButton('Add custom query', () => {
-            const modal = new CustomQueryDefinitionModal();
-            modal.open(() => {
-                this.addCustomQuery(modal.customQuery ?? (() => { throw new Error('Custom query should be initialized by the modal.'); })());
-                modal.finalize();
-            }, true);
-        }));
     }
 
     /**
@@ -184,8 +184,15 @@ export class MappingEditor {
         this.paper.freeze();
         const cells = this.convertEntityMappingToShapes(entityMapping);
         this.graph.resetCells(cells);
-        DirectedGraph.layout(this.graph, { nodeSep: 300, edgeSep: 100, rankDir: "LR" });
+        this.layoutGraph();
         this.paper.unfreeze();
+    }
+
+    /**
+     * Layouts the graph in the editor.
+     */
+    private layoutGraph() {
+        DirectedGraph.layout(this.graph, { nodeSep: 300, edgeSep: 100, rankDir: "LR" });
     }
 
     /**
