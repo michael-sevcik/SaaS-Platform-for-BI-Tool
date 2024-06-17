@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\MyFeature\Pages\" />
+    <ProjectReference Include="..\..\Users\Api\BIManagement.Modules.Users.Api.csproj" />
   </ItemGroup>
 
 

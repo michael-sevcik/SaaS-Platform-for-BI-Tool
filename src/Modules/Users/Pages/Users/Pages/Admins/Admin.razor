@@ -1,15 +1,16 @@
 ﻿@using BIManagement.Common.Shared.Results
 @using BIManagement.Modules.Users.Application.UserManagement
 @using BIManagement.Modules.Users.Domain
+@using BIManagement.Modules.Users.Pages.Users.Components
 @inject IUserManager UserManager;
 @inject NavigationManager NavigationManager;
 @* Not using @page directive to utilize static routes class *@
 @attribute [Route(Routes.AdminInfo)]
 @rendermode InteractiveServer
 
-<PageTitle>Costumer</PageTitle>
+<PageTitle>Admin</PageTitle>
 
-<h3>Costumer</h3>
+<h3>Admin</h3>
 
 @if (userResult?.IsSuccess is not null and true)
 {

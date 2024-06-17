@@ -1,7 +1,9 @@
 ﻿@* Not using @page directive to utilize static routes class *@
 @attribute [Route(Routes.MappingProjectInfo)]
-<h3>MappingProjects</h3>
+<PageTitle>Mapping Project</PageTitle>
+<h3>Mapping Project</h3>
 
 @code {
-
+    [Parameter]
+    public string id { get; set; } = string.Empty;
 }
