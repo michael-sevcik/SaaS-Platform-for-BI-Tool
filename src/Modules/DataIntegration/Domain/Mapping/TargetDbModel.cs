@@ -175,19 +175,10 @@ public static class TargetDbModel
                   }
                 },
                 {
-                  "name": "Valid",
+                  "name": "ProductType",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Boolean",
-                    "isNullable": false
-                  }
-                },
-                {
-                  "name": "ProductTypeID",
-                  "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
-                    "isNullable": false
+                    "$type": "nVarCharMax",
+                    "isNullable": true
                   }
                 },
                 {
