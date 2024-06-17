@@ -28,11 +28,11 @@ export abstract class DataTypeBase {
     /**
      * The method checks if the data type is compatible with another data type.
      * @param otherDataType The data type to compare with.
-     * @returns Returns true if the other data type is not nullable
+     * @returns Returns true if the this data type is nullable
      *  or if the nullability of the data types is the same.   
      */
     protected isNullabilityCompatible(otherDataType: DataTypeBase): boolean {
-        return this.isNullable === false || this.isNullable === otherDataType.isNullable;
+        return this.isNullable || this.isNullable === otherDataType.isNullable;
     }
 }
 
