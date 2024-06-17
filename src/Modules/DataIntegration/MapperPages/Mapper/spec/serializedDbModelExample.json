@@ -1,0 +1,521 @@
+{
+    "name": "SaaSPlatform",
+    "tables": [
+        {
+            "name": "CostumerDbModels",
+            "schema": "DataIntegration",
+            "primaryKeys": [
+                {
+                    "name": "CostumerId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "CostumerId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "DbModel",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": false
+                    }
+                }
+            ],
+            "description": null
+        },
+        {
+            "name": "DatabaseConnectionConfigurations",
+            "schema": "DataIntegration",
+            "primaryKeys": [
+                {
+                    "name": "CostumerId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "CostumerId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "Provider",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Integer",
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "ConnectionString",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": false
+                    }
+                }
+            ],
+            "description": null
+        },
+        {
+            "name": "AspNetRoleClaims",
+            "schema": "users",
+            "primaryKeys": [
+                {
+                    "name": "Id",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Integer",
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "Id",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Integer",
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "RoleId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "ClaimType",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "ClaimValue",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                }
+            ],
+            "description": null
+        },
+        {
+            "name": "AspNetRoles",
+            "schema": "users",
+            "primaryKeys": [
+                {
+                    "name": "Id",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "Id",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "Name",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 256,
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "NormalizedName",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 256,
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "ConcurrencyStamp",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                }
+            ],
+            "description": null
+        },
+        {
+            "name": "AspNetUserClaims",
+            "schema": "users",
+            "primaryKeys": [
+                {
+                    "name": "Id",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Integer",
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "Id",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Integer",
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "UserId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "ClaimType",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "ClaimValue",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                }
+            ],
+            "description": null
+        },
+        {
+            "name": "AspNetUserLogins",
+            "schema": "users",
+            "primaryKeys": [
+                {
+                    "name": "LoginProvider",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "ProviderKey",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "LoginProvider",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "ProviderKey",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "ProviderDisplayName",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "UserId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "description": null
+        },
+        {
+            "name": "AspNetUserRoles",
+            "schema": "users",
+            "primaryKeys": [
+                {
+                    "name": "UserId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "RoleId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "UserId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "RoleId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "description": null
+        },
+        {
+            "name": "AspNetUsers",
+            "schema": "users",
+            "primaryKeys": [
+                {
+                    "name": "Id",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "Id",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "Name",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 70,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "UserName",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 256,
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "NormalizedUserName",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 256,
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "Email",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 256,
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "NormalizedEmail",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 256,
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "EmailConfirmed",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Boolean",
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "PasswordHash",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "SecurityStamp",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "ConcurrencyStamp",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "PhoneNumber",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "PhoneNumberConfirmed",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Boolean",
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "TwoFactorEnabled",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Boolean",
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "LockoutEnd",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "DatetimeOffset",
+                        "isNullable": true
+                    }
+                },
+                {
+                    "name": "LockoutEnabled",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Boolean",
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "AccessFailedCount",
+                    "dataType": {
+                        "$type": "simple",
+                        "type": "Integer",
+                        "isNullable": false
+                    }
+                }
+            ],
+            "description": null
+        },
+        {
+            "name": "AspNetUserTokens",
+            "schema": "users",
+            "primaryKeys": [
+                {
+                    "name": "UserId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "LoginProvider",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "Name",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                }
+            ],
+            "columns": [
+                {
+                    "name": "UserId",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "LoginProvider",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "Name",
+                    "dataType": {
+                        "$type": "nVarChar",
+                        "length": 450,
+                        "isNullable": false
+                    }
+                },
+                {
+                    "name": "Value",
+                    "dataType": {
+                        "$type": "nVarCharMax",
+                        "isNullable": true
+                    }
+                }
+            ],
+            "description": null
+        }
+    ]
+}

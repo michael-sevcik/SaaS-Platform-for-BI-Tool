@@ -1,11 +1,14 @@
-import { dia, shapes, util } from "@joint/core";
+import { dia, util } from "@joint/core";
 import { HIGHLIGHTED_OUTLINE_COLOR, LIGHT_COLOR, SECONDARY_DARK_COLOR } from "../../constants";
 import { Link } from "./link";
 import { TargetElementShape } from "./targetElementShape";
 import { PropertyPort } from "./propertyPort";
+import type { BaseSourceEntityShape } from "./baseSourceEntityShape";
+import type { BaseEntityShape } from "./baseEntityShape";
+import type { Column } from "../../dbModel/database";
 
 export class PropertyLink extends Link {
-    private clickMethod() {
+    private clickMethod(): void {
         console.log('clickMethod');
     }
 
@@ -50,42 +53,70 @@ export class PropertyLink extends Link {
         }, super.defaults);
     }
 
-    handleConnection() {
-        const targetElement = this.getTargetElement();
+    handleConnection(): void {
+        const targetElement = this.accessTargetElement();
         
-        // HACK: this is a workaround for a for getting TargetElementShape
+        // HACK: this is a workaround for getting TargetElementShape
         const targetEntity = targetElement as unknown as TargetElementShape;
-        if (targetEntity === undefined) {
-            throw new Error('Cannot find the target element.');
-        }
+        const targetPort = targetElement.getPort(this.accessTargetPort()) as PropertyPort;
 
-        const targetPort = targetElement.getPort(this.target().port) as PropertyPort;
-        if (targetPort === undefined) {
-            throw new Error('Cannot find the target port.');
-        }
+        const sourceEntity = this.accessSourceElement();
+        const sourcePort = sourceEntity.getPort(this.accessSourcePort()) as PropertyPort;
 
-        const sourceEntity = this.getSourceElement();
-        const sourcePort = sourceEntity.getPort(this.source().port) as PropertyPort;
+        const sourceTableShape = sourceEntity as BaseSourceEntityShape;
 
-        targetEntity.setColumnMapping(sourcePort, targetPort);
+        const sourceColumn = sourceTableShape.getSourceColumnByPortId(sourcePort.id!);
+        const targetColumn = targetEntity.getColumnByPortId(targetPort.id!);
+
+        targetEntity.setColumnMapping(sourceColumn, targetColumn);
     }
-    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
-        const element = this.getTargetElement();
-        
-        // HACK: this is a workaround for a for getting TargetElementShape
+    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {        
+        const element = this.accessTargetElement() as BaseEntityShape;
         const targetElement = element as unknown as TargetElementShape;
         if (targetElement === undefined) {
             throw new Error('Cannot find the target element.');
         }
 
-        const targetPort = element.getPort(this.target().port) as PropertyPort;
-        if (targetPort === undefined) {
-            throw new Error('Cannot find the target port.');
+        targetElement.removeColumnMapping(this.accessTargetColumn(element));
+        return this.remove(opt);
+    }
+
+    private accessTargetColumn(targetEntity: BaseEntityShape): Column {
+        const targetPort = targetEntity.getPort(this.accessTargetPort());
+        return targetEntity.getColumnByPortId(targetPort.id!);
+    }
+
+    private accessTargetElement() : dia.Element {
+        const element = this.getTargetElement();
+        if (element == null) {
+            throw new Error('Cannot find the target element.');
         }
 
-        targetElement.removeColumnMapping(targetPort);
+        return element
+    }
 
-        // TODO: update references source column references
-        return this.remove(opt);
+    private accessSourceElement(): dia.Element {
+        const element = this.getSourceElement();
+        if (element == null) {
+            throw new Error('Cannot find the target element.');
+        }
+
+        return element
+    }
+
+    private accessTargetPort() : string {
+        const targetPort = this.target().port;
+        if (targetPort === undefined) {
+            throw new Error('Target port is undefined.');
+        }
+        return targetPort;
+    }
+
+    private accessSourcePort(): string {
+        const sourcePort = this.source().port;
+        if (sourcePort === undefined) {
+            throw new Error('Source port is undefined.');
+        }
+        return sourcePort;
     }
 }

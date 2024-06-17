@@ -91,7 +91,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Deploy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Test.Modules.DataIntegration.DbModelling", "test\Modules\DataIntegration\DbModelling\BIManagement.Test.Modules.DataIntegration.DbModelling.csproj", "{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BIManagement.Test.Modules.DataIntegration.Domain", "test\Modules\DataIntegration\Domain\BIManagement.Test.Modules.DataIntegration.Domain.csproj", "{152BDE62-5D56-46F6-B6AC-EE17BBF5F6FD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Test.Modules.DataIntegration.Domain", "test\Modules\DataIntegration\Domain\BIManagement.Test.Modules.DataIntegration.Domain.csproj", "{152BDE62-5D56-46F6-B6AC-EE17BBF5F6FD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

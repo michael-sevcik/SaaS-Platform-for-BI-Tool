@@ -1,4 +1,5 @@
 import { dia, g } from '@joint/core'
+import { getElementOrThrow } from './utils';
 
 export const GRID_SIZE = 8;
 export const PADDING_S = GRID_SIZE;
@@ -13,9 +14,11 @@ export const LINE_WIDTH = 2;
 export const HEADER_ICON_SIZE = 50;
 export const HEADER_HEIGHT = 80;
 
-export const DATABASE_ENTITY_MAX_PORT_COUNT = 20;
+// TODO: DELETE
+// export const DATABASE_ENTITY_MAX_PORT_COUNT = 20;
 export const SOURCE_DATABASE_ENTITY_GROUP_NAME = 'sourceDbEntity';
 export const DEFAULT_SOURCE_ENTITY_DESCRIPTION = 'Represents a table from the source database.';
+export const DEFAULT_CUSTOM_QUERY_DESCRIPTION = 'Represents a custom query.';
 export const TARGET_DATABASE_ENTITY_GROUP_NAME = 'targetDbEntity';
 export const DEFAULT_TARGET_ENTITY_DESCRIPTION = 'Represents a table from the target database.';
 export const DATABASE_ENTITY_PROPERTY_HEIGHT = 32;
@@ -159,12 +162,12 @@ export const headerAttributes = {
     }]
 };
 
-export const mapperElement = document.getElementById('mapper');
+export const mapperElement = getElementOrThrow('mapper');
 
-export const mainToolbar = document.getElementById('toolbar');
+export const mainToolbar = getElementOrThrow('toolbar');
 
-export const paperDiv = document.getElementById('paper');
+export const paperDiv = getElementOrThrow('paper');
 
-export const contentDiv = document.getElementById('content');
+export const contentDiv = getElementOrThrow('content');
 
-export const sourceFileInput = document.getElementById('source-file');
+export const sourceFileInput = getElementOrThrow('source-file');

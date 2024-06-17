@@ -3,8 +3,19 @@
 
 @* TODO: INJECT CostumerDbModelManager, get the db Model and pass it to the mapper. Also we need to call create model somewhere*@
 
+@using BIManagement.Common.Components.InteractiveAlerts
 @using BIManagement.Modules.DataIntegration.Domain.DbModelling
 @using Microsoft.JSInterop;
+
+<SuccessAlert Message="@message" @ref="successAlert" />
+
+<ErrorAlert Message="@message" @ref="errorAlert" />
+
+@* If all entities are mapped enable continuing to deployment.*@
+@if (mappingStates is not null && mappingStates.All(state => state))
+{
+    <button class="btn btn-primary" href="" >Continue to deployment</button> @* TODO: Add the link to the deployment page *@
+}
 
 <div class="embed-responsive">
     <div class="my-component">
@@ -13,6 +24,20 @@
             <div id="content">
                 <div id="toolbar">
                     <input id="source-file" type="file" />
+                    <Microsoft.AspNetCore.Components.Forms.InputSelect @bind-Value=@currentTargetTableIndex @bind-Value:after="HandleTargetTableSelectionChange">
+                        @* <option value="1">1</option> *@
+                        @if (targetTables != null && mappingStates != null)
+                        {
+                            for (int i = 0; i < targetTables.Count; ++i)
+                            {
+                                var table = targetTables[i];
+                                <option title="@(mappingStates[i] ? FullyMappedOptionTitle : UnfinishedOptionTitle)" value="@i">
+                                    @table.Schema.@table.TableName @(mappingStates[i] ? FullyMappedSymbol : UnfinishedSymbol)
+                                </option>
+                            }
+                        }
+                    </Microsoft.AspNetCore.Components.Forms.InputSelect>
+                    <button @onclick=SaveMappingAsync id="save-button">Save</button>
                 </div>
                 <div id="paper"></div>
             </div>
@@ -21,5 +46,9 @@
     </div>
 </div>
 
-@* todo: remove *@
-<button @onclick="() => OnAfterRenderAsync(false)">retry</button>
+@code{
+    private const string FullyMappedSymbol = "✅";
+    private const string UnfinishedSymbol = "❌";
+    private const string FullyMappedOptionTitle = "Fully Mapped";
+    private const string UnfinishedOptionTitle = "Mapping Unfinished";
+}

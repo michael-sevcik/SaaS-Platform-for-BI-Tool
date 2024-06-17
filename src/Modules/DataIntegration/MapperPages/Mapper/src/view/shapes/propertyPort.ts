@@ -9,7 +9,7 @@ export class PropertyPort implements dia.Element.Port {
         public column: Column,
         public group: string) {
         this.attrs = {
-            portLabel: { text: `${column.name}: ${column.type}`},
+            portLabel: { text: `${column.name}: ${column.dataType.Descriptor}`},
         };
 
         if (column.description !== null) {

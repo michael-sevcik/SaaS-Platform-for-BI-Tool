@@ -1,118 +1,172 @@
-// TODO: REDO OR add source
-
 export class SearchableDropdown {
-    /**
-     * Indicates whether the dropdown is currently displayed as incorrect
-     */
     private displayingIncorrect = false;
     private readonly dropdown: HTMLDivElement;
     private readonly dropdownContent: HTMLDivElement;
     private readonly input: HTMLInputElement;
-    private readonly onOptionSelected: (optionIndex: number) => void;
     private readonly options: HTMLDivElement[] = [];
     private readonly optionsMap = new Map<string, HTMLDivElement>();
     private optionValues: string[] | null = null;
+
     public constructor(
         private readonly container: HTMLDivElement,
         private readonly optionsProvider: () => string[],
         private readonly placeholder: string,
-        onOptionSelected: (optionIndex: number) => void
+        private readonly onOptionSelected: (optionIndex: number) => void
     ) {
-        this.onOptionSelected = onOptionSelected;
-        this.input = document.createElement('input', {});
-        this.input.classList.add('searchable-dropdown-input');
-        this.input.placeholder = placeholder;
-        this.input.addEventListener('input', () => this.handleInput());
-        this.input.addEventListener('focus', () => this.handleInput());
-        // this.input.addEventListener('blur', () => this.handleBlur());    // TODO: is this needed?
+        this.input = this.createInput();
+        this.dropdown = this.createDropdown();
+        this.dropdownContent = this.createDropdownContent();
 
-        this.dropdown = document.createElement('div');
-        this.dropdown.classList.add('searchable-dropdown');
-        this.dropdownContent = document.createElement('div');
-        this.dropdownContent.classList.add('dropdown-content');
         this.dropdown.appendChild(this.dropdownContent);
-
         this.container.appendChild(this.input);
         this.container.appendChild(this.dropdown);
-
     }
 
-    private handleInput() {
+    /**
+     * Creates and returns the input element.
+     */
+    private createInput(): HTMLInputElement {
+        const input = document.createElement('input');
+        input.classList.add('form-control', 'searchable-dropdown-input');
+        input.placeholder = this.placeholder;
+        input.setAttribute('aria-label', 'Search');
+        input.addEventListener('input', () => this.handleInput());
+        input.addEventListener('focus', () => this.handleInput());
+        input.addEventListener('click', () => this.selectAllText());
+        return input;
+    }
+
+    /**
+     * Creates and returns the dropdown element.
+     */
+    private createDropdown(): HTMLDivElement {
+        const dropdown = document.createElement('div');
+        dropdown.classList.add('dropdown', 'w-100');
+        return dropdown;
+    }
+
+    /**
+     * Creates and returns the dropdown content element.
+     */
+    private createDropdownContent(): HTMLDivElement {
+        const dropdownContent = document.createElement('div');
+        dropdownContent.classList.add('dropdown-menu', 'w-100', 'p-2');
+        dropdownContent.style.maxHeight = '200px'; // Set max height for the dropdown
+        dropdownContent.style.overflowY = 'auto'; // Make the dropdown scrollable
+        dropdownContent.style.overflowX = 'hidden'; // Hide horizontal scrollbar
+        return dropdownContent;
+    }
+
+    /**
+     * Handles input events to filter and display dropdown options.
+     */
+    private handleInput(): void {
         const options = this.optionsProvider();
         this.optionValues = options;
         this.dropdownContent.innerHTML = '';
         this.options.length = 0;
-        this.optionsMap.clear(); //TODO: IS needed?
+        this.optionsMap.clear();
+
         const inputText = this.input.value.toUpperCase();
-        // TODO: FILTER OPTIONS
-        for (let i = 0; i < options.length; i++) {
-            const option = options[i];
+        this.filterAndDisplayOptions(options, inputText);
 
-            // check if the option contains the input text
-            if (option.toUpperCase().indexOf(inputText) === -1) {
-                continue;
-            }
-
-            const optionDiv = document.createElement('div');
-            optionDiv.classList.add('searchable-dropdown-option');
-            optionDiv.innerText = option;
-            optionDiv.addEventListener('click', () => this.handleOptionClick(i));
-            this.options.push(optionDiv);
-            this.optionsMap.set(option, optionDiv);
-            this.dropdownContent.appendChild(optionDiv);
-        }
-
-        this.dropdown.style.display = 'block';
+        this.showDropdown();
     }
 
+    /**
+     * Filters and displays options based on input text.
+     */
+    private filterAndDisplayOptions(options: string[], inputText: string) {
+        options.forEach((option, index) => {
+            if (option.toUpperCase().includes(inputText)) {
+                const optionDiv = this.createOptionDiv(option, index);
+                this.options.push(optionDiv);
+                this.optionsMap.set(option, optionDiv);
+                this.dropdownContent.appendChild(optionDiv);
+            }
+        });
+    }
+
+    /**
+     * Creates and returns an option div element.
+     */
+    private createOptionDiv(option: string, index: number): HTMLDivElement {
+        const optionDiv = document.createElement('div');
+        optionDiv.classList.add('dropdown-item', 'searchable-dropdown-option');
+        optionDiv.innerText = option;
+        optionDiv.style.whiteSpace = 'normal'; // Make the option text wrap to the next line
+        optionDiv.style.wordWrap = 'break-word'; // Ensure long words are broken to fit within the width
+        optionDiv.addEventListener('click', () => this.handleOptionClick(index));
+        return optionDiv;
+    }
+
+    /**
+     * Handles option click events.
+     */
     private handleOptionClick(optionIndex: number) {
-        this.displayCorrect();
+        if (!this.optionValues) {
+            throw new Error('Options are not initialized. handleInput must run before this method');
+        }
 
         const optionValue = this.optionValues[optionIndex];
         this.input.value = optionValue;
         this.onOptionSelected(optionIndex);
-        this.hideOptions();
+        this.hideDropdown();
+        this.displayCorrect();
     }
 
     /**
-     * Handles blur
+     * Shows the dropdown.
      */
-    private hideOptions() {
-        this.dropdown.style.display = 'none';
+    private showDropdown(): void {
+        this.dropdownContent.classList.add('show');
     }
 
     /**
-     * Displays as correct
-     * 
-     * Removes the red border around the input
+     * Hides the dropdown.
      */
-    public displayCorrect() : void {
-        if (!this.displayingIncorrect) {
-            return;
-        }
-        
-        this.input.classList.remove('incorrect-input');
+    private hideDropdown(): void {
+        this.dropdownContent.classList.remove('show');
     }
 
     /**
-     * Displays as incorrect
-     * 
-     * Creates a red border around the input
+     * Selects all text in the input field.
      */
-    public displayIncorrect() : void {
+    private selectAllText(): void {
+        this.input.select();
+    }
+
+    /**
+     * Displays the input as correct.
+     */
+    public displayCorrect(): void {
         if (this.displayingIncorrect) {
-            return;
+            this.input.classList.remove('is-invalid');
+            this.displayingIncorrect = false;
         }
-        
-        this.input.classList.add('incorrect-input');
-        this.displayingIncorrect = true;
     }
 
     /**
-     * Sets place holder
-     * @param placeholder the placeholder 
+     * Displays the input as incorrect.
      */
-    public setPlaceHolder(placeholder: string) {
+    public displayIncorrect(): void {
+        if (!this.displayingIncorrect) {
+            this.input.classList.add('is-invalid');
+            this.displayingIncorrect = true;
+        }
+    }
+
+    /**
+     * Clears the input.
+     */
+    public clear(): void {
+        this.input.value = '';
+    }
+
+    /**
+     * Sets the input placeholder.
+     */
+    public setPlaceholder(placeholder: string): void {
         this.input.placeholder = placeholder;
     }
 }

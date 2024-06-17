@@ -1,135 +1,55 @@
-import { dia, elementTools, layout, linkTools, shapes } from '@joint/core';
-import { DirectedGraph } from '@joint/layout-directed-graph';
+import { dia } from '@joint/core';
 import { SHAPE_NAMESPACE } from './shapes/shapeNamespace';
-import { GRID_SIZE, TARGET_DATABASE_ENTITY_GROUP_NAME, LIGHT_COLOR, contentDiv } from '../constants';
+import { GRID_SIZE, TARGET_DATABASE_ENTITY_GROUP_NAME, contentDiv } from '../constants';
 import { PropertyLink } from './shapes/propertyLink';
-import { SourceTableShape } from './shapes/sourceTableShape';
-import { JoinLink } from './shapes/joinLink';
-import { EntityMapping } from '../mappingModel/entityMapping';
-import { SourceEntitiesToShapesTransformer } from './sourceEntitiesToShapesTransformer';
 import { TargetTableShape } from './shapes/targetTableShape';
+import { EntityMapping } from '../mappingModel/entityMapping';
+import { SourceEntitiesToShapesTransformer } from './helpers/sourceEntitiesToShapesTransformer';
 import { Database, Table } from '../dbModel/database';
-import { Link } from './shapes/link';
-import { PropertyPort } from './shapes/propertyPort';
-import { SourceTable } from '../mappingModel/sourceTable';
+import { handlePointerMove, onPaperElementMouseEnter, onPaperElementMouseLeave, onPaperLinkMouseEnter, onPaperLinkMouseLeave, validateMagnet } from './helpers/eventHandlers';
+import { createButton, attachChangeEvent } from './elements/utilityMethods';
+import { SourceTablePickerModal } from './modals/sourceTablePickerModal';
+import type { BaseEntityShape } from './shapes/baseEntityShape';
+import { JoinLink } from './shapes/joinLink';
+import { EntityMappingConvertor } from '../mappingModel/converting/entityMappingConvertor';
+import { CustomQueryDefinitionModal } from './modals/customQuery/customQueryDefinitionModal';
 import { SourceColumn } from '../mappingModel/sourceColumn';
+import { plainToInstance } from 'class-transformer';
+import { DirectedGraph } from '@joint/layout-directed-graph';
+import { SourceTable } from '../mappingModel/sourceEntities/sourceTable';
+import { SourceTableShape } from './shapes/sourceTableShape';
+import { CustomQueryShape } from './shapes/customQueryShape';
+import type { CustomQuery } from '../mappingModel/sourceEntities/customQuery';
+import { JoinedSourceEntityData, type SourceEntityShapeFactory } from './helpers/joinedSourceEntityData';
 import { Join, JoinType } from '../mappingModel/aggregators/join';
 import { JoinModal } from './modals/joinModal';
-import { SourceTablePickerModal } from './modals/sourceTablePickerModal';
-import { MappingVisitor } from '../mappingModel/mappingVisitor';
-import { ConditionLink } from '../mappingModel/aggregators/conditions/conditionLink';
-import { JoinCondition } from '../mappingModel/aggregators/conditions/joinCondition';
-import { BaseEntityShape } from './shapes/baseEntityShape';
+import { ConcreteSourceEntityFinder } from './helpers/concreteSourceEntityFinder';
 import { BaseSourceEntityShape } from './shapes/baseSourceEntityShape';
-import { EntityMappingConvertor } from '../mappingModel/converting/entityMappingConvertor';
-
-
-/**
- * Helper class for encapsulating objects needed to finish joining process
- * that starts after an addition of a new source table.
- */
-class IntermediateSourceTableData {
-
-    /**
-     * Initializes a new instance o of {@link IntermediateSourceTableData}.
-     * @param tableToAdd The table that is being added in needs to be joined.
-     * @param joinModal the modal responsible for joining the new table.
-     * @param unfinishedJoin Entity representing the join between old table and newly added.
-     */
-    public constructor(
-        public readonly tableToAdd: SourceTable,
-        public readonly joinModal: JoinModal,
-        public readonly unfinishedJoin: Join)
-        {}
-}
+import type { SourceEntityBase } from '../mappingModel/sourceEntities/sourceEntityBase';
+import type { PropertyPort } from './shapes/propertyPort';
 
 /**
- * Helper {@link MappingVisitor} derived class for finding the rightmost 
- * source table in the joining tree.
+ * The `MappingEditor` class represents an editor for mapping entities and tables.
+ * It provides functionality for creating, loading, and manipulating entity mapping.
  */
-class SourceTableFinder extends MappingVisitor {
-    public desiredSourceEntity : SourceTable | null;
-
-    // Intentionally left not implemented
-    public visitSourceColumn(sourceColumn: SourceColumn): void {
-        throw new Error('Method not implemented.');
-    }
-
-    // Intentionally left not implemented
-    public visitConditionLink(conditionLink: ConditionLink): void {
-        throw new Error('Method not implemented.');
-    }
-
-    // Intentionally left not implemented
-    public visitJoinCondition(joinCondition: JoinCondition): void {
-        throw new Error('Method not implemented.');
-    }
-
-    public visitSourceTable(sourceTable: SourceTable): void {
-        this.desiredSourceEntity = sourceTable;
-    }
-    public visitJoin(join: Join): void {
-        join.rightSourceEntity.accept(this);
-    }
-
-}
-
 export class MappingEditor {
     public static readonly containerId = 'paper';
-//#region static event hadler methods
-    private static onPaperElementMouseEnter(elementView: dia.ElementView) {
-        const baseEntityShape = elementView.model as BaseEntityShape;
 
-        if (baseEntityShape instanceof BaseSourceEntityShape) {
-            const toolsView = new dia.ToolsView({
-                tools: [new elementTools.Remove( {
-                    action: () => {
-                        console.log('Removing an element.')
-                        baseEntityShape.handleRemoving();
-                    }
-                })]
-            })
-            
-            elementView.addTools(toolsView)
-        }
-    }
-
-    private static onPaperElementMouseLeave(linkView: dia.ElementView) {
-        linkView.removeTools();
-    }
-
-    private static onPaperLinkMouseEnter(linkView: dia.LinkView) {
-        const link = linkView.model as Link;
-
-        // TODO: OPTIMIZE - do not create new tools every time 
-        const toolsView = new dia.ToolsView({
-            tools: [new linkTools.Remove( { action: () => {
-                console.log('Removing a link');
-                link.handleRemoving();
-            }})]
-        });
-    
-        linkView.addTools(toolsView);
-        if (link instanceof PropertyLink) console.log('Property link');
-        
-        link.highlight();
-    }
-
-    private static onPaperLinkMouseLeave(linkView: dia.LinkView) {
-        linkView.removeTools();
-        const link = linkView.model as Link;
-        link.unhighlight();
-    }
-//#endregion 
-
-    private entityMapping : EntityMapping | null = null;
+    private entityMapping: EntityMapping | null = null;
+    private targetTable: Table | null;
     private readonly sourceTablePickerModal: SourceTablePickerModal;
     private readonly toolbar = document.getElementById('toolbar');
     public readonly graph = new dia.Graph({}, { cellNamespace: SHAPE_NAMESPACE });
-    public readonly paper : dia.Paper;
+    public paper: dia.Paper;
 
-    // TODO: consider creating map of target tables with their names as keys
-    public constructor(private readonly sourceDb: Database, private readonly targetDb: Database) {
+    public constructor(private readonly sourceDb: Database) {
+        this.initializePaper();
+        this.initializeEvents();
+        this.initializeToolBox();
+        this.sourceTablePickerModal = new SourceTablePickerModal(this.sourceDb.tables);
+    }
+
+    private initializePaper() : void {
         this.paper = new dia.Paper({
             el: document.getElementById('paper'),
             width: '100%',
@@ -143,338 +63,299 @@ export class MappingEditor {
             magnetThreshold: 'onleave',
             linkPinning: false,
             snapLinks: true,
-            background: {
-                color: '#F3F7F6'
-            },
-            defaultRouter: { name: 'manhattan', args: { step: 2*GRID_SIZE }},
-            // defaultConnector: { name: 'jumpover', args: { size: 10 }}, // TODO: change the connecter and router
+            background: { color: '#F3F7F6' },
+            defaultRouter: { name: 'metro', args: { step: 2 * GRID_SIZE } },
+            defaultConnector: { name: 'jumpover', args: { size: 8 } },
             cellViewNamespace: SHAPE_NAMESPACE,
-            validateConnection: (sourceView, _sourceMagnet, targetView, _targetMagnet) => {
-                // TODO: use the types of columns to validate connections
-                const targetElement = targetView.model as dia.Element;
-                const targetPortId = targetView.findAttribute('port', _targetMagnet);
-                const targetPort = targetElement.getPort(targetPortId) as PropertyPort; 
-
-                if (sourceView === targetView) return false;
-                // TODO: Create an abstract class for source elements
-                if (targetElement instanceof SourceTableShape) {
-                    console.log('paper<validateConnection>', 'Cannot connect to source database entity.');
-                    return false;
-                };
-        
-                // FIXME: A lot of logs is being printed here, fix it
-                if (
-                    this.graph
-                        .getConnectedLinks(targetElement, { inbound: true })
-                        .find((link) => link.target().port === targetPortId)
-                ) {
-                    console.log('paper<validateConnection>', 'The port has already an inbound link (we allow only one link per port)');
-                    return false;
-                }
-
-                const sourceEntity = sourceView.model as dia.Element;
-                const sourcePortId = sourceView.findAttribute('port', _sourceMagnet);
-                const sourcePort = sourceEntity.getPort(sourcePortId) as PropertyPort;
-        
-                if (!targetPort.isAssignableWith(sourcePort)) {
-                    console.log('paper<validateConnection>', 'The types of the ports are not compatible.');
-                    return false;
-                }
-                
-                return true;
-            },
-            validateMagnet: (sourceView, sourceMagnet) => {
-                const sourceGroup = sourceView.findAttribute("port-group", sourceMagnet);
-                const sourcePort = sourceView.findAttribute("port", sourceMagnet);
-                
-                const source = sourceView.model;
-            
-                console.log(sourceMagnet);
-                console.log(sourceView);
-                console.log(sourceGroup);
-                
-                if (sourceGroup === TARGET_DATABASE_ENTITY_GROUP_NAME) {
-                    console.log(
-                    "paper<validateMagnet>",
-                    "It's not possible to create a link from an inbound port.");
-                    return false;
-                }
-            
-                if (
-                    this.graph
-                        .getConnectedLinks(source, { outbound: true })
-                        .find((link) => link.source().port === sourcePort)
-                ) {
-                        console.log(
-                        "paper<validateMagnet>",
-                        "The port has already an outbound link (we allow only one link per port)"
-                    );
-                    return false;
-                }
-            
-                return true;
-              },
+            validateConnection: this.validateConnection.bind(this),
+            validateMagnet: validateMagnet,
         });
-        
+
         this.paper.el.style.border = `1px solid #e2e2e2`;
-        
-        // set up the event handlers 
+    }
+
+    private initializeEvents(): void {
         this.paper.on({
-            'element:mouseenter': MappingEditor.onPaperElementMouseEnter,
-            'element:mouseleave': MappingEditor.onPaperElementMouseLeave,
-            'element:pointerdblclick': (cellView) => {
-                const baseEntityShape = cellView.model as BaseEntityShape;
-                baseEntityShape.handleDoubleClick();
-            },
-            'link:mouseenter': MappingEditor.onPaperLinkMouseEnter,
-            'link:mouseleave': MappingEditor.onPaperLinkMouseLeave,
-            'link:pointerdblclick': (cellView) => { // TODO: REMOVE and use this for the joinLink to open the modal 
-                if (cellView.model instanceof JoinLink) {
-                    const customLink = cellView.model as JoinLink;
-                    customLink.handleDoubleClick();
-                }
-            },
-            'link:connect': (linkView, evt, elementViewConnected) => { 
-                const propertyLink = linkView.model as PropertyLink;
-                propertyLink.handleConnection();
-            },
-            'cell:pointermove': function (cellView, evt, x, y) {
-                // Check if the cell being dragged is an element
-                if (cellView.model.isElement()) {
-                    const element = cellView.model;
-                    const boundingBox = element.getBBox();
-
-                    const containerRect = contentDiv.getBoundingClientRect();
-
-                    // Define boundaries of the container
-                    // bounding box is relative to the paper
-                    const containerMinX = 0;
-                    const containerMinY = 0;
-                    const containerMaxX = containerRect.width;
-                    const containerMaxY = containerRect.height;
-
-                    // Check if the element is trying to move beyond the container boundaries
-                    if (boundingBox.x < containerMinX
-                        || boundingBox.x + boundingBox.width > containerMaxX
-                        || boundingBox.y < containerMinY
-                        || boundingBox.y + boundingBox.height > containerMaxY) {
-                        // Adjust the position of the element to keep it within container boundaries
-                        var newX = Math.min(Math.max(boundingBox.x, containerMinX), containerMaxX - boundingBox.width);
-                        var newY = Math.min(Math.max(boundingBox.y, containerMinY), containerMaxY - boundingBox.height);
-                        element.position(newX, newY);
-                    }
-                }
-            }
+            'element:mouseenter': onPaperElementMouseEnter,
+            'element:mouseleave': onPaperElementMouseLeave,
+            'element:pointerdblclick': (cellView) => (cellView.model as BaseEntityShape).handleDoubleClick(),
+            'link:mouseenter': onPaperLinkMouseEnter,
+            'link:mouseleave': onPaperLinkMouseLeave,
+            'link:pointerdblclick': (cellView) => { if (cellView.model instanceof JoinLink) (cellView.model as JoinLink).handleDoubleClick(); },
+            'link:connect': (linkView) => (linkView.model as PropertyLink).handleConnection(),
+            'cell:pointermove': handlePointerMove,
         });
+    }
 
-        const addSourceTableButton = document.createElement('button');
-        addSourceTableButton.innerText = 'Přidat zdrojovou tabulku';
-        addSourceTableButton.addEventListener('click', () => this.openSourceTableSelectionModal());
-        this.toolbar?.appendChild(addSourceTableButton);
+    private initializeToolBox() : void {
+        this.toolbar?.appendChild(createButton('Add source table', () => this.openSourceTableSelectionModal()));
+        this.toolbar?.appendChild(createButton('Export mapping', () => this.downloadMapping()));
+        this.toolbar?.appendChild(createButton('Add custom query', () => {
+            const modal = new CustomQueryDefinitionModal();
+            modal.open(() => {
+                this.addCustomQuery(modal.customQuery ?? (() => { throw new Error('Custom query should be initialized by the modal.'); })());
+                modal.finalize();
+            }, true);
+        }));
+        this.toolbar?.appendChild(createButton('Layout graph', this.layoutGraph.bind(this)));
 
-        const exportMappingButton = document.createElement('button');
-        exportMappingButton.innerText = 'Exportovat mapování';
-        exportMappingButton.addEventListener('click', () => this.exportMapping());
-        this.toolbar?.appendChild(exportMappingButton);
-
-        this.sourceTablePickerModal = new SourceTablePickerModal(this.sourceDb.tables);
-
-        const importFile = document.getElementById('source-file');
-        importFile.addEventListener('change', (event) => {
+        attachChangeEvent('source-file', (event) => {
             const file = (event.target as HTMLInputElement).files?.[0];
-            if (file === undefined) return;
-
+            if (!file) return;
             const reader = new FileReader();
             reader.onload = () => {
                 const result = reader.result;
-                if (result === null) return;
-
+                if (!result) return;
                 const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(JSON.parse(result as string));
-                this.loadEntityMapping(entityMapping);
-            }
-
+                this.loadEntityMapping(entityMapping, this.targetTable!);
+            };
             reader.readAsText(file);
         });
-
-    }
- 
-    // TODO: use in mapping
-    public CreateSerializedMapping() {
-        console.log(this.entityMapping);
-
-        const plainEntityMapping = EntityMappingConvertor.convertEntityMappingToPlain(this.entityMapping);
-
-        console.log(plainEntityMapping);
-
-        // Convert the mappings array to a JSON string
-        return JSON.stringify(plainEntityMapping, null, 2); // Use 2 spaces for indentation
     }
 
-    public exportMapping() {
-        console.log(this.entityMapping);
-        
-        const plainEntityMapping = EntityMappingConvertor.convertEntityMappingToPlain(this.entityMapping);
+    /**
+     * Checks if the mapping is complete.
+     * @returns True if mapper is initialized and all non-nullable columns are mapped, false otherwise.
+     */
+    public isMappingComplete(): boolean {
+        if (this.entityMapping === null || this.targetTable === null) return false;
+        for (const column of this.targetTable.columns) {
+            if (!column.dataType.isNullable && this.entityMapping.columnMappings.get(column.name) == null) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-        console.log(plainEntityMapping);
-        
-        // Convert the mappings array to a JSON string
-        const jsonString = JSON.stringify(plainEntityMapping, null, 2); // Use 2 spaces for indentation
+    /**
+     * Serializes the current entity mapping to JSON.
+     * @returns A JSON string representation of the entity mapping.
+     */
+    public createSerializedMapping(): string {
+        const plainEntityMapping = EntityMappingConvertor.convertEntityMappingToPlain(this.entityMapping ?? (() => { throw new Error('Entity mapping was not yet initialized.'); })());
+        return JSON.stringify(plainEntityMapping, null, 2);
+    }
 
-        // Create a Blob with the JSON data
+    /**
+     * Initiates the download of the current mapping as a JSON file.
+     */
+    public downloadMapping(): void {
+        const jsonString = this.createSerializedMapping();
         const blob = new Blob([jsonString], { type: 'application/json' });
-
-        // Create a URL from the Blob
         const url = URL.createObjectURL(blob);
-
-
-        // Create a link element
         const downloadLink = document.createElement('a');
         downloadLink.href = url;
-        downloadLink.download = 'mappings.json'; // Specify the filename for the downloaded file
+        downloadLink.download = 'mappings.json';
         downloadLink.click();
-
-        // Clean up the URL object after the download is initiated
         URL.revokeObjectURL(url);
     }
 
-    public loadEntityMapping(entityMapping : EntityMapping) {
+    /**
+     * Creates entity mapping for the given table.
+     * @param targetTable The target table that should be mapped.
+     */
+    public createFromTargetTable(targetTable: Table) {
+        const columnMappings = new Map<string, SourceColumn | null>();
+        for (const column of targetTable.columns) {
+            columnMappings.set(column.name, null);
+        }
+
+        const entityMapping = new EntityMapping(targetTable.name, targetTable.schema, null, [], columnMappings);
+        this.loadEntityMapping(entityMapping, targetTable);
+    }
+
+    /**
+     * Creates entity mapping for the given serialized table.
+     * @param serializedTable The serialized target table that should be mapped.
+     */
+    public createFromSerializedTargetTable(serializedTable: string) {
+        const table = plainToInstance(Table, JSON.parse(serializedTable));
+        this.createFromTargetTable(table);
+    }
+
+    /**
+     * Loads an entity mapping and its corresponding target table into the editor.
+     * @param entityMapping The entity mapping to load.
+     * @param targetTable The target table to map.
+     */
+    public loadEntityMapping(entityMapping: EntityMapping, targetTable: Table) {
+        this.targetTable = targetTable;
         this.entityMapping = entityMapping;
         this.paper.freeze();
         const cells = this.convertEntityMappingToShapes(entityMapping);
-        
-        // Add the cells to the graph
         this.graph.resetCells(cells);
-
-        // layout the cells - source https://www.jointjs.com/demos/directed-graph-layout
-        DirectedGraph.layout(this.graph, {
-            nodeSep: 200,
-            edgeSep: 80,
-            rankDir: "LR"
-        });
-
+        this.layoutGraph();
         this.paper.unfreeze();
     }
 
-    public loadSerializedEntityMapping(serializedEntityMapping: string) {
+    /**
+     * Layouts the graph in the editor.
+     */
+    private layoutGraph() {
+        DirectedGraph.layout(this.graph, { nodeSep: 300, edgeSep: 100, rankDir: "LR" });
+    }
+
+    /**
+     * Loads a serialized entity mapping and its corresponding serialized table into the editor.
+     * @param serializedEntityMapping The serialized entity mapping to load.
+     * @param serializedTable The serialized target table to map.
+     */
+    public loadSerializedEntityMapping(serializedEntityMapping: string, serializedTable: string) {
         const plainEntityMapping = JSON.parse(serializedEntityMapping);
         const entityMapping = EntityMappingConvertor.convertPlainToEntityMapping(plainEntityMapping);
-
-        this.entityMapping = entityMapping;
-        this.paper.freeze();
-        const cells = this.convertEntityMappingToShapes(entityMapping);
-
-        // Add the cells to the graph
-        this.graph.resetCells(cells);
-
-        // layout the cells - source https://www.jointjs.com/demos/directed-graph-layout
-        DirectedGraph.layout(this.graph, {
-            nodeSep: 200,
-            edgeSep: 80,
-            rankDir: "LR"
-        });
-
-        this.paper.unfreeze();
+        const targetTable = plainToInstance(Table, JSON.parse(serializedTable));
+        this.loadEntityMapping(entityMapping, targetTable);
     }
 
-    private openSourceTableSelectionModal() {
-        this.sourceTablePickerModal.open(() => this.addSourceTable(this.sourceTablePickerModal.tableToAdd));
+    /**
+     * Opens the modal for selecting a source table.
+     */
+    private openSourceTableSelectionModal(): void {
+        this.sourceTablePickerModal.open(() => this.addSourceTable(this.sourceTablePickerModal.tableToAdd ?? (() => { throw new Error('Table to add should be initialized by the modal.'); })()));
     }
 
+    /**
+     * Adds a source table to the mapping editor.
+     * @param table The source table to add.
+     */
     private addSourceTable(table: Table) {
-        //
-        const sourceTable = new SourceTable(table.name, table.columns.map(column => new SourceColumn(column)));
+        const sourceTable = new SourceTable(table.name, table.schema, table.columns.map(column => new SourceColumn(column)));
         sourceTable.createBackwardConnections();
+        this.handleSourceEntityShapeAddition(() => new SourceTableShape(sourceTable, table), sourceTable);
+    }
 
-        const sourceEntity = this.entityMapping.sourceEntity;
-        console.log(this.entityMapping);
-        if (sourceEntity === null) {
-            const sourceTableShape = new SourceTableShape(sourceTable)
-            this.entityMapping.sourceEntity = sourceTable;
-            this.entityMapping.createBackwardConnections();
+    /**
+     * Adds a custom query to the mapping editor.
+     * @param customQuery The custom query to add.
+     */
+    private addCustomQuery(customQuery: CustomQuery) {
+        customQuery.createBackwardConnections();
+        this.handleSourceEntityShapeAddition(() => new CustomQueryShape(customQuery), customQuery);
+    }
+
+    /**
+     * Handles the addition of a source entity shape.
+     * @param sourceEntityShapeFactory A factory method for creating the source entity shape.
+     * @param sourceEntity The source entity to add.
+     */
+    private handleSourceEntityShapeAddition(sourceEntityShapeFactory: SourceEntityShapeFactory, sourceEntity: SourceEntityBase) {
+        const currentSourceEntity = this.entityMapping!.sourceEntity;
+        if (currentSourceEntity === null) {
+            const sourceTableShape = sourceEntityShapeFactory();
+            this.entityMapping!.sourceEntity = sourceEntity;
+            this.entityMapping!.createBackwardConnections();
             this.graph.addCell(sourceTableShape);
             return;
         }
 
-        const join = new Join(`join_${sourceEntity.name}_${sourceTable.name}`, JoinType.inner, sourceEntity, sourceTable);
-
+        const join = new Join(`join_${currentSourceEntity.name}_${sourceEntity.fullName}`, JoinType.inner, currentSourceEntity, sourceEntity);
         const joinModal = new JoinModal(join);
-        const sourceTableData = new IntermediateSourceTableData(sourceTable, joinModal, join);
-        joinModal.open(() => this.finishJoiningSourceTable(sourceTableData));
+        const sourceTableData = new JoinedSourceEntityData(sourceEntityShapeFactory, joinModal, join);
+        joinModal.open(() => this.finishJoiningSourceTable(sourceTableData), true);
     }
-    private finishJoiningSourceTable(sourceTableData: IntermediateSourceTableData) : void {
-        // TODO: handle first add
 
-        const rightSourceTableShape = new SourceTableShape(sourceTableData.tableToAdd)
-        const sourceTableFinder = new SourceTableFinder();
-        this.entityMapping.sourceEntity.accept(sourceTableFinder);
-        const leftSourceTable = sourceTableFinder.desiredSourceEntity; 
+    /**
+     * After join definition is finished, this method is called to finish the joining process.
+     * Handles the creation of the join link and the right source table shape.
+     * @param joinedSourceEntityData Encapsulation of objects needed to finish the joining process.
+     */
+    private finishJoiningSourceTable(joinedSourceEntityData: JoinedSourceEntityData) {
+        const rightSourceEntityShape = joinedSourceEntityData.sourceEntityShapeFactory();
+        const sourceTableFinder = new ConcreteSourceEntityFinder();
 
-        const leftSourceTableShape = this.graph.getElements().find(element => { 
-            if (element instanceof SourceTableShape) {
-                const sourceTableShape = element as SourceTableShape;
-                if (sourceTableShape.sourceTable === leftSourceTable) {
-                    return true;
-                }
+        if (this.entityMapping!.sourceEntity == null) throw new Error('Source entity should be initialized.');
+        this.entityMapping!.sourceEntity.accept(sourceTableFinder);
+        const leftEntity = sourceTableFinder.desiredSourceEntity;
+
+        const leftSourceTableShape = this.graph.getElements().find(element => {
+            if (element instanceof BaseSourceEntityShape) {
+                return element.uniqueName === leftEntity?.fullName;
             }
             return false;
-        }) as SourceTableShape;
+        }) as BaseSourceEntityShape;
 
-        const joinLink = new JoinLink(sourceTableData.unfinishedJoin, sourceTableData.joinModal);
+        const joinLink = new JoinLink(joinedSourceEntityData.unfinishedJoin, joinedSourceEntityData.joinModal);
         joinLink.source(leftSourceTableShape);
-        joinLink.target(rightSourceTableShape);
+        joinLink.target(rightSourceEntityShape);
 
-        this.entityMapping.sourceEntity = sourceTableData.unfinishedJoin;
-        this.entityMapping.createBackwardConnections();
+        this.entityMapping!.sourceEntity = joinedSourceEntityData.unfinishedJoin;
+        this.entityMapping!.createBackwardConnections();
 
         this.paper.freeze();
-        this.graph.addCells([rightSourceTableShape, joinLink]);
+        this.graph.addCells([rightSourceEntityShape, joinLink]);
         this.paper.unfreeze();
+
+        rightSourceEntityShape.onPaperPlacement();
     }
+
+    /**
+     * Converts the given entity mapping to a set of JointJS shapes.
+     * @param entityMapping The entity mapping to convert.
+     * @returns An array of JointJS cells.
+     */
     private convertEntityMappingToShapes(entityMapping: EntityMapping): dia.Cell[] {
-        // initialize the transformer
-        const correspondingTable = this.targetDb.tables.find(
-            (table) => table.name === entityMapping.name);
-            
-        if (correspondingTable === undefined) throw new Error(`Cannot find the corresponding table with name ${entityMapping.name}.`);    
         const transformer = new SourceEntitiesToShapesTransformer(this.sourceDb.tables);
-        
-        // transform the source entities to shapes
         if (entityMapping.sourceEntity !== null) {
             entityMapping.sourceEntity.accept(transformer);
         }
-        
-        // Create the target entity shape and links between the source and target entities
+
         const cells = transformer.cells;
         const targetShape = new TargetTableShape(entityMapping, []);
         for (const [targetColumnName, sourceColumn] of entityMapping.columnMappings) {
-            // Add port to the target entity
-            const targetColumn = correspondingTable.columns.find((column) => column.name === targetColumnName);
+            const targetColumn = this.targetTable!.columns.find((column) => column.name === targetColumnName);
             if (targetColumn === undefined) throw new Error('Cannot find the corresponding column');
 
             const targetPort = targetShape.addPropertyPort(targetColumn);
+            if (targetPort === undefined) throw new Error('Cannot create the port for the target column');
 
-            // if it has mapping, add a link
             if (sourceColumn !== null) {
-                const sourceElement = transformer.elementMap.get(sourceColumn.owner);
-                const sourcePort = sourceElement.getPortByColumn(sourceColumn);                
+                const sourceElement = transformer.elementMap.get(sourceColumn.owner) ?? (() => { throw new Error('Source element not found.'); })();
+                const sourcePort = sourceElement.getPortByColumn(sourceColumn);
                 const link = new PropertyLink();
-                link.source({
-                    id: sourceElement.id,
-                    magnet: "portBody",
-                    port: sourcePort.id
-                });
-                link.target({ 
-                    id: targetShape.id,
-                    magnet: "portBody",
-                    port: targetPort.id
-                });
-                console.debug('Adding a link');
-                console.debug(link);
+                link.source({ id: sourceElement.id, magnet: "portBody", port: sourcePort.id });
+                link.target({ id: targetShape.id, magnet: "portBody", port: targetPort.id });
                 cells.push(link);
             }
         }
 
         cells.push(targetShape);
         return cells;
+    }
+
+    /**
+     * Validates the connection between source and target ports.
+     * @param sourceView The source element view.
+     * @param _sourceMagnet The source magnet.
+     * @param targetView The target element view.
+     * @param _targetMagnet The target magnet.
+     * @returns True if the connection is valid, false otherwise.
+     */
+    private validateConnection(sourceView: dia.ElementView, _sourceMagnet: SVGAElement, targetView: dia.ElementView, _targetMagnet: SVGAElement) {
+        const targetElement = targetView.model as dia.Element;
+        const targetPortId = targetView.findAttribute('port', _targetMagnet) ?? (() => { throw new Error('Target port not found.'); })();
+        const targetPort = targetElement.getPort(targetPortId) as PropertyPort;
+
+        if (sourceView === targetView) return false;
+
+        if (targetElement instanceof BaseSourceEntityShape) {
+            console.debug('paper<validateConnection>: Cannot connect to source database entity.');
+            return false;
+        }
+
+        if (this.graph.getConnectedLinks(targetElement, { inbound: true }).find((link) => link.target().port === targetPortId)) {
+            console.debug('paper<validateConnection>', 'The port has already an inbound link (we allow only one link per port)');
+            return false;
+        }
+
+        const sourceEntity = sourceView.model as dia.Element;
+        const sourcePortId = sourceView.findAttribute('port', _sourceMagnet) ?? (() => { throw new Error('Source port not found.'); })();
+        const sourcePort = sourceEntity.getPort(sourcePortId) as PropertyPort;
+
+        if (!targetPort.isAssignableWith(sourcePort)) {
+            console.debug('paper<validateConnection>', 'The types of the ports are not compatible.');
+            return false;
+        }
+
+        return true;
     }
 }

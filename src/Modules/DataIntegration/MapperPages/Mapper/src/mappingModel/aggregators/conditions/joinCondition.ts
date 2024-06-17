@@ -1,6 +1,6 @@
 import { ReferenceHolder } from "../../referenceHolder";
 import { MappingVisitor } from "../../mappingVisitor";
-import { Visitable } from "../../converting/visitable";
+import { MappingVisitable } from "../../converting/mappingVisitable";
 import { SourceColumn } from "../../sourceColumn";
 import type { ConditionLink } from "./conditionLink";
 
@@ -11,7 +11,7 @@ export enum Operator {
     lessThan = "lessThan",
 }
 
-export class JoinCondition implements Visitable, ReferenceHolder { 
+export class JoinCondition implements MappingVisitable, ReferenceHolder { 
     private _leftColumn : SourceColumn;
     private _rightColumn : SourceColumn;
 
@@ -30,6 +30,13 @@ export class JoinCondition implements Visitable, ReferenceHolder {
         public linkedCondition? : ConditionLink) {
         this._leftColumn = leftColumn;
         this._rightColumn = rightColumn;
+    }
+    removeReferences(): void {
+        this.leftColumn.removeReference(this);
+        this.rightColumn.removeReference(this);
+        if (this.linkedCondition !== undefined) {
+            this.linkedCondition.removeReferences();
+        }
     }
 
     accept(visitor: MappingVisitor): void {

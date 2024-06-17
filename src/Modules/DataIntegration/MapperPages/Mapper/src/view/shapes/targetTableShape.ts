@@ -9,11 +9,10 @@ import { TargetElementShape } from './targetElementShape';
 export class TargetTableShape extends BaseEntityShape implements TargetElementShape {
     groupName: string;
 
-    public constructor(private readonly entityMapping: EntityMapping, columns: Column[], ...args: any[]) {
+    public constructor(public readonly entityMapping: EntityMapping, columns: Column[], ...args: any[]) {
         super(columns, ...args);
         this.setTitle(entityMapping.name);
         this.setDescription(entityMapping.description ?? DEFAULT_TARGET_ENTITY_DESCRIPTION);
-        // TODO: add description
     }
 
     defaults() {
@@ -25,15 +24,16 @@ export class TargetTableShape extends BaseEntityShape implements TargetElementSh
         // no use for this event yet
     }
 
-    public removeColumnMapping(targetPort: PropertyPort) {
-        this.entityMapping.removeColumnMapping(targetPort.column);
+    /** @inheritdoc */
+    public removeColumnMapping(targetColumn: Column) {
+        this.entityMapping.removeColumnMapping(targetColumn);
         console.log(this.entityMapping);
         
     }
 
-    public setColumnMapping(sourcePort: PropertyPort, targetPort: PropertyPort) {
-        this.entityMapping.setColumnMapping(sourcePort.column as SourceColumn, targetPort.column);
+    /** @inheritdoc */
+    public setColumnMapping(sourceColumn: SourceColumn, targetColumn: Column) {
+        this.entityMapping.setColumnMapping(sourceColumn, targetColumn);
         console.log(this.entityMapping);
-        
     }
 }

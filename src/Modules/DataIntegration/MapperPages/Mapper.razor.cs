@@ -1,4 +1,6 @@
-﻿using BIManagement.Modules.DataIntegration.Domain.DbModelling;
+﻿using BIManagement.Common.Components.InteractiveAlerts;
+using BIManagement.Modules.DataIntegration.Domain.DbModelling;
+using BIManagement.Modules.DataIntegration.Domain.Mapping;
 using BIManagement.Modules.Users.Api;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Http;
@@ -24,17 +26,31 @@ public sealed partial class Mapper : IAsyncDisposable
     [Inject]
     ILogger<Mapper> Logger { get; set; } = default!;
 
-
     [Inject]
     ILogger<MapperJsInterop> MapperLogger { get; set; } = default!;
 
+    [Inject]
+    ISchemaMappingRepository SchemaMappingRepository { get; set; } = default!;
+
+    [Inject]
+    ITargetDbTableRepository TargetDbTableRepository { get; set; } = default!;
+
+    private const string IntroductionMessage = $"""
+        Please map the target entities one by one, don't forget to save your progress after each entity mapped.
+        Fully mapped entities are marked with {FullyMappedSymbol}, othrerwise {UnfinishedSymbol}.
+        After mapping all entities and saving each mapping, Continu button will appear.
+        """;
+    private bool isInitialized = false;
+
     private MapperJsInterop? mapperJSInterop;
-    private IJSObjectReference? mappingEditorObjectRefernce;
-    private DbModel? dbModel;
-
-    // TODO: delete after the object 
-    private static string SerializedMapping = "{\r\n  \"name\": \"EmployeeHoursWorked2\",\r\n  \"sourceEntity\": {\r\n    \"$id\": \"0\",\r\n    \"type\": \"join\",\r\n    \"name\": \"join1\",\r\n    \"joinType\": \"inner\",\r\n    \"leftSourceEntity\": {\r\n      \"$id\": \"1\",\r\n      \"type\": \"sourceTable\",\r\n      \"name\": \"TabMzdList\",\r\n      \"selectedColumns\": [\r\n        {\r\n          \"$id\": \"5\",\r\n          \"name\": \"ZamestnanecId\",\r\n          \"type\": \"int\"\r\n        },\r\n        {\r\n          \"$id\": \"4\",\r\n          \"name\": \"OdpracHod\",\r\n          \"type\": \"decimal\"\r\n        },\r\n        {\r\n          \"$id\": \"3\",\r\n          \"name\": \"HodSaz\",\r\n          \"type\": \"decimal\"\r\n        },\r\n        {\r\n          \"$id\": \"2\",\r\n          \"name\": \"IdObdobi\",\r\n          \"type\": \"int\"\r\n        }\r\n      ]\r\n    },\r\n    \"rightSourceEntity\": {\r\n      \"$id\": \"6\",\r\n      \"type\": \"sourceTable\",\r\n      \"name\": \"TabMzdObd\",\r\n      \"selectedColumns\": [\r\n        {\r\n          \"$id\": \"9\",\r\n          \"name\": \"MzdObd_DatumOd\",\r\n          \"type\": \"date\"\r\n        },\r\n        {\r\n          \"$id\": \"8\",\r\n          \"name\": \"MzdObd_DatumDo\",\r\n          \"type\": \"date\"\r\n        },\r\n        {\r\n          \"$id\": \"7\",\r\n          \"name\": \"IdObdobi\",\r\n          \"type\": \"int\"\r\n        }\r\n      ]\r\n    },\r\n    \"joinCondition\": {\r\n      \"relation\": \"equals\",\r\n      \"leftColumn\": {\r\n        \"$ref\": \"2\"\r\n      },\r\n      \"rightColumn\": {\r\n        \"$ref\": \"7\"\r\n      },\r\n      \"linkedCondition\": null\r\n    },\r\n    \"selectedColumns\": [\r\n      {\r\n        \"$ref\": \"2\"\r\n      },\r\n      {\r\n        \"$ref\": \"3\"\r\n      },\r\n      {\r\n        \"$ref\": \"4\"\r\n      },\r\n      {\r\n        \"$ref\": \"5\"\r\n      },\r\n      {\r\n        \"$ref\": \"7\"\r\n      },\r\n      {\r\n        \"$ref\": \"8\"\r\n      },\r\n      {\r\n        \"$ref\": \"9\"\r\n      }\r\n    ]\r\n  },\r\n  \"sourceEntities\": [\r\n    {\r\n      \"$id\": \"1\",\r\n      \"type\": \"sourceTable\",\r\n      \"name\": \"TabMzdList2\",\r\n      \"selectedColumns\": [\r\n        {\r\n          \"$id\": \"5\",\r\n          \"name\": \"ZamestnanecId\",\r\n          \"type\": \"int\"\r\n        },\r\n        {\r\n          \"$id\": \"4\",\r\n          \"name\": \"OdpracHod\",\r\n          \"type\": \"decimal\"\r\n        },\r\n        {\r\n          \"$id\": \"3\",\r\n          \"name\": \"HodSaz\",\r\n          \"type\": \"decimal\"\r\n        },\r\n        {\r\n          \"$id\": \"2\",\r\n          \"name\": \"IdObdobi\",\r\n          \"type\": \"int\"\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"$id\": \"6\",\r\n      \"type\": \"sourceTable\",\r\n      \"name\": \"TabMzdObd\",\r\n      \"selectedColumns\": [\r\n        {\r\n          \"$id\": \"9\",\r\n          \"name\": \"MzdObd_DatumOd\",\r\n          \"type\": \"date\"\r\n        },\r\n        {\r\n          \"$id\": \"8\",\r\n          \"name\": \"MzdObd_DatumDo\",\r\n          \"type\": \"date\"\r\n        },\r\n        {\r\n          \"$id\": \"7\",\r\n          \"name\": \"IdObdobi\",\r\n          \"type\": \"int\"\r\n        }\r\n      ]\r\n    },\r\n    {\r\n      \"$id\": \"0\",\r\n      \"type\": \"join\",\r\n      \"name\": \"join1\",\r\n      \"joinType\": \"inner\",\r\n      \"leftSourceEntity\": {\r\n        \"$id\": \"1\",\r\n        \"type\": \"sourceTable\",\r\n        \"name\": \"TabMzdList\",\r\n        \"selectedColumns\": [\r\n          {\r\n            \"$id\": \"5\",\r\n            \"name\": \"ZamestnanecId\",\r\n            \"type\": \"int\"\r\n          },\r\n          {\r\n            \"$id\": \"4\",\r\n            \"name\": \"OdpracHod\",\r\n            \"type\": \"decimal\"\r\n          },\r\n          {\r\n            \"$id\": \"3\",\r\n            \"name\": \"HodSaz\",\r\n            \"type\": \"decimal\"\r\n          },\r\n          {\r\n            \"$id\": \"2\",\r\n            \"name\": \"IdObdobi\",\r\n            \"type\": \"int\"\r\n          }\r\n        ]\r\n      },\r\n      \"rightSourceEntity\": {\r\n        \"$id\": \"6\",\r\n        \"type\": \"sourceTable\",\r\n        \"name\": \"TabMzdObd\",\r\n        \"selectedColumns\": [\r\n          {\r\n            \"$id\": \"9\",\r\n            \"name\": \"MzdObd_DatumOd\",\r\n            \"type\": \"date\"\r\n          },\r\n          {\r\n            \"$id\": \"8\",\r\n            \"name\": \"MzdObd_DatumDo\",\r\n            \"type\": \"date\"\r\n          },\r\n          {\r\n            \"$id\": \"7\",\r\n            \"name\": \"IdObdobi\",\r\n            \"type\": \"int\"\r\n          }\r\n        ]\r\n      },\r\n      \"joinCondition\": {\r\n        \"relation\": \"equals\",\r\n        \"leftColumn\": {\r\n          \"$ref\": \"2\"\r\n        },\r\n        \"rightColumn\": {\r\n          \"$ref\": \"7\"\r\n        },\r\n        \"linkedCondition\": null\r\n      },\r\n      \"selectedColumns\": [\r\n        {\r\n          \"$ref\": \"2\"\r\n        },\r\n        {\r\n          \"$ref\": \"3\"\r\n        },\r\n        {\r\n          \"$ref\": \"4\"\r\n        },\r\n        {\r\n          \"$ref\": \"5\"\r\n        },\r\n        {\r\n          \"$ref\": \"7\"\r\n        },\r\n        {\r\n          \"$ref\": \"8\"\r\n        },\r\n        {\r\n          \"$ref\": \"9\"\r\n        }\r\n      ]\r\n    }\r\n  ],\r\n  \"columnMappings\": {\r\n    \"PersonalId\": {\r\n      \"$ref\": \"5\"\r\n    },\r\n    \"HoursCount\": {\r\n      \"$ref\": \"4\"\r\n    },\r\n    \"DateFrom\": {\r\n      \"$ref\": \"9\"\r\n    },\r\n    \"DateTo\": null,\r\n    \"note\": null\r\n  }\r\n}";
-
+    private int currentTargetTableIndex = 0;
+    private DbModel? costumerDbModel;
+    private IReadOnlyList<TargetDbTable>? targetTables;
+    private bool[]? mappingStates;
+    private TargetDbTable? targetDbTable;
+    private SuccessAlert? successAlert;
+    private ErrorAlert? errorAlert;
+    private string? message;
 
     /// <summary>
     /// The Costumer id to use for the component.
@@ -57,6 +73,30 @@ public sealed partial class Mapper : IAsyncDisposable
             CostumerId = userIdResult.Value;
         }
 
+        costumerDbModel = await CostumerDbModelManager.GetAsync(CostumerId);
+        targetTables = await TargetDbTableRepository.GetTargetDbTables();
+        if (targetTables.Count <= 0)
+        {
+            throw new InvalidOperationException("Mapper expects at least one target db table.");
+        }
+
+        var schemaMappingsByTargetTableId = (await SchemaMappingRepository.GetSchemaMappings(CostumerId))
+            .ToDictionary(m => m.TargetDbTableId);
+        mappingStates = targetTables.Select(table =>
+        {
+            if (!schemaMappingsByTargetTableId.TryGetValue(table.Id, out var mapping))
+            {
+                return false;
+            }
+
+            return mapping.IsComplete;
+        }).ToArray();
+
+        targetDbTable = targetTables.First();
+
+        message = IntroductionMessage;
+        successAlert?.Show();
+        isInitialized = true;
         Logger.LogDebug("Mapper component initialized for Costumer with id: {CostumerId}.", CostumerId);
     }
 
@@ -69,18 +109,86 @@ public sealed partial class Mapper : IAsyncDisposable
             mapperJSInterop,
             JSRuntime);
 
-        if (isFirst)
+        if (!isInitialized)
         {
-            dbModel = await CostumerDbModelManager.GetAsync(CostumerId!);
-            mapperJSInterop = new(JSRuntime, MapperLogger); // TODO: Uncomment  
-            mappingEditorObjectRefernce = await mapperJSInterop!.GetMappingEditor();
+            return;
         }
 
-        if (mappingEditorObjectRefernce != null)
+        if (mapperJSInterop is null)
         {
-            await mappingEditorObjectRefernce.InvokeVoidAsync("loadSerializedEntityMapping", SerializedMapping);
+            mapperJSInterop = new(JSRuntime, MapperLogger, costumerDbModel
+                ?? throw new InvalidOperationException("CostumerDbModel is not initialized.")); // TODO: Exception can be omitted.
+            await DisplayMapping();
         }
 
+    }
+
+    private async Task SaveMappingAsync()
+    {
+        if (targetDbTable is null)
+        {
+            return;
+        }
+
+        var serializedMapping = await mapperJSInterop!.GetSerializedMappingAsync();
+        var isComplete = await mapperJSInterop!.IsMappingCompleteAsync();
+
+        var schemaMapping = new SchemaMapping()
+        {
+            CostumerId = CostumerId!,
+            TargetDbTableId = targetDbTable.Id,
+            Mapping = serializedMapping,
+            IsComplete = isComplete,
+        };
+
+        var result = await SchemaMappingRepository.SaveAsync(schemaMapping);
+        if (result.IsFailure)
+        {
+            if (errorAlert is null)
+            {
+                throw new InvalidOperationException("Error alert is not initialized.");
+            }
+            
+            message = result.Error.Message;
+            errorAlert.Show();
+        }
+        else
+        {
+            if (successAlert is null)
+            {
+                throw new InvalidOperationException("Error alert is not initialized.");
+            }
+
+            mappingStates![currentTargetTableIndex] = isComplete;
+            message = "Mapping was saved.";
+            successAlert.Show();
+        }
+    }
+
+    private async Task HandleTargetTableSelectionChange()
+    {
+        Logger.LogDebug("Target table selection changed.");
+        targetDbTable = targetTables![currentTargetTableIndex];
+        await DisplayMapping();
+    }
+
+    private async ValueTask DisplayMapping()
+    {
+        if (CostumerId is null)
+        {
+            Logger.LogWarning("DisplayMapping called with null CostumerId.");
+            return;
+        }
+
+        var currentMapping = await SchemaMappingRepository.GetSchemaMapping(CostumerId, targetDbTable.Id);
+        if (currentMapping is not null)
+        {
+            await mapperJSInterop!.LoadEntityMapping(currentMapping.Mapping, targetDbTable);
+        }
+        else
+        {
+            await mapperJSInterop!.InitializeMapperWithTargetTableAsync(targetDbTable);
+        }
     }
 
     public async ValueTask DisposeAsync()
@@ -95,7 +203,7 @@ public sealed partial class Mapper : IAsyncDisposable
         }
         catch (JSDisconnectedException)
         {
-
+            // since we are disposing, we can ignore this exception
         }
     }
 

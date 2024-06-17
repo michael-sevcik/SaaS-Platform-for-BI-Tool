@@ -3,7 +3,7 @@ import {
     DATABASE_ENTITY_PROPERTY_WIDTH,
     DATABASE_ENTITY_PROPERTY_HEIGHT,
     DATABASE_ENTITY_PROPERTY_GAP,
-    DATABASE_ENTITY_MAX_PORT_COUNT,
+    // DATABASE_ENTITY_MAX_PORT_COUNT,
     HEADER_HEIGHT,
     PADDING_L,
     headerAttributes,
@@ -18,7 +18,8 @@ import { PropertyPort } from './propertyPort';
 // Provides a base implementation for database entity shapes.
 export abstract class BaseEntityShape extends dia.Element {
     
-    private _portsByColumns : Map<Column, PropertyPort>;
+    private _portsByColumns: Map<Column, PropertyPort>;
+    private _columnsByPortId: Map<string, Column>;
 // This entity must be implemented by the extending class for adding ports during initializetion.
     protected abstract groupName : string;
     defaults() {
@@ -52,6 +53,7 @@ export abstract class BaseEntityShape extends dia.Element {
         console.log('BaseEntityShape.initialize()');
         console.log(columns);
         this._portsByColumns = new Map<Column, PropertyPort>();
+        this._columnsByPortId = new Map<string, Column>();
         this.on('change:ports', () => this.resizeToFitPorts());
         console.log(columns);
         this.addPropertyPorts(columns);
@@ -67,20 +69,26 @@ export abstract class BaseEntityShape extends dia.Element {
         this.attr('description/text', title);
     }
 
-    private resizeToFitPorts() {
+    private resizeToFitPorts(): void {
         const { length } = this.getPorts();
         this.prop(['size', 'height'], HEADER_HEIGHT + (DATABASE_ENTITY_PROPERTY_HEIGHT + DATABASE_ENTITY_PROPERTY_GAP) * length + PADDING_L);
     }
 
     public addPropertyPort(column: Column) : PropertyPort {
-        if (!this.canAddPort(this.groupName)) {
-            console.log('Cannot add more ports');
-            return;
-        }
+        // TODO: DELETE
+        // if (!this.canAddPort(this.groupName)) {
+        //     console.log('Cannot add more ports');
+        //     return;
+        // }
 
         const port = new PropertyPort(column, this.groupName);
         this.addPort(port);
         this._portsByColumns.set(column, port);
+        if (!port.id) {
+            throw new Error('Port ID is not set');
+        }
+
+        this._columnsByPortId.set(port.id, column);
         return port;
     }
 
@@ -90,12 +98,25 @@ export abstract class BaseEntityShape extends dia.Element {
         }
     }
 
-    private canAddPort(group: string): boolean {
-        return Object.keys(this.getGroupPorts(group)).length < DATABASE_ENTITY_MAX_PORT_COUNT;
+    // todo: de;ete
+    // private canAddPort(group: string): boolean {
+    //     return Object.keys(this.getGroupPorts(group)).length < DATABASE_ENTITY_MAX_PORT_COUNT;
+    // }
+
+    public getPortByColumn(column: Column): PropertyPort {
+        const port = this._portsByColumns.get(column);
+        if (port === undefined) {
+            throw new Error('Port not found');
+        }
+        return port;
     }
 
-    public getPortByColumn(column: Column): PropertyPort | undefined {
-        return this._portsByColumns.get(column);
+    public getColumnByPortId(portId: string): Column {
+        const column = this._columnsByPortId.get(portId);
+        if (column === undefined) {
+            throw new Error('Column not found');
+        }
+        return column;
     }
 
     abstract handleDoubleClick(): void;

@@ -1,18 +1,26 @@
 import 'reflect-metadata';
 
-import { SourceEntity } from './sourceEntity';
 import type { SourceColumn } from './sourceColumn';
 import { Owner } from './owner';
 import { Ownable } from './ownable';
 import { Column } from '../dbModel/database';
+import type { SourceEntity } from './sourceEntities/sourceEntity';
 
 export class EntityMapping implements Owner{
     public constructor(
-        public readonly name : string,
+        public readonly name: string,
+        public readonly schema: string | null,
         public sourceEntity : SourceEntity | null,
         public sourceEntities : SourceEntity[],
         public columnMappings : Map<string, SourceColumn | null>,
         public readonly description : string | null = null) { }
+    removeReferences(): void {
+        this.columnMappings.forEach((value, key) => {
+            if (value !== null) {
+                value.removeReference(this);
+            }
+        });
+    }
     
     public createBackwardConnections(): void {
         if (this.sourceEntity !== null) {

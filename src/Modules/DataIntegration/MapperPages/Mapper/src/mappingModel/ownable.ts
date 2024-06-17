@@ -8,7 +8,8 @@ export interface Ownable {
     
     /**
      * Gets the owner of this entity for propagating changes.
+     * @returns The owner entity or throws error.
      */
-    get owner() : Owner | null;
+    get owner() : Owner;
     
 }

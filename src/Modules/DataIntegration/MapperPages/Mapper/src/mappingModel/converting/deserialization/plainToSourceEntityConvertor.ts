@@ -1,11 +1,13 @@
 import { Column } from "../../../dbModel/database";
-import { ConditionLink } from "../../aggregators/conditions/conditionLink";
+import { ConditionLink, LinkRelation } from "../../aggregators/conditions/conditionLink";
 import { JoinCondition } from "../../aggregators/conditions/joinCondition";
-import { Join } from "../../aggregators/join";
+import { Join, JoinType } from "../../aggregators/join";
 import { SourceColumn } from "../../sourceColumn";
-import { SourceEntityBase } from "../../sourceEntityBase";
-import { SourceEntity } from "../../sourceEntity";
-import { SourceTable } from "../../sourceTable";
+import { CustomQuery } from "../../sourceEntities/customQuery";
+import type { SourceEntity } from "../../sourceEntities/sourceEntity";
+import { SourceEntityBase } from "../../sourceEntities/sourceEntityBase";
+import { SourceTable } from "../../sourceEntities/sourceTable";
+import { plainToInstance } from "class-transformer";
 
 export class PlainToSourceEntityConvertor {
     private columnReferences = new Map<string, SourceColumn>();
@@ -27,14 +29,12 @@ export class PlainToSourceEntityConvertor {
         return result;
     }
 
-    public convertToColumn(column: any) : SourceColumn {
-        if (column == null) {
-            throw new Error("plainColumnMapping cannot be null");
+    public convertToColumn(plainColumn: any) : SourceColumn {
+        if (plainColumn == null) {
+            throw new Error("plainColumnMapping cannot be null or undefined");
         }
         
-        return new SourceColumn(new Column (
-            column["name"],
-            column["type"]));
+        return plainToInstance(SourceColumn, plainColumn);
     }
 
     public convertToJoinCondition(plainJoinCondition: any) : null | JoinCondition {
@@ -46,8 +46,9 @@ export class PlainToSourceEntityConvertor {
         const plainConditionLink = plainJoinCondition["conditionLink"];
         if (plainConditionLink != null) {
             conditionLink  = new ConditionLink(
-                plainConditionLink["relation"], // TODO: check the type of the relation
-                 this.convertToJoinCondition(plainConditionLink["leftCondition"]));
+                PlainToSourceEntityConvertor.safeGetLinkRelation(plainConditionLink["relation"]),
+                this.convertToJoinCondition(plainConditionLink["leftCondition"])
+                    ?? (() => { throw new Error("Chained condition cannot be null.") })())
         }
 
         return new JoinCondition(
@@ -55,6 +56,23 @@ export class PlainToSourceEntityConvertor {
             this.getSourceColumnByReference(plainJoinCondition["leftColumn"]),
             this.getSourceColumnByReference(plainJoinCondition["rightColumn"]),
             plainConditionLink);
+    }
+
+    private static safeGetLinkRelation(value: any) : LinkRelation {
+        if (value == null) {
+            throw new Error("value cannot be null");
+        }
+
+        const result = value["relation"];
+        if (result === undefined) {
+            throw new Error("relation property is missing");
+        }
+
+        if (!(result in Object.values(LinkRelation))) {
+            throw new Error("relation property is not a valid LinkRelation");
+        }
+
+        return result as LinkRelation;
     }
 
     public convertToSourceEntity(value: any) : SourceEntity {
@@ -65,29 +83,24 @@ export class PlainToSourceEntityConvertor {
 
         const refValue = value["$ref"];
         if (refValue !== undefined) {
-            return this.sourceEntityReferences.get(refValue);
+            return this.sourceEntityReferences.get(refValue)
+                ?? (() => { throw new Error("Source entity with id ${refValue} does not exist") })();
         }
 
         let result : SourceEntity;
         let id : string = value["$id"];
 
-        // TODO: Check the type names used
-        // TODO: deal with type errors - missing properties, arrays not being arrays, etc.
         switch (value["type"]) {
-            case "sourceTable": {
+            case SourceTable.typeDescriptor: {
                 result = new SourceTable(
-                    value["name"],
+                    PlainToSourceEntityConvertor.safeGetProperty(value, "name"),
+                    value["schema"] !== undefined ? value["schema"] : null,
                     this.convertSourceColumns(value.selectedColumns));
                 break;
             }
-            case "join": {
+            case Join.typeDescriptor: {
                 const leftSourceEntity = this.convertToSourceEntity(value["leftSourceEntity"]);
                 const rightSourceEntity = this.convertToSourceEntity(value["rightSourceEntity"]);
-
-                // const outputColumns = Array<SourceColumn>();
-                // value["outputColumns"].forEach(plainColumnMapping => {
-                //     outputColumns.push(this.convertToColumnMapping(plainColumnMapping));
-                // });
 
                 const plainCondition = value["joinCondition"];
                 const joinCondition = this.convertToJoinCondition(plainCondition);
@@ -96,13 +109,21 @@ export class PlainToSourceEntityConvertor {
                 }
 
                 result = new Join(
-                    value["name"],
-                    value["joinType"], // TODO: The value should be probably checked
+                    PlainToSourceEntityConvertor.safeGetProperty(value, "name"),
+                    PlainToSourceEntityConvertor.parseJoinType(value),
                     leftSourceEntity,
                     rightSourceEntity as SourceEntityBase,
                     joinCondition);
 
                     break;
+            }
+            case CustomQuery.typeDescriptor: {
+                result = new CustomQuery(
+                    PlainToSourceEntityConvertor.safeGetProperty(value, "name"),
+                    PlainToSourceEntityConvertor.safeGetProperty(value, "query"),
+                    this.convertSourceColumns(value.selectedColumns));
+
+                break;
             }
             default:{
                 throw new Error("type property is missing");
@@ -111,6 +132,34 @@ export class PlainToSourceEntityConvertor {
 
         this.sourceEntityReferences.set(id, result);
         return result;
+    }
+
+    private static safeGetProperty(value: any, propertyName: string) : any {
+        const result = value[propertyName];
+        if (result === undefined) {
+            throw new Error(`Property ${propertyName} is missing`);
+        }
+
+        return result;
+    }
+
+    private static parseJoinType(value: any) : JoinType {
+        if (value == null) {
+            throw new Error("value cannot be null");
+        }
+
+        const result = value["joinType"];
+        if (result === undefined) {
+            throw new Error("joinType property is missing");
+        }
+
+        const values = Object.values(JoinType);
+
+        if (!values.includes(result)) {
+            throw new Error("joinType property is not a valid JoinType");
+        }
+
+        return result as JoinType;
     }
 
     public getSourceColumnByReference(reference: any) {

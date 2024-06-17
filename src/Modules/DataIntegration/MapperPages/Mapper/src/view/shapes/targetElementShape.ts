@@ -1,16 +1,25 @@
+import type { Column } from "../../dbModel/database";
+import type { SourceColumn } from "../../mappingModel/sourceColumn";
 import { PropertyPort } from "./propertyPort";
 
 export interface TargetElementShape {
     /**
      * Sets the column mapping of the entity mapping.
-     * @param sourcePort Source port of the property link
-     * @param targetPort Target port of the property link - the port must belong to this entity
+     * @param sourceColumn Source column corresponding to the source port of the property link
+     * @param targetColumn Column corresponding to the target port of the property link - the port must belong to this entity
      */
-    setColumnMapping(sourcePort: PropertyPort, targetPort: PropertyPort);
+    setColumnMapping(sourceColumn: SourceColumn, targetColumn: Column) : void;
 
     /**
      * Removes the column mapping of the entity mapping.
-     * @param targetPort Target port of the property link - the port must belong to this entity
+     * @param targetColumn Column corresponding to the target port of the property link - the port must belong to this entity
      */
-    removeColumnMapping(targetPort: PropertyPort);
+    removeColumnMapping(targetColumn: Column) : void;
+
+    /**
+     * Returns the column corresponding to the given port.
+     * @param portId ID of the port
+     * @returns Column corresponding to the port
+     */
+    getColumnByPortId(portId: string): Column;
 }

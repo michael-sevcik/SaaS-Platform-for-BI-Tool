@@ -1,12 +1,20 @@
-import { Type } from "class-transformer";
-
-import { SourceEntity } from "../sourceEntity";
-import { SourceEntityBase } from "../sourceEntityBase";
+import { SourceEntityBase } from "../sourceEntities/sourceEntityBase";
 import { MappingVisitor } from "../mappingVisitor";
 import { JoinCondition } from "./conditions/joinCondition";
 import { SourceColumn } from "../sourceColumn";
+import { SourceEntity } from "../sourceEntities/sourceEntity";
 
+/**
+ * Represents a join between two source entities.
+ * @note join is creating 
+ */
 export class Join extends SourceEntity{
+    public static readonly typeDescriptor = 'join';
+
+    public removeReferences(): void {
+        this.condition?.removeReferences();
+        // this.rightSourceEntity.removeReferences();
+    }
     public get selectedColumns() : SourceColumn[] {
         return this.leftSourceEntity.selectedColumns.concat(this.rightSourceEntity.selectedColumns);
     }
@@ -38,7 +46,7 @@ public constructor(
         this.rightSourceEntity.owner = this;
         this.leftSourceEntity.createBackwardConnections();
         this.rightSourceEntity.createBackwardConnections();
-        this.condition.createBackwardConnections();
+        this.condition?.createBackwardConnections();
     }
 
     public isInitialized() : boolean {

@@ -4,9 +4,10 @@ import { SourceColumn } from "../../mappingModel/sourceColumn";
 import { SearchableDropdown } from "../elements/searchableDropdown";
 import { BaseModal } from "./baseModal";
 
+// TODO: HANDLE different join types.
 export class JoinModal extends BaseModal{
     private static getColumnDescription(column: SourceColumn) : string {
-        return `${column.owner.name}_${column.name}: ${column.type}`;
+        return `${column.owner?.name}_${column.name}: ${column.dataType.Descriptor}`;
     }
 
     private leftColumn: SourceColumn | null = null;
@@ -15,7 +16,7 @@ export class JoinModal extends BaseModal{
     private readonly operatorPicker: SearchableDropdown;
     private rightColumn: SourceColumn | null = null;
     private readonly rightColumnPicker: SearchableDropdown;
-    protected name = 'JoinModal';
+    protected name = 'Join definition';
 
     public constructor(public join : Join) {
         super();
@@ -58,14 +59,14 @@ export class JoinModal extends BaseModal{
     private setDefaultValues() : void {
         const joinCondition = this.join.condition;
         if (joinCondition !== null) {
-            this.leftColumnPicker.setPlaceHolder(JoinModal.getColumnDescription(joinCondition.leftColumn));
+            this.leftColumnPicker.setPlaceholder(JoinModal.getColumnDescription(joinCondition.leftColumn));
             this.leftColumn = joinCondition.leftColumn;	
 
             this.operator = joinCondition.relation;
-            this.operatorPicker.setPlaceHolder(joinCondition.relation);
+            this.operatorPicker.setPlaceholder(joinCondition.relation);
 
             this.rightColumn = joinCondition.rightColumn;
-            this.rightColumnPicker.setPlaceHolder(JoinModal.getColumnDescription(joinCondition.rightColumn));
+            this.rightColumnPicker.setPlaceholder(JoinModal.getColumnDescription(joinCondition.rightColumn));
         }
         
         this.leftColumnPicker.displayCorrect();
@@ -94,10 +95,11 @@ export class JoinModal extends BaseModal{
             return false;
         }
 
-        if (!this.leftColumn.isAssignableWith(this.rightColumn)) {
+        // TODO: handle different types of joins
+        if (!this.leftColumn.isComparableWith(this.rightColumn)) {
             this.leftColumnPicker.displayIncorrect();
             this.rightColumnPicker.displayIncorrect();
-            alert('Sloupce musí být stejného typu');
+            alert('Sloupce musí být porovnatelného typu.');
             return false;
         }
 

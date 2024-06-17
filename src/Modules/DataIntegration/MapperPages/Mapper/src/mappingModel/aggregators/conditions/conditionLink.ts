@@ -1,6 +1,6 @@
 import { ReferenceHolder } from "../../referenceHolder";
 import { MappingVisitor } from "../../mappingVisitor";
-import { Visitable } from "../../converting/visitable";
+import { MappingVisitable } from "../../converting/mappingVisitable";
 import type { JoinCondition } from "./joinCondition";
 
 export enum LinkRelation {
@@ -8,7 +8,7 @@ export enum LinkRelation {
     or = "or"
 }
 
-export class ConditionLink implements Visitable, ReferenceHolder {
+export class ConditionLink implements MappingVisitable, ReferenceHolder {
     /**
      * Inializes a new instance of ConditionLink
      * @param relation The relation between the conditions.
@@ -18,6 +18,9 @@ export class ConditionLink implements Visitable, ReferenceHolder {
     public constructor(
         public relation : LinkRelation,
         public condition : JoinCondition) {
+    }
+    removeReferences(): void {
+        this.condition.removeReferences();
     }
 
     accept(visitor: MappingVisitor): void {

@@ -1,0 +1,29 @@
+﻿@using static Microsoft.AspNetCore.Components.Web.RenderMode;
+
+@rendermode InteractiveServer
+
+<div class="alert @AlertClass alert-dismissible fade @(show? "show" : "d-none") " role="alert">
+    @Message
+    <button @onclick=Hide type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+@code {
+    private bool show = false;
+
+    [Parameter] public string? Message { get; set; }
+    [Parameter] public virtual string? AlertClass { get; set; }
+
+    public void Show()
+    {
+        show = true;
+        StateHasChanged();
+    }
+
+    public void Hide()
+    {
+        show = false;
+        StateHasChanged();
+    }
+}
