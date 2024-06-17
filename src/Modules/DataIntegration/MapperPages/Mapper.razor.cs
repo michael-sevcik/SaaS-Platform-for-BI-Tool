@@ -35,17 +35,21 @@ public sealed partial class Mapper : IAsyncDisposable
     [Inject]
     ITargetDbTableRepository TargetDbTableRepository { get; set; } = default!;
 
-    private int testint = 0;
+    private const string IntroductionMessage = $"""
+        Please map the target entities one by one, don't forget to save your progress after each entity mapped.
+        Fully mapped entities are marked with {FullyMappedSymbol}, othrerwise {UnfinishedSymbol}.
+        """;
     private bool isInitialized = false;
 
     private MapperJsInterop? mapperJSInterop;
+    private int currentTargetTableIndex = 0;
     private DbModel? costumerDbModel;
-    private IReadOnlyList<SchemaMapping>? schemaMappings;
     private IReadOnlyList<TargetDbTable>? targetTables;
-    private TargetDbTable targetDbTable = default!;
+    private bool[]? mappingStates;
+    private TargetDbTable? targetDbTable;
     private SuccessAlert? successAlert;
     private ErrorAlert? errorAlert;
-    private string? Message;
+    private string? message;
 
     /// <summary>
     /// The Costumer id to use for the component.
@@ -69,17 +73,28 @@ public sealed partial class Mapper : IAsyncDisposable
         }
 
         costumerDbModel = await CostumerDbModelManager.GetAsync(CostumerId);
-
-        schemaMappings = await SchemaMappingRepository.GetSchemaMappings(CostumerId);
         targetTables = await TargetDbTableRepository.GetTargetDbTables();
         if (targetTables.Count <= 0)
         {
             throw new InvalidOperationException("Mapper expects at least one target db table.");
         }
 
-        // pick first table to be mapped
+        var schemaMappingsByTargetTableId = (await SchemaMappingRepository.GetSchemaMappings(CostumerId))
+            .ToDictionary(m => m.TargetDbTableId);
+        mappingStates = targetTables.Select(table =>
+        {
+            if (!schemaMappingsByTargetTableId.TryGetValue(table.Id, out var mapping))
+            {
+                return false;
+            }
+
+            return mapping.IsComplete;
+        }).ToArray();
+
         targetDbTable = targetTables.First();
 
+        message = IntroductionMessage;
+        successAlert?.Show();
         isInitialized = true;
         Logger.LogDebug("Mapper component initialized for Costumer with id: {CostumerId}.", CostumerId);
     }
@@ -109,6 +124,11 @@ public sealed partial class Mapper : IAsyncDisposable
 
     private async Task SaveMappingAsync()
     {
+        if (targetDbTable is null)
+        {
+            return;
+        }
+
         var serializedMapping = await mapperJSInterop!.GetSerializedMappingAsync();
         var isComplete = await mapperJSInterop!.IsMappingCompleteAsync();
 
@@ -128,7 +148,7 @@ public sealed partial class Mapper : IAsyncDisposable
                 throw new InvalidOperationException("Error alert is not initialized.");
             }
             
-            Message = result.Error.Message;
+            message = result.Error.Message;
             errorAlert.Show();
         }
         else
@@ -137,8 +157,9 @@ public sealed partial class Mapper : IAsyncDisposable
             {
                 throw new InvalidOperationException("Error alert is not initialized.");
             }
-            
-            Message = "Mapping was saved.";
+
+            mappingStates![currentTargetTableIndex] = isComplete;
+            message = "Mapping was saved.";
             successAlert.Show();
         }
     }
@@ -146,13 +167,19 @@ public sealed partial class Mapper : IAsyncDisposable
     private async Task HandleTargetTableSelectionChange()
     {
         Logger.LogDebug("Target table selection changed.");
-        targetDbTable = targetTables![testint];
+        targetDbTable = targetTables![currentTargetTableIndex];
         await DisplayMapping();
     }
 
     private async ValueTask DisplayMapping()
     {
-        var currentMapping = schemaMappings!.Where(mapping => mapping.TargetDbTableId == targetDbTable.Id).FirstOrDefault();
+        if (CostumerId is null)
+        {
+            Logger.LogWarning("DisplayMapping called with null CostumerId.");
+            return;
+        }
+
+        var currentMapping = await SchemaMappingRepository.GetSchemaMapping(CostumerId, targetDbTable.Id);
         if (currentMapping is not null)
         {
             await mapperJSInterop!.LoadEntityMapping(currentMapping.Mapping, targetDbTable);
