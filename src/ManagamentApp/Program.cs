@@ -17,8 +17,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddSingleton<INavMenuContentProvider, NavMenuContentProvider>() // TODO: use the service technique to provide the NavMenuContentProvider
     .AddHostedService<MigrateDatabasesTask>();
 
-builder.Logging.SetMinimumLevel(LogLevel.Trace);
-
 Assembly[] infrastructureAssemblies = [
     BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
     BIManagement.Modules.Deployment.Infrastructure.AssemblyReference.Assembly,
