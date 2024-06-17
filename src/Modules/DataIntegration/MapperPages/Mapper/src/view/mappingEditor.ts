@@ -184,7 +184,7 @@ export class MappingEditor {
         this.paper.freeze();
         const cells = this.convertEntityMappingToShapes(entityMapping);
         this.graph.resetCells(cells);
-        DirectedGraph.layout(this.graph, { nodeSep: 200, edgeSep: 80, rankDir: "LR" });
+        DirectedGraph.layout(this.graph, { nodeSep: 300, edgeSep: 100, rankDir: "LR" });
         this.paper.unfreeze();
     }
 
