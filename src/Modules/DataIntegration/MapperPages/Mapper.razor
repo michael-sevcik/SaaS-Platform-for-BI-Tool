@@ -11,6 +11,12 @@
 
 <ErrorAlert Message="@message" @ref="errorAlert" />
 
+@* If all entities are mapped enable continuing to deployment.*@
+@if (mappingStates is not null && mappingStates.All(state => state))
+{
+    <button class="btn btn-primary" href="" >Continue to deployment</button> @* TODO: Add the link to the deployment page *@
+}
+
 <div class="embed-responsive">
     <div class="my-component">
         <div id="mapper">

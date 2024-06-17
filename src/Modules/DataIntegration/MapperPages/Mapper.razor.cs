@@ -38,6 +38,7 @@ public sealed partial class Mapper : IAsyncDisposable
     private const string IntroductionMessage = $"""
         Please map the target entities one by one, don't forget to save your progress after each entity mapped.
         Fully mapped entities are marked with {FullyMappedSymbol}, othrerwise {UnfinishedSymbol}.
+        After mapping all entities and saving each mapping, Continu button will appear.
         """;
     private bool isInitialized = false;
 
