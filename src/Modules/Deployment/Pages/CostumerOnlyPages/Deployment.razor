@@ -1,65 +1,50 @@
 ﻿@* Not using @page directive to utilize static routes class *@
 @attribute [Route(Routes.Deployment)]
-@attribute [StreamRendering]
+@* @attribute [StreamRendering] *@
 
 <PageTitle>Deployment</PageTitle>
 
-<h1>Weather</h1>
+<h3>Deployment</h3>
 
-<p>This component demonstrates showing data.</p>
+<p>
+    You can either generate SQL needed for deploying the database views or automatically deploy them also with instance of Metabase.
+</p>
 
-@if (forecasts == null)
+
+<button class="btn btn-primary" @onclick="Deploy">Generate Views</button>
+
+@if (views != null)
 {
-    <p><em>Loading...</em></p>
+    <code lang="sql">@views</code>
 }
-else
+
+<button class="btn btn-primary" @onclick="Deploy">Automatically deploy views and Metabase</button>
+
+@if (deploymentResult != null)
 {
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var forecast in forecasts)
-            {
-                <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <p>@deploymentResult</p>
+    @if (metabaseLink  != null)
+    {
+        <a href="@metabaseLink">click here to open Metabase</a>
+    }
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
-
+    private string? views;
+    private string? deploymentResult;
+    private string? metabaseLink;
+    
     protected override async Task OnInitializedAsync()
     {
         // Simulate asynchronous loading to demonstrate streaming rendering
         await Task.Delay(500);
 
-        var startDate = DateOnly.FromDateTime(DateTime.Now);
-        var summaries = new[] { "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching" };
-        forecasts = Enumerable.Range(1, 5).Select(index => new WeatherForecast
-            {
-                Date = startDate.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-                Summary = summaries[Random.Shared.Next(summaries.Length)]
-            }).ToArray();
+        // todo: deploy
     }
 
-    private class WeatherForecast
+    private async Task Deploy()
     {
-        public DateOnly Date { get; set; }
-        public int TemperatureC { get; set; }
-        public string? Summary { get; set; }
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        
     }
+
 }
