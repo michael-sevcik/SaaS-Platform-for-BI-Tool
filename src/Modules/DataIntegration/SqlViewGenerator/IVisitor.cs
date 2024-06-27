@@ -6,8 +6,6 @@ namespace BIManagement.Modules.DataIntegration.SqlViewGenerator;
 
 public interface IVisitor
 {
-    void Visit(MappingConfig config);
-
     void Visit(Join join);
 
     void Visit(SourceTable table);
