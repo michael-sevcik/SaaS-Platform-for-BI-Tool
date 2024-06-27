@@ -1,5 +1,5 @@
 import type { Column } from "../../../dbModel/database";
-import { SourceColumn } from "../../../mappingModel/sourceColumn";
+import { SourceColumn } from "../../../mappingModel/sourceEntities/sourceColumn";
 import { CustomQuery } from "../../../mappingModel/sourceEntities/customQuery";
 import { TextInput } from "../../elements/textInput";
 import { BaseModal } from "../baseModal";

@@ -1,6 +1,6 @@
-import { ReferenceHolder } from "../../referenceHolder";
-import { MappingVisitor } from "../../mappingVisitor";
-import { MappingVisitable } from "../../converting/mappingVisitable";
+import { ReferenceHolder } from "../../../referenceHolder";
+import { MappingVisitor } from "../../../mappingVisitor";
+import { MappingVisitable } from "../../../converting/mappingVisitable";
 import { SourceColumn } from "../../sourceColumn";
 import type { ConditionLink } from "./conditionLink";
 

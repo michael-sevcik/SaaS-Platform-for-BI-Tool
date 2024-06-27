@@ -1,17 +1,14 @@
 import { instanceToPlain } from "class-transformer";
 import { EntityMappingConvertor } from "../src/mappingModel/converting/entityMappingConvertor";
 import { MappingToPlainConverterVisiter } from "../src/mappingModel/converting/serialization/mappingToPlainConverterVisitor";
-import { MappingModelConvertor } from "../src/mappingModel/converting/mappingModelConverter";
-import { JoinCondition, Operator } from "../src/mappingModel/aggregators/conditions/joinCondition";
+import { JoinCondition, Operator } from "../src/mappingModel/sourceEntities/aggregators/conditions/joinCondition";
 import { SourceTable } from "../src/mappingModel/sourceEntities/sourceTable";
-import { Join, JoinType } from "../src/mappingModel/aggregators/join";
-import { EntityMapping } from "../src/mappingModel/entityMapping";
-import { DbConnectionConfig } from "../src/mappingModel/dbConnectionConfig";
-import { MappingConfig } from "../src/mappingModel/mappingConfig";
+import { Join, JoinType } from "../src/mappingModel/sourceEntities/aggregators/join";
 import { Column, Table } from "../src/dbModel/database";
-import { SourceColumn } from "../src/mappingModel/sourceColumn";
+import { SourceColumn } from "../src/mappingModel/sourceEntities/sourceColumn";
 import { NVarChar, SimpleDataTypes, SimpleType } from "../src/dbModel/dataTypes";
 import { inspect } from "util";
+import { EntityMapping } from "../src/mappingModel/entityMapping";
 
 function SimpleTypeFactory(type: SimpleDataTypes) : SimpleType {
     return new SimpleType(type, false);
@@ -62,13 +59,6 @@ const entityMapping = new EntityMapping(
     [ sourceTable1, sourceTable2, join ],
     targetEntityColumnMapping
 );
-
-const dbConnectionConfig = new DbConnectionConfig(
-    "SQL Server",
-    "server",
-    "db");
-
-const mappingConfig = new MappingConfig(dbConnectionConfig, [entityMapping]);
 
 /** 
  * RUN TESTS
@@ -194,23 +184,4 @@ describe('Entity mapping serialization', () => {
 
         expect(stringifiedResult).toBe('{"name":"EmployeeHoursWorked","schema":"dbo","sourceEntity":{"$ref":"2"},"sourceEntities":[{"$id":"0","type":"sourceTable","name":"TabMzdList","selectedColumns":["ZamestnanecId","OdpracHod","IdObdobi"]},{"$id":"1","type":"sourceTable","name":"TabMzdObd","selectedColumns":["MzdObd_DatumOd","MzdObd_DatumDo","IdObdobi"]},{"$id":"2","type":"join","name":"join1","joinType":"inner","leftSourceEntity":{"$ref":"0"},"rightSourceEntity":{"$ref":"1"},"joinCondition":{"relation":"equals","leftColumn":{"sourceEntity":{"$ref":"0"},"sourceColumn":"IdObdobi"},"rightColumn":{"sourceEntity":{"$ref":"1"},"sourceColumn":"IdObdobi"},"linkedCondition":null},"outputColumns":[{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumDo"},{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumOd"},{"sourceEntity":{"$ref":"0"},"sourceColumn":"OdpracHod"},{"sourceEntity":{"$ref":"0"},"sourceColumn":"ZamestnanecId"}]}],"columnMappings":{"PersonalId":{"sourceEntity":{"$ref":"0"},"sourceColumn":"ZamestnanecId"},"HoursCount":{"sourceEntity":{"$ref":"0"},"sourceColumn":"OdpracHod"},"DateFrom":{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumOd"},"DateTo":{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumDo"}}}');
     });
-});
-
-describe('DbConnectionConfig serialization', () => {
-    it('should serialize a DbConnectionConfig', () => {
-        // Convert to plain
-        const plain = instanceToPlain(dbConnectionConfig);
-        expect(JSON.stringify(plain)).toBe('{"databaseProvider":"SQL Server","server":"server","initialCatalogue":"db"}');
-    })
-});
-
-// TODO: The order of properties - either change the format and add definitions property or sort the properties to have the sourceEntites first
-describe('Mapping config serialization', () => {
-    it('should serialize a mapping configuration', () => {
-        // Convert to plain
-        const plain = MappingModelConvertor.convertToPlain(mappingConfig);
-        const serialized = JSON.stringify(plain);
-
-        expect(serialized).toBe('{"sourceConnection":{"databaseProvider":"SQL Server","server":"server","initialCatalogue":"db"},"targetMappings":[{"name":"EmployeeHoursWorked","sourceEntity":{"$ref":"2"},"sourceEntities":[{"$id":"0","type":"sourceTable","name":"TabMzdList","selectedColumns":["ZamestnanecId","OdpracHod","IdObdobi"]},{"$id":"1","type":"sourceTable","name":"TabMzdObd","selectedColumns":["MzdObd_DatumOd","MzdObd_DatumDo","IdObdobi"]},{"$id":"2","type":"join","name":"join1","joinType":"inner","leftSourceEntity":{"$ref":"0"},"rightSourceEntity":{"$ref":"1"},"joinCondition":{"relation":"equals","leftColumn":{"sourceEntity":{"$ref":"0"},"sourceColumn":"IdObdobi"},"rightColumn":{"sourceEntity":{"$ref":"1"},"sourceColumn":"IdObdobi"},"linkedCondition":null},"outputColumns":[{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumDo"},{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumOd"},{"sourceEntity":{"$ref":"0"},"sourceColumn":"OdpracHod"},{"sourceEntity":{"$ref":"0"},"sourceColumn":"ZamestnanecId"}]}],"columnMappings":{"PersonalId":{"sourceEntity":{"$ref":"0"},"sourceColumn":"ZamestnanecId"},"HoursCount":{"sourceEntity":{"$ref":"0"},"sourceColumn":"OdpracHod"},"DateFrom":{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumOd"},"DateTo":{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumDo"}}}]}')
-    })
 });

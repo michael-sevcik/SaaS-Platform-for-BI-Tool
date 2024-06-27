@@ -1,5 +1,5 @@
 import { Table } from "../../dbModel/database";
-import { Join } from "../../mappingModel/aggregators/join";
+import { Join } from "../../mappingModel/sourceEntities/aggregators/join";
 import { SourceTable } from "../../mappingModel/sourceEntities/sourceTable";
 import { BaseEntityShape } from "../shapes/baseEntityShape";
 import { JoinLink } from "../shapes/joinLink";

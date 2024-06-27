@@ -1,8 +1,8 @@
-import { SourceEntityBase } from "../sourceEntities/sourceEntityBase";
-import { MappingVisitor } from "../mappingVisitor";
+import { SourceEntityBase } from "../sourceEntityBase";
+import { MappingVisitor } from "../../mappingVisitor";
 import { JoinCondition } from "./conditions/joinCondition";
 import { SourceColumn } from "../sourceColumn";
-import { SourceEntity } from "../sourceEntities/sourceEntity";
+import { SourceEntity } from "../sourceEntity";
 
 /**
  * Represents a join between two source entities.

@@ -1,6 +1,6 @@
 import { MappingVisitor } from "../mappingVisitor";
 import { SourceEntityBase } from "./sourceEntityBase";
-import { SourceColumn } from "../sourceColumn";
+import { SourceColumn } from "./sourceColumn";
 
 
 /**

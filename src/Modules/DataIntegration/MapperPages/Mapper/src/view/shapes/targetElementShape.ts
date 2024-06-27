@@ -1,5 +1,5 @@
 import type { Column } from "../../dbModel/database";
-import type { SourceColumn } from "../../mappingModel/sourceColumn";
+import type { SourceColumn } from "../../mappingModel/sourceEntities/sourceColumn";
 import { PropertyPort } from "./propertyPort";
 
 export interface TargetElementShape {

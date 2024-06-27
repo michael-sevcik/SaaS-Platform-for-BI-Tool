@@ -1,8 +1,8 @@
-import type { ConditionLink } from "./aggregators/conditions/conditionLink";
-import type { JoinCondition } from "./aggregators/conditions/joinCondition";
-import type { Join } from "./aggregators/join";
+import type { ConditionLink } from "./sourceEntities/aggregators/conditions/conditionLink";
+import type { JoinCondition } from "./sourceEntities/aggregators/conditions/joinCondition";
+import type { Join } from "./sourceEntities/aggregators/join";
 import type { SourceTable } from "./sourceEntities/sourceTable";
-import type { SourceColumn } from "./sourceColumn";
+import type { SourceColumn } from "./sourceEntities/sourceColumn";
 import type { CustomQuery } from "./sourceEntities/customQuery";
 
 

@@ -1,5 +1,5 @@
 import type { Table } from "../../dbModel/database";
-import type { Join } from "../../mappingModel/aggregators/join";
+import type { Join } from "../../mappingModel/sourceEntities/aggregators/join";
 import type { SourceTable } from "../../mappingModel/sourceEntities/sourceTable";
 import type { JoinModal } from "../modals/joinModal";
 import type { BaseSourceEntityShape } from "../shapes/baseSourceEntityShape";

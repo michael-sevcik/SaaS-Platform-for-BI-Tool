@@ -1,7 +1,7 @@
-import { ConditionLink } from "../../aggregators/conditions/conditionLink";
-import { JoinCondition } from "../../aggregators/conditions/joinCondition";
-import { Join } from "../../aggregators/join";
-import { SourceColumn } from "../../sourceColumn";
+import { ConditionLink } from "../../sourceEntities/aggregators/conditions/conditionLink";
+import { JoinCondition } from "../../sourceEntities/aggregators/conditions/joinCondition";
+import { Join } from "../../sourceEntities/aggregators/join";
+import { SourceColumn } from "../../sourceEntities/sourceColumn";
 import { SourceTable } from "../../sourceEntities/sourceTable";
 import { MappingVisitor } from "../../mappingVisitor";
 import { instanceToPlain } from "class-transformer";

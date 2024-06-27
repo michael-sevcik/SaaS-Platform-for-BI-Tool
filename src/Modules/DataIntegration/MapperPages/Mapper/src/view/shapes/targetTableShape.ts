@@ -1,7 +1,7 @@
 import { TARGET_DATABASE_ENTITY_GROUP_NAME, DEFAULT_TARGET_ENTITY_DESCRIPTION } from '../../constants';
 import { Column } from '../../dbModel/database';
 import { EntityMapping } from '../../mappingModel/entityMapping';
-import { SourceColumn } from '../../mappingModel/sourceColumn';
+import { SourceColumn } from '../../mappingModel/sourceEntities/sourceColumn';
 import { BaseEntityShape } from './baseEntityShape';
 import { PropertyPort } from './propertyPort';
 import { TargetElementShape } from './targetElementShape';

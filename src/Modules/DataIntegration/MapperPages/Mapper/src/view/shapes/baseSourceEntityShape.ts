@@ -1,5 +1,5 @@
 import { Column } from "../../dbModel/database";
-import { SourceColumn } from "../../mappingModel/sourceColumn";
+import { SourceColumn } from "../../mappingModel/sourceEntities/sourceColumn";
 import { BaseEntityShape } from "./baseEntityShape";
 
 /**

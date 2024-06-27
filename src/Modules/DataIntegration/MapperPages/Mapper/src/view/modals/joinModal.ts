@@ -1,6 +1,6 @@
-import { JoinCondition, Operator } from "../../mappingModel/aggregators/conditions/joinCondition";
-import { Join } from "../../mappingModel/aggregators/join";
-import { SourceColumn } from "../../mappingModel/sourceColumn";
+import { JoinCondition, Operator } from "../../mappingModel/sourceEntities/aggregators/conditions/joinCondition";
+import { Join } from "../../mappingModel/sourceEntities/aggregators/join";
+import { SourceColumn } from "../../mappingModel/sourceEntities/sourceColumn";
 import { SearchableDropdown } from "../elements/searchableDropdown";
 import { BaseModal } from "./baseModal";
 

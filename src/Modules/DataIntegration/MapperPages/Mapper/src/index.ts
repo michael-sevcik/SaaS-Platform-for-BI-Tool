@@ -4,13 +4,13 @@ import 'reflect-metadata';
 import { MappingEditor } from './view/mappingEditor';
 import { EntityMapping } from './mappingModel/entityMapping';
 import { Column, Database, Table } from './dbModel/database';
-import { SourceColumn } from './mappingModel/sourceColumn';
+import { SourceColumn } from './mappingModel/sourceEntities/sourceColumn';
 import { EntityMappingConvertor } from './mappingModel/converting/entityMappingConvertor';
 import { NVarCharMax, SimpleDataTypes, SimpleType } from './dbModel/dataTypes';
 import { plainToInstance } from 'class-transformer';
 import { SourceTable } from './mappingModel/sourceEntities/sourceTable';
-import { JoinCondition, Operator } from './mappingModel/aggregators/conditions/joinCondition';
-import { Join, JoinType } from './mappingModel/aggregators/join';
+import { JoinCondition, Operator } from './mappingModel/sourceEntities/aggregators/conditions/joinCondition';
+import { Join, JoinType } from './mappingModel/sourceEntities/aggregators/join';
 
 
 // TODO:

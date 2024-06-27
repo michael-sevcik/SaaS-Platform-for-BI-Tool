@@ -1,11 +1,14 @@
 import 'reflect-metadata';
 
-import type { SourceColumn } from './sourceColumn';
+import type { SourceColumn } from './sourceEntities/sourceColumn';
 import { Owner } from './owner';
 import { Ownable } from './ownable';
 import { Column } from '../dbModel/database';
 import type { SourceEntity } from './sourceEntities/sourceEntity';
 
+/**
+ * Represents a mapping of source entities on a target entities.
+ */
 export class EntityMapping implements Owner{
     public constructor(
         public readonly name: string,

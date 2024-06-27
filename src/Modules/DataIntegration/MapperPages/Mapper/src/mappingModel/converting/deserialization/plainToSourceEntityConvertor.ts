@@ -1,8 +1,8 @@
 import { Column } from "../../../dbModel/database";
-import { ConditionLink, LinkRelation } from "../../aggregators/conditions/conditionLink";
-import { JoinCondition } from "../../aggregators/conditions/joinCondition";
-import { Join, JoinType } from "../../aggregators/join";
-import { SourceColumn } from "../../sourceColumn";
+import { ConditionLink, LinkRelation } from "../../sourceEntities/aggregators/conditions/conditionLink";
+import { JoinCondition } from "../../sourceEntities/aggregators/conditions/joinCondition";
+import { Join, JoinType } from "../../sourceEntities/aggregators/join";
+import { SourceColumn } from "../../sourceEntities/sourceColumn";
 import { CustomQuery } from "../../sourceEntities/customQuery";
 import type { SourceEntity } from "../../sourceEntities/sourceEntity";
 import { SourceEntityBase } from "../../sourceEntities/sourceEntityBase";

@@ -1,5 +1,5 @@
 import type { Column } from "../../dbModel/database";
-import type { SourceColumn } from "../../mappingModel/sourceColumn";
+import type { SourceColumn } from "../../mappingModel/sourceEntities/sourceColumn";
 import { SourceTableShape } from "../shapes/sourceTableShape";
 import { BaseModal } from "./baseModal";
 

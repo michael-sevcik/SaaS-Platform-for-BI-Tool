@@ -1,4 +1,4 @@
-import type { Join } from "../../mappingModel/aggregators/join";
+import type { Join } from "../../mappingModel/sourceEntities/aggregators/join";
 import type { CustomQuery } from "../../mappingModel/sourceEntities/customQuery";
 import type { SourceEntityBase } from "../../mappingModel/sourceEntities/sourceEntityBase";
 import type { SourceTable } from "../../mappingModel/sourceEntities/sourceTable";

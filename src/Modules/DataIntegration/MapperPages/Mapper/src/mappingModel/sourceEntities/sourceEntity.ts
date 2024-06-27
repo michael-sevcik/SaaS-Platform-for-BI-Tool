@@ -1,8 +1,7 @@
 import { Ownable } from "../ownable";
 import { Owner } from "../owner";
-import { MappingVisitor } from "../mappingVisitor";
 import { MappingVisitable } from "../converting/mappingVisitable";
-import { SourceColumn } from "../sourceColumn";
+import { SourceColumn } from "./sourceColumn";
 import type { VisitableSourceEntity } from "../visitable";
 import type { SourceEntityVisitor } from "../sourceEntityVisitor";
 

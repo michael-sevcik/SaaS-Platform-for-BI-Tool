@@ -1,5 +1,5 @@
 import { EntityMapping } from "../entityMapping";
-import { SourceColumn } from "../sourceColumn";
+import { SourceColumn } from "../sourceEntities/sourceColumn";
 import { MappingToPlainConverterVisiter } from "./serialization/mappingToPlainConverterVisitor";
 import { PlainToSourceEntityConvertor } from "./deserialization/plainToSourceEntityConvertor";
 import type { SourceEntity } from "../sourceEntities/sourceEntity";

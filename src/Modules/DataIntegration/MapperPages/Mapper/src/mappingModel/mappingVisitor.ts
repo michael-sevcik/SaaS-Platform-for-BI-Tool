@@ -1,6 +1,6 @@
-import type { ConditionLink } from "./aggregators/conditions/conditionLink";
-import type { JoinCondition } from "./aggregators/conditions/joinCondition";
-import type { SourceColumn } from "./sourceColumn";
+import type { ConditionLink } from "./sourceEntities/aggregators/conditions/conditionLink";
+import type { JoinCondition } from "./sourceEntities/aggregators/conditions/joinCondition";
+import type { SourceColumn } from "./sourceEntities/sourceColumn";
 import { SourceEntityVisitor } from "./sourceEntityVisitor";
 
 

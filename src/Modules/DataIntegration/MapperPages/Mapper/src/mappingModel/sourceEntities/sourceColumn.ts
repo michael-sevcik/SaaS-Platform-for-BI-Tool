@@ -1,11 +1,11 @@
-import { Column } from "../dbModel/database";
-import { ReferenceHolder } from "./referenceHolder";
-import { Ownable } from "./ownable";
-import { MappingVisitor } from "./mappingVisitor";
-import { MappingVisitable } from "./converting/mappingVisitable";
+import { Column } from "../../dbModel/database";
+import { ReferenceHolder } from "../referenceHolder";
+import { Ownable } from "../ownable";
+import { MappingVisitor } from "../mappingVisitor";
+import { MappingVisitable } from "../converting/mappingVisitable";
 import { Exclude } from "class-transformer";
-import { UnknownDataType } from "../dbModel/dataTypes";
-import type { SourceEntity } from "./sourceEntities/sourceEntity";
+import { UnknownDataType } from "../../dbModel/dataTypes";
+import type { SourceEntity } from "./sourceEntity";
 
 /**
  * Represents a column in the source entity of a mapping.

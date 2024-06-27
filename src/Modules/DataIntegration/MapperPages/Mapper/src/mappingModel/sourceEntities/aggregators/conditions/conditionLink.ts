@@ -1,6 +1,6 @@
-import { ReferenceHolder } from "../../referenceHolder";
-import { MappingVisitor } from "../../mappingVisitor";
-import { MappingVisitable } from "../../converting/mappingVisitable";
+import { ReferenceHolder } from "../../../referenceHolder";
+import { MappingVisitor } from "../../../mappingVisitor";
+import { MappingVisitable } from "../../../converting/mappingVisitable";
 import type { JoinCondition } from "./joinCondition";
 
 export enum LinkRelation {

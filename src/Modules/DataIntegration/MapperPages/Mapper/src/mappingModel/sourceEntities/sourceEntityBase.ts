@@ -1,5 +1,5 @@
 import { MappingVisitor } from "../mappingVisitor";
-import { SourceColumn } from "../sourceColumn";
+import { SourceColumn } from "./sourceColumn";
 import { SourceEntity } from "./sourceEntity";
 
 /** Represents a source entity that directly provides, or generates data.
