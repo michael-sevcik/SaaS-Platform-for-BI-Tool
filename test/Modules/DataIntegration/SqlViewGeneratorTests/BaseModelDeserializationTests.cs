@@ -1,13 +1,8 @@
-﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BIManagement.Modules.DataIntegration.Application.Mapping.JsonParser;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 
@@ -18,11 +13,11 @@ public class BaseModelDeserializationTests
     {
         Converters =
         {
-            new SourceEntitiyConvertor(new KeyValuePair<string, Type>[]
-            {
+            new SourceEntitiyConvertor(
+            [
                 new ("sourceTable", typeof(SourceTable)),
                 new ("join", typeof(Join)),
-            }),
+            ]),
             new JsonStringEnumConverter(),
         },
         ReferenceHandler = new SourceEntityReferenceHandler(),

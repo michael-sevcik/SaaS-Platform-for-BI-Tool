@@ -1,4 +1,4 @@
-﻿using BIManagement.Modules.DataIntegration.Domain.JsonModel.SourceEntities.Agregators.Conditions;
+﻿using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +6,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace BIManagement.Modules.DataIntegration.Domain.JsonModel.SourceEntities.Agregators;
+namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
 
 
 public class Join : IAgregator

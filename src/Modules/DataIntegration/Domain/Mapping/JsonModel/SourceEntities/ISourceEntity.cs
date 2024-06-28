@@ -7,7 +7,17 @@
 // Copyright © Merica
 // </copyright>
 
-namespace BIManagement.Modules.DataIntegration.Domain.JsonModel.SourceEntities;
+
+// <copyright file="ISourceEntity.cs" company="Merica s.r.o.">
+// Copyright © Merica
+// </copyright>
+
+
+// <copyright file="ISourceEntity.cs" company="Merica s.r.o.">
+// Copyright © Merica
+// </copyright>
+
+namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 
 /// <summary>
 /// Represents a named entity that is a source of column based data.

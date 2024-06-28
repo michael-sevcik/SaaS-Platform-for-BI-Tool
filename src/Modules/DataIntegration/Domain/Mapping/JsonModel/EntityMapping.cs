@@ -1,6 +1,6 @@
-﻿using BIManagement.Modules.DataIntegration.Domain.JsonModel.SourceEntities;
+﻿using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 
-namespace BIManagement.Modules.DataIntegration.Domain.JsonModel;
+namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
 
 public class EntityMapping : IVisitable
 {

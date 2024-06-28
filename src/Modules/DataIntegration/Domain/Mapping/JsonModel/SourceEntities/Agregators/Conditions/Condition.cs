@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BIManagement.Modules.DataIntegration.Domain.JsonModel.SourceEntities.Agregators.Conditions;
+namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
 
 public class JoinCondition : IVisitable
 {

@@ -26,7 +26,7 @@ public static class JsonMappingDeserializer
     internal static T? Deserialize<T>(string json)
         => JsonSerializer.Deserialize<T>(json, SerializerOptions);
 
-    public static MappingConfig Deserialize(string json)
-        => Deserialize<MappingConfig>(json) ??
-        throw new ArgumentException("The JSON string is not deserializable.", nameof(json));
+    //public static MappingConfig Deserialize(string json)
+    //    => Deserialize<MappingConfig>(json) ??
+    //    throw new ArgumentException("The JSON string is not deserializable.", nameof(json));
 }

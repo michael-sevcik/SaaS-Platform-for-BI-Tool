@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.SqlViewGenerating;
+﻿using BIManagement.Modules.DataIntegration.Application.Mapping.SqlViewGenerating;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
 
 namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 
@@ -16,19 +12,19 @@ public class SqlViewVisitorTests
     [Test]
     public void TestJoinProcessing()    // TODO: Test different join types and join condition operators
     {
-        ISourceEntity sourceTable1 = new SourceTable("TabMzdList", new string[] { "ZamestnanecId", "OdpracHod", "IdObdobi" });
-        ISourceEntity sourceTable2 = new SourceTable("TabMzdObd", new string[] { "MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi" });
+        ISourceEntity sourceTable1 = new SourceTable("TabMzdList", ["ZamestnanecId", "OdpracHod", "IdObdobi"]);
+        ISourceEntity sourceTable2 = new SourceTable("TabMzdObd", ["MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi"]);
         Join join = new(
             Join.Type.Inner,
             sourceTable1,
             sourceTable2,
             "3",
-            new ColumnMapping[] {
+            [
                 sourceTable1.GetColumnMapping("ZamestnanecId"),
                 sourceTable1.GetColumnMapping("OdpracHod"),
                 sourceTable2.GetColumnMapping("MzdObd_DatumOd"),
                 sourceTable2.GetColumnMapping("MzdObd_DatumDo"),
-            },
+            ],
             new(JoinCondition.Operator.Equal, sourceTable1.GetColumnMapping("IdObdobi"), sourceTable2.GetColumnMapping("IdObdobi")));
 
         SqlViewVisitor visitor = new("[dbo].");
@@ -44,24 +40,24 @@ public class SqlViewVisitorTests
     public void TestEntityMappingProcessing()
     {
         // TODO: the view entity must generate the named view
-        ISourceEntity sourceTable1 = new SourceTable("TabMzdList", new string[] { "ZamestnanecId", "OdpracHod", "IdObdobi" });
-        ISourceEntity sourceTable2 = new SourceTable("TabMzdObd", new string[] { "MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi" });
+        ISourceEntity sourceTable1 = new SourceTable("TabMzdList", ["ZamestnanecId", "OdpracHod", "IdObdobi"]);
+        ISourceEntity sourceTable2 = new SourceTable("TabMzdObd", ["MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi"]);
         Join join = new(
             Join.Type.Inner,
             sourceTable1,
             sourceTable2,
             "3",
-            new ColumnMapping[] {
+            [
                 sourceTable1.GetColumnMapping("ZamestnanecId"),
                 sourceTable1.GetColumnMapping("OdpracHod"),
                 sourceTable2.GetColumnMapping("MzdObd_DatumOd"),
                 sourceTable2.GetColumnMapping("MzdObd_DatumDo"),
-            },
+            ],
             new(JoinCondition.Operator.Equal, sourceTable1.GetColumnMapping("IdObdobi"), sourceTable2.GetColumnMapping("IdObdobi")));
 
         EntityMapping entityMapping = new(
             name: "EmployeeHoursWorked",
-            sourceEntities: new ISourceEntity[] { sourceTable1, sourceTable2, join },
+            sourceEntities: [sourceTable1, sourceTable2, join],
             join,
             new() {
                 { "PersonalId", sourceTable1.GetColumnMapping("ZamestnanecId")},

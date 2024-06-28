@@ -1,4 +1,4 @@
-﻿namespace BIManagement.Modules.DataIntegration.Domain.JsonModel.SourceEntities;
+﻿namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 
 public class ColumnMapping
 {

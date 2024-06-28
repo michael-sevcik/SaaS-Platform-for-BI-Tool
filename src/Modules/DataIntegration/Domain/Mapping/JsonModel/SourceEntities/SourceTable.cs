@@ -1,7 +1,11 @@
 ﻿using System.Text.Json.Serialization;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
 
-namespace BIManagement.Modules.DataIntegration.Domain.JsonModel.SourceEntities;
+namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 
+/// <summary>
+/// 
+/// </summary>
 public class SourceTable : ISourceEntity
 {
     public SourceTable(string name, string[] selectedColumns)

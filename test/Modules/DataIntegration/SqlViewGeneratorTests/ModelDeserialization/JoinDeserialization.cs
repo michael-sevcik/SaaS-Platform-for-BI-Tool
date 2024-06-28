@@ -1,13 +1,7 @@
-﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
-using BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization
 {
@@ -91,8 +85,8 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
         [Test]
         public void TestJoinSerialization()
         {
-            SourceTable left = new("TabMzdList", new string[] { "ZamestnanecId", "OdpracHod", "IdObdobi" });
-            SourceTable right = new("TabMzdObd", new string[] { "MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi" });
+            SourceTable left = new("TabMzdList", ["ZamestnanecId", "OdpracHod", "IdObdobi"]);
+            SourceTable right = new("TabMzdObd", ["MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi"]);
 
             Join join = new(
                 Join.Type.Inner,

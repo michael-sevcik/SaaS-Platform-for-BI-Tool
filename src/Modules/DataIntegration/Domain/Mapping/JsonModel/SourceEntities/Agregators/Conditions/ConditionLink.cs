@@ -1,4 +1,4 @@
-﻿namespace BIManagement.Modules.DataIntegration.Domain.JsonModel.SourceEntities.Agregators.Conditions;
+﻿namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
 
 public class ConditionLink : IVisitable
 {

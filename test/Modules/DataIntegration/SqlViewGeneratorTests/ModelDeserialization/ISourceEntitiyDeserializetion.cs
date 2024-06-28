@@ -1,14 +1,5 @@
-﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.MappingParser;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 using System.Text.Json;
-using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization
 {

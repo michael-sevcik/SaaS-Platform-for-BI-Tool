@@ -1,21 +1,19 @@
-﻿namespace BIManagement.Modules.DataIntegration.SqlViewGenerator.SqlViewGenerating;
-
+﻿
 using System.Text;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using JsonModel.Agregators.Conditions;
-using static BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions.ConditionLink;
-using static BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions.JoinCondition;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
+using static BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions.ConditionLink;
+using static BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions.JoinCondition;
 
-public class SqlViewVisitor : IVisitor
+namespace BIManagement.Modules.DataIntegration.Application.Mapping.SqlViewGenerating;
+
+public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 {
+    private readonly string databasePrefix = tableNamePrefix;
+
     private readonly StringBuilder sb = new(); // TODO: re usability of the visitor.
-
-    private readonly string databasePrefix;
-
-    public SqlViewVisitor(string tableNamePrefix = "")
-        => databasePrefix = tableNamePrefix;
 
     internal string GetSqlView() => sb.ToString();
 

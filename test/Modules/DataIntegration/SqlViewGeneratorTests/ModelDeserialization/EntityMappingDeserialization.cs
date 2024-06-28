@@ -1,13 +1,8 @@
-﻿using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators;
-using BIManagement.Modules.DataIntegration.SqlViewGenerator.JsonModel.Agregators.Conditions;
-using BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization;
 
@@ -17,24 +12,24 @@ public class EntityMappingDeserialization : BaseModelDeserializationTests
     [Test]
     public void TestEntityMappingDeserialization()
     {
-        ISourceEntity sourceTable1 = new SourceTable("TabMzdList", new string[] { "ZamestnanecId", "OdpracHod", "IdObdobi" });
-        ISourceEntity sourceTable2 = new SourceTable("TabMzdObd", new string[] { "MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi" });
+        ISourceEntity sourceTable1 = new SourceTable("TabMzdList", ["ZamestnanecId", "OdpracHod", "IdObdobi"]);
+        ISourceEntity sourceTable2 = new SourceTable("TabMzdObd", ["MzdObd_DatumOd", "MzdObd_DatumDo", "IdObdobi"]);
         Join join = new(
             Join.Type.Inner,
             sourceTable1,
             sourceTable2,
             "3",
-            new ColumnMapping[] {
+            [
                 sourceTable1.GetColumnMapping("ZamestnanecId"),
                 sourceTable1.GetColumnMapping("OdpracHod"),
                 sourceTable2.GetColumnMapping("MzdObd_DatumOd"),
                 sourceTable2.GetColumnMapping("MzdObd_DatumDo"),
-            },
+            ],
             new(JoinCondition.Operator.Equal, sourceTable1.GetColumnMapping("IdObdobi"), sourceTable2.GetColumnMapping("IdObdobi")));
 
         EntityMapping expectedEntityMapping = new(
             name: "EmployeeHoursWorked",
-            sourceEntities: new ISourceEntity[] { sourceTable1, sourceTable2, join },
+            sourceEntities: [sourceTable1, sourceTable2, join],
             join,
             new() {
                 { "PersonalId", sourceTable1.GetColumnMapping("ZamestnanecId")},
