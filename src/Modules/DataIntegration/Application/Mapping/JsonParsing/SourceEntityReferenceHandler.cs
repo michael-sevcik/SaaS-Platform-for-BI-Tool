@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 [assembly: InternalsVisibleTo("SqlViewGeneratorTests")]
 
-namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParser
+namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing
 {
     internal class SourceEntityReferenceHandler : ReferenceHandler
     {

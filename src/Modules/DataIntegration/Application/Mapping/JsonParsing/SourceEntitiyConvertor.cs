@@ -6,7 +6,7 @@ using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests")]
 
-namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParser;
+namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
 
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 using System.Text.Json;

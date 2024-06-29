@@ -4,7 +4,7 @@ using System.Text.Json;
 
 [assembly: InternalsVisibleTo("SqlViewGeneratorTests")]
 
-namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParser;
+namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
 
 internal class SourceEntityReferenceResolver : ReferenceResolver
 {
