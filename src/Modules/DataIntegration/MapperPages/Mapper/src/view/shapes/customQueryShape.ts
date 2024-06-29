@@ -54,12 +54,13 @@ export class CustomQueryShape extends BaseSourceEntityShape {
      * finalizing the column selection modal, and removing the shape itself.
      */
     public handleRemoving(): void {
-        for (const link of this.graph.getConnectedLinks(this, { outbound: true })) {
-            const propertyLink = link as PropertyLink;
-            propertyLink.handleRemoving();
-        }
+        this.customQuery.owner?.replaceChild(this.customQuery, null);
+        super.handleRemoving();
+    }
 
-        this.customQuery.owner?.replaceChild(this.customQuery, null);        
-        this.remove();
+    /** @inheritdoc */
+    public handleOwnerRemoval(): void {
+        this.customQuery.owner?.replaceChild(this.customQuery, null);
+        super.handleOwnerRemoval();
     }
 }

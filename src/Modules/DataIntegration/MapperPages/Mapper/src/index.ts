@@ -91,7 +91,7 @@ export function loadDevelopmentView(): number {
 
     const entityMapping = new EntityMapping(
         targetTable.name,
-        targetTable.schema === null ? "" : targetTable.schema,
+        targetTable.schema,
         join,
         [],
         targetEntityColumnMapping

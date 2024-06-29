@@ -6,6 +6,7 @@ import { BaseSourceEntityShape } from "./baseSourceEntityShape";
 import { Join } from "../../mappingModel/sourceEntities/aggregators/join";
 
 export class JoinLink extends Link {
+
     public constructor(public join: Join, public joinModal : JoinModal, ...args: any[]) {
         super();
         super.initialize.call(this, ...args);
@@ -66,9 +67,7 @@ export class JoinLink extends Link {
         this.joinModal.open();
     }
 
-    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
-        const sourceEntity = this.getTargetElement() as BaseSourceEntityShape;
-        sourceEntity.handleRemoving();
+    public handleTargetRemoval(opt?: dia.Cell.DisconnectableOptions): this {
         if (this.join.owner === null) {
             throw new Error('Owner of join is null');
         }
@@ -77,5 +76,11 @@ export class JoinLink extends Link {
         this.join.removeReferences();
         this.joinModal.finalize();
         return this.remove(opt);
+    }
+
+    public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {
+        const sourceEntity = this.getTargetElement() as BaseSourceEntityShape;
+        sourceEntity.handleOwnerRemoval();
+        return this.handleTargetRemoval(opt);
     }
 }

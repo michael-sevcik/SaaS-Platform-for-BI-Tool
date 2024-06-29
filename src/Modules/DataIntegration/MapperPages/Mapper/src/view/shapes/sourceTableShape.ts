@@ -4,6 +4,7 @@ import { EntityMapping } from '../../mappingModel/entityMapping';
 import { SourceTable } from '../../mappingModel/sourceEntities/sourceTable';
 import { ColumnSelectionModal } from '../modals/columnSelectionModal';
 import { BaseSourceEntityShape } from './baseSourceEntityShape';
+import type { Link } from './link';
 import { PropertyLink } from './propertyLink';
 
 
@@ -67,19 +68,24 @@ export class SourceTableShape extends BaseSourceEntityShape {
         this.addPropertyPort(sourceColumn)
     }
 
+    private removeDependencies(): void { 
+        this.sourceTable.owner?.replaceChild(this.sourceTable, null);
+        this.columnSelectionModal.finalize();
+    }
+
     /**
      * Handles the removing of the source table shape.
      * This method is responsible for removing connected links, replacing the source table with null,
      * finalizing the column selection modal, and removing the shape itself.
      */
     public handleRemoving(): void {
-        for (const link of this.graph.getConnectedLinks(this, { outbound: true })) {
-            const propertyLink = link as PropertyLink;
-            propertyLink.handleRemoving();
-        }
+        this.removeDependencies();
+        super.handleRemoving();
+    }
 
-        this.sourceTable.owner?.replaceChild(this.sourceTable, null);
-        this.columnSelectionModal.finalize();
-        this.remove();
+    /** @inheritdoc */
+    public handleOwnerRemoval(): void {
+        this.removeDependencies();
+        super.handleOwnerRemoval();
     }
 }

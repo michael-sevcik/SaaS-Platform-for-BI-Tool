@@ -70,6 +70,11 @@ export class PropertyLink extends Link {
 
         targetEntity.setColumnMapping(sourceColumn, targetColumn);
     }
+
+    public handleTargetRemoval(opt?: dia.Cell.DisconnectableOptions): this {
+        return this.handleRemoving(opt);
+    }
+
     public handleRemoving(opt?: dia.Cell.DisconnectableOptions): this {        
         const element = this.accessTargetElement() as BaseEntityShape;
         const targetElement = element as unknown as TargetElementShape;

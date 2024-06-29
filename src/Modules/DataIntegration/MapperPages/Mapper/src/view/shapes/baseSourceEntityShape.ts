@@ -1,6 +1,7 @@
 import { Column } from "../../dbModel/database";
 import { SourceColumn } from "../../mappingModel/sourceEntities/sourceColumn";
 import { BaseEntityShape } from "./baseEntityShape";
+import type { Link } from "./link";
 
 /**
  * Base abstract class for source entity shapes.
@@ -23,8 +24,37 @@ export abstract class BaseSourceEntityShape extends BaseEntityShape {
 
     /**
      * Handles the removal of the source entity shape.
+     * 
+     * This method removes all connected links and the this shape.
+     * 
      */
-    public abstract handleRemoving(): void;
+    public handleRemoving(): void {
+        for (const link of this.graph.getConnectedLinks(this, {inbound: true})) {
+            const connectedLink = link as Link;
+            connectedLink.handleTargetRemoval();
+        }
+
+        for (const link of this.graph.getConnectedLinks(this, { outbound: true })) {
+            const connectedLink = link as Link;
+            connectedLink.handleRemoving();
+        }
+
+        this.remove();
+    }
+
+    /**
+     * Handles the removal of the source entity shape.
+     * 
+     * This method removes all connected links and this shape.
+     */
+    public handleOwnerRemoval(): void {
+        for (const link of this.graph.getConnectedLinks(this, { outbound: true })) {
+            const connectedLink = link as Link;
+            connectedLink.handleRemoving();
+        }
+
+        this.remove();
+    }
 
     /**
      * Gets the unique name of the source entity shape.

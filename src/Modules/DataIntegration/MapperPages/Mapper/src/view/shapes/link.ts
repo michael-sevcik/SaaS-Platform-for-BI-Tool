@@ -1,5 +1,4 @@
-import { shapes, dia, util } from "@joint/core";
-import { LIGHT_COLOR, SECONDARY_DARK_COLOR } from "../../constants";
+import { shapes, dia } from "@joint/core";
 
 export abstract class Link extends shapes.standard.DoubleLink {
     // defaults() {
@@ -16,6 +15,21 @@ export abstract class Link extends shapes.standard.DoubleLink {
      */
     protected abstract getUnhighlightedAttrs(); 
 
+    /**
+     * Handles the removal of the source of the link.
+     * 
+     * Removes the link only.
+     * This method is called when the target of the link is removed.
+     * @param opt The options for removing the link.
+     */
+    public abstract handleTargetRemoval(opt?: dia.Cell.DisconnectableOptions): this;
+
+    /**
+     * Removes the link and its target.
+     * 
+     * @param opt The options for removing the link.
+     * @note This method is called when the source of the link is removed or the link should be removed.
+     */
     public abstract handleRemoving(opt?: dia.Cell.DisconnectableOptions): this;
 
     /**
