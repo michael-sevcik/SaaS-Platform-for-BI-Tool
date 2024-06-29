@@ -37,6 +37,107 @@
             ]
         },
 
+        "dataTypeBase": {
+            "properties": {
+                "type": {
+                    "type": "string",
+                    "minLength": 1
+                },
+                "isNullable": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "type", "isNullable"
+            ]
+        },
+
+        "unknownDataType": {
+            "type": "object",
+            "$ref": "#/$defs/dataTypeBase",
+            "properties": {
+                "type": {
+                    "const": "unknown"
+                },
+                "storeType": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "type", "storeType"
+            ]
+        },
+
+        "simpleDataType": {
+            "type": "object",
+            "$ref": "#/$defs/dataTypeBase",
+            "properties": {
+                "type": {
+                    "const": "simple"
+                },
+                "simpleType": {
+                    "type": "string",
+                    "enum": [
+                        "TinyInteger",
+                        "SmallInteger",
+                        "Integer",
+                        "BigInteger",
+                        "Money",
+                        "Float",
+                        "Decimal",
+                        "Numeric",
+                        "Boolean",
+                        "Date",
+                        "Datetime",
+                        "Datetime2",
+                        "DatetimeOffset",
+                        "Timestamp",
+                        "Time"
+                    ]
+                }
+            },
+            "required": [
+                "type"
+            ]
+        },
+
+        "nVarCharDataType": {
+            "type": "object",
+            "$ref": "#/$defs/dataTypeBase",
+            "properties": {
+                "type": {
+                    "const": "nVarChar"
+                },
+                "length": {
+                    "type": "integer",
+                    "minimum": 1
+                }
+            },
+            "required": [
+                "type", "length"
+            ]
+        },
+
+        "nVarCharMaxDataType": {
+            "type": "object",
+            "$ref": "#/$defs/dataTypeBase",
+            "properties": {
+                "type": {
+                    "const": "nVarCharMax"
+                }
+            },
+            "required": [ "type" ]
+        },
+
+        "dataType": {
+            "oneOf": [
+                { "$ref": "#/$defs/unknownDataType" },
+                { "$ref": "#/$defs/simpleDataType" },
+                { "$ref": "#/$defs/nVarCharDataType" },
+                { "$ref": "#/$defs/nVarCharMaxDataType" }
+            ]
+        },        
+
         "sourceColumn": {
             "oneOf": [
                 { "$ref": "#/$defs/reference" },
@@ -47,19 +148,10 @@
                         {
                             "type": "object",
                             "properties": {
-                                "type": {
-                                    "$comment": "TODO: enum",
-                                    "enum": [
-                                        "string",
-                                        "int",
-                                        "decimal",
-                                        "date",
-                                        "boolean"
-                                    ]
-                                }
+                                "dataType": { "$ref": "#/$defs/dataType" }
                             },
                             "required": [
-                                "type"
+                                "dataType"
                             ]
                         }
                     ]
@@ -195,6 +287,29 @@
                 }
             ]
         },
+        "CustomQuery": {
+            "$comment": "Schema for custom query. Implements sourceEntityBase.",
+            "allOf": [
+                { "$ref": "#/$defs/sourceEntityBase" },
+                {
+                    "type": "object",
+                    "properties": {
+                        "type": {
+                            "const": "customQuery"
+                        },
+                        "query": {
+                            "type": "string"
+                        },
+                        "description": {
+                            "type": ["string", "null"]
+                        }
+                    },
+                    "required": [
+                        "type", "query"
+                    ]
+                }
+            ]
+        },
 
         "sourceEntityImplementations": {
             "$comment": "Represents schema for all source entity types.",
@@ -209,6 +324,83 @@
                 { "$ref": "#/$defs/sourceEntityImplementations" },
                 { "$ref": "#/$defs/reference" }
             ]
+        },
+
+        "targetColumnMappings": {
+            "$comment": "Defines map between columns of the target entity and their equivalent source columns.",
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "$comment": "Nullable sourceColumn or reference to sourceColumn",
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/$defs/sourceColumn"
+                        }
+                    ]
+                }
+            },
+            "unevaluatedProperties": false
+        },
+
+        "unmappedTargetColumnMappings": {
+            "$comment": "Defines map between columns of the target entity and their equivalent source columns, in which no columns are mapped.",
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "$comment": "Nullable sourceColumn or reference to sourceColumn",
+                    "type": "null"
+                }
+            },
+            "unevaluatedProperties": false
+        },
+
+        "mappingData" : {
+            "type": "array",
+            
+            "prefixItems": [
+                {
+                    "$comment": "1st item should be array of source entities in an order in which they should be deserialized.",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/$defs/sourceEntity"
+                    }
+                },
+                {
+                    "$comment": "2nd item should be the root source entity.",
+                    "$ref": "#/$defs/sourceEntity"
+                },
+                {
+                    "$comment": "3rd and last item should be target column mappings.",
+                    "$ref": "#/$defs/targetColumnMappings"
+                }
+            ],
+            "minItems": 3,
+            "maxItems": 3
+        },
+
+        "emptyMappingData": {
+            "$comment": "Schema for empty mapping data. Represents mapping data in which no columns are mapped and no source entities are defined.",
+            "type": "array",
+            "prefixItems": [
+                {
+                    "$comment": "1st item should be empty array of source entities.",
+                    "type": "array",
+                    "maxItems": 0
+                },
+                {
+                    "$comment": "2nd item should be null representing no root source entity.",
+                    "type": "null"
+                },
+                {
+                    "$comment": "3rd and last item should be target column mappings with no column mapped.",
+                    "$ref": "#/$defs/unmappedTargetColumnMappings"
+                }
+            ],
+            "minItems": 3,
+            "maxItems": 3
         }
 
     },
@@ -216,42 +408,27 @@
     "allOf": [
         { "$ref": "#/$defs/namedEntity" },
         {
+            "type": "object",
             "properties": {
-                "sourceEntities": {
-                    "type": "array",
-                    "items": {
-                        "$ref": "#/$defs/sourceEntity"
-                    }
+                "schema": {
+                    "oneOf": [
+                        {
+                            "type": "string",
+                            "minLength": 1
+                        },
+                        { "type": "null" }
+                    ]
                 },
-                "sourceEntity": {
-                    "$ref": "#/$defs/sourceEntity"
-                },
-                "columnMappings": {
-                    "$comment": "TODO: implement - we need a way to define all properties type",
-                    "type": "object",
-                    "patternProperties": {
-                        ".*": {
-                            "$comment": "Nullable sourceColumn or reference to sourceColumn",
-                            "oneOf": [
-                                {
-                                    "type": "null"
-                                },
-                                {
-                                    "$ref": "#/$defs/sourceColumn"
-                                }
-                            ]
-                        }
-                    },
-                    "unevaluatedProperties": false
+                "mappingData": {
+                    "oneOf": [
+                        { "$ref": "#/$defs/mappingData" },
+                        { "$ref": "#/$defs/emptyMappingData" }
+                    ]
                 }
             },
             "required": [
-                "sourceEntities",
-                "sourceEntity",
-                "columnMappings"
+                "mappingData"
             ]
         }
     ]
-
-    
 }

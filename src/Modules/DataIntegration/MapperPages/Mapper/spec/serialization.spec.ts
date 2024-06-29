@@ -96,7 +96,8 @@ describe('Join serialization', () => {
         // Serialize
         const visitor = new MappingToPlainConverterVisiter();
         join.accept(visitor);
-        const stringifiedResult = JSON.stringify(visitor.popResult(), null, 4);
+        const [_, plainRootSourceEntity] = visitor.getResult();
+        const stringifiedResult = JSON.stringify(plainRootSourceEntity, null, 4);
 
         const parsed = JSON.parse(`
         {

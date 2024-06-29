@@ -98,14 +98,14 @@ export class SimpleType extends DataTypeBase
     /** @inheritdoc */
     public isComparableWith(otherDataType: DataTypeBase): boolean {
         return otherDataType instanceof SimpleType && (
-            this.type === otherDataType.type ||
-            (SimpleType.isNumericType(this.type) && SimpleType.isNumericType(otherDataType.type)) ||
-            (this.type === SimpleDataTypes.Datetime && otherDataType.type === SimpleDataTypes.DatetimeOffset) ||
-            (this.type === SimpleDataTypes.DatetimeOffset && otherDataType.type === SimpleDataTypes.Datetime) ||
-            (this.type === SimpleDataTypes.Datetime2 && otherDataType.type === SimpleDataTypes.DatetimeOffset) ||
-            (this.type === SimpleDataTypes.DatetimeOffset && otherDataType.type === SimpleDataTypes.Datetime2) ||
-            (this.type === SimpleDataTypes.Datetime && otherDataType.type === SimpleDataTypes.Datetime2) ||
-            (this.type === SimpleDataTypes.Datetime2 && otherDataType.type === SimpleDataTypes.Datetime));
+            this.simpleType === otherDataType.simpleType ||
+            (SimpleType.isNumericType(this.simpleType) && SimpleType.isNumericType(otherDataType.simpleType)) ||
+            (this.simpleType === SimpleDataTypes.Datetime && otherDataType.simpleType === SimpleDataTypes.DatetimeOffset) ||
+            (this.simpleType === SimpleDataTypes.DatetimeOffset && otherDataType.simpleType === SimpleDataTypes.Datetime) ||
+            (this.simpleType === SimpleDataTypes.Datetime2 && otherDataType.simpleType === SimpleDataTypes.DatetimeOffset) ||
+            (this.simpleType === SimpleDataTypes.DatetimeOffset && otherDataType.simpleType === SimpleDataTypes.Datetime2) ||
+            (this.simpleType === SimpleDataTypes.Datetime && otherDataType.simpleType === SimpleDataTypes.Datetime2) ||
+            (this.simpleType === SimpleDataTypes.Datetime2 && otherDataType.simpleType === SimpleDataTypes.Datetime));
     }
 
     /** @inheritdoc */
@@ -113,19 +113,19 @@ export class SimpleType extends DataTypeBase
         return dataType instanceof SimpleType
          && this.isNullabilityCompatible(dataType)
          // check if the types are the same or if the types are compatible
-            && (this.type === dataType.type ||
-                (this.type === SimpleDataTypes.Numeric && dataType.type === SimpleDataTypes.Decimal) ||
-                (this.type === SimpleDataTypes.Decimal && 
-                    (dataType.type === SimpleDataTypes.Numeric ||
-                         SimpleType.isIntegralType(dataType.type))) ||
-                (this.type === SimpleDataTypes.Numeric &&
-                    (dataType.type === SimpleDataTypes.Decimal ||
-                        SimpleType.isIntegralType(dataType.type))) ||
-                (this.type === SimpleDataTypes.SmallInteger && dataType.type === SimpleDataTypes.TinyInteger) ||
-                (this.type === SimpleDataTypes.Integer && 
-                    (dataType.type === SimpleDataTypes.TinyInteger ||
-                        dataType.type === SimpleDataTypes.SmallInteger)) ||
-                (this.type === SimpleDataTypes.BigInteger && SimpleType.isIntegralType(dataType.type)));
+            && (this.simpleType === dataType.simpleType ||
+                (this.simpleType === SimpleDataTypes.Numeric && dataType.simpleType === SimpleDataTypes.Decimal) ||
+                (this.simpleType === SimpleDataTypes.Decimal && 
+                    (dataType.simpleType === SimpleDataTypes.Numeric ||
+                         SimpleType.isIntegralType(dataType.simpleType))) ||
+                (this.simpleType === SimpleDataTypes.Numeric &&
+                    (dataType.simpleType === SimpleDataTypes.Decimal ||
+                        SimpleType.isIntegralType(dataType.simpleType))) ||
+                (this.simpleType === SimpleDataTypes.SmallInteger && dataType.simpleType === SimpleDataTypes.TinyInteger) ||
+                (this.simpleType === SimpleDataTypes.Integer && 
+                    (dataType.simpleType === SimpleDataTypes.TinyInteger ||
+                        dataType.simpleType === SimpleDataTypes.SmallInteger)) ||
+                (this.simpleType === SimpleDataTypes.BigInteger && SimpleType.isIntegralType(dataType.simpleType)));
     }
 
     private static isIntegralType(type: SimpleDataTypes): boolean {
@@ -153,7 +153,7 @@ export class SimpleType extends DataTypeBase
     }
     
     protected get TypeDescriptor(): string {
-        return this.type;
+        return this.simpleType;
     }
 
     /**
@@ -162,12 +162,12 @@ export class SimpleType extends DataTypeBase
     public static readonly Descriptor = "simple";
 
     /**
-     * Constructs a new instance of {@link SimpleType} with a given {@link type}.
-     * @param type The type of the simple data type.
+     * Constructs a new instance of {@link SimpleType} with a given {@link simpleType}.
+     * @param simpleType The type of the simple data type.
      * @param isNullable Value indicating whether this data type is nullable.
      */
     constructor(
-        public readonly type: SimpleDataTypes,
+        public readonly simpleType: SimpleDataTypes,
         isNullable : boolean ) { super(isNullable);}
 }
 

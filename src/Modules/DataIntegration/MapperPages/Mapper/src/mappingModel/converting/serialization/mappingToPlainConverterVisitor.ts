@@ -26,7 +26,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
 
             return { 
                 $id: id,
-                type: CustomQuery.typeDescriptor, // TODO: move this to a map to constatns or something
+                type: CustomQuery.typeDescriptor,
                 name: customQuery.name,
                 query: customQuery.query,
                 selectedColumns: plainColumns,
@@ -42,9 +42,13 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
      */
     public readonly sortedSourceEntities: SourceEntity[] = [];
 
+    private static getReferenceWithId(id: string): any {
+        return {$ref: id};
+    }
+
     /**
      * Checks if the sourceEntity was already visited and if so, uses the reference,
-     * otherwise creates a new object using the createFunctionand
+     * otherwise creates a new object using the {@link createFunction}
      * and adds it to the intermediate result.
      * @param sourceEntity the source entity to check
      * @param createFunction the function that should be used to create a new object
@@ -55,21 +59,27 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
         createFunction : (id : string) => any)
     {
         let result;
+        let id : string;
         const plainSourceEntity = this.plainSourceEntitiesByOriginal.get(sourceEntity);
         if (plainSourceEntity !== undefined) {
-            result = {
-                $ref: plainSourceEntity.$id,
-            }
+            id = plainSourceEntity.$id;
+            result = MappingToPlainConverterVisiter.getReferenceWithId(id);
         }
         else {
-            result = createFunction((this.id++).toString());
+            id = (this.id++).toString();
+            result = createFunction(id);
             this.sortedSourceEntities.push(result);
             this.plainSourceEntitiesByOriginal.set(sourceEntity, result);
         }
 
-        this.intermediateResult.push(result);
+        this.intermediateResult.push(MappingToPlainConverterVisiter.getReferenceWithId(id));
     }
 
+    /**
+     * Gets a plain reference to the source column.
+     * @param sourceColumn The source column to get the reference for.
+     * @returns A plain reference to the source column.
+     */
     public getSourceColumnRef(sourceColumn: SourceColumn) : any {
         console.log(this.plainSourceColumnsByOriginal);
         console.log(this.plainSourceColumnsByOriginal.has(sourceColumn));
@@ -78,13 +88,12 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
         return {$ref: plainSourceColumn.$id};
     }
 
-    public popResult(): any {
-        const result = this.intermediateResult.pop();
-        if (this.intermediateResult.length !== 0) {
-            throw new Error("Intermediate result is not empty");
-        }
-
-        return result;
+    /** 
+     * Gets the result of the conversion.
+     * @returns The result of the conversion. The first element are the sorted source entities. The second element is the root source entity.
+     */
+    public getResult(): [any[], any] {
+        return [this.sortedSourceEntities, this.safeIntermediateResultPop()];
     }
 
     public visitConditionLink(conditionLink: ConditionLink): void {

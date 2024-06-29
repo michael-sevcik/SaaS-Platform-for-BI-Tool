@@ -30,7 +30,7 @@ export class Column {
      */
     @Type(() => DataTypeBase, {
         discriminator: {
-            property: '$type',
+            property: 'type',
             subTypes: [
                 { value: UnknownDataType, name: UnknownDataType.Descriptor },
                 { value: SimpleType, name: SimpleType.Descriptor },
