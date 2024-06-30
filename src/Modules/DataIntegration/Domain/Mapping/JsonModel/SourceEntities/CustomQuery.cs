@@ -6,19 +6,37 @@ using System.Threading.Tasks;
 
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities
 {
-    public class CustomQuery : ISourceEntity
+    public class CustomQuery(string name, string query, SourceColumn[] selectedColumns) : ISourceEntity
     {
         public const string TypeDiscriminator = "customQuery";
 
-        public string Name => throw new NotImplementedException();
+        /// <inheritdoc/>
+        public string Name { get; } = name;
 
-        public bool HasDependency => throw new NotImplementedException();
+        /// <summary>
+        /// The query to execute.
+        /// </summary>
+        public string Query { get; } = query;
 
-        public string[] SelectedColumns => throw new NotImplementedException();
+        /// <inheritdoc/>
+        public bool HasDependency => false;
 
+        /// <inheritdoc/>
+        public SourceColumn[] SelectedColumns { get; } = selectedColumns;
+
+        /// <inheritdoc/>
         public void Accept(IVisitor visitor)
         {
-            throw new NotImplementedException();
+            visitor.Visit(this);
+        }
+
+        /// <inheritdoc/>
+        public void AssignColumnOwnership()
+        {
+            foreach (var column in SelectedColumns)
+            {
+                column.Owner = this;
+            }
         }
     }
 }

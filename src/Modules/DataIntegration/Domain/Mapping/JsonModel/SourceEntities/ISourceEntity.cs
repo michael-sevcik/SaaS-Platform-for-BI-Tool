@@ -24,19 +24,39 @@ namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEn
 /// </summary>
 public interface ISourceEntity : IVisitable
 {
+    /// <summary>
+    /// Gets the name of the source entity.
+    /// </summary>
     string Name { get; }
 
+    /// <summary>
+    /// Gets a value indicating whether the source entity has a dependency - child source entity.
+    /// </summary>
     bool HasDependency { get; }
 
-    string[] SelectedColumns { get; }
+    /// <summary>
+    /// Gets the selected columns of the source entity.
+    /// </summary>
+    SourceColumn[] SelectedColumns { get; }
 
-    virtual ColumnMapping GetColumnMapping(string columnName)
+    /// <summary>
+    /// Gets the column mapping for the specified column name.
+    /// </summary>
+    /// <param name="columnName">The name of the column.</param>
+    /// <returns>The column mapping.</returns>
+    virtual SourceColumn GetColumnMapping(string columnName)
     {
-        if (!SelectedColumns.Contains(columnName))
+        SourceColumn? column = SelectedColumns.SingleOrDefault(column => column.Name == columnName);
+        if (column is null)
         {
-            throw new InvalidOperationException($"The source table \"{columnName}\" does not contain a column with name \"{columnName}\".");
+            throw new InvalidOperationException($"The source entity \"{Name}\" does not contain a column with name \"{columnName}\".");
         }
 
-        return new(this, columnName);
+        return column;
     }
+
+    /// <summary>
+    /// Assigns owners to the owned columns recursively starting with this entity and continuing to the child entities.
+    /// </summary>
+    void AssignColumnOwnership();
 }

@@ -18,8 +18,8 @@ public class JoinCondition : IVisitable
 
     public JoinCondition(
         Operator relation,
-        ColumnMapping leftColumn,
-        ColumnMapping rightColumn,
+        SourceColumn leftColumn,
+        SourceColumn rightColumn,
         ConditionLink? linkedCondition = null)
     {
         Relation = relation;
@@ -30,9 +30,9 @@ public class JoinCondition : IVisitable
 
     public Operator Relation { get; }
 
-    public ColumnMapping LeftColumn { get; }
+    public SourceColumn LeftColumn { get; }
 
-    public ColumnMapping RightColumn { get; }
+    public SourceColumn RightColumn { get; }
 
     public ConditionLink? LinkedCondition { get; }
 

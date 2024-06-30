@@ -7,7 +7,7 @@ public class EntityMapping(
     string? schema,
     ISourceEntity[] sourceEntities,
     ISourceEntity? sourceEntity,
-    Dictionary<string, ColumnMapping> columnMappings,
+    Dictionary<string, SourceColumn> columnMappings,
     string? description = null) : IVisitable
 {
     public string Name { get; } = name;
@@ -18,7 +18,7 @@ public class EntityMapping(
 
     public ISourceEntity? SourceEntity { get; } = sourceEntity;
 
-    public Dictionary<string, ColumnMapping> ColumnMappings { get; } = columnMappings;
+    public Dictionary<string, SourceColumn> ColumnMappings { get; } = columnMappings;
 
     public void Accept(IVisitor visitor)
     {

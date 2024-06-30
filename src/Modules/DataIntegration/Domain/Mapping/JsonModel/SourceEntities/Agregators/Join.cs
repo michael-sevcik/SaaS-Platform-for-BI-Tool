@@ -9,62 +9,78 @@ using System.Threading.Tasks;
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
 
 
-public class Join : IAgregator
+/// <summary>
+/// Represents a join aggregator in the JSON model of source entities.
+/// </summary>
+public class Join(
+    Join.Type joinType,
+    ISourceEntity leftSourceEntity,
+    ISourceEntity rightSourceEntity,
+    string name,
+    SourceColumn[] selectedColumns,
+    JoinCondition condition) : IAgregator
 {
     public const string TypeDiscriminator = "join";
 
+    /// <summary>
+    /// The type of the join.
+    /// </summary>
     public enum Type
     {
-        Left,
-        Natural,
-        Inner,
+        left,
+        right,
+        inner,
+        full,
     }
 
+    /// <summary>
+    /// Gets the left source entity of the join.
+    /// </summary>
     public ISourceEntity LeftSourceEntity => SourceEntities[0];
 
+    /// <summary>
+    /// Gets the right source entity of the join.
+    /// </summary>
     public ISourceEntity RightSourceEntity => SourceEntities[1];
 
-    public Join(
-        Type joinType,
-        ISourceEntity leftSourceEntity,
-        ISourceEntity rightSourceEntity,
-        string name,
-        ColumnMapping[] outputColumns,
-        JoinCondition condition)
-    {
-        JoinType = joinType;
-        //if (sourceEntities.Length != 2) // TODO: delete
-        //{
-        //    throw new ArgumentException("Wrong number of source entities.", nameof(sourceEntities));
-        //}
+    /// <summary>
+    /// Gets the type of the join.
+    /// </summary>
+    public Type JoinType { get; } = joinType;
 
-        SourceEntities = new ISourceEntity[] { leftSourceEntity, rightSourceEntity };
-        Name = name;
-        OutputColumns = outputColumns;
-        Condition = condition;
+    /// <inheritdoc/>
+    public string Name { get; } = name;
 
-        //this.SelectedColumns = outputColumns.Select(cm => cm.SourceColumn).ToArray(); // TODO:
-    }
-
-    public Type JoinType { get; }
-
+    /// <inheritdoc/>
     [JsonIgnore]
-    public ISourceEntity[] SourceEntities { get; }
+    public ISourceEntity[] SourceEntities { get; } = [leftSourceEntity, rightSourceEntity];
 
-    public string Name { get; }
-
+    /// <inheritdoc/>
     [JsonIgnore]
     public bool HasDependency => true;
 
-    [JsonIgnore]
-    public string[] SelectedColumns => OutputColumns.Select(cm => cm.SourceColumn).ToArray();
+    /// <inheritdoc/>
+    public SourceColumn[] SelectedColumns = selectedColumns;
 
-    public ColumnMapping[] OutputColumns { get; }
+    /// <summary>
+    /// Gets the condition for the join.
+    /// </summary>
+    public JoinCondition Condition { get; } = condition;
 
-    public JoinCondition Condition { get; }
+    SourceColumn[] ISourceEntity.SelectedColumns => throw new NotImplementedException();
 
+    /// <inheritdoc/>
     public void Accept(IVisitor visitor)
     {
         visitor.Visit(this);
+    }
+
+    /// <inheritdoc/>
+    public void AssignColumnOwnership()
+    {
+        foreach (var child in SourceEntities)
+        {
+            child.AssignColumnOwnership();
+        }
     }
 }
