@@ -11,6 +11,8 @@ namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEn
 
 public class Join : IAgregator
 {
+    public const string TypeDiscriminator = "join";
+
     public enum Type
     {
         Left,

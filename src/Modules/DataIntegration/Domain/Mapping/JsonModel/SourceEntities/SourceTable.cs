@@ -6,17 +6,16 @@ namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEn
 /// <summary>
 /// 
 /// </summary>
-public class SourceTable : ISourceEntity
+public class SourceTable(string name, string[] selectedColumns) : ISourceEntity
 {
-    public SourceTable(string name, string[] selectedColumns)
-        => (Name, SelectedColumns) = (name, selectedColumns);
+    public const string TypeDiscriminator = "sourceTable";
 
-    public string Name { get; }
+    public string Name { get; } = name;
 
     [JsonIgnore]
     public bool HasDependency => false;
 
-    public string[] SelectedColumns { get; }
+    public string[] SelectedColumns { get; } = selectedColumns;
 
     public void Accept(IVisitor visitor)
     {

@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
 
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -20,7 +21,12 @@ internal class SourceEntitiyConvertor : JsonConverter<ISourceEntity>
     /// <summary>
     /// Source entity types by their names used for JSON parsing.
     /// </summary>
-    private readonly Dictionary<string, Type> sourceEntityTypesByNames;
+    private readonly Dictionary<string, Type> sourceEntityTypesByNames = new()
+    { 
+        { Join.TypeDiscriminator, typeof(Join)},
+        { SourceTable.TypeDiscriminator, typeof(SourceTable) },
+        { CustomQuery.TypeDiscriminator, typeof(CustomQuery) },
+    };
 
     /// <summary>
     /// Source entity type names by the appropriate types used for JSON writing.
@@ -30,10 +36,8 @@ internal class SourceEntitiyConvertor : JsonConverter<ISourceEntity>
     /// <summary>
     /// Initializes a new instance of the <see cref="SourceEntitiyConvertor"/> class.
     /// </summary>
-    /// <param name="sourceTypesByName">The recognized source entity types with their names.</param>
-    public SourceEntitiyConvertor(IEnumerable<KeyValuePair<string, Type>> sourceTypesByName)
+    public SourceEntitiyConvertor()
     {
-        sourceEntityTypesByNames = new Dictionary<string, Type>(sourceTypesByName);
         sourceEntityNamesByType = sourceEntityTypesByNames.ToDictionary(p => p.Value, p => p.Key);
     }
 

@@ -29,7 +29,8 @@ public class EntityMappingDeserialization : BaseModelDeserializationTests
 
         EntityMapping expectedEntityMapping = new(
             name: "EmployeeHoursWorked",
-            sourceEntities: [sourceTable1, sourceTable2, join],
+            null,
+            [sourceTable1, sourceTable2, join],
             join,
             new() {
                 { "PersonalId", sourceTable1.GetColumnMapping("ZamestnanecId")},

@@ -1,5 +1,6 @@
 ﻿using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization
 {
@@ -56,11 +57,10 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
             var jsonText = """
                 {
                   "$id": "1",
-                  "type": "b",
                   "name": "str",
                   "someX": {
                     "$id": "2",
-                    "name": "str",
+                    "name": "str2",
                     "someX": null,
                     "nextX": null
                   },
@@ -70,7 +70,12 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
                 }
                 """;
 
-            var deserialized = JsonSerializer.Deserialize<X>(jsonText, SerializerOptions);
+            var deserialized = JsonSerializer.Deserialize<X>(jsonText, new JsonSerializerOptions(JsonSerializerDefaults.Web) 
+            { 
+                ReferenceHandler = ReferenceHandler.Preserve,
+                
+            });
+
             Assert.That(deserialized, Is.Not.Null);
         }
     }

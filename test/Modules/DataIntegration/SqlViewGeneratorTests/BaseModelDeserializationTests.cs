@@ -1,4 +1,4 @@
-﻿using BIManagement.Modules.DataIntegration.Application.Mapping.JsonParser;
+﻿using BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
 using System.Text.Json;
@@ -13,11 +13,7 @@ public class BaseModelDeserializationTests
     {
         Converters =
         {
-            new SourceEntitiyConvertor(
-            [
-                new ("sourceTable", typeof(SourceTable)),
-                new ("join", typeof(Join)),
-            ]),
+            new SourceEntitiyConvertor(),
             new JsonStringEnumConverter(),
         },
         ReferenceHandler = new SourceEntityReferenceHandler(),

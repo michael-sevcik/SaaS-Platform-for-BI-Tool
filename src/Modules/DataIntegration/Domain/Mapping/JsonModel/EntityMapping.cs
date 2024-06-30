@@ -2,23 +2,23 @@
 
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
 
-public class EntityMapping : IVisitable
+public class EntityMapping(
+    string name,
+    string? schema,
+    ISourceEntity[] sourceEntities,
+    ISourceEntity? sourceEntity,
+    Dictionary<string, ColumnMapping> columnMappings,
+    string? description = null) : IVisitable
 {
-    public EntityMapping(string name, ISourceEntity[] sourceEntities, ISourceEntity sourceEntity, Dictionary<string, ColumnMapping> columnMappings)
-    {
-        Name = name;
-        SourceEntities = sourceEntities;
-        SourceEntity = sourceEntity;
-        ColumnMappings = columnMappings;
-    }
+    public string Name { get; } = name;
+    public string? Schema { get; } = schema;
+    public string? Description { get; } = description;
 
-    public string Name { get; }
+    public ISourceEntity[] SourceEntities { get; } = sourceEntities;
 
-    public ISourceEntity[] SourceEntities { get; }
+    public ISourceEntity? SourceEntity { get; } = sourceEntity;
 
-    public ISourceEntity SourceEntity { get; }
-
-    public Dictionary<string, ColumnMapping> ColumnMappings { get; }
+    public Dictionary<string, ColumnMapping> ColumnMappings { get; } = columnMappings;
 
     public void Accept(IVisitor visitor)
     {
