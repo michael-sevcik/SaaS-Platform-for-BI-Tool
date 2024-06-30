@@ -27,8 +27,6 @@ export class EntityMappingConvertor {
         const plainColumnMappings = {};
         entityMapping.columnMappings.forEach((sourceColumn, key, map) => {
             let result: any | null;
-            console.log(sourceColumn);
-            
             if (sourceColumn === null || sourceColumn === undefined) {
                 result = null;
             }

@@ -55,7 +55,7 @@ export class PlainToSourceEntityConvertor {
             plainJoinCondition["relation"],
             this.getSourceColumnByReference(plainJoinCondition["leftColumn"]),
             this.getSourceColumnByReference(plainJoinCondition["rightColumn"]),
-            plainConditionLink);
+            conditionLink);
     }
 
     private static safeGetLinkRelation(value: any) : LinkRelation {

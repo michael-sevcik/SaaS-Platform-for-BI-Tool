@@ -81,9 +81,6 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
      * @returns A plain reference to the source column.
      */
     public getSourceColumnRef(sourceColumn: SourceColumn) : any {
-        console.log(this.plainSourceColumnsByOriginal);
-        console.log(this.plainSourceColumnsByOriginal.has(sourceColumn));
-        
         const plainSourceColumn = this.plainSourceColumnsByOriginal.get(sourceColumn);
         return {$ref: plainSourceColumn.$id};
     }
@@ -118,18 +115,18 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
             const plainRightSourceEntity = this.intermediateResult.pop();
             const plainLeftSourceEntity = this.intermediateResult.pop();
             
-            console.log("converting columns");
-            console.log(this.plainSourceColumnsByOriginal);
+            console.debug("converting columns");
+            console.debug(this.plainSourceColumnsByOriginal);
             
             // Prepare output columns - convert them to plain objects
             const plainSelectedColumns : any[] = [];
             for (let i = 0; i < join.selectedColumns.length; i++) {
                 plainSelectedColumns.push(this.getSourceColumnRef(join.selectedColumns[i]));
             }
-            console.log("plainColumns");
+            console.debug("plainColumns");
             
-            console.log(plainSelectedColumns);
-            console.log(join.selectedColumns);
+            console.debug(plainSelectedColumns);
+            console.debug(join.selectedColumns);
             
             
 
@@ -169,8 +166,6 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
     public visitSourceColumn(sourceColumn: SourceColumn): void {
         let result = this.plainSourceColumnsByOriginal.get(sourceColumn);
         if (result === undefined) {
-            console.log("undefined column - creating new plain");
-            
             result = instanceToPlain(sourceColumn);
             result["$id"] = (this.id++).toString();
 

@@ -37,7 +37,7 @@ export function onPaperLinkMouseEnter(linkView: dia.LinkView) {
         tools: [new linkTools.Remove({ action: () => link.handleRemoving() })]
     });
     linkView.addTools(toolsView);
-    if (link instanceof PropertyLink) console.log('Property link');
+    if (link instanceof PropertyLink) console.debug('Property link');
     link.highlight();
 }
 

@@ -64,30 +64,18 @@ const entityMapping = new EntityMapping(
  * RUN TESTS
 **/
 
-// TODO: Consider removing because the serialization is implicitly expecting that the columns are defined in sourceTables before the join condition references them
-// describe('Join condition serializetion', () => {
-//     it('should serialize a join condition', () => {
-        
-//         const visitor = new MappingConverterVisiter();
-//         joinCondition.accept(visitor);
-        
-//         const stringifiedResult = JSON.stringify(visitor.getResult());
-//         // todo: 
-//         expect(stringifiedResult).toBe('{"relation":"equals","leftColumn":{"sourceEntity":{"$id":"1","type":"sourceTable","name":"table1","selectedColumns":["col1","col2"]},"sourceColumn":"col1"},"rightColumn":{"sourceEntity":{"$id":"0","type":"sourceTable","name":"table1","selectedColumns":["col1","col2"]},"sourceColumn":"col1"},"linkedCondition":null}');
-//     });
-// });
-
 describe('sourceColumn serialization', () => {
     it('should serialize a sourceColumn with simple data type', () => {
         const column = sourceTable1.getSelectedColumn("ZamestnanecId");
         const plain = instanceToPlain(column);
-        expect(JSON.stringify(plain)).toBe('{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"type":"Integer","$type":"simple"}}');
+        expect(JSON.stringify(plain)).toBe('{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"simpleType":"Integer","type":"simple"}}');
     });
+    
     it('should serialize a sourceColumn with nvchar datatype', () => {
         const column = new Column("note", new NVarChar(450, true), "note");
         const sourceColumn = new SourceColumn(column);
         const plain = instanceToPlain(sourceColumn);
-        expect(JSON.stringify(plain)).toBe('{"name":"note","description":null,"dataType":{"isNullable":true,"length":450,"$type":"nVarChar"}}');
+        expect(JSON.stringify(plain)).toBe('{"name":"note","description":null,"dataType":{"isNullable":true,"length":450,"type":"nVarChar"}}');
     });
 });
 
@@ -96,81 +84,146 @@ describe('Join serialization', () => {
         // Serialize
         const visitor = new MappingToPlainConverterVisiter();
         join.accept(visitor);
-        const [_, plainRootSourceEntity] = visitor.getResult();
-        const stringifiedResult = JSON.stringify(plainRootSourceEntity, null, 4);
+        const [sourceEntities, _] = visitor.getResult();
+        const stringifiedResult = JSON.stringify(sourceEntities, null, 4);
 
-        const parsed = JSON.parse(`
-        {
-            "$id": "0",
-            "type": "join",
-            "name": "join1",
-            "joinType": "inner",
-            "leftSourceEntity": {
+        const parsedExpectedResult = JSON.parse(`
+        [
+            {
                 "$id": "1",
                 "type": "sourceTable",
                 "name": "TabMzdList",
+                "schema": null,
                 "selectedColumns": [
-                    "ZamestnanecId",
-                    "OdpracHod",
-                    "IdObdobi"
+                    {
+                        "name": "IdObdobi",
+                        "description": null,
+                        "dataType": {
+                            "isNullable": false,
+                            "simpleType": "Integer",
+                            "type": "simple"
+                        },
+                        "$id": "5"
+                    },
+                    {
+                        "name": "ZamestnanecId",
+                        "description": null,
+                        "dataType": {
+                            "isNullable": false,
+                            "simpleType": "Integer",
+                            "type": "simple"
+                        },
+                        "$id": "4"
+                    },
+                    {
+                        "name": "OdpracHod",
+                        "description": null,
+                        "dataType": {
+                            "isNullable": false,
+                            "simpleType": "Decimal",
+                            "type": "simple"
+                        },
+                        "$id": "3"
+                    },
+                    {
+                        "name": "ZamestnanecId",
+                        "description": null,
+                        "dataType": {
+                            "isNullable": false,
+                            "simpleType": "Integer",
+                            "type": "simple"
+                        },
+                        "$id": "2"
+                    }
                 ]
             },
-            "rightSourceEntity": {
-                "$id": "2",
+            {
+                "$id": "6",
                 "type": "sourceTable",
                 "name": "TabMzdObd",
+                "schema": null,
                 "selectedColumns": [
-                    "MzdObd_DatumOd",
-                    "MzdObd_DatumDo",
-                    "IdObdobi"
+                    {
+                        "name": "IdObdobi",
+                        "description": null,
+                        "dataType": {
+                            "isNullable": false,
+                            "simpleType": "Integer",
+                            "type": "simple"
+                        },
+                        "$id": "9"
+                    },
+                    {
+                        "name": "MzdObd_DatumDo",
+                        "description": null,
+                        "dataType": {
+                            "isNullable": false,
+                            "simpleType": "Date",
+                            "type": "simple"
+                        },
+                        "$id": "8"
+                    },
+                    {
+                        "name": "MzdObd_DatumOd",
+                        "description": null,
+                        "dataType": {
+                            "isNullable": false,
+                            "simpleType": "Date",
+                            "type": "simple"
+                        },
+                        "$id": "7"
+                    }
                 ]
             },
-            "joinCondition": {
-                "relation": "equals",
-                "leftColumn": {
-                    "sourceEntity": {
-                        "$ref": "1"
-                    },
-                    "sourceColumn": "IdObdobi"
+            {
+                "$id": "0",
+                "type": "join",
+                "name": "join1",
+                "joinType": "inner",
+                "leftSourceEntity": {
+                    "$ref": "1"
                 },
-                "rightColumn": {
-                    "sourceEntity": {
+                "rightSourceEntity": {
+                    "$ref": "6"
+                },
+                "joinCondition": {
+                    "relation": "equals",
+                    "leftColumn": {
+                        "$ref": "5"
+                    },
+                    "rightColumn": {
+                        "$ref": "9"
+                    },
+                    "linkedCondition": null
+                },
+                "selectedColumns": [
+                    {
                         "$ref": "2"
                     },
-                    "sourceColumn": "IdObdobi"
-                },
-                "linkedCondition": null
-            },
-            "outputColumns": [
-                {
-                    "sourceEntity": {
-                        "$ref": "2"
+                    {
+                        "$ref": "3"
                     },
-                    "sourceColumn": "MzdObd_DatumDo"
-                },
-                {
-                    "sourceEntity": {
-                        "$ref": "2"
+                    {
+                        "$ref": "4"
                     },
-                    "sourceColumn": "MzdObd_DatumOd"
-                },
-                {
-                    "sourceEntity": {
-                        "$ref": "1"
+                    {
+                        "$ref": "5"
                     },
-                    "sourceColumn": "OdpracHod"
-                },
-                {
-                    "sourceEntity": {
-                        "$ref": "1"
+                    {
+                        "$ref": "7"
                     },
-                    "sourceColumn": "ZamestnanecId"
-                }
-            ]
-        }
+                    {
+                        "$ref": "8"
+                    },
+                    {
+                        "$ref": "9"
+                    }
+                ]
+            }
+        ]
         `);
 
-        const stringifiedExpected = JSON.stringify(parsed, null, 4);
+        const stringifiedExpected = JSON.stringify(parsedExpectedResult, null, 4);
 
         // Assert
         expect(stringifiedResult).toBe(stringifiedExpected);
@@ -182,7 +235,8 @@ describe('Entity mapping serialization', () => {
         // Convert to plain
         const plain = EntityMappingConvertor.convertEntityMappingToPlain(entityMapping);
         const stringifiedResult = JSON.stringify(plain);
-
-        expect(stringifiedResult).toBe('{"name":"EmployeeHoursWorked","schema":"dbo","sourceEntity":{"$ref":"2"},"sourceEntities":[{"$id":"0","type":"sourceTable","name":"TabMzdList","selectedColumns":["ZamestnanecId","OdpracHod","IdObdobi"]},{"$id":"1","type":"sourceTable","name":"TabMzdObd","selectedColumns":["MzdObd_DatumOd","MzdObd_DatumDo","IdObdobi"]},{"$id":"2","type":"join","name":"join1","joinType":"inner","leftSourceEntity":{"$ref":"0"},"rightSourceEntity":{"$ref":"1"},"joinCondition":{"relation":"equals","leftColumn":{"sourceEntity":{"$ref":"0"},"sourceColumn":"IdObdobi"},"rightColumn":{"sourceEntity":{"$ref":"1"},"sourceColumn":"IdObdobi"},"linkedCondition":null},"outputColumns":[{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumDo"},{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumOd"},{"sourceEntity":{"$ref":"0"},"sourceColumn":"OdpracHod"},{"sourceEntity":{"$ref":"0"},"sourceColumn":"ZamestnanecId"}]}],"columnMappings":{"PersonalId":{"sourceEntity":{"$ref":"0"},"sourceColumn":"ZamestnanecId"},"HoursCount":{"sourceEntity":{"$ref":"0"},"sourceColumn":"OdpracHod"},"DateFrom":{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumOd"},"DateTo":{"sourceEntity":{"$ref":"1"},"sourceColumn":"MzdObd_DatumDo"}}}');
+        console.log(stringifiedResult);
+        
+        expect(stringifiedResult).toBe('{"name":"EmployeeHoursWorked","schema":"dbo","mappingData":[[{"$id":"1","type":"sourceTable","name":"TabMzdList","schema":null,"selectedColumns":[{"name":"IdObdobi","description":null,"dataType":{"isNullable":false,"simpleType":"Integer","type":"simple"},"$id":"5"},{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"simpleType":"Integer","type":"simple"},"$id":"4"},{"name":"OdpracHod","description":null,"dataType":{"isNullable":false,"simpleType":"Decimal","type":"simple"},"$id":"3"},{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"simpleType":"Integer","type":"simple"},"$id":"2"}]},{"$id":"6","type":"sourceTable","name":"TabMzdObd","schema":null,"selectedColumns":[{"name":"IdObdobi","description":null,"dataType":{"isNullable":false,"simpleType":"Integer","type":"simple"},"$id":"9"},{"name":"MzdObd_DatumDo","description":null,"dataType":{"isNullable":false,"simpleType":"Date","type":"simple"},"$id":"8"},{"name":"MzdObd_DatumOd","description":null,"dataType":{"isNullable":false,"simpleType":"Date","type":"simple"},"$id":"7"}]},{"$id":"0","type":"join","name":"join1","joinType":"inner","leftSourceEntity":{"$ref":"1"},"rightSourceEntity":{"$ref":"6"},"joinCondition":{"relation":"equals","leftColumn":{"$ref":"5"},"rightColumn":{"$ref":"9"},"linkedCondition":null},"selectedColumns":[{"$ref":"2"},{"$ref":"3"},{"$ref":"4"},{"$ref":"5"},{"$ref":"7"},{"$ref":"8"},{"$ref":"9"}]}],{"$ref":"0"},{"PersonalId":{"$ref":"2"},"HoursCount":{"$ref":"3"},"DateFrom":{"$ref":"7"},"DateTo":{"$ref":"8"},"note":null}]}');
     });
 });

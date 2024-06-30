@@ -11,9 +11,9 @@ import { inspect } from "util";
 
 describe('sourceColumnDeserialization', () => {
     it('should deserialize a sourceColumn with simple data type', () => {
-        const jsonText = '{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"type":"Integer","$type":"simple"}}';
+        const jsonText = '{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"simpleType":"Integer","type":"simple"}}';
         const sourceColumn = plainToInstance(SourceColumn, JSON.parse(jsonText));
-        expect(JSON.stringify(sourceColumn)).toBe('{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"type":"Integer"},"_owner":null,"referenceHolders":{}}');
+        expect(JSON.stringify(sourceColumn)).toBe('{"name":"ZamestnanecId","description":null,"dataType":{"isNullable":false,"simpleType":"Integer"},"_owner":null,"referenceHolders":{}}');
     });
 });
 

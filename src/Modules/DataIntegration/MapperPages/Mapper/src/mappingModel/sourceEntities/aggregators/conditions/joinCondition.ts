@@ -27,16 +27,14 @@ export class JoinCondition implements MappingVisitable, ReferenceHolder {
         public relation : Operator,
         leftColumn : SourceColumn,
         rightColumn : SourceColumn,
-        public linkedCondition? : ConditionLink) {
+        public linkedCondition : ConditionLink | null = null) {
         this._leftColumn = leftColumn;
         this._rightColumn = rightColumn;
     }
     removeReferences(): void {
         this.leftColumn.removeReference(this);
         this.rightColumn.removeReference(this);
-        if (this.linkedCondition !== undefined) {
-            this.linkedCondition.removeReferences();
-        }
+        this.linkedCondition?.removeReferences();
     }
 
     accept(visitor: MappingVisitor): void {
@@ -46,9 +44,7 @@ export class JoinCondition implements MappingVisitable, ReferenceHolder {
     createBackwardConnections(): void {
         this._leftColumn.addReference(this);
         this._rightColumn.addReference(this);
-        if (this.linkedCondition !== undefined) {
-            this.linkedCondition.createBackwardConnections();
-        }
+        this.linkedCondition?.createBackwardConnections();
     }
 
     public set leftColumn(leftColumn : SourceColumn) {

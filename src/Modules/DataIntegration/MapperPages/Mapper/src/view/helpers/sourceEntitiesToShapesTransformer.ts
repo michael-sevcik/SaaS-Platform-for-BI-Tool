@@ -59,8 +59,6 @@ export class SourceEntitiesToShapesTransformer extends SourceEntityVisitor {
         joinLink.source()
 
         this.cells.push(joinLink);
-        console.log('Join link');
-        console.log(joinLink);
         this.cellStack.push(joinLink);
     }
 
