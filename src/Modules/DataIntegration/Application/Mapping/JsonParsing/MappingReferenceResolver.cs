@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
 
-internal class SourceEntityReferenceResolver : ReferenceResolver
+internal class MappingReferenceResolver : ReferenceResolver
 {
     private uint referenceCount;
     private readonly Dictionary<string, object> referenceIdToObjectMap = [];

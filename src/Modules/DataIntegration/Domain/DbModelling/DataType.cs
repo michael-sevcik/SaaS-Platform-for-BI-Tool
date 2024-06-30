@@ -5,12 +5,13 @@ namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 /// <summary>
 /// Represents a base class data type of a <see cref="Column"/> in a database <see cref="Table"/>.
 /// </summary>
-[JsonDerivedType(typeof(SimpleType), typeDiscriminator: SimpleType.Descriptor)]
-[JsonDerivedType(typeof(NVarChar), typeDiscriminator: NVarChar.Descriptor)]
-[JsonDerivedType(typeof(NVarCharMax), typeDiscriminator: NVarCharMax.Descriptor)]
-//[JsonDerivedType(typeof(VarChar), typeDiscriminator: VarChar.Descriptor)]
-//[JsonDerivedType(typeof(VarCharMax), typeDiscriminator: VarCharMax.Descriptor)]
-[JsonDerivedType(typeof(UnknownDataType), typeDiscriminator: UnknownDataType.Descriptor)]
+//[JsonDerivedType(typeof(SimpleType), typeDiscriminator: SimpleType.Descriptor)]
+//[JsonDerivedType(typeof(NVarChar), typeDiscriminator: NVarChar.Descriptor)]
+//[JsonDerivedType(typeof(NVarCharMax), typeDiscriminator: NVarCharMax.Descriptor)]
+////[JsonDerivedType(typeof(VarChar), typeDiscriminator: VarChar.Descriptor)]
+////[JsonDerivedType(typeof(VarCharMax), typeDiscriminator: VarCharMax.Descriptor)]
+//[JsonDerivedType(typeof(UnknownDataType), typeDiscriminator: UnknownDataType.Descriptor)]
+//[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
 public abstract class DataTypeBase
 {
     /// <summary>
@@ -18,13 +19,13 @@ public abstract class DataTypeBase
     /// </summary>
     public bool IsNullable { get; set; } = false;
 
-    protected DataTypeBase() { }
+    //protected DataTypeBase() { }
 
     /// <summary>
     /// Initializes base class state.
     /// </summary>
     /// <param name="isNullable">Value indicating whether the derived data type is nullable</param>
-    protected DataTypeBase(bool isNullable) => IsNullable = isNullable;
+    public DataTypeBase(bool isNullable) => IsNullable = isNullable;
 
 }
 
@@ -38,11 +39,11 @@ public sealed class UnknownDataType : DataTypeBase
     /// </summary>
     public const string Descriptor = "unknown";
 
-    /// <summary>
-    /// Constructs a new instance of <see cref="UnknownDataType"/>.
-    /// </summary>
-    /// <remarks>Meant for Deserialization purposes.</remarks>
-    public UnknownDataType() { }
+    ///// <summary>
+    ///// Constructs a new instance of <see cref="UnknownDataType"/>.
+    ///// </summary>
+    ///// <remarks>Meant for Deserialization purposes.</remarks>
+    //public UnknownDataType() { }
 
     /// <summary>
     /// Constructs a new instance of <see cref="UnknownDataType"/> with a given <paramref name="typeName"/>.
@@ -67,18 +68,18 @@ public sealed class SimpleType : DataTypeBase
     /// </summary>
     public const string Descriptor = "simple";
 
-    /// <summary>
-    /// Constructs a new instance of <see cref="SimpleType"/>.
-    /// </summary>
-    /// <remarks>Meant for Deserialization purposes.</remarks>
-    public SimpleType() { }
+    ///// <summary>
+    ///// Constructs a new instance of <see cref="SimpleType"/>.
+    ///// </summary>
+    ///// <remarks>Meant for Deserialization purposes.</remarks>
+    //public SimpleType() { }
 
     /// <summary>
-    /// Constructs a new instance of <see cref="SimpleType"/> with a given <paramref name="type"/>.
+    /// Constructs a new instance of <see cref="SimpleType"/> with a given <paramref name="simpleType"/>.
     /// </summary>
-    /// <param name="type">The type of the simple data type.</param>
+    /// <param name="simpleType">The type of the simple data type.</param>
     /// <param name="isNullable">Value indicating whether this data type is nullable.</param>
-    public SimpleType(Types type, bool isNullable) : base(isNullable) => Type = type;
+    public SimpleType(Types simpleType, bool isNullable) : base(isNullable) => this.simpleType = simpleType;
 
     /// <summary>
     /// Represents the type of the simple data type.
@@ -105,7 +106,7 @@ public sealed class SimpleType : DataTypeBase
     /// <summary>
     /// Gets or sets the type of the simple data type.
     /// </summary>
-    public Types Type { get; set; }
+    public Types simpleType { get; set; }
 }
 
 /// <summary>
@@ -118,11 +119,11 @@ public sealed class NVarChar : DataTypeBase
     /// </summary>
     public const string Descriptor = "nVarChar";
 
-    /// <summary>
-    /// Constructs a new instance of <see cref="NVarChar"/>.
-    /// </summary>
-    /// <remarks>Meant for Deserialization purposes.</remarks>
-    public NVarChar() { }
+    ///// <summary>
+    ///// Constructs a new instance of <see cref="NVarChar"/>.
+    ///// </summary>
+    ///// <remarks>Meant for Deserialization purposes.</remarks>
+    //public NVarChar() { }
 
     /// <summary>
     /// Constructs a new instance of <see cref="NVarChar"/> with a given <paramref name="length"/>.
@@ -157,11 +158,11 @@ public sealed class NVarCharMax : DataTypeBase
     /// </summary>
     public const string Descriptor = "nVarCharMax";
 
-    /// <summary>
-    /// Constructs a new instance of <see cref="NVarCharMax"/>.
-    /// </summary>
-    /// <remarks>Meant for Deserialization purposes.</remarks>
-    public NVarCharMax() { }
+    ///// <summary>
+    ///// Constructs a new instance of <see cref="NVarCharMax"/>.
+    ///// </summary>
+    ///// <remarks>Meant for Deserialization purposes.</remarks>
+    //public NVarCharMax() { }
 
     /// <summary>
     /// Constructs a new instance of <see cref="NVarCharMax"/>.

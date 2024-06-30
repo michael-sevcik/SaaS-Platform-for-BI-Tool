@@ -11,6 +11,6 @@ namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing
 
         private ReferenceResolver? _rootedResolver;
         public override ReferenceResolver CreateResolver() => _rootedResolver!;
-        public void Reset() => _rootedResolver = new SourceEntityReferenceResolver();
+        public void Reset() => _rootedResolver = new MappingReferenceResolver();
     }
 }

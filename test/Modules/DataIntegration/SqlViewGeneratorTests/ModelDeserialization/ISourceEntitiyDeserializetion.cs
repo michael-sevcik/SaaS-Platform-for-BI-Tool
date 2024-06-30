@@ -1,4 +1,5 @@
-﻿using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
+﻿using BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -23,7 +24,7 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
             """;
 
             // Action
-            var deserialized = JsonSerializer.Deserialize<ISourceEntity>(jsonText, SerializerOptions);
+            var deserialized = JsonSerializer.Deserialize<ISourceEntity>(jsonText, MappingJsonOptions.CreateOptions());
 
             // Assertion
             Assert.That(deserialized, Is.Not.Null);
@@ -47,10 +48,11 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
         {
             var x = new X() { Name = "str", };
             var x1 = new X() { Name = "str", NextX = x, SomeX = x };
-            var serialized = JsonSerializer.Serialize(x1, SerializerOptions);
+            var serialized = JsonSerializer.Serialize(x1, MappingJsonOptions.CreateOptions());
             Assert.That(serialized, Is.Not.Null);
         }
 
+        // TODO: consider removing
         [Test]
         public void TestReferenceHandlingOnDeserialization()
         {

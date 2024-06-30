@@ -58,7 +58,7 @@ internal class SourceEntitiyConvertor : JsonConverter<ISourceEntity>
             var referenceResolver = options.ReferenceHandler!.CreateResolver();
             reader = typeResolverReader;
             return (ISourceEntity)referenceResolver.ResolveReference(
-                refProperty.GetString() ?? throw new JsonException());
+                refProperty.GetString() ?? throw new JsonException("Invalid JSON value of \"$ref\" property."));
         }
 
         string typeValue = doc.RootElement.GetProperty("type").GetString() ?? throw new JsonException();

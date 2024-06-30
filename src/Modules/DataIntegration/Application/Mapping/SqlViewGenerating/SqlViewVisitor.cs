@@ -31,7 +31,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
             throw new NotSupportedException("Identical names of the join source entities are not supported.");
         }
 
-        var outputColumns = join.OutputColumns;
+        var outputColumns = join.SelectedColumns;
         if (outputColumns.Length < 1)
         {
             throw new NotSupportedException("Join entity must at least 1 output column.");
@@ -96,7 +96,8 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         sb.Append('(');
 
         sb.Append("SELECT ");
-        sb.AppendJoin(", ", table.SelectedColumns);
+        // TODO:
+        //sb.AppendJoin(", ", table.SelectedColumns);
 
         sb.Append(" FROM ");
         sb.Append(databasePrefix).Append(table.Name);
@@ -124,16 +125,25 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
             lastNamedColumnMapping = mappingEnumerator.Current;
 
             // Append the column and its name
-            sb.Append(current.Value.SourceColumn).Append(" AS ").Append(current.Key);
+            // todo:
+            //sb.Append(current.Value.SourceColumn).Append(" AS ").Append(current.Key);
             sb.Append(", ");
         }
 
         mappingEnumerator.Dispose();
-        sb.Append(lastNamedColumnMapping.Value.SourceColumn).Append(" AS ").Append(lastNamedColumnMapping.Key);
+        // TODO:
+        //sb.Append(lastNamedColumnMapping.Value.SourceColumn).Append(" AS ").Append(lastNamedColumnMapping.Key);
 
         // Add source
         sb.Append(" FROM ");
+        // TODO:
         entityMapping.SourceEntity.Accept(this);
+    }
+
+    public void Visit(CustomQuery customQuery)
+    {
+        // TODO:
+        throw new NotImplementedException();
     }
 
     private static string GetConditionLinkRelationString(LinkRelation relation)

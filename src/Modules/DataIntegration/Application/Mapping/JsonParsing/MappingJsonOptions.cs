@@ -11,9 +11,11 @@ public static class MappingJsonOptions
         {
             new SourceEntitiyConvertor(),
             new JsonStringEnumConverter(),
-            new EntityMappingConvertor()
+            new EntityMappingConvertor(),
+            new DataTypeConvertor(),
         },
         ReferenceHandler = new SourceEntityReferenceHandler(),
+        
         WriteIndented = true,
     };
 }

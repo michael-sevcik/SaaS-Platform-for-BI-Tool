@@ -14,6 +14,12 @@ internal static class StringBuilderExtensions
     /// <param name="sb">The string builder that should be appended.</param>
     /// <param name="columnMapping">The column mapping that should be processed.</param>
     /// <returns>Appended instance of string builder passed as <paramref name="sb"/>.</returns>
-    public static StringBuilder AppendColumnMapping(this StringBuilder sb, ColumnMapping columnMapping)
-        => sb.Append(columnMapping.SourceEntity.Name).Append('.').Append(columnMapping.SourceColumn);
+    /// <exception cref="NullReferenceException">
+    /// Thrown when the <see cref="SourceColumn.Owner"/> property of the <paramref name="columnMapping"/> is not initialized.
+    /// </exception>
+    public static StringBuilder AppendColumnMapping(this StringBuilder sb, SourceColumn columnMapping)
+    {
+        var owner = columnMapping.Owner ?? throw new NullReferenceException($"column \"{nameof(columnMapping.Owner)}\" is not initialized.");
+        return sb.Append(columnMapping.Owner.Name).Append('.').Append(columnMapping.Name);
+    }
 }

@@ -8,18 +8,6 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 
 public class BaseModelDeserializationTests
 {
-    // TODO: Create an entity from this which parses
-    protected static JsonSerializerOptions SerializerOptions => new(JsonSerializerDefaults.Web)
-    {
-        Converters =
-        {
-            new SourceEntitiyConvertor(),
-            new JsonStringEnumConverter(),
-        },
-        ReferenceHandler = new SourceEntityReferenceHandler(),
-        WriteIndented = true,
-    };
-
     public static void AreEqualByJson(object expected, object actual)
     {
         var expectedJson = JsonSerializer.Serialize(expected);
