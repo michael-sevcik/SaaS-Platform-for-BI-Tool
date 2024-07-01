@@ -1,15 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.6" />
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\Common\Persistence\BIManagement.Common.Persistence.csproj" />
@@ -17,5 +11,7 @@
     <ProjectReference Include="..\DbSchemaScraping\BIManagement.Modules.DataIntegration.DbSchemaScraping.csproj" />
     <ProjectReference Include="..\Persistence\BIManagement.Modules.DataIntegration.Persistence.csproj" />
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0-preview.5.24306.3" />
+  </ItemGroup>
 </Project>

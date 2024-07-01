@@ -1,17 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components" Version="8.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="8.0.6" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="8.0.0" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Application\BIManagement.Common.Application.csproj" />
     <ProjectReference Include="..\..\..\Common\Shared\BIManagement.Common.Shared.csproj" />
@@ -19,5 +16,4 @@
     <ProjectReference Include="..\Api\BIManagement.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.Users.Domain.csproj" />
   </ItemGroup>
-
 </Project>

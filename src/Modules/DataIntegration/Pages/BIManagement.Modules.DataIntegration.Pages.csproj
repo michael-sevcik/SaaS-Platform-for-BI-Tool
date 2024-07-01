@@ -1,39 +1,31 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
-
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-	<AddRazorSupportForMvc>true</AddRazorSupportForMvc>
-	  <!--<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+    <!--<EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
 	  <CompilerGeneratedFilesOutputPath>.</CompilerGeneratedFilesOutputPath>-->
   </PropertyGroup>
-
-	
   <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
-
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Blazor.Bootstrap" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.6" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0-preview.5.24306.11" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0-preview.5.24306.7" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Components\BIManagement.Common.Components.csproj" />
     <ProjectReference Include="..\..\Users\Api\BIManagement.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.DataIntegration.Domain.csproj" />
     <ProjectReference Include="..\MapperPages\BIManagement.Modules.DataIntegration.MapperComponent.csproj" />
   </ItemGroup>
-
 </Project>
