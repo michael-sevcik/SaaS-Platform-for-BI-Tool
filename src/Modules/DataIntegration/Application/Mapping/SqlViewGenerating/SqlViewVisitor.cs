@@ -9,14 +9,21 @@ using static BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.Sourc
 
 namespace BIManagement.Modules.DataIntegration.Application.Mapping.SqlViewGenerating;
 
-//  TODO: REMOVE ALL AppendLine() calls
+// TODO: REMOVE ALL AppendLine() calls
 
+/// <summary>
+/// Represents a visitor for generating SQL views based on JSON model.
+/// </summary>
 public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 {
     private readonly string databasePrefix = tableNamePrefix;
 
     private readonly StringBuilder sb = new();
 
+    /// <summary>
+    /// Gets the generated SQL view.
+    /// </summary>
+    /// <returns>The generated SQL view.</returns>
     public string GetSqlView() => sb.ToString();
 
     private ISourceEntity GetJoinColumnSourceEntity(Join join, SourceColumn column)
@@ -34,6 +41,8 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
             throw new InvalidOperationException("The column does not belong to any of the source entities.");
         }
     }
+
+    /// <inheritdoc/>
     public void Visit(Join join)
     {
         sb.Append('(');
@@ -79,7 +88,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 
         // Specify the condition
         sb.Append("ON ");
-        ProcessJoinCondition(join.JoinCondition, join); 
+        ProcessJoinCondition(join.JoinCondition, join);
 
         sb.Append(')');
     }
@@ -112,6 +121,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         return sb;
     }
 
+    /// <inheritdoc/>
     public void Visit(JoinCondition joinCondition)
     {
         // TODO: REMOVE
@@ -119,12 +129,14 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
     }
 
 
+    /// <inheritdoc/>
     public void Visit(ConditionLink link)
     {
         // TODO: REMOVE
         throw new NotImplementedException();
     }
 
+    /// <inheritdoc/>
     public void Visit(SourceTable table)
     {
         sb.Append('(');
@@ -138,6 +150,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         sb.Append(')');
     }
 
+    /// <inheritdoc/>
     public void Visit(EntityMapping entityMapping)
     {
         if (entityMapping.SourceEntity is null)
@@ -178,6 +191,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         }
     }
 
+    /// <inheritdoc/>
     public void Visit(CustomQuery customQuery)
     {
         sb.Append('(');
