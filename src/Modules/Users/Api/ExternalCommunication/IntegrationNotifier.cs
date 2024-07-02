@@ -8,7 +8,7 @@ namespace BIManagement.Modules.Users.Api.ExternalCommunication;
 /// </summary>
 internal class IntegrationNotifier(
     DataIntegration.Api.IIntegrationService DIIntegrationService,
-    Deployment.Api.IIntegrationService DeploymentIntegrationService) : IIntegrationNotifier, ISigleton
+    Deployment.Api.IIntegrationService DeploymentIntegrationService) : IIntegrationNotifier, ISingleton
 {
     /// <inheritdoc/>
     public async Task SentCustomerDeletionNotification(string userId)

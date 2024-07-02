@@ -7,7 +7,7 @@ namespace BIManagement.Modules.Deployment.Application
     /// <summary>
     /// No op integration service
     /// </summary>
-    public class IntegrationService : IIntegrationService, ISigleton
+    public class IntegrationService : IIntegrationService, ISingleton
     {
         public Task HandleCostumerDeletionAsync(string userId)
         {
