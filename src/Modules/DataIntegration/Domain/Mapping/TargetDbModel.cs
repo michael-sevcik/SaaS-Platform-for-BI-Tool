@@ -25,8 +25,8 @@ public static class TargetDbModel
                 {
                   "name": "Id",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": false
                   }
                 }
@@ -35,38 +35,38 @@ public static class TargetDbModel
                 {
                   "name": "Id",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "PersonalID",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "ExternalId",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "FirstName",
                   "dataType": {
-                    "$type": "nVarCharMax",
+                    "type": "nVarCharMax",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "Lastname",
                   "dataType": {
-                    "$type": "nVarCharMax",
+                    "type": "nVarCharMax",
                     "isNullable": false
                   }
                 }
@@ -80,8 +80,8 @@ public static class TargetDbModel
                 {
                   "name": "Id",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": false
                   }
                 }
@@ -90,22 +90,22 @@ public static class TargetDbModel
                 {
                   "name": "Id",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "Label",
                   "dataType": {
-                    "$type": "nVarCharMax",
+                    "type": "nVarCharMax",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "Name",
                   "dataType": {
-                    "$type": "nVarCharMax",
+                    "type": "nVarCharMax",
                     "isNullable": true
                   }
                 }
@@ -119,8 +119,8 @@ public static class TargetDbModel
                 {
                   "name": "ID",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": false
                   }
                 }
@@ -129,71 +129,71 @@ public static class TargetDbModel
                 {
                   "name": "ID",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "OrderId",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": true
                   }
                 },
                 {
                   "name": "ProductionOperationId",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": true
                   }
                 },
                 {
                   "name": "Quantity",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Decimal",
+                    "type": "simple",
+                    "simpleType": "Decimal",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "ExpectedTime",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Decimal",
+                    "type": "simple",
+                    "simpleType": "Decimal",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "DateTime",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Datetime",
+                    "type": "simple",
+                    "simpleType": "Datetime",
                     "isNullable": false
                   }
                 },
                 {
                   "name": "ProductType",
                   "dataType": {
-                    "$type": "nVarCharMax",
+                    "type": "nVarCharMax",
                     "isNullable": true
                   }
                 },
                 {
                   "name": "WorkerId",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": true
                   }
                 },
                 {
                   "name": "WorkPlaceId",
                   "dataType": {
-                    "$type": "simple",
-                    "type": "Integer",
+                    "type": "simple",
+                    "simpleType": "Integer",
                     "isNullable": true
                   }
                 }
