@@ -31,6 +31,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Components\BIManagement.Common.Components.csproj" />
+    <ProjectReference Include="..\..\Deployment\Api\BIManagement.Modules.Deployment.Api.csproj" />
     <ProjectReference Include="..\..\Users\Api\BIManagement.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.DataIntegration.Domain.csproj" />
   </ItemGroup>

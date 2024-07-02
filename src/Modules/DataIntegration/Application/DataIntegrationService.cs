@@ -1,27 +1,59 @@
 ﻿using BIManagement.Common.Application.ServiceLifetimes;
 using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.DataIntegration.Api;
+using BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
+using BIManagement.Modules.DataIntegration.Application.Mapping.SqlViewGenerating;
 using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 using BIManagement.Modules.DataIntegration.Domain.Mapping;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
+using System.Text.Json;
 
 namespace BIManagement.Modules.DataIntegration.Application;
 
+/// <summary>
+/// Represents a service for data integration.
+/// Default implementation of <see cref="IDataIntegrationService"/>.
+/// </summary>
+/// <param name="schemaMappingRepository">The schema mapping repository</param>
+/// <param name="dbConnectionConfigurationRepository">Repository for db connection configurations.</param>
 internal class DataIntegrationService(
     ISchemaMappingRepository schemaMappingRepository,
-    ICustomerDbConnectionConfigurationRepository dbConnectionConfigurationRepository) : IDataIntegrationService, IScoped
+    ICustomerDbConnectionConfigurationRepository dbConnectionConfigurationRepository) : IDataIntegrationService, ITransient
 {
-    public Task<Result<string[]>> GenerateSqlViewsForCustomer(string customerId)
+    /// <inheritdoc />
+    public async Task<Result<string[]>> GenerateSqlViewsForCustomer(string customerId)
     {
-        throw new NotImplementedException();
+        List<string> views = new();
+        foreach (var sm in await schemaMappingRepository.GetSchemaMappings(customerId))
+        {
+            var entityMapping = JsonSerializer.Deserialize<EntityMapping>(sm.Mapping, MappingJsonOptions.CreateOptions());
+            if (entityMapping is null)
+            {
+                return Result.Failure<string[]>(new(
+                    "DataIntegration.GeneratingSQLView.ParsingFailed",
+                    "Parsing of SQL view failed."));
+            }
+
+            var sqlView = EntityMappingViewGenerator.GenerateSqlView(entityMapping);
+            views.Add(sqlView);
+        }
+
+        return Result.Success(views.ToArray());
     }
 
-    public Task<string?> GetCustomerDbConnectionString(string customerId)
+    private static Api.DatabaseProvider MapDatabaseProviders(Domain.DatabaseConnection.DatabaseProvider databaseProvider)
     {
-        throw new NotImplementedException();
+        return databaseProvider switch
+        {
+            Domain.DatabaseConnection.DatabaseProvider.SqlServer => Api.DatabaseProvider.SqlServer,
+            _ => throw new NotImplementedException()
+        };
+    }
+
+    /// <inheritdoc />
+    public async Task<(Api.DatabaseProvider, string)?> GetCustomerDbConnectionString(string customerId)
+    {
+        var dbConf = await dbConnectionConfigurationRepository.GetAsync(customerId);
+        return dbConf is null ? null : (DataIntegrationService.MapDatabaseProviders(dbConf.Provider), dbConf.CostumerId);
     }
 }

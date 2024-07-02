@@ -9,9 +9,9 @@
 @using Microsoft.Extensions.Logging
 @inject ILogger<DatabaseConnectionConfigurationForm> Logger
 @inject IUserAccessor UserAccessor
+@inject IHttpContextAccessor HttpContextAccessor
 @inject NavigationManager NavigationManager
 @inject ICustomerDbConnectionConfigurationRepository CostumerDatabaseConnectionConfigurationManager
-@inject IHttpContextAccessor HttpContextAccessor
 @inject ICostumerDbModelManager CostumerDbModelManager
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 

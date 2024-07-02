@@ -17,7 +17,7 @@ public static class Routes
     /// <summary>
     /// Represents a route to the customer's deployment info.
     /// </summary>
-    public const string Deployment = PublicModuleRoutes.CustomerDeployment;
+    public const string MetabaseDeployment = PublicModuleRoutes.CustomerMetabaseDeployment;
 
     #endregion
 

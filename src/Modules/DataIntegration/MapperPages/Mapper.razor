@@ -14,7 +14,9 @@
 @* If all entities are mapped enable continuing to deployment.*@
 @if (mappingStates is not null && mappingStates.All(state => state))
 {
-    <button class="btn btn-primary" href="" >Continue to deployment</button> @* TODO: Add the link to the deployment page *@
+    <a class="btn btn-primary" href="@Deployment.Api.PublicModuleRoutes.CustomerMetabaseDeployment" >
+        Continue to deployment
+    </a>
 }
 
 <div class="embed-responsive">

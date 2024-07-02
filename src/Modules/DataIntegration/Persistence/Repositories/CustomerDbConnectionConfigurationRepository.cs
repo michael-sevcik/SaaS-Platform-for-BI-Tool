@@ -8,7 +8,7 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Repositories;
 /// Default implementation of <see cref="ICustomerDbConnectionConfigurationRepository"/>.
 /// </summary>
 /// <param name="dbContext">The context of database in which Database connection configurations are stored.</param>
-internal class CostumerDbConnectionConfigurationRepository(DataIntegrationDbContext dbContext)
+internal class CustomerDbConnectionConfigurationRepository(DataIntegrationDbContext dbContext)
     : ICustomerDbConnectionConfigurationRepository, IScoped
 {
     private readonly DbSet<CostumerDbConnectionConfiguration> databaseConnectionConfigurations = dbContext.Set<CostumerDbConnectionConfiguration>();

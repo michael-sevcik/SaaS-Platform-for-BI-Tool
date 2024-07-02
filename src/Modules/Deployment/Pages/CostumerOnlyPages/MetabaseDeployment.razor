@@ -1,0 +1,109 @@
+﻿@using BIManagement.Modules.DataIntegration.Api
+@using BIManagement.Modules.Users.Api
+@using Microsoft.AspNetCore.Http
+@* Not using @page directive to utilize static routes class *@
+
+@inject IDataIntegrationService dataIntegrationService
+@inject IUserAccessor UserAccessor
+@inject IHttpContextAccessor HttpContextAccessor
+
+@rendermode @(new InteractiveServerRenderMode(false))
+@attribute [Route(Routes.MetabaseDeployment)]
+
+<PageTitle>Deployment</PageTitle>
+
+<BIManagement.Common.Components.StatusMessage Message="@message" IsError="@isError" />
+
+<div class="container">
+    <h3>Deployment</h3>
+
+    <p>
+        You can either generate the SQL needed for deploying the database views or automatically deploy them along with the instance of Metabase.
+    </p>
+
+    <div class="row">
+        <div class="col-md-6">
+            <button class="btn btn-primary" @onclick="GenerateViews">Generate Views</button>
+            @if (views != null){
+                    @foreach (var view in views)
+                    {
+                        <textarea disabled class="form-control">
+                            @view
+                        </textarea>
+                    }
+                }
+        </div>
+
+        <div class="col-md-6">
+            <button class="btn btn-primary" @onclick="Deploy">Automatically deploy views and Metabase</button>
+
+            @if (deploymentResult != null)
+            {
+                <p>@deploymentResult</p>
+                @if (metabaseLink != null)
+                {
+                    <a href="@metabaseLink" target="_blank">Click here to open Metabase</a>
+                }
+            }
+        </div>
+    </div>
+</div>
+
+@code {
+    private string[]? views;
+    private string? deploymentResult;
+    private string? metabaseLink;
+    private string? message;
+    private bool isError;
+
+    private string? CostumerId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var httpContext = HttpContextAccessor.HttpContext;
+
+        if (httpContext is null)
+        {
+            message = "User cannot be identified.";
+            return;
+        }
+
+        var costumerIdResult = await UserAccessor.GetCostumerId(httpContext);
+        if (costumerIdResult.IsFailure)
+        {
+            message = costumerIdResult.Error.Message;
+            isError = true;
+            return;
+        }
+
+        CostumerId = costumerIdResult.Value;
+
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(500);
+
+        // todo: deploy
+    }
+
+    private async Task GenerateViews()
+    {
+        if (CostumerId is null)
+        {
+            return;
+        }
+
+        var viewsResult = await dataIntegrationService.GenerateSqlViewsForCustomer(CostumerId);
+        if (viewsResult.IsFailure)
+        {
+            message = viewsResult.Error.Message;
+            isError = true;
+            return;
+        }
+
+        views = viewsResult.Value;
+    }
+
+    private async Task Deploy()
+    {
+
+    }
+}

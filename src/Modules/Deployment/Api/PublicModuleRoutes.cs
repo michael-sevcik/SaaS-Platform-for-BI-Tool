@@ -12,7 +12,7 @@ public class PublicModuleRoutes
     /// <summary>
     /// Represents a route to the customer's deployment info.
     /// </summary>
-    public const string CustomerDeployment = $"{DeploymentPrefix}/Configure-db-connection";
+    public const string CustomerMetabaseDeployment = $"{DeploymentPrefix}/DeployMetabase";
     #endregion
 
 
