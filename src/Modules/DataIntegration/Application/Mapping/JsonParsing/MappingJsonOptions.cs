@@ -3,18 +3,23 @@ using System.Text.Json.Serialization;
 
 namespace BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
 
-public static class MappingJsonOptions 
+/// <summary>
+/// Provides the JSON options for mapping model deserialization.
+/// </summary>
+public static class MappingJsonOptions
 {
+    /// <summary>
+    /// Creates the JSON serializer options for mapping.
+    /// </summary>
+    /// <returns>The JSON serializer options.</returns>
     public static JsonSerializerOptions CreateOptions() => new(JsonSerializerDefaults.Web)
     {
         Converters =
         {
-            //new SourceEntitiyConvertor(), // TODO:
             new JsonStringEnumConverter(),
             new EntityMappingConvertor(),
-            //new DataTypeConvertor(), // TODO:
         },
-        ReferenceHandler = new SourceEntityReferenceHandler(),
+        ReferenceHandler = new MappingReferenceHandler(),
         AllowOutOfOrderMetadataProperties = true,
         WriteIndented = true,
     };

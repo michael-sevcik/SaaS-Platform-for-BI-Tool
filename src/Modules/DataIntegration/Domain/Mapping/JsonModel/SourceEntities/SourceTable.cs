@@ -1,8 +1,10 @@
 ﻿using System.Text.Json.Serialization;
-using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
 
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 
+/// <summary>
+/// Represents a source table in the JSON mapping model.
+/// </summary>
 public class SourceTable : ISourceEntity
 {
     public const string TypeDiscriminator = "sourceTable";
@@ -13,7 +15,7 @@ public class SourceTable : ISourceEntity
         this.Schema = null;
         this.SelectedColumns = Array.Empty<SourceColumn>();
     }
-    
+
     public SourceTable(string name, string? schema, SourceColumn[] selectedColumns)
     {
         Name= name;
@@ -21,11 +23,18 @@ public class SourceTable : ISourceEntity
         SelectedColumns= selectedColumns;
     }
 
+    /// <summary>
+    /// Gets or sets the name of the source table.
+    /// </summary>
     public string Name { get; set; }
+
+    /// <summary>
+    /// Gets or sets the schema of the source table.
+    /// </summary>
     public string? Schema { get; set; }
 
     [JsonIgnore]
-    string ISourceEntity.Name => Schema is null? Name : $"{Schema}.{Name}";
+    string ISourceEntity.Name => Schema is null ? Name : $"{Schema}.{Name}";
 
     [JsonIgnore]
     public bool HasDependency => false;
