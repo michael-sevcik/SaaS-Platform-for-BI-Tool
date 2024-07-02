@@ -34,7 +34,7 @@ public class SourceTable : ISourceEntity
     public string? Schema { get; set; }
 
     [JsonIgnore]
-    string ISourceEntity.Name => Schema is null ? Name : $"{Schema}.{Name}";
+    string ISourceEntity.Name => Schema is null ? Name : $"{Schema}__{Name}";
 
     [JsonIgnore]
     public bool HasDependency => false;

@@ -107,7 +107,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         sb.AppendChildColumnReference(GetJoinColumnSourceEntity(join, joinCondition.LeftColumn), joinCondition.LeftColumn);
 
         // Append join condition
-        sb.Append(GetCondtionOperatorString(joinCondition.Relation)).Append(' ');
+        sb.Append(' ').Append(GetCondtionOperatorString(joinCondition.Relation)).Append(' ');
 
         // Process right column
         sb.AppendChildColumnReference(GetJoinColumnSourceEntity(join, joinCondition.RightColumn), joinCondition.RightColumn);
@@ -144,8 +144,17 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         sb.Append("SELECT ");
         sb.AppendSelectedColumnsWithRenaming(table.SelectedColumns);
 
-        sb.Append(" FROM ");
-        sb.Append(databasePrefix).Append(table.Name);
+        sb.Append(" FROM ").Append(databasePrefix);
+        if (table.Schema is not null)
+        {
+            sb.Append(table.Schema).Append('.');
+
+        }
+
+        sb.Append(table.Name);
+        
+        // rename
+        sb.Append(' ').Append(((ISourceEntity)table).Name);
 
         sb.Append(')');
     }
