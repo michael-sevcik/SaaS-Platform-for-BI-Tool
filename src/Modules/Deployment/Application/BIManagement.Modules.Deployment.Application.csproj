@@ -5,7 +5,11 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Application\BIManagement.Common.Application.csproj" />
+    <ProjectReference Include="..\..\DataIntegration\Api\BIManagement.Modules.DataIntegration.Api.csproj" />
     <ProjectReference Include="..\Api\BIManagement.Modules.Deployment.Api.csproj" />
   </ItemGroup>
 </Project>

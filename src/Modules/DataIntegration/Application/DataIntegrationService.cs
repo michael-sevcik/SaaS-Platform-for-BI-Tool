@@ -54,6 +54,6 @@ internal class DataIntegrationService(
     public async Task<(Api.DatabaseProvider, string)?> GetCustomerDbConnectionString(string customerId)
     {
         var dbConf = await dbConnectionConfigurationRepository.GetAsync(customerId);
-        return dbConf is null ? null : (DataIntegrationService.MapDatabaseProviders(dbConf.Provider), dbConf.CostumerId);
+        return dbConf is null ? null : (DataIntegrationService.MapDatabaseProviders(dbConf.Provider), dbConf.ConnectionString);
     }
 }

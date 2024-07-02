@@ -1,4 +1,5 @@
 ﻿@using BIManagement.Modules.DataIntegration.Api
+@using BIManagement.Modules.Deployment.Application.ViewDeployment
 @using BIManagement.Modules.Users.Api
 @using Microsoft.AspNetCore.Http
 @* Not using @page directive to utilize static routes class *@
@@ -6,6 +7,7 @@
 @inject IDataIntegrationService dataIntegrationService
 @inject IUserAccessor UserAccessor
 @inject IHttpContextAccessor HttpContextAccessor
+@inject IDatabaseViewDeployer DatabaseViewDeployer
 
 @rendermode @(new InteractiveServerRenderMode(false))
 @attribute [Route(Routes.MetabaseDeployment)]
@@ -78,9 +80,6 @@
 
         CostumerId = costumerIdResult.Value;
 
-        // Simulate asynchronous loading to demonstrate streaming rendering
-        await Task.Delay(500);
-
         // todo: deploy
     }
 
@@ -91,19 +90,63 @@
             return;
         }
 
+        views = await GetViewsAsync();
+    }
+
+    private async ValueTask<string[]?> GetViewsAsync()
+    {
+        if (CostumerId is null)
+        {
+            return null;
+        }
+
         var viewsResult = await dataIntegrationService.GenerateSqlViewsForCustomer(CostumerId);
         if (viewsResult.IsFailure)
         {
             message = viewsResult.Error.Message;
             isError = true;
-            return;
+            return null;
         }
 
-        views = viewsResult.Value;
+        return viewsResult.Value;
     }
 
     private async Task Deploy()
     {
+        if (CostumerId is null)
+        {
+            return;
+        }
 
+        var views = await GetViewsAsync();
+        if (views is null)
+        {
+            return;
+        }
+
+        var dbConfiguration = await dataIntegrationService.GetCustomerDbConnectionString(CostumerId);
+        if (dbConfiguration is null)
+        {
+            message = "The customer's database configuration is not yet set.";
+            isError = true;
+            return;
+        }
+
+        var (databaseProvider, connectionString) = dbConfiguration.Value;
+
+        var deploymentResult = await DatabaseViewDeployer.DeployViewsAsync(databaseProvider, connectionString, views);
+
+        if (deploymentResult.IsFailure)
+        {
+            message = deploymentResult.Error.Message;
+            isError = true;
+            return;
+        }
+
+        message = "Views deployed successfully.";
+
+        // TODO: deploy Metabase
+
+        
     }
 }
