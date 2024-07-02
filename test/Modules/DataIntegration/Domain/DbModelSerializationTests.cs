@@ -26,7 +26,7 @@ public class DbModelSerializationTests
             ]
     };
 
-    private const string ExpectedSerialization = "{\"name\":\"TestDb\",\"tables\":[{\"name\":\"TestTable\",\"schema\":\"\",\"primaryKeys\":[],\"columns\":[{\"name\":\"Id\",\"dataType\":{\"$type\":\"simple\",\"type\":\"Integer\",\"isNullable\":false}}]}]}";
+    private const string ExpectedSerialization = "{\"name\":\"TestDb\",\"tables\":[{\"name\":\"TestTable\",\"schema\":\"\",\"primaryKeys\":[],\"columns\":[{\"name\":\"Id\",\"dataType\":{\"type\":\"simple\",\"simpleType\":\"Integer\",\"isNullable\":false}}],\"description\":null}]}";
 
     [SetUp]
     public void Setup()

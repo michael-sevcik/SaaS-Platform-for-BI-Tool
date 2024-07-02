@@ -1,4 +1,5 @@
 ﻿using BIManagement.Modules.DataIntegration.Domain.DbModelling;
+using System.Text.Json.Serialization;
 
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 
@@ -8,6 +9,8 @@ namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEn
 public class SourceColumn
 {
     private static DataTypeBase placeHolderDataType = new UnknownDataType("NotInitialized", false);
+
+    [JsonIgnore]
     public ISourceEntity? Owner { get; set; }
     public string Name { get; set; }
     public DataTypeBase DataType { get; set; }
