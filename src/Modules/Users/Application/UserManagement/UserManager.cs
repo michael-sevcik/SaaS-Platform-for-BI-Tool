@@ -40,8 +40,8 @@ internal sealed class UserManager(
 
 
     /// <inheritdoc/>
-    public async Task<Result<ApplicationUser>> GetCostumer(string Id)
-        => await GetUser(Id).Bind(async user => await CheckThatUserIsInRole(user, Roles.Costumer));
+    public async Task<Result<ApplicationUser>> GetCustomer(string Id)
+        => await GetUser(Id).Bind(async user => await CheckThatUserIsInRole(user, Roles.Customer));
 
     /// <inheritdoc/>
     public async Task<Result<ApplicationUser>> GetAdmin(string Id)
@@ -53,8 +53,8 @@ internal sealed class UserManager(
         => await CreateUser(email, name, Roles.Admin);
 
     /// <inheritdoc/>
-    public async Task<Result<ApplicationUser>> CreateCostumerAsync(string email, string name)
-        => await CreateUser(email, name, Roles.Costumer);
+    public async Task<Result<ApplicationUser>> CreateCustomerAsync(string email, string name)
+        => await CreateUser(email, name, Roles.Customer);
 
     /// <summary>
     /// Creates an user with the given email, name and role.
@@ -128,9 +128,9 @@ internal sealed class UserManager(
             return Result.Failure(UserErrors.UserDeletionFailed);
         }
 
-        if (await userManager.IsInRoleAsync(user, Roles.Costumer))
+        if (await userManager.IsInRoleAsync(user, Roles.Customer))
         {
-            await integrationNotifier.SentCostumerDeletionNotification(user.Id);
+            await integrationNotifier.SentCustomerDeletionNotification(user.Id);
         }
 
         return Result.Success();

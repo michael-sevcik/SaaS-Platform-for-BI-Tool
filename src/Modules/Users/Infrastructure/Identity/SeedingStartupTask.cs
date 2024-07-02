@@ -44,7 +44,7 @@ internal class SeedingStartupTask(
         
         using IServiceScope scope = serviceProvider.CreateScope();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
-        await EnsureRoleIsCreated(roleManager, Roles.Costumer);
+        await EnsureRoleIsCreated(roleManager, Roles.Customer);
         await EnsureRoleIsCreated(roleManager, Roles.Admin);
         logger.LogInformation("Roles created.");
         

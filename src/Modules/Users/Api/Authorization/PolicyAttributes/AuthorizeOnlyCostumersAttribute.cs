@@ -14,7 +14,7 @@ public class AuthorizeOnlyCostumersAttribute : AuthorizeAttribute
 {
     public AuthorizeOnlyCostumersAttribute()
     {
-        Roles = Domain.Roles.Costumer;
+        Roles = Domain.Roles.Customer;
     }
 }
 

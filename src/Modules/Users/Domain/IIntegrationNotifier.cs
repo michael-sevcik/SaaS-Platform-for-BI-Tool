@@ -13,5 +13,5 @@ public interface IIntegrationNotifier
     /// </summary>
     /// <param name="userId">Id of the deleted user.</param>
     /// <returns>Task object representing the asynchronous operation.</returns>
-    Task SentCostumerDeletionNotification(string userId);
+    Task SentCustomerDeletionNotification(string userId);
 }

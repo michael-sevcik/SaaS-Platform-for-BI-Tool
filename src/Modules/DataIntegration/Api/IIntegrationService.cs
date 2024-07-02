@@ -1,4 +1,6 @@
-﻿namespace BIManagement.Modules.DataIntegration.Api;
+﻿using BIManagement.Common.Shared.Results;
+
+namespace BIManagement.Modules.DataIntegration.Api;
 
 /// <summary>
 /// Represents a service that integrates the DataIntegration module with other services.
@@ -10,5 +12,5 @@ public interface IIntegrationService
     /// </summary>
     /// <param name="userId">Id of the deleted user</param>
     /// <returns>Task object that represents the asynchronous operation.</returns>
-    Task HandleCostumerDeletionAsync(string userId);
+    Task HandleCustomerDeletionAsync(string userId);
 }

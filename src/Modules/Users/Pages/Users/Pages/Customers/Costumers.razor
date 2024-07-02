@@ -4,14 +4,14 @@
 @using BIManagement.Modules.Users.Pages
 @using Microsoft.AspNetCore.Identity
 @* Not using @page directive to utilize static routes class *@
-@attribute [Route(Routes.Costumers)]
-<PageTitle>Costumers</PageTitle>
-<h3>Costumers</h3>
+@attribute [Route(Routes.Customers)]
+<PageTitle>Customers</PageTitle>
+<h3>Customers</h3>
 
 
 @inject IUserManager UserManager;
 
-<a href=@Routes.AddCostumer class="btn btn-primary">Add Costumer</a>
+<a href=@Routes.AddCustomer class="btn btn-primary">Add Customer</a>
 @if (Users is not null && Users.Any())
 {
     <table class="table">
@@ -30,7 +30,7 @@
             @foreach (var user in Users) // Consider using virtualization if the list is too long - https://learn.microsoft.com/en-us/aspnet/core/blazor/components/virtualization
             {
                 <tr>
-                    <td><a href=@Routes.GetCostumerInfo(user.Id)>@user.Id</a></td>
+                    <td><a href=@Routes.GetCustomerInfo(user.Id)>@user.Id</a></td>
                     <td>@user.UserName</td>
                     <td>@user.Name</td>
 @*                     @if (AdditionalInformation is not null)
@@ -48,7 +48,7 @@
 }
 else
 {
-    <p>No costumers found</p>
+    <p>No customers found</p>
 }
 
 @code {
@@ -58,7 +58,7 @@ else
     // public AdditionalInformationPair? AdditionalInformation { get; set; }
 
     protected override async Task OnInitializedAsync()
-        => Users = await UserManager.GetUsersByRoleAsync(Roles.Costumer);
+        => Users = await UserManager.GetUsersByRoleAsync(Roles.Customer);
 
     // /// <summary>
     // /// Encapsulates additional information to be displayed in the user list.

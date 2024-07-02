@@ -1,4 +1,5 @@
 ﻿using BIManagement.Common.Application.ServiceLifetimes;
+using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.DataIntegration.Api;
 
 namespace BIManagement.Modules.DataIntegration.Application;
@@ -7,10 +8,10 @@ namespace BIManagement.Modules.DataIntegration.Application;
 /// <summary>
 /// No op integration service implementation.
 /// </summary>
-public class IntegrationService : IIntegrationService, ISigleton
+public class IntegrationService : IIntegrationService, IScoped
 {
     /// <inheritdoc/>
-    public Task HandleCostumerDeletionAsync(string userId)
+    public Task HandleCustomerDeletionAsync(string userId)
     {
         // todo: implement HandleUserDeletionAsync
         return Task.CompletedTask;

@@ -23,5 +23,5 @@ public static class Roles
     /// <summary>
     /// Represents the costumer role.
     /// </summary>
-    public static readonly Role Costumer = new ("Costumer");
+    public static readonly Role Customer = new ("Costumer");
 }

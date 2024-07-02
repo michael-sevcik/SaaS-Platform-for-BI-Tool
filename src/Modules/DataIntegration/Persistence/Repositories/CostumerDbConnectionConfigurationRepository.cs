@@ -5,11 +5,11 @@ using Microsoft.EntityFrameworkCore;
 namespace BIManagement.Modules.DataIntegration.Persistence.Repositories;
 
 /// <summary>
-/// Default implementation of <see cref="ICostumerDbConnectionConfigurationRepository"/>.
+/// Default implementation of <see cref="ICustomerDbConnectionConfigurationRepository"/>.
 /// </summary>
 /// <param name="dbContext">The context of database in which Database connection configurations are stored.</param>
 internal class CostumerDbConnectionConfigurationRepository(DataIntegrationDbContext dbContext)
-    : ICostumerDbConnectionConfigurationRepository, IScoped
+    : ICustomerDbConnectionConfigurationRepository, IScoped
 {
     private readonly DbSet<CostumerDbConnectionConfiguration> databaseConnectionConfigurations = dbContext.Set<CostumerDbConnectionConfiguration>();
 

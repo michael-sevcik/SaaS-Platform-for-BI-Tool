@@ -8,6 +8,12 @@
 	  <CompilerGeneratedFilesOutputPath>.</CompilerGeneratedFilesOutputPath>-->
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="wwwroot\NewFolder\**" />
+    <Content Remove="wwwroot\NewFolder\**" />
+    <EmbeddedResource Remove="wwwroot\NewFolder\**" />
+    <None Remove="wwwroot\NewFolder\**" />
+  </ItemGroup>
+  <ItemGroup>
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
   <ItemGroup>
@@ -20,12 +26,12 @@
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0-preview.5.24306.7" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="wwwroot\NewFolder\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Components\BIManagement.Common.Components.csproj" />
     <ProjectReference Include="..\..\Users\Api\BIManagement.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.DataIntegration.Domain.csproj" />
     <ProjectReference Include="..\MapperPages\BIManagement.Modules.DataIntegration.MapperComponent.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
   </ItemGroup>
 </Project>

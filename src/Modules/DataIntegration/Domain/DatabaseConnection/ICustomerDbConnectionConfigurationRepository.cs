@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a repository for <see cref="CostumerDbConnectionConfiguration"/>.
 /// </summary>
-public interface ICostumerDbConnectionConfigurationRepository
+public interface ICustomerDbConnectionConfigurationRepository
 {
     // TODO: Consider using result to pass potential errors
     Task UpdateAsync(CostumerDbConnectionConfiguration configuration);

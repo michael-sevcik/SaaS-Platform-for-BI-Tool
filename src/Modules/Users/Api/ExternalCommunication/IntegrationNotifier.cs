@@ -11,9 +11,9 @@ internal class IntegrationNotifier(
     Deployment.Api.IIntegrationService DeploymentIntegrationService) : IIntegrationNotifier, ISigleton
 {
     /// <inheritdoc/>
-    public async Task SentCostumerDeletionNotification(string userId)
+    public async Task SentCustomerDeletionNotification(string userId)
     {
-        await DIIntegrationService.HandleCostumerDeletionAsync(userId);
+        await DIIntegrationService.HandleCustomerDeletionAsync(userId);
         await DeploymentIntegrationService.HandleCostumerDeletionAsync(userId);
     }
 }

@@ -21,7 +21,7 @@ internal class UserAccessor(UserManager<ApplicationUser> userManager) : IUserAcc
             return Result.Failure<string>(IUserAccessor.UserNotIdentifiableError);
         }
 
-        if (!await userManager.IsInRoleAsync(user, Roles.Costumer))
+        if (!await userManager.IsInRoleAsync(user, Roles.Customer))
         {
             return Result.Failure<string>(IUserAccessor.NotCustomerError);
         }

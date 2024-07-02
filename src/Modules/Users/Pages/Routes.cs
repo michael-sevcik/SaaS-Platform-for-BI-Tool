@@ -19,9 +19,9 @@ internal static class Routes
     public const string UsersGroup = "/Users";
 
     /// <summary>
-    /// Represents a route to the Costumers page.
+    /// Represents a route to the Customers page.
     /// </summary>
-    public const string Costumers = $"{UsersGroup}/costumers";
+    public const string Customers = $"{UsersGroup}/customers";
 
     /// <summary>
     /// Represents a route to the Admins page.
@@ -31,7 +31,7 @@ internal static class Routes
     /// <summary>
     /// Represents a route template for the Admins page.
     /// </summary>
-    public const string CostumerInfo = $"{Costumers}/{{Id}}";
+    public const string CustomerInfo = $"{Customers}/{{Id}}";
 
     /// <summary>
     /// Represents a route template for the Admins page.
@@ -39,10 +39,10 @@ internal static class Routes
     public const string AdminInfo = $"{Admins}/{{Id}}";
 
     /// <summary>
-    /// Gets a route to the page displaying details about a costumer.
+    /// Gets a route to the page displaying details about a customer.
     /// </summary>
-    public static string GetCostumerInfo(string id)
-        => $"{Costumers}/{id}";
+    public static string GetCustomerInfo(string id)
+        => $"{Customers}/{id}";
 
     /// <summary>
     /// Gets a route to the page displaying details about admin.
@@ -51,9 +51,9 @@ internal static class Routes
     => $"{Admins}/{id}";
 
     /// <summary>
-    /// Represents a route to the the page for adding costumer's accounts.
+    /// Represents a route to the the page for adding customer's accounts.
     /// </summary>
-    public const string AddCostumer = $"{Costumers}/add";
+    public const string AddCustomer = $"{Customers}/add";
 
     /// <summary>
     /// Represents a route to the page for adding admin users.

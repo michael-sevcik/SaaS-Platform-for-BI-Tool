@@ -9,7 +9,7 @@
 
 @inject IUserManager UserManager;
 
-<a href=@Routes.AddCostumer class="btn btn-primary">Add Admin</a>
+<a href=@Routes.AddCustomer class="btn btn-primary">Add Admin</a>
 @if (Users is not null && Users.Any())
 {
     <table class="table">
@@ -34,7 +34,7 @@
 }
 else
 {
-    <p>No costumers found</p>
+    <p>No customers found</p>
 }
 
 @code {

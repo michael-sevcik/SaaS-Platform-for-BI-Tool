@@ -1,27 +1,23 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BIManagement.Modules.Deployment.Api;
 
 namespace BIManagement.Modules.Deployment.Pages;
 
 /// <summary>
 /// Represents an encapsulation of routes for pages of the Deployment module.
 /// </summary>
-internal static class Routes
+public static class Routes
 {
     /// <summary>
     /// Represents a base route for the Deployment module.
     /// </summary>
-    public const string DeploymentPrefix = "/Deployment";
+    public const string DeploymentPrefix = PublicModuleRoutes.DeploymentPrefix;
 
-    #region CostumersPages
+    #region CustomersPages
 
     /// <summary>
-    /// Represents a route to the costumer's deployment info.
+    /// Represents a route to the customer's deployment info.
     /// </summary>
-    public const string Deployment = $"{DeploymentPrefix}/Configure-db-connection";
+    public const string Deployment = PublicModuleRoutes.CustomerDeployment;
 
     #endregion
 
@@ -38,10 +34,10 @@ internal static class Routes
     public const string DeploymetsInfo = $"{Deployments}/{{id}}";
 
     /// <summary>
-    /// Gets a route to the page displaying details about a deployment for a given costumer with <paramref name="costumerId"/>.
+    /// Gets a route to the page displaying details about a deployment for a given customer with <paramref name="customerId"/>.
     /// </summary>
-    public static string GetDeploymentInfoRoute(string costumerId)
-        => $"{Deployments}/{costumerId}";
+    public static string GetDeploymentInfoRoute(string customerId)
+        => $"{Deployments}/{customerId}";
 
     #endregion
 }
