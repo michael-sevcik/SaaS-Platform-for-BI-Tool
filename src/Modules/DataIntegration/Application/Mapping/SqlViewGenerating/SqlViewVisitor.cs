@@ -15,8 +15,23 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 
     private readonly StringBuilder sb = new(); // TODO: re usability of the visitor.
 
-    internal string GetSqlView() => sb.ToString();
+    public string GetSqlView() => sb.ToString();
 
+    private ISourceEntity GetJoinColumnSourceEntity(Join join, SourceColumn column)
+    {
+        if (join.LeftSourceEntity.SelectedColumns.Contains(column))
+        {
+            return join.LeftSourceEntity;
+        }
+        else if (join.RightSourceEntity.SelectedColumns.Contains(column))
+        {
+            return join.RightSourceEntity;
+        }
+        else
+        {
+            throw new InvalidOperationException("The column does not belong to any of the source entities.");
+        }
+    }
     public void Visit(Join join)
     {
         sb.Append('(');
@@ -34,16 +49,18 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         var outputColumns = join.SelectedColumns;
         if (outputColumns.Length < 1)
         {
-            throw new NotSupportedException("Join entity must at least 1 output column.");
+            throw new NotSupportedException("Join entity must have at least 1 output column.");
         }
 
         for (int i = 0; i < outputColumns.Length - 1; ++i)
         {
-            sb.AppendColumnMapping(outputColumns[i]).Append(", ");
+            var column = outputColumns[i];
+            sb.AppendChildColumnReference(GetJoinColumnSourceEntity(join, column), column).Append(", ");
         }
 
         var lastColumn = outputColumns[^1];
-        sb.AppendColumnMapping(lastColumn);
+        // TODO: use column references
+        sb.AppendSourceColumn(lastColumn);
 
         // Get the tables
         sb.Append(" FROM ");
@@ -68,14 +85,15 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 
     public void Visit(JoinCondition joinCondition)
     {
+        // TODO: use refences or maybe move this to the join visitation
         // Process left column
-        sb.AppendColumnMapping(joinCondition.LeftColumn).Append(' ');
+        sb.AppendSourceColumn(joinCondition.LeftColumn).Append(' ');
 
         // Append join condition
         sb.Append(GetCondtionOperatorString(joinCondition.Relation)).Append(' ');
 
         // Process right column
-        sb.AppendColumnMapping(joinCondition.RightColumn);
+        sb.AppendSourceColumn(joinCondition.RightColumn);
 
         // If there is a linked condition, Visit it
         joinCondition.LinkedCondition?.Accept(this);
@@ -96,8 +114,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         sb.Append('(');
 
         sb.Append("SELECT ");
-        // TODO:
-        //sb.AppendJoin(", ", table.SelectedColumns);
+        sb.AppendSelectedColumnsWithRenaming(table.SelectedColumns);
 
         sb.Append(" FROM ");
         sb.Append(databasePrefix).Append(table.Name);
@@ -116,7 +133,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
             throw new NotSupportedException("EntityMappings must have at least 1 column.");
         }
 
-        // TODO: Identical names of columns coming from the joins need to be handled.
+        // TODO: Identical names of columns coming from the joins need to be handled. - should be handled with the full name convention.
         var lastNamedColumnMapping = mappingEnumerator.Current;
         while (mappingEnumerator.MoveNext())
         {
@@ -132,12 +149,12 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 
         mappingEnumerator.Dispose();
         // TODO:
-        //sb.Append(lastNamedColumnMapping.Value.SourceColumn).Append(" AS ").Append(lastNamedColumnMapping.Key);
+        sb.Append(lastNamedColumnMapping.Value.Name).Append(" AS ").Append(lastNamedColumnMapping.Key);
 
         // Add source
         sb.Append(" FROM ");
         // TODO:
-        entityMapping.SourceEntity.Accept(this);
+        entityMapping.SourceEntity!.Accept(this);
     }
 
     public void Visit(CustomQuery customQuery)

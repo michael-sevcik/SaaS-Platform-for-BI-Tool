@@ -1,4 +1,5 @@
 ﻿using BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
+using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
@@ -141,9 +142,44 @@ public class JoinDeserialization : BaseModelDeserializationTests
             }
             """;
 
+        SourceColumn[] sourceColumns = [
+            new("MzdObd_DatumOd", new SimpleType(SimpleType.Types.Date, false)),
+            new("MzdObd_DatumDo", new SimpleType(SimpleType.Types.Date, false)),
+            new("IdObdobi", new SimpleType(SimpleType.Types.Integer, false)),
+        ];
+
+        ISourceEntity sourceTable1 = new SourceTable("TabMzdList", null, [
+            new("ZamestnanecId", new SimpleType(SimpleType.Types.Integer, false)),
+            new("OdpracHod", new SimpleType(SimpleType.Types.Decimal, false)),
+            new("HodSaz", new SimpleType(SimpleType.Types.Decimal, false)),
+            new("IdObdobi", new SimpleType(SimpleType.Types.Integer, false)),
+        ]);
+
+        ISourceEntity sourceTable2 = new SourceTable("TabMzdObd", null, [
+            new("MzdObd_DatumOd", new SimpleType(SimpleType.Types.Date, false)),
+            new("MzdObd_DatumDo", new SimpleType(SimpleType.Types.Date, false)),
+            new("IdObdobi", new SimpleType(SimpleType.Types.Integer, false)),
+        ]);
+        Join join = new(
+            Join.Type.inner,
+            sourceTable1,
+            sourceTable2,
+            "join1",
+            [
+                sourceTable1.GetColumnMapping("IdObdobi"),
+                sourceTable1.GetColumnMapping("HodSaz"),
+                sourceTable1.GetColumnMapping("OdpracHod"),
+                sourceTable1.GetColumnMapping("ZamestnanecId"),
+                sourceTable2.GetColumnMapping("IdObdobi"),
+                sourceTable2.GetColumnMapping("MzdObd_DatumDo"),
+                sourceTable2.GetColumnMapping("MzdObd_DatumOd"),
+            ],
+            new(JoinCondition.Operator.equals, sourceTable2.GetColumnMapping("IdObdobi"), sourceTable2.GetColumnMapping("IdObdobi")));
+
         var deserialized = JsonSerializer.Deserialize<Join>(jsonText, MappingJsonOptions.CreateOptions());
-        deserialized?.AssignColumnOwnership();
+        //deserialized?.AssignColumnOwnership();
 
         Assert.That(deserialized, Is.Not.Null);
+        AreEqualByJson(deserialized, join);
     }
 }
