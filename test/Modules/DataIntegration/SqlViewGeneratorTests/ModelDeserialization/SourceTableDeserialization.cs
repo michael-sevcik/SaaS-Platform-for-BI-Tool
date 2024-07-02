@@ -1,4 +1,5 @@
 using BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
+using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 using System.Text.Json;
 
@@ -9,7 +10,6 @@ public class SourceTableDeserialization : BaseModelDeserializationTests
     [Test]
     public void DeserializationTest()
     {
-        var outputColumns = new string[] { "ZamestnanecId", "OdpracHod", "IdObdobi" };
         var jsonText = """
             {
               "$id": "0",
@@ -61,12 +61,17 @@ public class SourceTableDeserialization : BaseModelDeserializationTests
             }
             """;
 
+        SourceColumn[] sourceColumns = [
+            new("ZamestnanecId", new SimpleType(SimpleType.Types.Integer, false)),
+            new("OdpracHod", new SimpleType(SimpleType.Types.Decimal, false)),
+            new("HodSaz", new SimpleType(SimpleType.Types.Decimal, false)),
+            new("IdObdobi", new SimpleType(SimpleType.Types.Integer, false)),
+        ];
+
+        SourceTable sourceTable = new("TabMzdList", null, sourceColumns);
+
         var deserialized = JsonSerializer.Deserialize<SourceTable>(jsonText, MappingJsonOptions.CreateOptions());
         Assert.That(deserialized, Is.Not.Null);
-        Assert.Multiple(() =>
-        {
-            Assert.That(deserialized.Name, Is.EqualTo("TabMzdList"));
-            Assert.That(deserialized.SelectedColumns, Is.EquivalentTo(outputColumns));
-        });
+        AreEqualByJson(sourceTable, deserialized);
     }
 }

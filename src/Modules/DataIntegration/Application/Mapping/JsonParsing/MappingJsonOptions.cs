@@ -9,13 +9,13 @@ public static class MappingJsonOptions
     {
         Converters =
         {
-            new SourceEntitiyConvertor(),
+            //new SourceEntitiyConvertor(), // TODO:
             new JsonStringEnumConverter(),
             new EntityMappingConvertor(),
-            new DataTypeConvertor(),
+            //new DataTypeConvertor(), // TODO:
         },
         ReferenceHandler = new SourceEntityReferenceHandler(),
-        
+        AllowOutOfOrderMetadataProperties = true,
         WriteIndented = true,
     };
 }

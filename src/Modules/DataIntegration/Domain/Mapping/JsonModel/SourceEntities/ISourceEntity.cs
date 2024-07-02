@@ -1,27 +1,15 @@
-﻿// <copyright file="ISourceEntity.cs" company="Merica s.r.o.">
-// Copyright © Merica
-// </copyright>
-
-
-// <copyright file="ISourceEntity.cs" company="Merica s.r.o.">
-// Copyright © Merica
-// </copyright>
-
-
-// <copyright file="ISourceEntity.cs" company="Merica s.r.o.">
-// Copyright © Merica
-// </copyright>
-
-
-// <copyright file="ISourceEntity.cs" company="Merica s.r.o.">
-// Copyright © Merica
-// </copyright>
+﻿using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators;
+using System.Text.Json.Serialization;
 
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 
 /// <summary>
 /// Represents a named entity that is a source of column based data.
 /// </summary>
+[JsonDerivedType(typeof(SourceTable), SourceTable.TypeDiscriminator)]
+[JsonDerivedType(typeof(Join), Join.TypeDiscriminator)]
+[JsonDerivedType(typeof(CustomQuery), CustomQuery.TypeDiscriminator)]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
 public interface ISourceEntity : IVisitable
 {
     /// <summary>

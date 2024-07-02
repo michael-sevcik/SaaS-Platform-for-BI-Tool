@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
+﻿namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities.Agregators.Conditions;
 
 public class JoinCondition : IVisitable
 {
     public enum Operator
     {
-        Equal,
-        NotEqual,
-        GreaterThan,
-        LessThan,
+        equals,
+        notEquals,
+        greaterThan,
+        lessThan,
     }
 
     public JoinCondition(

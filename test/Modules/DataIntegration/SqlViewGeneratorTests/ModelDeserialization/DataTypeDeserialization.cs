@@ -12,7 +12,26 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
 public class DataTypeDeserialization : BaseModelDeserializationTests
 {
     [Test]
-    public void SimpleDataType_Should_Deserialize()
+    public void NVarChar_Should_BeDeserializable()
+    {
+        var jsonText = @"
+            {
+              ""isNullable"": true,
+              ""length"": ""50"",
+              ""type"": ""nVarChar""
+            }
+            ";
+
+        var dataType = JsonSerializer.Deserialize<DataTypeBase>(jsonText, MappingJsonOptions.CreateOptions());
+
+        Assert.That(dataType, Is.Not.Null);
+        AreEqualByJson(new NVarChar(50, true), dataType);
+
+
+    }
+
+    [Test]
+    public void SimpleDataType_Should_BeDeserializable()
     {
         var jsonText = @"
             {

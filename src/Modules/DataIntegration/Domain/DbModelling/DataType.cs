@@ -5,13 +5,13 @@ namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 /// <summary>
 /// Represents a base class data type of a <see cref="Column"/> in a database <see cref="Table"/>.
 /// </summary>
-//[JsonDerivedType(typeof(SimpleType), typeDiscriminator: SimpleType.Descriptor)]
-//[JsonDerivedType(typeof(NVarChar), typeDiscriminator: NVarChar.Descriptor)]
-//[JsonDerivedType(typeof(NVarCharMax), typeDiscriminator: NVarCharMax.Descriptor)]
-////[JsonDerivedType(typeof(VarChar), typeDiscriminator: VarChar.Descriptor)]
-////[JsonDerivedType(typeof(VarCharMax), typeDiscriminator: VarCharMax.Descriptor)]
-//[JsonDerivedType(typeof(UnknownDataType), typeDiscriminator: UnknownDataType.Descriptor)]
-//[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
+[JsonDerivedType(typeof(SimpleType), typeDiscriminator: SimpleType.Descriptor)]
+[JsonDerivedType(typeof(NVarChar), typeDiscriminator: NVarChar.Descriptor)]
+[JsonDerivedType(typeof(NVarCharMax), typeDiscriminator: NVarCharMax.Descriptor)]
+//[JsonDerivedType(typeof(VarChar), typeDiscriminator: VarChar.Descriptor)]
+//[JsonDerivedType(typeof(VarCharMax), typeDiscriminator: VarCharMax.Descriptor)]
+[JsonDerivedType(typeof(UnknownDataType), typeDiscriminator: UnknownDataType.Descriptor)]
+[JsonPolymorphic(TypeDiscriminatorPropertyName = "type")]
 public abstract class DataTypeBase
 {
     /// <summary>

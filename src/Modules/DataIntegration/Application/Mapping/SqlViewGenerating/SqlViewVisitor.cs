@@ -61,7 +61,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 
         // Specify the condition
         sb.Append(" ON ");
-        join.Condition.Accept(this);
+        join.JoinCondition.Accept(this);
 
         sb.Append(')');
     }
@@ -157,10 +157,10 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
     private static string GetCondtionOperatorString(Operator oper)
         => oper switch
         {
-            Operator.LessThan => "<=",
-            Operator.Equal => "=",
-            Operator.NotEqual => "!=",
-            Operator.GreaterThan => ">",
+            Operator.lessThan => "<=",
+            Operator.equals => "=",
+            Operator.notEquals => "!=",
+            Operator.greaterThan => ">",
             _ => throw new NotImplementedException()
         };
 }

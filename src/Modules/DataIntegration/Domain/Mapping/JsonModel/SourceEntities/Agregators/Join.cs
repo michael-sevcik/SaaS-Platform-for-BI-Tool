@@ -12,13 +12,7 @@ namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEn
 /// <summary>
 /// Represents a join aggregator in the JSON model of source entities.
 /// </summary>
-public class Join(
-    Join.Type joinType,
-    ISourceEntity leftSourceEntity,
-    ISourceEntity rightSourceEntity,
-    string name,
-    SourceColumn[] selectedColumns,
-    JoinCondition condition) : IAgregator
+public class Join : IAgregator
 {
     public const string TypeDiscriminator = "join";
 
@@ -36,38 +30,66 @@ public class Join(
     /// <summary>
     /// Gets the left source entity of the join.
     /// </summary>
-    public ISourceEntity LeftSourceEntity => SourceEntities[0];
+    public ISourceEntity LeftSourceEntity { get; set; }
 
     /// <summary>
     /// Gets the right source entity of the join.
     /// </summary>
-    public ISourceEntity RightSourceEntity => SourceEntities[1];
+    public ISourceEntity RightSourceEntity { get; set; }
 
     /// <summary>
     /// Gets the type of the join.
     /// </summary>
-    public Type JoinType { get; } = joinType;
+    public Type JoinType { get; set; }
 
     /// <inheritdoc/>
-    public string Name { get; } = name;
+    public string Name { get; set; }
 
     /// <inheritdoc/>
     [JsonIgnore]
-    public ISourceEntity[] SourceEntities { get; } = [leftSourceEntity, rightSourceEntity];
+    public ISourceEntity[] SourceEntities { get => [LeftSourceEntity, RightSourceEntity]; }
 
     /// <inheritdoc/>
     [JsonIgnore]
     public bool HasDependency => true;
 
     /// <inheritdoc/>
-    public SourceColumn[] SelectedColumns = selectedColumns;
+    public SourceColumn[] SelectedColumns { get; set; }
+
+    /// <summary>
+    /// Initializes a new instance of the <see cref="Join"/> class.
+    /// </summary>
+    /// <remarks>Meant for Deserialization purposes.</remarks>
+    public Join()
+    {
+        this.Name = "";
+        this.LeftSourceEntity = null!;
+        this.RightSourceEntity = null!;
+        this.SelectedColumns = Array.Empty<SourceColumn>();
+        this.JoinCondition = null!;
+    }
+
+    public Join(
+        Type joinType,
+        ISourceEntity leftSourceEntity,
+        ISourceEntity rightSourceEntity,
+        string name,
+        SourceColumn[] selectedColumns,
+        JoinCondition condition)
+    {
+        JoinType = joinType;
+        Name = name;
+        this.LeftSourceEntity = leftSourceEntity;
+        this.RightSourceEntity = rightSourceEntity;
+        SelectedColumns = selectedColumns;
+        JoinCondition = condition;
+    }
 
     /// <summary>
     /// Gets the condition for the join.
     /// </summary>
-    public JoinCondition Condition { get; } = condition;
+    public JoinCondition JoinCondition { get; set; }
 
-    SourceColumn[] ISourceEntity.SelectedColumns => throw new NotImplementedException();
 
     /// <inheritdoc/>
     public void Accept(IVisitor visitor)

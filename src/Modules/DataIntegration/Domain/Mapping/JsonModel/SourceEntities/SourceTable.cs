@@ -3,15 +3,26 @@ using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel;
 
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 
-/// <summary>
-/// 
-/// </summary>
-[method: JsonConstructor]
-public class SourceTable(string name, string? schema, SourceColumn[] selectedColumns) : ISourceEntity
+public class SourceTable : ISourceEntity
 {
     public const string TypeDiscriminator = "sourceTable";
-    public string Name { get; } = name;
-    public string? Schema { get; } = schema;
+
+    public SourceTable()
+    {
+        this.Name = "";
+        this.Schema = null;
+        this.SelectedColumns = Array.Empty<SourceColumn>();
+    }
+    
+    public SourceTable(string name, string? schema, SourceColumn[] selectedColumns)
+    {
+        Name= name;
+        Schema= schema;
+        SelectedColumns= selectedColumns;
+    }
+
+    public string Name { get; set; }
+    public string? Schema { get; set; }
 
     [JsonIgnore]
     string ISourceEntity.Name => Schema is null? Name : $"{Schema}.{Name}";
@@ -20,7 +31,7 @@ public class SourceTable(string name, string? schema, SourceColumn[] selectedCol
     public bool HasDependency => false;
 
     /// <inheritdoc/>
-    public SourceColumn[] SelectedColumns { get; } = selectedColumns;
+    public SourceColumn[] SelectedColumns { get; set; }
 
     /// <inheritdoc/>
     public void Accept(IVisitor visitor)
