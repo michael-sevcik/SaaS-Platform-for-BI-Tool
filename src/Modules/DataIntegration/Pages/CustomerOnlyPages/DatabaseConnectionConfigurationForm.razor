@@ -260,6 +260,11 @@
 
     private async Task OnValidSubmitAsync()
     {
+        if (Input is null)
+        {
+            throw new InvalidOperationException("Form should be initialized.");
+        }
+
         // TODO: ENSURE client can't connect to the main DB.
         Message = null;
         isError = false;
