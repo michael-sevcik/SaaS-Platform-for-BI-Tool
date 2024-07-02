@@ -9,11 +9,13 @@ using static BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.Sourc
 
 namespace BIManagement.Modules.DataIntegration.Application.Mapping.SqlViewGenerating;
 
+//  TODO: REMOVE ALL AppendLine() calls
+
 public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 {
     private readonly string databasePrefix = tableNamePrefix;
 
-    private readonly StringBuilder sb = new(); // TODO: re usability of the visitor.
+    private readonly StringBuilder sb = new();
 
     public string GetSqlView() => sb.ToString();
 
@@ -55,58 +57,72 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         for (int i = 0; i < outputColumns.Length - 1; ++i)
         {
             var column = outputColumns[i];
-            sb.AppendChildColumnReference(GetJoinColumnSourceEntity(join, column), column).Append(", ");
+            sb.AppendChildColumnReference(GetJoinColumnSourceEntity(join, column), column).Append(',').AppendLine();
         }
 
         var lastColumn = outputColumns[^1];
-        // TODO: use column references
-        sb.AppendSourceColumn(lastColumn);
+        sb.AppendChildColumnReference(GetJoinColumnSourceEntity(join, lastColumn), lastColumn);
 
         // Get the tables
-        sb.Append(" FROM ");
+        sb.AppendLine().Append("FROM ");
 
         // Visit the left source entity
         leftSource.Accept(this);
         sb.Append(' ').Append(leftSource.Name);
 
         // Append join type
-        sb.Append(' ').Append(join.JoinType.ToString().ToUpperInvariant()).Append(" JOIN ");
+        sb.AppendLine().Append(join.JoinType.ToString().ToUpperInvariant()).Append(" JOIN ");
 
         // Visit the right entity
         rightSource.Accept(this);
-        sb.Append(' ').Append(rightSource.Name);
+        sb.Append(' ').Append(rightSource.Name).AppendLine();
 
         // Specify the condition
-        sb.Append(" ON ");
-        join.JoinCondition.Accept(this);
+        sb.Append("ON ");
+        ProcessJoinCondition(join.JoinCondition, join); 
 
         sb.Append(')');
     }
 
-    public void Visit(JoinCondition joinCondition)
-    {
-        // TODO: use refences or maybe move this to the join visitation
-        // Process left column
-        sb.AppendSourceColumn(joinCondition.LeftColumn).Append(' ');
-
-        // Append join condition
-        sb.Append(GetCondtionOperatorString(joinCondition.Relation)).Append(' ');
-
-        // Process right column
-        sb.AppendSourceColumn(joinCondition.RightColumn);
-
-        // If there is a linked condition, Visit it
-        joinCondition.LinkedCondition?.Accept(this);
-    }
-
-
-    public void Visit(ConditionLink link)
+    public void ProcessConditionLink(Join join, ConditionLink link)
     {
         sb.Append(' ')
             .Append(GetConditionLinkRelationString(link.Relation))
             .Append(' ');
 
-        link.Condition.Accept(this);
+        ProcessJoinCondition(link.Condition, join);
+    }
+
+    private StringBuilder ProcessJoinCondition(JoinCondition joinCondition, Join join)
+    {
+        sb.AppendChildColumnReference(GetJoinColumnSourceEntity(join, joinCondition.LeftColumn), joinCondition.LeftColumn);
+
+        // Append join condition
+        sb.Append(GetCondtionOperatorString(joinCondition.Relation)).Append(' ');
+
+        // Process right column
+        sb.AppendChildColumnReference(GetJoinColumnSourceEntity(join, joinCondition.RightColumn), joinCondition.RightColumn);
+
+        // If there is a linked condition, Visit it
+        if (joinCondition.LinkedCondition is not null)
+        {
+            ProcessConditionLink(join, joinCondition.LinkedCondition);
+        }
+
+        return sb;
+    }
+
+    public void Visit(JoinCondition joinCondition)
+    {
+        // TODO: REMOVE
+        throw new NotImplementedException();
+    }
+
+
+    public void Visit(ConditionLink link)
+    {
+        // TODO: REMOVE
+        throw new NotImplementedException();
     }
 
     public void Visit(SourceTable table)
@@ -124,50 +140,64 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
 
     public void Visit(EntityMapping entityMapping)
     {
-        sb.Append("CREATE VIEW ").Append(databasePrefix).Append(entityMapping.Name);
-        sb.Append(" AS SELECT ");
-
-        var mappingEnumerator = entityMapping.ColumnMappings.GetEnumerator();
-        if (!mappingEnumerator.MoveNext())
+        if (entityMapping.SourceEntity is null)
         {
-            throw new NotSupportedException("EntityMappings must have at least 1 column.");
+            throw new InvalidOperationException("EntityMapping must have a source entity.");
         }
 
-        // TODO: Identical names of columns coming from the joins need to be handled. - should be handled with the full name convention.
-        var lastNamedColumnMapping = mappingEnumerator.Current;
-        while (mappingEnumerator.MoveNext())
-        {
-            // Save the last mapping
-            var current = lastNamedColumnMapping;
-            lastNamedColumnMapping = mappingEnumerator.Current;
+        sb.Append("CREATE VIEW ").Append(databasePrefix).Append(entityMapping.Name).AppendLine();
+        sb.Append("AS SELECT ");
 
-            // Append the column and its name
-            // todo:
-            //sb.Append(current.Value.SourceColumn).Append(" AS ").Append(current.Key);
+        foreach (var (targetColumnName, sourceColumn) in entityMapping.ColumnMappings)
+        {
+            AppendTargetColumnMapping(entityMapping, targetColumnName, sourceColumn);
             sb.Append(", ");
         }
 
-        mappingEnumerator.Dispose();
-        // TODO:
-        sb.Append(lastNamedColumnMapping.Value.Name).Append(" AS ").Append(lastNamedColumnMapping.Key);
+        // Remove last comma and space
+        if (entityMapping.ColumnMappings.Any())
+        {
+            sb.Remove(sb.Length - 2, 2);
+        }
 
         // Add source
-        sb.Append(" FROM ");
-        // TODO:
+        sb.AppendLine().Append("FROM ");
         entityMapping.SourceEntity!.Accept(this);
+        sb.Append(' ').Append(entityMapping.SourceEntity.Name);
+    }
+
+    private void AppendTargetColumnMapping(EntityMapping entityMapping, string targetColumnName, SourceColumn? sourceColumn)
+    {
+        if (sourceColumn != null)
+        {
+            sb.AppendChildColumnReferenceWithRenaming(entityMapping.SourceEntity!, sourceColumn, targetColumnName);
+        }
+        else
+        {
+            sb.Append("NULL AS ").Append(targetColumnName);
+        }
     }
 
     public void Visit(CustomQuery customQuery)
     {
-        // TODO:
-        throw new NotImplementedException();
+        sb.Append('(');
+
+        sb.Append("SELECT ");
+        sb.AppendSelectedColumnsWithRenaming(customQuery.SelectedColumns);
+
+        sb.Append(" FROM ");
+        sb.Append('(');
+        sb.Append(customQuery.Query);
+        sb.Append(") ").Append(customQuery.Name);
+
+        sb.Append(" )");
     }
 
     private static string GetConditionLinkRelationString(LinkRelation relation)
         => relation switch
         {
-            LinkRelation.And => "and", // TODO: CHECK
-            LinkRelation.Or => "or",
+            LinkRelation.And => "AND",
+            LinkRelation.Or => "OR",
             _ => throw new NotImplementedException(),
         };
 

@@ -74,7 +74,7 @@ internal static class StringBuilderExtensions
     }
 
     /// <summary>
-    /// Appends the child column reference to the string builder.
+    /// Appends the child column reference to the string builder - ENTITY_NAME.ENTITY_NAME__COLUMN_NAME.
     /// </summary>
     /// <param name="sb">The string builder that should be appended.</param>
     /// <param name="childEntity">The child entity.</param>
@@ -83,6 +83,22 @@ internal static class StringBuilderExtensions
     public static StringBuilder AppendChildColumnReference(this StringBuilder sb, ISourceEntity childEntity, SourceColumn column)
     {
         return sb.Append(childEntity.Name).Append('.').AppendRenamedSourceColumn(column);
+    }
+
+    /// <summary>
+    /// Appends the child column reference to the string builder - ENTITY_NAME.ENTITY_NAME__COLUMN_NAME.
+    /// </summary>
+    /// <param name="sb">The string builder that should be appended.</param>
+    /// <param name="childEntity">The child entity.</param>
+    /// <param name="column">The column that should be processed.</param>
+    /// <returns>The appended instance of the string builder passed as <paramref name="sb"/>.</returns>
+    public static StringBuilder AppendChildColumnReferenceWithRenaming(
+        this StringBuilder sb,
+        ISourceEntity childEntity,
+        SourceColumn column,
+        string newName)
+    {
+        return sb.AppendChildColumnReference(childEntity, column).Append(" AS ").Append(newName);
     }
 
     /// <summary>
@@ -96,12 +112,12 @@ internal static class StringBuilderExtensions
     {
         for (int i = 0; i < columns.Length - 1; ++i)
         {
-            sb.AppendSourceColumnWithRenaming(columns[i]).Append(", ");
+            sb.AppendSourceColumnWithRenaming(columns[i]).Append(',').AppendLine();
         }
 
         if (columns.Length > 0)
         {
-            sb.AppendSourceColumnWithRenaming(columns[^1]);
+            sb.AppendSourceColumnWithRenaming(columns[^1]).AppendLine();
         }
 
         return sb;
