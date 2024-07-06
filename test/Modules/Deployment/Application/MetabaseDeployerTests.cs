@@ -85,9 +85,6 @@ public class MetabaseDeployerTests
             mockDeploymentRepository.Object,
             kubernetesClient);
 
-        string instanceName = "metabase-instance5";
-        string urlPath = "/metabase5";
-
         await deployer.DeleteDeploymentAsync(customerId);
         Mock.Verify(mockDeploymentRepository, mockDeploymentRepository);
     }
