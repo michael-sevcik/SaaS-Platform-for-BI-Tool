@@ -12,7 +12,7 @@
 @inject IHttpContextAccessor HttpContextAccessor
 @inject NavigationManager NavigationManager
 @inject ICustomerDbConnectionConfigurationRepository CostumerDatabaseConnectionConfigurationManager
-@inject ICostumerDbModelManager CostumerDbModelManager
+@inject ICustomerDbModelManager CostumerDbModelManager
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 
@@ -164,7 +164,7 @@
     private Action formAction;
 
     // initialized by the OnInitializedAsync method
-    private CostumerDbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
+    private CustomerDbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
     private bool showContinueButton = false;
     private string? CostumerId { get; set; }
 
@@ -206,7 +206,7 @@
         {
             dbConnectionConfiguration = new()
             {
-                CostumerId = this.CostumerId,
+                CustomerId = this.CostumerId,
             };
 
             formAction = Action.Add;

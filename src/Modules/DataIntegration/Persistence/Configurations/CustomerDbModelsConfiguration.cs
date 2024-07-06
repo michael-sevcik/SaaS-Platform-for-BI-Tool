@@ -9,15 +9,15 @@ using System.Text.Json;
 namespace BIManagement.Modules.DataIntegration.Persistence.Configurations;
 
 /// <summary>
-/// Represents the EF core configuration for <see cref="CostumerDbModel"/>
+/// Represents the EF core configuration for <see cref="CustomerDbModel"/>
 /// </summary>
-internal sealed class CostumerDbModelsConfiguration : IEntityTypeConfiguration<CostumerDbModel>
+internal sealed class CustomerDbModelsConfiguration : IEntityTypeConfiguration<CustomerDbModel>
 {
-    public void Configure(EntityTypeBuilder<CostumerDbModel> builder)
+    public void Configure(EntityTypeBuilder<CustomerDbModel> builder)
     {
-        builder.ToTable(TableNames.CostumerDbModels);
-        builder.HasKey(x => x.CostumerId);
-        builder.Property(x => x.CostumerId)
+        builder.ToTable(TableNames.CustomerDbModels);
+        builder.HasKey(x => x.CustomerId);
+        builder.Property(x => x.CustomerId)
             .ValueGeneratedNever()
             .HasMaxLength(PropertyConstants.UserIdMaxLength);
 

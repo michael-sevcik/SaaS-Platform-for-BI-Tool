@@ -1,14 +1,14 @@
 ﻿namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
-/// Represents a model of a costumer's database.
+/// Represents a model of a customer's database.
 /// </summary>
-public class CostumerDbModel
+public class CustomerDbModel
 {
     /// <summary>
     /// Gets or sets the name of the database.
     /// </summary>
-    public string CostumerId { get; set; } = string.Empty;
+    public string CustomerId { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the model of the database.

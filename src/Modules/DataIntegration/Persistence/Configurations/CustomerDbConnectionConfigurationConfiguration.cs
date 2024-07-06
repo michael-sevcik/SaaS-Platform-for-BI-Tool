@@ -7,15 +7,15 @@ using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 namespace BIManagement.Modules.DataIntegration.Persistence.Configurations;
 
 /// <summary>
-/// Represents the EF core configuration for <see cref="CostumerDbConnectionConfiguration"/>
+/// Represents the EF core configuration for <see cref="CustomerDbConnectionConfiguration"/>
 /// </summary>
-internal sealed class CostumerDbConnectionConfigurationConfiguration : IEntityTypeConfiguration<CostumerDbConnectionConfiguration>
+internal sealed class CustomerDbConnectionConfigurationConfiguration : IEntityTypeConfiguration<CustomerDbConnectionConfiguration>
 {
-    public void Configure(EntityTypeBuilder<CostumerDbConnectionConfiguration> builder)
+    public void Configure(EntityTypeBuilder<CustomerDbConnectionConfiguration> builder)
     {
         builder.ToTable(TableNames.DatabaseConnectionConfigurations);
-        builder.HasKey(x => x.CostumerId);
-        builder.Property(x => x.CostumerId)
+        builder.HasKey(x => x.CustomerId);
+        builder.Property(x => x.CustomerId)
             .ValueGeneratedNever()
             .HasMaxLength(PropertyConstants.UserIdMaxLength);
     }

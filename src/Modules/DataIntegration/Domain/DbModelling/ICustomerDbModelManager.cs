@@ -4,25 +4,25 @@ using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 namespace BIManagement.Modules.DataIntegration.Domain.DbModelling;
 
 /// <summary>
-/// Represents a manager for <see cref="CostumerDbModel"/>, which is responsible for managing
-/// the database model of a costumer.
+/// Represents a manager for <see cref="CustomerDbModel"/>, which is responsible for managing
+/// the database model of a customer.
 /// </summary>
-public interface ICostumerDbModelManager
+public interface ICustomerDbModelManager
 {
-    // TODO: Add methods for managing the database model of a costumer.
+    // TODO: Add methods for managing the database model of a customer.
     /// <summary>
-    /// Asynchronously gets a <see cref="DbModel"/> associated with costumer whose Id is <paramref name="costumerId"/>.
+    /// Asynchronously gets a <see cref="DbModel"/> associated with customer whose Id is <paramref name="customerId"/>.
     /// </summary>
-    /// <param name="costumerId">Id of the respective costumer</param>
+    /// <param name="customerId">Id of the respective customer</param>
     /// <returns>
     /// Task object that represents the asynchronous operation.
     /// The Value property returns instance of <see cref="DbModel"/> on success,
     /// otherwise null.
     /// </returns>
-    Task<DbModel?> GetAsync(string costumerId);
+    Task<DbModel?> GetAsync(string customerId);
 
     /// <summary>
-    /// Creates a <see cref="DbModel"/> for a costumer based on the given <paramref name="configuration"/>.
+    /// Creates a <see cref="DbModel"/> for a customer based on the given <paramref name="configuration"/>.
     /// </summary>
     /// <param name="configuration">The configuration for connection.</param>
     /// <returns>
@@ -30,5 +30,5 @@ public interface ICostumerDbModelManager
     /// The Value property returns instance of <see cref="Result{DbModel}"/> which contains
     /// The <see cref="DbModel"/> on success, otherwise an error message.
     /// </returns>
-    Task<Result<DbModel>> CreateDbModelAsync(CostumerDbConnectionConfiguration configuration);
+    Task<Result<DbModel>> CreateDbModelAsync(CustomerDbConnectionConfiguration configuration);
 }

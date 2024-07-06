@@ -3,6 +3,7 @@ using BIManagement.Modules.DataIntegration.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BIManagement.Modules.DataIntegration.Persistence.Migrations
 {
     [DbContext(typeof(DataIntegrationDbContext))]
-    partial class DataIntegrationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240705210937_FixCostumerTypo")]
+    partial class FixCostumerTypo
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,7 +55,7 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Migrations
 
                     b.HasKey("CustomerId");
 
-                    b.ToTable("CustomerDbModels", "dataIntegration");
+                    b.ToTable("CostumerDbModels", "dataIntegration");
                 });
 
             modelBuilder.Entity("BIManagement.Modules.DataIntegration.Domain.Mapping.SchemaMapping", b =>

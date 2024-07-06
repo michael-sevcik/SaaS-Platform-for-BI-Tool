@@ -19,12 +19,12 @@ public class DbConnectionConfiguration
 
 
 /// <summary>
-/// Represents the configuration of a database connection to costumers database.
+/// Represents the configuration of a database connection to customers database.
 /// </summary>
-public class CostumerDbConnectionConfiguration : DbConnectionConfiguration
+public class CustomerDbConnectionConfiguration : DbConnectionConfiguration
 {
     /// <summary>
     /// Gets or sets the identifier of user with which is this configuration associated.
     /// </summary>
-    public string CostumerId { get; set; } = string.Empty;
+    public string CustomerId { get; set; } = string.Empty;
 }

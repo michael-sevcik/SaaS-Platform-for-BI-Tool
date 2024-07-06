@@ -11,7 +11,7 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Repositories;
 internal class CustomerDbConnectionConfigurationRepository(DataIntegrationDbContext dbContext)
     : ICustomerDbConnectionConfigurationRepository, IScoped
 {
-    private readonly DbSet<CostumerDbConnectionConfiguration> databaseConnectionConfigurations = dbContext.Set<CostumerDbConnectionConfiguration>();
+    private readonly DbSet<CustomerDbConnectionConfiguration> databaseConnectionConfigurations = dbContext.Set<CustomerDbConnectionConfiguration>();
 
     /// <inheritdoc/>
     public Task DeleteAsync(string userId)
@@ -20,18 +20,18 @@ internal class CustomerDbConnectionConfigurationRepository(DataIntegrationDbCont
     }
 
     /// <inheritdoc/>
-    public async Task<CostumerDbConnectionConfiguration?> GetAsync(string userId)
-        => await databaseConnectionConfigurations.FirstOrDefaultAsync(x => x.CostumerId == userId);
+    public async Task<CustomerDbConnectionConfiguration?> GetAsync(string userId)
+        => await databaseConnectionConfigurations.FirstOrDefaultAsync(x => x.CustomerId == userId);
 
     /// <inheritdoc/>
-    public async Task UpdateAsync(CostumerDbConnectionConfiguration configuration)
+    public async Task UpdateAsync(CustomerDbConnectionConfiguration configuration)
     {
         databaseConnectionConfigurations.Update(configuration);
         await dbContext.SaveChangesAsync();
     }
 
     /// <inheritdoc/>
-    public async Task AddAsync(CostumerDbConnectionConfiguration configuration)
+    public async Task AddAsync(CustomerDbConnectionConfiguration configuration)
     {
         await databaseConnectionConfigurations.AddAsync(configuration);
         await dbContext.SaveChangesAsync();

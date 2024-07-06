@@ -1,13 +1,13 @@
 ﻿namespace BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
 
 /// <summary>
-/// Represents a repository for <see cref="CostumerDbConnectionConfiguration"/>.
+/// Represents a repository for <see cref="CustomerDbConnectionConfiguration"/>.
 /// </summary>
 public interface ICustomerDbConnectionConfigurationRepository
 {
     // TODO: Consider using result to pass potential errors
-    Task UpdateAsync(CostumerDbConnectionConfiguration configuration);
-    Task AddAsync(CostumerDbConnectionConfiguration configuration);
-    Task DeleteAsync(string costumerId);
-    Task<CostumerDbConnectionConfiguration?> GetAsync(string userId);
+    Task UpdateAsync(CustomerDbConnectionConfiguration configuration);
+    Task AddAsync(CustomerDbConnectionConfiguration configuration);
+    Task DeleteAsync(string customerId);
+    Task<CustomerDbConnectionConfiguration?> GetAsync(string userId);
 }

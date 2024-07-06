@@ -15,7 +15,7 @@ public sealed partial class Mapper : IAsyncDisposable
     IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
-    ICostumerDbModelManager CostumerDbModelManager { get; set; } = default!;
+    ICustomerDbModelManager CostumerDbModelManager { get; set; } = default!;
 
     [Inject]
     IUserAccessor UserAccessor { get; set; } = default!;
@@ -135,7 +135,7 @@ public sealed partial class Mapper : IAsyncDisposable
 
         var schemaMapping = new SchemaMapping()
         {
-            CostumerId = CostumerId!,
+            CustomerId = CostumerId!,
             TargetDbTableId = targetDbTable.Id,
             Mapping = serializedMapping,
             IsComplete = isComplete,

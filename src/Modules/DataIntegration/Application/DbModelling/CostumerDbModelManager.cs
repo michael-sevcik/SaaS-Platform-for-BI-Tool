@@ -6,13 +6,13 @@ using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 namespace BIManagement.Modules.DataIntegration.Application.DbModelling;
 
 /// <summary>
-/// Default implementation of <see cref="ICostumerDbModelManager"/>.
+/// Default implementation of <see cref="ICustomerDbModelManager"/>.
 /// </summary>
-internal class CostumerDbModelManager(IDbModelBuilderAccessor modelBuilderAccessor, ICostumerDbModelRepository costumerDbModelRepository)
-    : ICostumerDbModelManager, IScoped
+internal class CostumerDbModelManager(IDbModelBuilderAccessor modelBuilderAccessor, ICustomerDbModelRepository costumerDbModelRepository)
+    : ICustomerDbModelManager, IScoped
 {
     /// <inheritdoc/>
-    public async Task<Result<DbModel>> CreateDbModelAsync(CostumerDbConnectionConfiguration configuration)
+    public async Task<Result<DbModel>> CreateDbModelAsync(CustomerDbConnectionConfiguration configuration)
     {
         IDbModelFactory modelBuilder;
         switch (configuration.Provider)
@@ -31,7 +31,7 @@ internal class CostumerDbModelManager(IDbModelBuilderAccessor modelBuilderAccess
         }
 
         var additionResult = await costumerDbModelRepository.SaveAsync(new() {
-            CostumerId = configuration.CostumerId,
+            CustomerId = configuration.CustomerId,
             DbModel = modelResult.Value
         });
 

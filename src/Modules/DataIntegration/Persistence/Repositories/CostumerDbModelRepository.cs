@@ -7,22 +7,22 @@ using Microsoft.Extensions.Logging;
 namespace BIManagement.Modules.DataIntegration.Persistence.Repositories;
 
 /// <summary>
-/// Default implementation of <see cref="ICostumerDbModelRepository"/>.
+/// Default implementation of <see cref="ICustomerDbModelRepository"/>.
 /// </summary>
 /// <param name="dbContext">The context of database in which costumer db models are stored.</param>
 /// <inheritdoc/>
 internal class CostumerDbModelRepository(ILogger<CostumerDbModelRepository> logger, DataIntegrationDbContext dbContext) :
-    DataIntegrationBaseRepository<CostumerDbModelRepository, CostumerDbModel>(logger, dbContext),
-    ICostumerDbModelRepository,
+    DataIntegrationBaseRepository<CostumerDbModelRepository, CustomerDbModel>(logger, dbContext),
+    ICustomerDbModelRepository,
     IScoped
 {
     /// <inheritdoc/>
-    public async Task<Result> SaveAsync(CostumerDbModel costumerDbModel)
+    public async Task<Result> SaveAsync(CustomerDbModel costumerDbModel)
     {
         Result result;
 
         // check if it exists and update it
-        if (entities.Any(model => model.CostumerId == costumerDbModel.CostumerId))
+        if (entities.Any(model => model.CustomerId == costumerDbModel.CustomerId))
         {
             result = await UpdateAsync(costumerDbModel);
         }
@@ -37,6 +37,6 @@ internal class CostumerDbModelRepository(ILogger<CostumerDbModelRepository> logg
     }
 
     /// <inheritdoc/>
-    public async Task<CostumerDbModel?> GetAsync(string costumerId)
-        => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CostumerId == costumerId);
+    public async Task<CustomerDbModel?> GetAsync(string costumerId)
+        => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == costumerId);
 }
