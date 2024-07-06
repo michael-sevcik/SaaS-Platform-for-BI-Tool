@@ -13,6 +13,7 @@ internal abstract class DataIntegrationBaseRepository<TDerived, TEntity>(ILogger
     BaseRepository<TDerived, TEntity, DataIntegrationDbContext>(logger, dbContext)
     where TEntity : class
 {
+    /// <inheritdoc/>
     protected override Error DatabaseOperationFailedError => RepositoryErrors.DatabaseOperationFailed;
 
 }
