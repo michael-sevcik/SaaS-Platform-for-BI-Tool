@@ -1,26 +1,16 @@
 ﻿using BIManagement.Modules.Users.Application.UserManagement;
 using BIManagement.Modules.Users.Domain;
 using BIManagement.Modules.Users.Infrastructure.Options.Identity;
-using BIManagement.Modules.Users.Persistence;
-using MassTransit;
-using MassTransit.Configuration;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BIManagement.Modules.Users.Infrastructure.Identity;
 
 /// <summary>
-/// Represents a startup task for seeding the users data in the development environment.
+/// Represents a startup task for seeding the users data (Roles and default admin) in the development environment.
 /// </summary>
 /// <param name="environment">The environment.</param>
 /// <param name="serviceProvider">The service provider.</param>
