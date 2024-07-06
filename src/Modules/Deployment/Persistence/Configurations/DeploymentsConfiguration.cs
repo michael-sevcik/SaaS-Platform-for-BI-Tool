@@ -2,11 +2,6 @@
 using BIManagement.Modules.Deployment.Domain;
 using BIManagement.Modules.Deployment.Persistence.Constants;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BIManagement.Modules.Deployment.Persistence.Configurations;
 
@@ -15,14 +10,16 @@ namespace BIManagement.Modules.Deployment.Persistence.Configurations;
 /// </summary>
 internal class DeploymentsConfiguration : IEntityTypeConfiguration<MetabaseDeployment>
 {
+    /// <inheritdoc/>
     public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<MetabaseDeployment> builder)
     {
-        builder.ToTable(TableNames.Deployments);
+        builder.ToTable(TableNames.MetabaseDeployments);
         builder.HasKey(x => x.Id);
+        builder.HasAlternateKey(x => x.CustomerId);
+        builder.HasIndex(x => x.CustomerId);
         builder.Property(x => x.CustomerId)
             .ValueGeneratedNever()
             .HasMaxLength(PropertyConstants.UserIdMaxLength);
-        builder.Property(builder => builder.UrlPath).HasMaxLength(255);
-        builder.HasAlternateKey(x => x.CustomerId);
+        builder.Property(x => x.UrlPath).HasMaxLength(PropertyConstants.UrlPrefixMaxLength);
     }
 }

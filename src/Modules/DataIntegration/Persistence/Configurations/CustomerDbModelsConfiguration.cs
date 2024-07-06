@@ -21,30 +21,10 @@ internal sealed class CustomerDbModelsConfiguration : IEntityTypeConfiguration<C
             .ValueGeneratedNever()
             .HasMaxLength(PropertyConstants.UserIdMaxLength);
 
-        //builder.ComplexProperty(x => x.DbModel);
-
         builder.Property(x => x.DbModel)
             .HasConversion(
                 v => JsonSerializer.Serialize(v, SerializationOptions.Default),
                 v => JsonSerializer.Deserialize<DbModel>(v, SerializationOptions.Default) // TODO: HANDLE NULL
             );
-
-        //builder.OwnsOne(x => x.DbModel, ownedDbModelBuilder =>
-        //{
-        //    ownedDbModelBuilder.ToJson();
-        //    ownedDbModelBuilder.OwnsMany(x => x.Tables, ownedTablesBuilder =>
-        //    {
-        //        ownedDbModelBuilder.ToJson();
-        //        ownedTablesBuilder.OwnsMany(x => x.Columns, ownedColumnsBuilder =>
-        //        {
-        //            ownedColumnsBuilder.ToJson();
-        //        });
-
-        //        ownedTablesBuilder.OwnsMany(x => x.PrimaryKeys, ownedPrimaryKeysBuilder =>
-        //        {
-        //            ownedPrimaryKeysBuilder.ToJson();
-        //        });
-        //    });
-        //});
     }
 }

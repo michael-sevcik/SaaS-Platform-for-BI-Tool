@@ -18,4 +18,14 @@ public static class PropertyConstants
     /// Based on the maximum length of the ID property used by Identity.
     /// </remarks>
     public const int UserIdMaxLength = 450;
+
+    /// <summary>
+    /// Maximum length of the URL path property.
+    /// </summary>
+    public const int UrlPathMaxLength = 2048;
+
+    /// <summary>
+    /// Maximum length of the URL prefix property.
+    /// </summary>
+    public const int UrlPrefixMaxLength = 255;
 }
