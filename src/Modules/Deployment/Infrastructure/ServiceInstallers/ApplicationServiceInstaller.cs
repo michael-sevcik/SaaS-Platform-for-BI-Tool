@@ -3,6 +3,7 @@ using BIManagement.Common.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using BIManagement.Modules.Deployment.Application;
+using k8s;
 
 namespace BIManagement.Modules.Deployment.Infrastructure.ServiceInstallers;
 
@@ -13,5 +14,12 @@ internal class ApplicationServiceInstaller : IServiceInstaller
 {
     /// <inheritdoc/>
     public static void Install(IServiceCollection services, IConfiguration configuration)
-        => services.AddServicesWithLifetimeAsMatchingInterfaces(Application.AssemblyReference.Assembly);
+    {
+        // TODO: Get external configuration for external cluster
+        var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
+        var kubernetesClient = new Kubernetes(config);
+        services.AddSingleton<IKubernetes>(kubernetesClient);
+
+        services.AddServicesWithLifetimeAsMatchingInterfaces(Application.AssemblyReference.Assembly);
+    }
 }

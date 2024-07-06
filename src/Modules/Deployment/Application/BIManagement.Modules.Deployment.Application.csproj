@@ -14,5 +14,6 @@
     <ProjectReference Include="..\..\..\Common\Shared\BIManagement.Common.Shared.csproj" />
     <ProjectReference Include="..\..\DataIntegration\Api\BIManagement.Modules.DataIntegration.Api.csproj" />
     <ProjectReference Include="..\Api\BIManagement.Modules.Deployment.Api.csproj" />
+    <ProjectReference Include="..\Domain\BIManagement.Modules.Deployment.Domain.csproj" />
   </ItemGroup>
 </Project>

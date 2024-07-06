@@ -17,22 +17,22 @@ IMetabaseDeploymentRepository,
 IScoped
 {
     /// <inheritdoc/>
-    public async Task<Result> SaveAsync(MetabaseDeployment costumerDbModel)
+    public async Task<Result> SaveAsync(MetabaseDeployment deployment)
     {
         Result result;
 
         // check if it exists and update it
-        if (entities.Any(model => model.CustomerId == costumerDbModel.CustomerId))
+        if (entities.Any(model => model.CustomerId == deployment.CustomerId))
         {
-            result = await UpdateAsync(costumerDbModel);
+            result = await UpdateAsync(deployment);
         }
         else
         {
             // else add it
-            result = await AddAsync(costumerDbModel);
+            result = await AddAsync(deployment);
         }
 
-        entities.Entry(costumerDbModel).State = EntityState.Detached;
+        entities.Entry(deployment).State = EntityState.Detached;
         return result;
     }
 
@@ -40,10 +40,25 @@ IScoped
     public async Task<MetabaseDeployment?> GetAsync(string costumerId)
         => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == costumerId);
 
-
     /// <inheritdoc/>
-    public async Task<Result> AddDeploymentAsync(MetabaseDeployment deployment)
-        => await AddAsync(deployment);
+    public async Task<Result> SaveDeploymentAsync(MetabaseDeployment deployment)
+    {
+        Result result;
+
+        // check if it exists and update it
+        if (entities.Any(model => model.CustomerId == deployment.CustomerId))
+        {
+            result = await UpdateAsync(deployment);
+        }
+        else
+        {
+            // else add it
+            result = await AddAsync(deployment);
+        }
+
+        entities.Entry(deployment).State = EntityState.Detached;
+        return result;
+    }
 
     /// <inheritdoc/>
     public async Task<Result> DeleteDeploymentAsync(string customerId)

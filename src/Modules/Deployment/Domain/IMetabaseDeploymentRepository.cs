@@ -15,11 +15,11 @@ public interface IMetabaseDeploymentRepository
     Task<MetabaseDeployment?> GetAsync(string customerId);
 
     /// <summary>
-    /// Adds a new Metabase deployment asynchronously.
+    /// Asynchronously adds or updates the given instance of <see cref="MetabaseDeployment"/>.
     /// </summary>
     /// <param name="deployment">The Metabase deployment to create.</param>
-    /// <returns>The result of <paramref name="deployment"/> addition to the repository.</returns>
-    Task<Result> AddDeploymentAsync(MetabaseDeployment deployment);
+    /// <returns>The result of <paramref name="deployment"/> saving into the repository.</returns>
+    Task<Result> SaveDeploymentAsync(MetabaseDeployment deployment);
 
     /// <summary>
     /// Deletes a Metabase deployment asynchronously based on the customer ID.
