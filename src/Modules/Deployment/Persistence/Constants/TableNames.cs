@@ -5,9 +5,9 @@
 /// </summary>
 internal static class TableNames
 {
-    ///// <summary>
-    ///// </summary>
-    //public const string Deployment = "Deployments";
+    /// <summary>
+    /// </summary>
+    public const string Deployments = "Deployments";
 
-    // TODO: Add more table names here
+
 }

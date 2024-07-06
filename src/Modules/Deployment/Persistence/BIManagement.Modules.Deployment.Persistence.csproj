@@ -5,11 +5,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <Folder Include="Configurations\" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-preview.5.24306.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.0-preview.5.24306.3" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Repositories\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.0-preview.5.24306.3" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.0-preview.5.24306.3" />
+    <ProjectReference Include="..\..\..\Common\Persistence\BIManagement.Common.Persistence.csproj" />
+    <ProjectReference Include="..\Domain\BIManagement.Modules.Deployment.Domain.csproj" />
   </ItemGroup>
 </Project>

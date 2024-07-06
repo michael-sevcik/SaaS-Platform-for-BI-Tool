@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using BIManagement.Common.Shared.Results;
 
 namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 
 internal class MetabaseDeployer
 {
-
+    public Task<Result> DeployMetabase(string customerId) => throw new NotImplementedException();
 }
