@@ -6,19 +6,41 @@ using k8s.Models;
 namespace BIManagement.Test.Modules.Deployment.Application;
 public class MetabaseDeployer(IKubernetes kubernetesClient)
 {
+    // TODO: RETURN Task<Result> instead of void
+    // TODO: DEPLOY to a specific namespace - metabase
     public async Task DeployMetabaseInstanceAsync(string instanceName, string urlPath, string image = "metabase/metabase:v0.41.4")
     {
         var deployment = CreateDeployment(instanceName, image, urlPath);
         var service = CreateService(instanceName);
         var ingress = CreateIngress(instanceName, urlPath);
 
-        var deployedMetabase = await kubernetesClient.AppsV1.CreateNamespacedDeploymentAsync(deployment, "default", cancellationToken: default);
+        // TODO: catch exceptions and log them
+        await kubernetesClient.AppsV1.CreateNamespacedDeploymentAsync(deployment, "default", cancellationToken: default);
         await kubernetesClient.CoreV1.CreateNamespacedServiceAsync(service, "default");
         await kubernetesClient.NetworkingV1.CreateNamespacedIngressAsync(ingress, "default");
     }
 
+    public async Task DeleteMetabaseInstanceAsync(string instanceName)
+    {
+        var namespaceName = "default";
+
+        //try
+        {
+            await kubernetesClient.AppsV1.DeleteNamespacedDeploymentAsync(instanceName, namespaceName);
+            await kubernetesClient.CoreV1.DeleteNamespacedServiceAsync(instanceName, namespaceName);
+            await kubernetesClient.NetworkingV1.DeleteNamespacedIngressAsync(instanceName, namespaceName);
+            // TODO: REPLACE writelines with logging
+            Console.WriteLine($"Deleted Metabase instance '{instanceName}' successfully.");
+        }
+        //catch (Exception ex)
+        {
+            //Console.WriteLine($"Error deleting Metabase instance '{instanceName}': {ex.Message}");
+        }
+    }
+
     private static V1Deployment CreateDeployment(string instanceName, string image, string urlPath) => new()
     {
+        //TODO: ADD host
         ApiVersion = "apps/v1",
         Kind = "Deployment",
         Metadata = new V1ObjectMeta { Name = instanceName },
@@ -94,27 +116,7 @@ public class MetabaseDeployer(IKubernetes kubernetesClient)
     };
 }
 
-class Program
-{
-    static async Task Main(string[] args)
-    {
-        var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
-        var kubernetesClient = new Kubernetes(config);
-
-        var deployer = new MetabaseDeployer(kubernetesClient);
-
-        string instanceName = "metabase-instance";
-        string urlPath = "/metabase-instance";
-
-        await deployer.DeployMetabaseInstanceAsync(instanceName, urlPath);
-
-        Console.WriteLine($"Deployed {instanceName} accessible at {urlPath}");
-    }
-}
-
-
-
-public class Tests
+public class MetabaseDeployerTests
 {
     [SetUp]
     public void Setup()
@@ -125,7 +127,7 @@ public class Tests
     public async Task Test1()
     {
         var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
-        var kubernetesClient = new   Kubernetes(config);
+        var kubernetesClient = new Kubernetes(config);
 
         var deployer = new MetabaseDeployer(kubernetesClient);
 
@@ -133,7 +135,23 @@ public class Tests
         string urlPath = "/metabase5";
 
         await deployer.DeployMetabaseInstanceAsync(instanceName, urlPath);
-
+            
         Console.WriteLine($"Deployed {instanceName} accessible at {urlPath}");
+    }
+
+    [Test]
+    public async Task DeleteMetabaseInstance_Should_DeleteMetabaseInstance()
+    {
+        var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
+        var kubernetesClient = new Kubernetes(config);
+
+        var deployer = new MetabaseDeployer(kubernetesClient);
+
+        string instanceName = "metabase-instance2";
+        string urlPath = "/metabase5";
+
+        await deployer.DeleteMetabaseInstanceAsync(instanceName);
+
+        Console.WriteLine($"Deleted {instanceName} accessible at {urlPath}");
     }
 }
