@@ -1,4 +1,5 @@
 ﻿using BIManagement.Common.Shared.Results;
+using BIManagement.Modules.Deployment.Domain.Configuration;
 
 namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 
@@ -18,6 +19,7 @@ internal interface IMetabaseDeployer
     /// Deploys Metabase for the specified customer.
     /// </summary>
     /// <param name="customerId">The ID of the customer.</param>
+    /// <param name="defaultAdminSettings">The configuration for the default admin of the new Metabase instance.</param>
     /// <returns>A task that represents the asynchronous operation and returns a Result indicating the success or failure of the operation.</returns>
-    Task<Result> DeployMetabaseAsync(string customerId);
+    Task<Result> DeployMetabaseAsync(string customerId, DefaultAdminSettings defaultAdminSettings);
 }

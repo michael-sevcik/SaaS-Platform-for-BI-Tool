@@ -1,5 +1,6 @@
 ﻿using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Deployment.Domain;
+using BIManagement.Modules.Deployment.Domain.Configuration;
 using k8s;
 using k8s.Models;
 using Microsoft.Extensions.Logging;
@@ -15,10 +16,12 @@ namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 /// <param name="logger">The logger instance.</param>
 /// <param name="deploymentRepository">The repository for Metabase deployments.</param>
 /// <param name="kubernetesClient">The Kubernetes client.</param>
+/// <param name="metabaseClientFactory">The factory for creating preconfigured Metabase clients.</param>
 internal class MetabaseDeployer(
     ILogger<MetabaseDeployer> logger,
     IMetabaseDeploymentRepository deploymentRepository,
-    IKubernetes kubernetesClient) : IMetabaseDeployer
+    IKubernetes kubernetesClient,
+    IMetabaseConfigurator metabaseConfigurator) : IMetabaseDeployer
 {
     // TODO: USE ENVIRONMENT VARIABLES
     private const string HostUrl = "localhost";
@@ -27,7 +30,7 @@ internal class MetabaseDeployer(
     private const string Image = "metabase/metabase:v0.50.10";
 
     /// <inheritdoc/>
-    public async Task<Result> DeployMetabaseAsync(string customerId)
+    public async Task<Result> DeployMetabaseAsync(string customerId, DefaultAdminSettings defaultAdminSettings)
     {
         Domain.MetabaseDeployment deployment = new() { CustomerId = customerId, Image = Image };
         var result = await deploymentRepository.SaveDeploymentAsync(deployment);
@@ -75,7 +78,19 @@ internal class MetabaseDeployer(
                 "Failed to update Metabase deployment information"));
         }
 
+        // TODO: deploy on random secret url and configure it with the client, then change the url to the desired one
+        result = await metabaseConfigurator.ConfigureMetabase(customerId, BaseUrl + urlPath, defaultAdminSettings);
+        if (result.IsFailure)
+        {
+            // TODO: 
+            logger.LogError("Failed to configure Metabase; CustomerId: {customerId}", customerId);
+            return Result.Failure(new(
+                "Deployment.MetabaseDeployer.MetabaseDeploymentFailed",
+                "Failed to configure Metabase"));
+        }
+
         logger.LogInformation("Metabase for Customer {CustomerId} deployed on {urlPart}", customerId, urlPath);
+
         return Result.Success();
     }
 
