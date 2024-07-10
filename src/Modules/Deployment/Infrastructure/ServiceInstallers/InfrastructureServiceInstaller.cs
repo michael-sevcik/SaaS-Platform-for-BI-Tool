@@ -1,4 +1,5 @@
 ﻿using BIManagement.Common.Infrastructure.Configuration;
+using BIManagement.Common.Infrastructure.Extensions;
 using BIManagement.Modules.Deployment.Infrastructure.Options;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,5 +13,6 @@ internal class InfrastructureServiceInstaller : IServiceInstaller
 {
     /// <inheritdoc/>
     public static void Install(IServiceCollection services, IConfiguration configuration)
-        => services.ConfigureOptions<SmtpSettingsOptionsSetup>();
+        => services.ConfigureOptions<SmtpSettingsOptionsSetup>()
+            .AddServicesWithLifetimeAsMatchingInterfaces(AssemblyReference.Assembly);
 }
