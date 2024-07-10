@@ -1,6 +1,7 @@
 ﻿using BIManagement.Common.Application.ServiceLifetimes;
 using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Deployment.Domain.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
 namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
@@ -10,6 +11,7 @@ namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 /// </summary>
 /// <param name="clientFactory">The factory for creating metabase clients.</param>
 internal class MetabaseConfigurator(
+    ILogger<MetabaseConfigurator> logger,
     IPreconfiguredMetabaseClientFactory clientFactory,
     ICustomerDatabaseSettingsAccessor databaseSettingsAccessor,
     IOptions<SmtpSettings> smtpOptions) : IMetabaseConfigurator, ISingleton
@@ -26,6 +28,11 @@ internal class MetabaseConfigurator(
                 .Map(client.ConfigureDatabaseAsync)
             .Bind(() => client.ConfigureSmtpAsync(smtpOptions.Value))
             .Bind(client.DeleteDefaultTokenAsync);
+
+        if (result.IsFailure)
+        {
+            logger.LogError("Failed to configure Metabase for customer {CustomerId}. Error: {Error}", CustomerId, result.Error.Message);
+        }
 
         return result;
     }
