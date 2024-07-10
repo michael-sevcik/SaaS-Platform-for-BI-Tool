@@ -1,5 +1,6 @@
 ﻿using BIManagement.Common.Shared.Results;
 
+
 namespace BIManagement.Modules.DataIntegration.Api;
 
 /// <summary>

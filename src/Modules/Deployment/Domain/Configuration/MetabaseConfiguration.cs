@@ -1,4 +1,6 @@
-﻿namespace BIManagement.Modules.Deployment.Domain.Configuration;
+﻿using System;
+
+namespace BIManagement.Modules.Deployment.Domain.Configuration;
 
 /// <summary>
 /// Represents the default admin settings.
@@ -8,14 +10,26 @@
 public record DefaultAdminSettings(string Email, string Password);
 
 /// <summary>
+/// Enumeration for database providers.
+/// </summary>
+public enum DatabaseProvider
+{
+    /// <summary>
+    /// The MSSQL database provider.
+    /// </summary>
+    SqlServer = 1
+}
+
+/// <summary>
 /// Represents the database settings.
 /// </summary>
+/// <param name="Provider">The database provider..</param>
 /// <param name="DatabaseName">The name of the database.</param>
 /// <param name="Host">The host of the database.</param>
 /// <param name="Port">The port of the database.</param>
 /// <param name="Username">The username for accessing the database.</param>
 /// <param name="Password">The password for accessing the database.</param>
-public record DatabaseSettings(string DatabaseName, string Host, string Port, string Username, string Password);
+public record DatabaseSettings(DatabaseProvider Provider, string DatabaseName, string Host, int Port, string Username, string Password);
 
 /// <summary>
 /// Enumeration for SMTP security options.

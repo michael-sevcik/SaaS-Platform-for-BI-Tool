@@ -7,6 +7,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\..\..\Common\Persistence\BIManagement.Common.Persistence.csproj" />
+    <ProjectReference Include="..\..\DataIntegration\Api\BIManagement.Modules.DataIntegration.Api.csproj" />
     <ProjectReference Include="..\Application\BIManagement.Modules.Deployment.Application.csproj" />
     <ProjectReference Include="..\Persistence\BIManagement.Modules.Deployment.Persistence.csproj" />
   </ItemGroup>
