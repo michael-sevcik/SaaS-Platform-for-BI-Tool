@@ -32,7 +32,19 @@ internal class MetabaseDeployer(
     /// <inheritdoc/>
     public async Task<Result> DeployMetabaseAsync(string customerId, DefaultAdminSettings defaultAdminSettings)
     {
-        Domain.MetabaseDeployment deployment = new() { CustomerId = customerId, Image = Image };
+        // deploy on random secret url and configure it with the client, then change the url to the desired public one
+        string instanceName = $"metabase-{customerId}";
+        var tempUrlPath = $"/metabase-config-{Guid.NewGuid()}";
+
+        Domain.MetabaseDeployment deployment = new()
+        {
+            CustomerId = customerId,
+            Image = Image,
+            UrlPath = tempUrlPath,
+            InstanceName = instanceName
+        };
+
+        // save the record of the deployment to the repository
         var result = await deploymentRepository.SaveDeploymentAsync(deployment);
         if (result.IsFailure)
         {
@@ -40,35 +52,25 @@ internal class MetabaseDeployer(
         }
 
         var metabaseId = deployment.Id;
-        var instanceName = $"metabase-{metabaseId}";
-        var urlPath = $"/metabase-{metabaseId}";
-        deployment.UrlPath = urlPath;
+        var publicUrlPath = $"/metabase-{metabaseId}";
+        deployment.UrlPath = publicUrlPath;
         deployment.InstanceName = instanceName;
 
-        var metabaseV1K8sDeployment = CreateDeployment(instanceName, Image, urlPath);
+        var metabaseV1K8sDeployment = CreateDeployment(instanceName, Image, BaseUrl + publicUrlPath);
         var service = CreateService(instanceName);
-        var ingress = CreateIngress(instanceName, urlPath);
+        var ingress = CreateIngress(instanceName, tempUrlPath);
+        result = await DeployMetabase(customerId, metabaseV1K8sDeployment, service, ingress)
+            .Bind(() => WaitForDeploymentToBeReady(deployment.InstanceName, DefaultNamespace))
+            .Bind(() => metabaseConfigurator.ConfigureMetabase(customerId, BaseUrl + tempUrlPath, defaultAdminSettings))
+            .Bind(() => ChangeIngressPathAsync(instanceName, publicUrlPath));
 
-        try
+        if (result.IsFailure)
         {
-            await kubernetesClient.AppsV1.CreateNamespacedDeploymentAsync(metabaseV1K8sDeployment, DefaultNamespace);
-            await kubernetesClient.CoreV1.CreateNamespacedServiceAsync(service, DefaultNamespace);
-            await kubernetesClient.NetworkingV1.CreateNamespacedIngressAsync(ingress, DefaultNamespace);
-        }
-        catch (Exception ex)
-        {
-            logger.LogError(ex, "Failed to deploy Metabase");
-            result = await deploymentRepository.DeleteDeploymentAsync(customerId);
-            if (result.IsFailure)
-            {
-                logger.LogError("Failed to clean up Metabase deployment; CustomerId: {customerId}", customerId);
-            }
-
-            return Result.Failure(new(
-                "Deployment.MetabaseDeployer.MetabaseDeploymentFailed",
-                "Failed to deploy Metabase"));
+            logger.LogError("Failed to deploy Metabase for Customer {CustomerId}", customerId);
+            return result;
         }
 
+        deployment.UrlPath = publicUrlPath;
         result = await deploymentRepository.SaveDeploymentAsync(deployment);
         if (result.IsFailure)
         {
@@ -78,18 +80,59 @@ internal class MetabaseDeployer(
                 "Failed to update Metabase deployment information"));
         }
 
-        // TODO: deploy on random secret url and configure it with the client, then change the url to the desired one
-        result = await metabaseConfigurator.ConfigureMetabase(customerId, BaseUrl + urlPath, defaultAdminSettings);
-        if (result.IsFailure)
+        logger.LogInformation("Metabase for Customer {CustomerId} deployed on {urlPart}", customerId, publicUrlPath);
+        return Result.Success();
+    }
+
+    private async Task<Result> ChangeIngressPathAsync(string instanceName, string newPath)
+    {
+        try
         {
-            // TODO: 
-            logger.LogError("Failed to configure Metabase; CustomerId: {customerId}", customerId);
-            return Result.Failure(new(
-                "Deployment.MetabaseDeployer.MetabaseDeploymentFailed",
-                "Failed to configure Metabase"));
+            var ingress = await kubernetesClient.NetworkingV1.ReadNamespacedIngressAsync(instanceName, DefaultNamespace);
+            if (ingress == null)
+            {
+                logger.LogCritical("Ingress {InstanceName} not found", instanceName);
+                return Result.Failure(new("Deployment.MetabaseDeployer.IngressNotFound", $"Ingress {instanceName} not found."));
+            }
+
+            // update the path in the ingress rules
+            ingress.Spec.Rules[0].Http.Paths[0].Path = $"{newPath}(/|$)(.*)";
+
+            // apply the updated ingress
+            await kubernetesClient.NetworkingV1.ReplaceNamespacedIngressAsync(ingress, instanceName, DefaultNamespace);
+            logger.LogInformation("Ingress path for instance {InstanceName} updated to {NewPath}", instanceName, newPath);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating ingress path for instance '{instanceName}': {ex.Message}");
+            return Result.Failure(new("IngressUpdateError", $"Error updating ingress path for instance '{instanceName}': {ex.Message}"));
         }
 
-        logger.LogInformation("Metabase for Customer {CustomerId} deployed on {urlPart}", customerId, urlPath);
+        return Result.Success();
+    }
+
+
+    private async Task<Result> DeployMetabase(string customerId, V1Deployment metabaseV1K8sDeployment, V1Service service, V1Ingress ingress)
+    {
+        try
+        {
+            await kubernetesClient.AppsV1.CreateNamespacedDeploymentAsync(metabaseV1K8sDeployment, DefaultNamespace);
+            await kubernetesClient.CoreV1.CreateNamespacedServiceAsync(service, DefaultNamespace);
+            await kubernetesClient.NetworkingV1.CreateNamespacedIngressAsync(ingress, DefaultNamespace);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to deploy Metabase");
+            var result = await deploymentRepository.DeleteDeploymentAsync(customerId);
+            if (result.IsFailure)
+            {
+                logger.LogError("Failed to clean up Metabase deployment; CustomerId: {customerId}", customerId);
+            }
+
+            return Result.Failure(new(
+                "Deployment.MetabaseDeployer.MetabaseDeploymentFailed",
+                "Failed to deploy Metabase"));
+        }
 
         return Result.Success();
     }
@@ -137,9 +180,9 @@ internal class MetabaseDeployer(
     /// </summary>
     /// <param name="instanceName">The name of the deployment instance.</param>
     /// <param name="image">The image to use for the deployment.</param>
-    /// <param name="urlPath">The URL path for the deployment.</param>
+    /// <param name="metabaseSiteUrl">The URL path for metabase site url environment variable.</param>
     /// <returns>The created Kubernetes deployment.</returns>
-    private static V1Deployment CreateDeployment(string instanceName, string image, string urlPath) => new()
+    private static V1Deployment CreateDeployment(string instanceName, string image, string metabaseSiteUrl) => new()
     {
         ApiVersion = "apps/v1",
         Kind = "Deployment",
@@ -160,7 +203,7 @@ internal class MetabaseDeployer(
                             Name = instanceName,
                             Image = image,
                             Ports = [new(3000)],
-                            Env = [new("MB_SITE_URL", $"{BaseUrl}{urlPath}") ] // TODO: REPLACE localhost
+                            Env = [new("MB_SITE_URL", metabaseSiteUrl) ] // TODO: REPLACE localhost
                         }
                 ]
                 }
@@ -229,4 +272,24 @@ internal class MetabaseDeployer(
             IngressClassName = "nginx"
         }
     };
+
+    private async Task<Result> WaitForDeploymentToBeReady(string deploymentName, string namespaceName, int timeoutInSeconds = 300, int checkIntervalInSeconds = 5)
+    {
+        var deadline = DateTime.Now.AddSeconds(timeoutInSeconds);
+        while (DateTime.Now < deadline)
+        {
+            var deployment = await kubernetesClient.AppsV1.ReadNamespacedDeploymentAsync(deploymentName, namespaceName);
+            var status = deployment.Status;
+            if (status.AvailableReplicas.HasValue && status.AvailableReplicas.Value == 1)
+            {
+                return Result.Success();
+            }
+
+            await Task.Delay(checkIntervalInSeconds * 1000);
+        }
+
+        return Result.Failure(new(
+            "Deployment.MetabaseDeployer.MetabaseDeploymentTimeout",
+            "Timed out waiting for Metabase deployment to be ready"));
+    }
 }
