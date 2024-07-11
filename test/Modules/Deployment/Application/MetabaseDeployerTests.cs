@@ -33,6 +33,8 @@ public class MetabaseDeployerTests
           .WithImage("ingress-nginx-k3s:latest")
           .WithWaitStrategy(Wait.ForUnixContainer()
             .UntilMessageIsLogged("Ingress NGINX is running successfully!"))
+          //.WithPortBinding(80, true)
+          //.WithPortBinding(443, true)
           .Build();
 
 
@@ -69,7 +71,7 @@ public class MetabaseDeployerTests
     }
 
     [Test]
-    public async Task Test1()
+    public async Task DeployMetabaseInstance_Should_DeployMetabase()
     {
         var customerId = "customer5";
         this.mockDeploymentRepository.Setup(x => x.DeleteDeploymentAsync(customerId))
