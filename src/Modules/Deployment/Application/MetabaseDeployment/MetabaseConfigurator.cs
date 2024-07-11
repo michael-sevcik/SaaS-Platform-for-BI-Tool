@@ -19,7 +19,7 @@ internal class MetabaseConfigurator(
     /// <inheritdoc/>
     public async Task<Result> ConfigureMetabase(string CustomerId, string metabaseRootUrl, DefaultAdminSettings adminSettings)
     {
-        var client = clientFactory.Create(metabaseRootUrl);
+        using var client = clientFactory.Create(metabaseRootUrl);
 
         // Cascade of configurations that will be fully executed only if all of them succeed.
         var result = await client.ChangeDefaultAdminEmail(adminSettings.Email)

@@ -2,30 +2,28 @@
 using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 using BIManagement.Modules.Deployment.Domain.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http.Json;
-using System.Text;
 using System.Text.Json.Nodes;
-using System.Threading.Tasks;
 
 namespace BIManagement.Modules.Deployment.Infrastructure.Metabase;
 
 /// <summary>
-/// 
+/// Default implementation of the <see cref="IPreconfiguredMetabaseClient"/>.
+/// Configures metabase using the Metabase API - <see href="https://www.metabase.com/docs/latest/api-documentation"/>.
 /// </summary>
-class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
+sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
 {
     private const string MetabaseApiUrlPath = "/api";
     private const string ErrorGroup = "Deployment.PreconfiguredMetabaseClient";
-    private readonly HttpClient httpClient = new HttpClient();
+    private const string MetabaseApiKey = "mb_KgUepT6vWo98hIqukd6B/Ydix6noM9/v4Wip8GrOBx4=";
+    private readonly HttpClient httpClient;
+    private bool disposedValue;
 
     /// <inheritdoc/>
     public PreconfiguredMetabaseClient(string metabaseRootUrl)
     {
-        httpClient.DefaultRequestHeaders.Add("x-api-key", "mb_KgUepT6vWo98hIqukd6B/Ydix6noM9/v4Wip8GrOBx4=");
-        httpClient.BaseAddress = new Uri(metabaseRootUrl + MetabaseApiUrlPath);
+        httpClient = new() { BaseAddress = new Uri(metabaseRootUrl + MetabaseApiUrlPath) };
+        httpClient.DefaultRequestHeaders.Add("x-api-key", MetabaseApiKey);
     }
 
     /// <inheritdoc/>
@@ -88,65 +86,124 @@ class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
             throw new NotSupportedException();
         }
 
-        // TODO: 
         var jsonBody = """
             {
-              "password": "string"
+              "is_on_demand":false,
+              "is_full_sync":true,
+              "is_sample":false,
+              "cache_ttl":null,
+              "refingerprint":null,
+              "auto_run_queries":true,
+              "schedules":{
+                "metadata_sync":{
+                  "schedule_minute":25,
+                  "schedule_day":null,
+                  "schedule_frame":null,
+                  "schedule_hour":null,
+                  "schedule_type":"hourly"
+                },
+                "cache_field_values":{
+                  "schedule_minute":0,
+                  "schedule_day":null,
+                  "schedule_frame":null,
+                  "schedule_hour":7,
+                  "schedule_type":"daily"
+                }
+              },
+              "details":{
+                "host":"host.docker.internal",
+                "port":32768,
+                "db":"CostumerExampleData2",
+                "instance":null,
+                "user":"sa",
+                "password":"**MetabasePass**",
+                "ssl":true,
+                "rowcount-override":null,
+                "tunnel-enabled":false,
+                "advanced-options":true,
+                "additional-options":"trustServerCertificate=true",
+                "let-user-control-scheduling":false
+              },
+              "name":"SQL server",
+              "engine":"sqlserver"
             }
             """;
 
         var bodyNode = JsonNode.Parse(jsonBody)!;
+        var detailsNode = bodyNode["details"]!;
 
-        bodyNode["password"] = password;
+        detailsNode["host"] = databaseSettings.Host;
+        detailsNode["db"] = databaseSettings.DatabaseName;
+        detailsNode["port"] = databaseSettings.Port;
+        detailsNode["user"] = databaseSettings.Username;
+        detailsNode["password"] = databaseSettings.Password;
 
         return MapResponseToStatusCode(
-            await httpClient.PutAsync("/user/1/password", JsonContent.Create(bodyNode)),
-            new Error(ErrorGroup + ".ChangeOfDefaultAdminPasswordFailed", "Failed to change default admin password."));
+            await httpClient.PutAsync("/database/2", JsonContent.Create(bodyNode)),
+            new Error(ErrorGroup + ".ConfiguringMetabaseFailed", "Failed to configure database."));
     }
 
     /// <inheritdoc/>
     public async Task<Result> ConfigureSmtpAsync(SmtpSettings smtpConfiguration)
     {
-        // TODO: 
-
         var jsonBody = """
             {
-              "password": "string"
+              "email-smtp-security":"ssl", 
+              "email-smtp-username":"example2@example.com",
+              "email-smtp-password":"",
+              "email-smtp-host":"smtp.example.com",
+              "email-smtp-port":"587"
             }
             """;
 
         var bodyNode = JsonNode.Parse(jsonBody)!;
+        string security = smtpConfiguration.Security switch
+        {
+            SmtpSecurity.None => "none",
+            SmtpSecurity.Ssl => "ssl",
+            SmtpSecurity.Tls => "tls",
+            SmtpSecurity.StartTls => "starttsl",
+            _ => throw new NotSupportedException()
+        };
 
-        bodyNode["password"] = password;
+        bodyNode["email-smtp-security"] = security;
+        bodyNode["email-smtp-username"] = smtpConfiguration.Username;
+        bodyNode["email-smtp-password"] = smtpConfiguration.Password;
+        bodyNode["email-smtp-host"] = smtpConfiguration.Host;
+        bodyNode["email-smtp-port"] = smtpConfiguration.Port.ToString();
 
         return MapResponseToStatusCode(
-            await httpClient.PutAsync("/user/1/password", JsonContent.Create(bodyNode)),
-            new Error(ErrorGroup + ".ChangeOfDefaultAdminPasswordFailed", "Failed to change default admin password."));
+            await httpClient.PutAsync("/email", JsonContent.Create(bodyNode)),
+            new Error(ErrorGroup + ".ConfiguringSmtpFailed", "Failed to configure smtp settings."));
     }
 
     /// <inheritdoc/>
-    public async Task<Result> DeleteDefaultTokenAsync()
-    {
-        // TODO: 
-        var jsonBody = """
-            {
-              "password": "string"
-            }
-            """;
-
-        var bodyNode = JsonNode.Parse(jsonBody)!;
-
-        bodyNode["password"] = password;
-
-        return MapResponseToStatusCode(
-            await httpClient.PutAsync("/user/1/password", JsonContent.Create(bodyNode)),
-            new Error(ErrorGroup + ".ChangeOfDefaultAdminPasswordFailed", "Failed to change default admin password."));
-    }
+    public async Task<Result> DeleteDefaultTokenAsync() => MapResponseToStatusCode(
+            await httpClient.DeleteAsync("/api-key/1"),
+            new Error(ErrorGroup + ".DeletionOfDefaultTokenFailed", "Failed to delete the default api token."));
 
     private static Result MapResponseToStatusCode(HttpResponseMessage response, Error error)
-    {
-        return response.IsSuccessStatusCode
+        => response.IsSuccessStatusCode
             ? Result.Success()
             : Result.Failure(error);
+
+    private void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                httpClient.Dispose();
+            }
+
+            disposedValue=true;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -7,7 +7,7 @@ namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 /// <summary>
 /// Represents a client for interacting with an preconfigured Metabase.
 /// </summary>
-public interface IPreconfiguredMetabaseClient
+public interface IPreconfiguredMetabaseClient : IDisposable
 {
     /// <summary>
     /// Changes the default admin email.
