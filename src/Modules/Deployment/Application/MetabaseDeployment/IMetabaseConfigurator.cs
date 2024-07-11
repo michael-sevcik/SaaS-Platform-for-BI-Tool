@@ -6,7 +6,7 @@ namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 /// <summary>
 /// Represents an interface for configuring Metabase.
 /// </summary>
-internal interface IMetabaseConfigurator
+public interface IMetabaseConfigurator
 {
     /// <summary>
     /// Configures Metabase for the specified customer.
