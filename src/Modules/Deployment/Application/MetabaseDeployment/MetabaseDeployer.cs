@@ -25,9 +25,9 @@ internal class MetabaseDeployer(
 {
     // TODO: USE ENVIRONMENT VARIABLES
     private const string HostUrl = "localhost";
-    private const string BaseUrl = "http://localhost";
+    private const string BaseUrl = "http://localhost"; // TODO: REPLACE localhost with configuration
     private const string DefaultNamespace = "default";
-    private const string Image = "metabase/metabase:v0.50.10";
+    private const string Image = "michaelsevcik/preconfigured-metabase:1.0.0";
 
     /// <inheritdoc/>
     public async Task<Result> DeployMetabaseAsync(string customerId, DefaultAdminSettings defaultAdminSettings)
@@ -203,7 +203,7 @@ internal class MetabaseDeployer(
                             Name = instanceName,
                             Image = image,
                             Ports = [new(3000)],
-                            Env = [new("MB_SITE_URL", metabaseSiteUrl) ] // TODO: REPLACE localhost
+                            Env = [new("MB_SITE_URL", metabaseSiteUrl) ]
                         }
                 ]
                 }
