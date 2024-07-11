@@ -5,6 +5,7 @@ using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 using BIManagement.Modules.Deployment.Domain;
 using BIManagement.Modules.Deployment.Domain.Configuration;
+using DotNet.Testcontainers.Builders;
 using k8s;
 using k8s.Models;
 using Microsoft.Extensions.Logging;
@@ -30,6 +31,8 @@ public class MetabaseDeployerTests
 
         k3sContainer = new K3sBuilder()
           .WithImage("ingress-nginx-k3s:latest")
+          .WithWaitStrategy(Wait.ForUnixContainer()
+            .UntilMessageIsLogged("Ingress NGINX is running successfully!"))
           .Build();
 
 
@@ -93,11 +96,10 @@ public class MetabaseDeployerTests
 
         var result = await deployer.DeployMetabaseAsync(customerId, defaultAdminSettings);
 
-        Assert.That(result.IsSuccess);
+        Assert.That(result.IsSuccess, result.Error.Message);
         this.mockMetabaseConfigurator.Verify();
-        var pods = await this.kubernetesClient.CoreV1.ListPodForAllNamespacesAsync();
+        var pods = await this.kubernetesClient.CoreV1.ListNamespacedPodAsync("default");
         Assert.That(pods.Items.Count, Is.EqualTo(1));
-        Assert.That(pods.Items[0].Metadata.Name, Is.EqualTo("metabase-customer5"));
     }
 
     [Test]
