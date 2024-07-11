@@ -3,7 +3,10 @@ using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 using BIManagement.Modules.Deployment.Domain.Configuration;
 using System.Net.Http.Json;
+using System.Runtime.CompilerServices;
 using System.Text.Json.Nodes;
+
+[assembly: InternalsVisibleTo("BIManagement.Test.Modules.Deployment.Infrastructure")]
 
 namespace BIManagement.Modules.Deployment.Infrastructure.Metabase;
 
