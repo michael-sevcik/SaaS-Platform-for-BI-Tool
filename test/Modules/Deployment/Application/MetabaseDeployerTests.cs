@@ -1,12 +1,15 @@
 using System;
+using System.Text;
 using System.Threading.Tasks;
 using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 using BIManagement.Modules.Deployment.Domain;
+using BIManagement.Modules.Deployment.Domain.Configuration;
 using k8s;
 using k8s.Models;
 using Microsoft.Extensions.Logging;
 using Moq;
+using Testcontainers.K3s;
 
 namespace BIManagement.Test.Modules.Deployment.Application;
 
@@ -16,11 +19,30 @@ public class MetabaseDeployerTests
 
     private Mock<ILogger<MetabaseDeployer>> mockLogger;
     private Mock<IMetabaseDeploymentRepository> mockDeploymentRepository;
+    private Mock<IMetabaseConfigurator> mockMetabaseConfigurator;
+    private K3sContainer k3sContainer;
+    private IKubernetes kubernetesClient;
 
     [SetUp]
-    public void SetUp()
+    public async Task SetUp()
     {
         this.mockRepository = new MockRepository(MockBehavior.Default);
+
+        k3sContainer = new K3sBuilder()
+          .WithImage("ingress-nginx-k3s:latest")
+          .Build();
+
+
+        await k3sContainer.StartAsync();
+
+        var config = await k3sContainer.GetKubeconfigAsync();
+
+        var byteArray = Encoding.UTF8.GetBytes(config);
+        using var memoryStream = new MemoryStream(byteArray);
+
+        var k8sConfig = await KubernetesClientConfiguration.LoadKubeConfigAsync(memoryStream);
+        var k8sClientConfig = KubernetesClientConfiguration.BuildConfigFromConfigObject(k8sConfig);
+        kubernetesClient = new Kubernetes(k8sClientConfig);
 
         this.mockLogger = this.mockRepository.Create<ILogger<MetabaseDeployer>>();
         this.mockLogger.Setup(x => x.Log(
@@ -32,30 +54,50 @@ public class MetabaseDeployerTests
             .Verifiable();
 
         this.mockDeploymentRepository = this.mockRepository.Create<IMetabaseDeploymentRepository>();
+        this.mockMetabaseConfigurator = this.mockRepository.Create<IMetabaseConfigurator>();
+    }
+
+    [TearDown]
+    public async Task TearDown()
+    {
+        await k3sContainer.StopAsync();
+        await k3sContainer.DisposeAsync();
+        kubernetesClient.Dispose();
     }
 
     [Test]
     public async Task Test1()
     {
-        var customerId = "Customer2";
+        var customerId = "customer5";
         this.mockDeploymentRepository.Setup(x => x.DeleteDeploymentAsync(customerId))
            .ReturnsAsync(Result.Success())
            .Verifiable();
 
         this.mockDeploymentRepository.Setup(x => x.SaveDeploymentAsync(It.IsAny<MetabaseDeployment>()))
             .ReturnsAsync(Result.Success())
-            .Callback<MetabaseDeployment>(deployment => deployment.Id = 15)
+            .Callback<MetabaseDeployment>(deployment => deployment.Id = 11)
             .Verifiable();
 
-        var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
-        var kubernetesClient = new Kubernetes(config);
+        DefaultAdminSettings defaultAdminSettings = new("admin@admin.cz", "Heski2*");
+
+        this.mockMetabaseConfigurator.Setup(x => x.ConfigureMetabase(customerId, It.IsAny<string>(), defaultAdminSettings))
+            .ReturnsAsync(Result.Success())
+            .Verifiable();
 
         var deployer = new MetabaseDeployer(
             mockLogger.Object,
             mockDeploymentRepository.Object,
-            kubernetesClient);
+            kubernetesClient,
+            mockMetabaseConfigurator.Object);
 
-        await deployer.DeployMetabaseAsync(customerId);
+
+        var result = await deployer.DeployMetabaseAsync(customerId, defaultAdminSettings);
+
+        Assert.That(result.IsSuccess);
+        this.mockMetabaseConfigurator.Verify();
+        var pods = await this.kubernetesClient.CoreV1.ListPodForAllNamespacesAsync();
+        Assert.That(pods.Items.Count, Is.EqualTo(1));
+        Assert.That(pods.Items[0].Metadata.Name, Is.EqualTo("metabase-customer5"));
     }
 
     [Test]
@@ -67,9 +109,7 @@ public class MetabaseDeployerTests
             { 
                 CustomerId = customerId,
                 Id = 15,
-                Image = "metabase/metabase:v0.50.10",
-                InstanceName = "metabase-15",
-                UrlPath = "/metabase-15"
+                InstanceName = "metabase-customer3",
             }))
             .Verifiable();
 
@@ -77,15 +117,15 @@ public class MetabaseDeployerTests
             .ReturnsAsync(Result.Success())
             .Verifiable();
 
-        var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
-        var kubernetesClient = new Kubernetes(config);
-
         var deployer = new MetabaseDeployer(
             mockLogger.Object,
             mockDeploymentRepository.Object,
-            kubernetesClient);
+            kubernetesClient,
+            mockMetabaseConfigurator.Object);
 
-        await deployer.DeleteDeploymentAsync(customerId);
+        var result = await deployer.DeleteDeploymentAsync(customerId);
+
+        Assert.That(result.IsSuccess, result.Error.Message);
         Mock.Verify(mockDeploymentRepository, mockDeploymentRepository);
     }
 }
