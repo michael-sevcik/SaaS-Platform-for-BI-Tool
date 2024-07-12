@@ -14,7 +14,7 @@ internal class MetabaseConfigurator(
     ILogger<MetabaseConfigurator> logger,
     IPreconfiguredMetabaseClientFactory clientFactory,
     ICustomerDatabaseSettingsAccessor databaseSettingsAccessor,
-    IOptions<SmtpSettings> smtpOptions) : IMetabaseConfigurator, ISingleton
+    IOptions<SmtpSettings> smtpOptions) : IMetabaseConfigurator, IScoped
 {
     /// <inheritdoc/>
     public async Task<Result> ConfigureMetabase(string CustomerId, string metabaseRootUrl, DefaultAdminSettings adminSettings)

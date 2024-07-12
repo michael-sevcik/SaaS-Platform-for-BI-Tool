@@ -12,32 +12,25 @@
 # https://github.com/dotnet/dotnet-docker/blob/main/samples/README.md
 
 # Create a stage for building the application.
-FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/nightly/sdk:9.0-preview AS build
+FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/nightly/sdk:9.0-preview-alpine AS build
 
 # Install Node.js and npm from the default repository
-RUN apt-get update && apt-get install -y nodejs npm
-
+RUN apk add --update nodejs npm
 
 COPY . /source
 
-WORKDIR /source/ManagamentApp
+WORKDIR /source/src/ManagamentApp
 
 # This is the architecture you’re building for, which is passed in by the builder.
 # Placing it here allows the previous steps to be cached across architectures.
 ARG TARGETARCH
 
-# Use bash to handle the variable substitution
-RUN apt-get update && apt-get install -y bash
-
 # Build the application.
 # Leverage a cache mount to /root/.nuget/packages so that subsequent builds don't have to re-download packages.
 # If TARGETARCH is "amd64", replace it with "x64" - "x64" is .NET's canonical name for this and "amd64" doesn't
 #   work in .NET 6.0.
-# RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-#     dotnet publish -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-contained false -o /app
-
 RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
-    /bin/bash -c 'dotnet publish -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-contained false -o /app'
+    dotnet publish -a ${TARGETARCH/amd64/x64} --use-current-runtime --self-contained false -o /app
 
 # If you need to enable globalization and time zones:
 # https://github.com/dotnet/dotnet-docker/blob/main/samples/enable-globalization.md
@@ -52,8 +45,13 @@ RUN --mount=type=cache,id=nuget,target=/root/.nuget/packages \
 # build your Dockerfile. If reproducability is important, consider using a more specific
 # version (e.g., aspnet:7.0.10-alpine-3.18),
 # or SHA (e.g., mcr.microsoft.com/dotnet/aspnet@sha256:f3d99f54d504a21d38e4cc2f13ff47d67235efeeb85c109d3d1ff1808b38d034).
-FROM mcr.microsoft.com/dotnet/nightly/aspnet:9.0-preview AS final
+FROM mcr.microsoft.com/dotnet/nightly/aspnet:9.0-preview-alpine AS final
 WORKDIR /app
+
+# Install ICU to enable globalization support https://github.com/dotnet/SqlClient/issues/220
+RUN apk add icu-libs
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
 
 # Copy everything needed to run the app from the "build" stage.
 COPY --from=build /app .

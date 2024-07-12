@@ -16,7 +16,8 @@ internal class ApplicationServiceInstaller : IServiceInstaller
     public static void Install(IServiceCollection services, IConfiguration configuration)
     {
         // TODO: Get external configuration for external cluster
-        var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
+        //var config = KubernetesClientConfiguration.BuildConfigFromConfigFile();
+        var config = KubernetesClientConfiguration.BuildDefaultConfig();
         var kubernetesClient = new Kubernetes(config);
         services.AddSingleton<IKubernetes>(kubernetesClient);
 

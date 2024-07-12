@@ -1,0 +1,71 @@
+# Comments are provided throughout this file to help you get started.
+# If you need more help, visit the Docker Compose reference guide at
+# https://docs.docker.com/go/compose-spec-reference/
+
+# Here the instructions define your application as a service called "server".
+# This service is built from the Dockerfile in the current directory.
+# You can add other services your application may depend on here, such as a
+# database or a cache. For examples, see the Awesome Compose repository:
+# https://github.com/docker/awesome-compose
+services:
+  server:
+    build:
+      context: .
+      target: final
+    ports:
+      - 8080:8080
+    depends_on:
+      - instance
+      - smtp
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      DOTNET_ConnectionStrings__DefaultConnection: Data Source=sql-server-2022,2222;Initial Catalog=SaaSPlatform;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
+      ASPNETCORE_Modules__Notifications__Mail__BaseUrl : https://localhost:7268/ # TODO:
+      ASPNETCORE_Modules__Notifications__Mail__SenderEmail : app@example.com
+      ASPNETCORE_Modules__Notifications__Mail__SmtpServer : smtp
+      ASPNETCORE_Modules__Notifications__Mail__SmtpPort : smtp
+      ASPNETCORE_Modules__Notifications__Mail__SmtpUsername : app@example.com
+      ASPNETCORE_Modules__Notifications__Mail__SmtpPassword : password
+      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Host : metabase@example.com
+      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Port : 5025
+      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Security : None
+      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Username : metabase@example.com
+      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Password : password 
+      ASPNETCORE_Modules__Deployment__KubeConfigPath : TODO # TODO: add the 
+
+  instance:
+    container_name: sql-server-2022
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: unless-stopped
+    environment:
+      ACCEPT_EULA: Y
+      SA_PASSWORD: password123!
+      MSSQL_PID: Express
+    ports:
+      - 2222:1433
+    healthcheck:
+      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
+      interval: 10s
+      timeout: 3s
+      retries: 10
+      start_period: 10s
+    volumes:
+      - mssql:/var/opt/mssql
+    networks:
+      - internal
+
+  smtp:
+    image: reachfive/fake-smtp-server
+    restart: unless-stopped
+    ports:
+      - 5025:1025
+      - 5080:1080
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
+
+volumes:
+  mssql:
