@@ -3,7 +3,7 @@
 namespace BIManagement.Modules.Users.Api.Authorization.Views;
 
 /// <summary>
-/// Displays a differing component based the user being or not being Costumer.
+/// Displays a differing component based the user being or not being Customer.
 /// </summary>
 public class AuthorizeCustomerView : AuthorizeView
 {

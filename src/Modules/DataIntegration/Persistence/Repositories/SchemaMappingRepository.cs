@@ -16,8 +16,8 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Repositories
     IScoped
     {
         /// <inheritdoc/>
-        public async Task<IReadOnlyList<SchemaMapping>> GetSchemaMappings(string costumerId)
-            => await entities.AsNoTracking().Where(mapping => mapping.CustomerId == costumerId).ToListAsync();
+        public async Task<IReadOnlyList<SchemaMapping>> GetSchemaMappings(string customerId)
+            => await entities.AsNoTracking().Where(mapping => mapping.CustomerId == customerId).ToListAsync();
 
         /// <inheritdoc/>
         public async Task<Result> SaveAsync(SchemaMapping schemaMapping)
@@ -41,7 +41,7 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<SchemaMapping?> GetSchemaMapping(string costumerId, int targetDbTableId)
-            => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == costumerId && model.TargetDbTableId == targetDbTableId);
+        public async Task<SchemaMapping?> GetSchemaMapping(string customerId, int targetDbTableId)
+            => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == customerId && model.TargetDbTableId == targetDbTableId);
     }
 }

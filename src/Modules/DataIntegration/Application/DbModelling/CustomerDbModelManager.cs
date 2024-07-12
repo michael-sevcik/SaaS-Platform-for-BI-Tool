@@ -8,7 +8,7 @@ namespace BIManagement.Modules.DataIntegration.Application.DbModelling;
 /// <summary>
 /// Default implementation of <see cref="ICustomerDbModelManager"/>.
 /// </summary>
-internal class CostumerDbModelManager(IDbModelBuilderAccessor modelBuilderAccessor, ICustomerDbModelRepository costumerDbModelRepository)
+internal class CustomerDbModelManager(IDbModelBuilderAccessor modelBuilderAccessor, ICustomerDbModelRepository customerDbModelRepository)
     : ICustomerDbModelManager, IScoped
 {
     /// <inheritdoc/>
@@ -30,7 +30,7 @@ internal class CostumerDbModelManager(IDbModelBuilderAccessor modelBuilderAccess
             return modelResult;
         }
 
-        var additionResult = await costumerDbModelRepository.SaveAsync(new() {
+        var additionResult = await customerDbModelRepository.SaveAsync(new() {
             CustomerId = configuration.CustomerId,
             DbModel = modelResult.Value
         });
@@ -39,6 +39,6 @@ internal class CostumerDbModelManager(IDbModelBuilderAccessor modelBuilderAccess
     }
 
     /// <inheritdoc/>
-    public async Task<DbModel?> GetAsync(string costumerId)
-        => (await costumerDbModelRepository.GetAsync(costumerId))?.DbModel;
+    public async Task<DbModel?> GetAsync(string customerId)
+        => (await customerDbModelRepository.GetAsync(customerId))?.DbModel;
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 namespace BIManagement.Modules.Deployment.Persistence.Configurations;
 
 /// <summary>
-/// Represents the EF core configuration for <see cref="CostumerDbModel"/>
+/// Represents the EF core configuration for <see cref="MetabaseDeployment"/>
 /// </summary>
 internal class DeploymentsConfiguration : IEntityTypeConfiguration<MetabaseDeployment>
 {

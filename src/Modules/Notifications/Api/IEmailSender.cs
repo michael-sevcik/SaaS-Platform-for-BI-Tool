@@ -6,7 +6,7 @@
         /// Sends an invitation link to the user.
         /// </summary>
         /// <remarks>
-        /// Intended to be used for inviting costumers.
+        /// Intended to be used for inviting customers.
         /// </remarks>
         /// <param name="email"></param>
         /// <param name="relativeLink">Relative link which was not HTML coded.</param>

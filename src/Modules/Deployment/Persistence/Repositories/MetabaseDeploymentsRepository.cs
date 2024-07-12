@@ -37,8 +37,8 @@ IScoped
     }
 
     /// <inheritdoc/>
-    public async Task<MetabaseDeployment?> GetAsync(string costumerId)
-        => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == costumerId);
+    public async Task<MetabaseDeployment?> GetAsync(string customerId)
+        => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == customerId);
 
     /// <inheritdoc/>
     public async Task<Result> SaveDeploymentAsync(MetabaseDeployment deployment)

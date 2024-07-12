@@ -15,11 +15,11 @@ namespace BIManagement.Modules.Users.Api;
 public interface IUserAccessor
 {
     /// <summary>
-    /// This error signals that the current user is not a costumer.
+    /// This error signals that the current user is not a customer.
     /// </summary>
     public static readonly Error NotCustomerError = new(
-        "Users.UserIsNotCostumer",
-        "Provided user is not a costumer.");
+        "Users.UserIsNotCustomer",
+        "Provided user is not a customer.");
 
     /// <summary>
     /// This error signals that HttpContext does not have a user principal
@@ -45,16 +45,16 @@ public interface IUserAccessor
     Task<string?> GetUserIdAsync(HttpContext context);
 
     /// <summary>
-    /// Gets the Id of the current user if it is a costumer.
+    /// Gets the Id of the current user if it is a customer.
     /// </summary>
     /// <param name="context">Context of the HTTP request which contains the user principal.</param>
     /// <returns>
     /// Task object representing the asynchronous operation. Value property gets a Result object
     /// that on success contains the Id of a user. If the user was not identified the Result object
     /// contains <see cref="UserNotIdentifiableError"/> error instance, or in case the user is not
-    /// a costumer, it contains <see cref="NotCustomerError"/>.
+    /// a customer, it contains <see cref="NotCustomerError"/>.
     /// </returns>
-    Task<Result<string>> GetCostumerId(HttpContext context);
+    Task<Result<string>> GetCustomerId(HttpContext context);
 
     /// <summary>
     /// Gets the name of the current user.

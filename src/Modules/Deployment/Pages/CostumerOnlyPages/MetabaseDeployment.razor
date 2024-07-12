@@ -58,7 +58,7 @@
     private string? message;
     private bool isError;
 
-    private string? CostumerId { get; set; }
+    private string? CustomerId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -70,22 +70,22 @@
             return;
         }
 
-        var costumerIdResult = await UserAccessor.GetCostumerId(httpContext);
-        if (costumerIdResult.IsFailure)
+        var customerIdResult = await UserAccessor.GetCustomerId(httpContext);
+        if (customerIdResult.IsFailure)
         {
-            message = costumerIdResult.Error.Message;
+            message = customerIdResult.Error.Message;
             isError = true;
             return;
         }
 
-        CostumerId = costumerIdResult.Value;
+        CustomerId = customerIdResult.Value;
 
         // todo: deploy
     }
 
     private async Task GenerateViews()
     {
-        if (CostumerId is null)
+        if (CustomerId is null)
         {
             return;
         }
@@ -95,12 +95,12 @@
 
     private async ValueTask<string[]?> GetViewsAsync()
     {
-        if (CostumerId is null)
+        if (CustomerId is null)
         {
             return null;
         }
 
-        var viewsResult = await dataIntegrationService.GenerateSqlViewsForCustomer(CostumerId);
+        var viewsResult = await dataIntegrationService.GenerateSqlViewsForCustomer(CustomerId);
         if (viewsResult.IsFailure)
         {
             message = viewsResult.Error.Message;
@@ -113,7 +113,7 @@
 
     private async Task Deploy()
     {
-        if (CostumerId is null)
+        if (CustomerId is null)
         {
             return;
         }
@@ -124,7 +124,7 @@
             return;
         }
 
-        var dbConfiguration = await dataIntegrationService.GetCustomerDbConnectionString(CostumerId);
+        var dbConfiguration = await dataIntegrationService.GetCustomerDbConnectionString(CustomerId);
         if (dbConfiguration is null)
         {
             message = "The customer's database configuration is not yet set.";

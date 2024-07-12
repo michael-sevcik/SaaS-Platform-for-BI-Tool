@@ -10,5 +10,5 @@ public interface IIntegrationService
     /// </summary>
     /// <param name="userId">Id of the deleted user</param>
     /// <returns>Task object that represents the asynchronous operation.</returns>
-    Task HandleCostumerDeletionAsync(string userId);
+    Task HandleCustomerDeletionAsync(string userId);
 }

@@ -9,7 +9,7 @@ namespace BIManagement.Modules.Deployment.Application
     /// </summary>
     public class IntegrationService : IIntegrationService, ISingleton
     {
-        public Task HandleCostumerDeletionAsync(string userId)
+        public Task HandleCustomerDeletionAsync(string userId)
         {
             // TODO: IMPLEMENT HandleUserDeletionAsync
             return Task.CompletedTask;

@@ -26,12 +26,12 @@ internal static class Routes
     /// </summary>
     public const string LoadDatabaseSchema= $"{DataIntegration}/LoadDatabaseSchema";
 
-    #region CostumersPages
+    #region CustomersPages
 
     /// <summary>
-    /// Represents a route to the costumer's database configuration.
+    /// Represents a route to the customer's database configuration.
     /// </summary>
-    public const string CostumersConfigureDbConnction = $"{DataIntegration}/Configure-db-connection";
+    public const string CustomersConfigureDbConnection = $"{DataIntegration}/Configure-db-connection";
 
     #endregion
 

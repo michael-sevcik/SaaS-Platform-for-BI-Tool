@@ -31,6 +31,8 @@ internal class SeedingStartupTask(
         }
 
         logger.LogInformation("Seeding users data...");
+
+        await Task.Delay(10000);
         
         using IServiceScope scope = serviceProvider.CreateScope();
         var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();

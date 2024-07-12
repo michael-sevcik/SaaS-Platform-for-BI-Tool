@@ -11,13 +11,13 @@
 @inject IUserAccessor UserAccessor
 @inject IHttpContextAccessor HttpContextAccessor
 @inject NavigationManager NavigationManager
-@inject ICustomerDbConnectionConfigurationRepository CostumerDatabaseConnectionConfigurationManager
-@inject ICustomerDbModelManager CostumerDbModelManager
+@inject ICustomerDbConnectionConfigurationRepository CustomerDatabaseConnectionConfigurationManager
+@inject ICustomerDbModelManager CustomerDbModelManager
 @rendermode @(new InteractiveServerRenderMode(prerender: false))
 
 
 @* Not using @page directive to utilize static routes class *@
-@attribute [Route(Routes.CostumersConfigureDbConnction)]
+@attribute [Route(Routes.CustomersConfigureDbConnection)]
 
 <PageTitle>Database Connection Configuration</PageTitle>
 
@@ -25,7 +25,7 @@
 
 
 <BIManagement.Common.Components.StatusMessage Message="@Message" IsError="@isError" />
-@if (CostumerId is not null)
+@if (CustomerId is not null)
 {
     <EditForm Model="Input" FormName="@FormName" OnValidSubmit="OnValidSubmitAsync" method="post">
         <DataAnnotationsValidator />
@@ -166,7 +166,7 @@
     // initialized by the OnInitializedAsync method
     private CustomerDbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
     private bool showContinueButton = false;
-    private string? CostumerId { get; set; }
+    private string? CustomerId { get; set; }
 
     private string? Message { get; set; }
     private bool isError = false;
@@ -180,7 +180,7 @@
     {
         Message = null;
         isError = false;
-        CostumerId = null;
+        CustomerId = null;
         showContinueButton = false;
 
         var httpContext = HttpContextAccessor.HttpContext;
@@ -191,22 +191,22 @@
             return;
         }
 
-        var costumerIdResult = await UserAccessor.GetCostumerId(httpContext);
-        if (costumerIdResult.IsFailure)
+        var customerIdResult = await UserAccessor.GetCustomerId(httpContext);
+        if (customerIdResult.IsFailure)
         {
-            Message = costumerIdResult.Error.Message;
+            Message = customerIdResult.Error.Message;
             isError = true;
             return;
         }
 
-        CostumerId = costumerIdResult.Value;
+        CustomerId = customerIdResult.Value;
 
-        var returnedConnectionConfiguration = await CostumerDatabaseConnectionConfigurationManager.GetAsync(CostumerId);
+        var returnedConnectionConfiguration = await CustomerDatabaseConnectionConfigurationManager.GetAsync(CustomerId);
         if (returnedConnectionConfiguration is null)
         {
             dbConnectionConfiguration = new()
             {
-                CustomerId = this.CostumerId,
+                CustomerId = this.CustomerId,
             };
 
             formAction = Action.Add;
@@ -242,9 +242,9 @@
     {
         isError = false;
         Message = null;
-        bool spinnerStaus = showSpinner;
+        bool spinnerStatus = showSpinner;
         showSpinner = true;
-        var dbModelResult = await CostumerDbModelManager.CreateDbModelAsync(dbConnectionConfiguration);
+        var dbModelResult = await CustomerDbModelManager.CreateDbModelAsync(dbConnectionConfiguration);
         if (dbModelResult.IsFailure)
         {
             Message = dbModelResult.Error.Message;
@@ -255,7 +255,7 @@
             Message = "Model created successfully.";
         }
 
-        showSpinner = spinnerStaus;
+        showSpinner = spinnerStatus;
     }
 
     private async Task OnValidSubmitAsync()
@@ -328,20 +328,20 @@
         dbConnectionConfiguration.Provider = Input.DatabaseType;
         dbConnectionConfiguration.ConnectionString = builder.ConnectionString;
 
-        // ConstumerId in not null because the form is only shown if it's not null
+        // CustomersId in not null because the form is only shown if it's not null
         switch (formAction)
         {
             case Action.Update:
-                await CostumerDatabaseConnectionConfigurationManager.UpdateAsync(dbConnectionConfiguration);
+                await CustomerDatabaseConnectionConfigurationManager.UpdateAsync(dbConnectionConfiguration);
                 break;
             case Action.Add:
-                await CostumerDatabaseConnectionConfigurationManager.AddAsync(dbConnectionConfiguration);
+                await CustomerDatabaseConnectionConfigurationManager.AddAsync(dbConnectionConfiguration);
                 break;
         }
 
         Message = "Connection saved successfully.";
         showContinueButton = true;
-        // TODO: In case of costumer redirect to mapper
+        // TODO: In case of customer redirect to mapper
     }
 
     // TODO: REMOVE defaults

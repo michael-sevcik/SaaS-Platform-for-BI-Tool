@@ -14,6 +14,6 @@ internal class IntegrationNotifier(
     public async Task SentCustomerDeletionNotification(string userId)
     {
         await DIIntegrationService.HandleCustomerDeletionAsync(userId);
-        await DeploymentIntegrationService.HandleCostumerDeletionAsync(userId);
+        await DeploymentIntegrationService.HandleCustomerDeletionAsync(userId);
     }
 }
