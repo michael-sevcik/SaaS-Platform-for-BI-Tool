@@ -9,7 +9,7 @@
         </div>
 
         <BIManagement.Modules.DataIntegration.Pages.DataIntegrationSubmenu />
-        <BIManagement.Modules.Deployment.Pages.DataIntegrationSubmenu/>
+        <BIManagement.Modules.Deployment.Pages.DeploymentSubMenu/>
         <BIManagement.Modules.Users.Pages.UsersSubmenu/>
 
         <AuthorizeView>
@@ -30,11 +30,6 @@
                 </div>
             </Authorized>
             <NotAuthorized>
-                <div class="nav-item px-3">
-                    <NavLink class="nav-link" href="Account/">
-                        <span class="bi bi-person-nav-menu" aria-hidden="true"></span> Register
-                    </NavLink>
-                </div>
                 <div class="nav-item px-3">
                     <NavLink class="nav-link" href="Account/Login">
                         <span class="bi bi-person-badge-nav-menu" aria-hidden="true"></span> Login
