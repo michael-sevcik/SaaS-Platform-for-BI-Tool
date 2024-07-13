@@ -18,7 +18,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
 {
     private const string MetabaseApiUrlPath = "/api";
     private const string ErrorGroup = "Deployment.PreconfiguredMetabaseClient";
-    private const string MetabaseApiKey = "mb_KgUepT6vWo98hIqukd6B/Ydix6noM9/v4Wip8GrOBx4=";
+    private const string MetabaseApiKey = "mb_Uy19tAPolT6d1l+gtbpsjUJudirKjJGXMTndLPe6XZk=";
     private readonly HttpClient httpClient;
     private bool disposedValue;
     private readonly string metabaseRootApiUrl;
@@ -186,8 +186,8 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         }
         else
         {
-        bodyNode["email-smtp-username"] = smtpConfiguration.Username;
-        bodyNode["email-smtp-password"] = smtpConfiguration.Password;
+            bodyNode["email-smtp-username"] = smtpConfiguration.Username;
+            bodyNode["email-smtp-password"] = smtpConfiguration.Password;
         }
 
         bodyNode["email-smtp-security"] = security;
