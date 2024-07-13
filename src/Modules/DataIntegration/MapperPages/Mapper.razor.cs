@@ -74,6 +74,13 @@ public sealed partial class Mapper : IAsyncDisposable
         }
 
         customerDbModel = await CustomerDbModelManager.GetAsync(CustomerId);
+        if (customerDbModel is null)
+        {
+            message = "You have to create a database model first. Use Database connection configuration for that";
+            errorAlert?.Show();
+            return;
+        }
+
         targetTables = await TargetDbTableRepository.GetTargetDbTables();
         if (targetTables.Count <= 0)
         {
