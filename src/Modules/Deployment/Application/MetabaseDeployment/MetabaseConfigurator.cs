@@ -22,7 +22,8 @@ internal class MetabaseConfigurator(
         using var client = clientFactory.Create(metabaseRootUrl);
 
         // Cascade of configurations that will be fully executed only if all of them succeed.
-        var result = await client.ChangeDefaultAdminEmail(adminSettings.Email)
+        var result = await client.WaitForMetabaseToStartResponding()
+            .Bind(() => client.ChangeDefaultAdminEmail(adminSettings.Email))
             .Bind(() => client.ChangeDefaultAdminPassword(adminSettings.Password))
             .Bind(() => databaseSettingsAccessor.GetDatabaseSettings(CustomerId))
                 .Map(client.ConfigureDatabaseAsync)

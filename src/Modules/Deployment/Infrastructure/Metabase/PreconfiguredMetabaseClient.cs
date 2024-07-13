@@ -21,12 +21,14 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
     private const string MetabaseApiKey = "mb_KgUepT6vWo98hIqukd6B/Ydix6noM9/v4Wip8GrOBx4=";
     private readonly HttpClient httpClient;
     private bool disposedValue;
+    private readonly string metabaseRootApiUrl;
 
     /// <inheritdoc/>
     public PreconfiguredMetabaseClient(string metabaseRootUrl)
     {
-        httpClient = new() { BaseAddress = new Uri(metabaseRootUrl + MetabaseApiUrlPath) };
+        httpClient = new();
         httpClient.DefaultRequestHeaders.Add("x-api-key", MetabaseApiKey);
+        metabaseRootApiUrl = metabaseRootUrl + MetabaseApiUrlPath;
     }
 
     /// <inheritdoc/>
@@ -59,7 +61,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         bodyNode["email"] = email;
 
         return MapResponseToStatusCode(
-            await httpClient.PutAsync("/user/1", JsonContent.Create(bodyNode)),
+            await httpClient.PutAsync(CreateAbsoluteApiUrl("/user/1"), JsonContent.Create(bodyNode)),
             new Error(ErrorGroup + ".ChangeOfDefaultAdminEmailFailed", "Failed to change default admin email."));
     }
 
@@ -77,7 +79,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         bodyNode["password"] = password;
 
         return MapResponseToStatusCode(
-            await httpClient.PutAsync("/user/1/password", JsonContent.Create(bodyNode)),
+            await httpClient.PutAsync(CreateAbsoluteApiUrl("/user/1/password"), JsonContent.Create(bodyNode)),
             new Error(ErrorGroup + ".ChangeOfDefaultAdminPasswordFailed", "Failed to change default admin password."));
     }
 
@@ -135,6 +137,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         var bodyNode = JsonNode.Parse(jsonBody)!;
         var detailsNode = bodyNode["details"]!;
 
+        // TODO: Check whether the host in cluster is different from the host in the local environment
         detailsNode["host"] = databaseSettings.Host;
         detailsNode["db"] = databaseSettings.DatabaseName;
         detailsNode["port"] = databaseSettings.Port;
@@ -142,7 +145,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         detailsNode["password"] = databaseSettings.Password;
 
         return MapResponseToStatusCode(
-            await httpClient.PutAsync("/database/2", JsonContent.Create(bodyNode)),
+            await httpClient.PutAsync(CreateAbsoluteApiUrl("/database/2"), JsonContent.Create(bodyNode)),
             new Error(ErrorGroup + ".ConfiguringMetabaseFailed", "Failed to configure database."));
     }
 
@@ -159,7 +162,14 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
             }
             """;
 
-        var bodyNode = JsonNode.Parse(jsonBody)!;
+        var jsonBodyWithoutSecurity = """
+            {
+              "email-smtp-security":"ssl",
+              "email-smtp-host":"smtp.example.com",
+              "email-smtp-port":"587"
+            }
+            """;
+
         string security = smtpConfiguration.Security switch
         {
             SmtpSecurity.None => "none",
@@ -169,20 +179,29 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
             _ => throw new NotSupportedException()
         };
 
-        bodyNode["email-smtp-security"] = security;
+        var bodyNode = JsonNode.Parse(jsonBody)!;
+        if (smtpConfiguration.Username == string.Empty && smtpConfiguration.Password == string.Empty)
+        {
+            bodyNode = JsonNode.Parse(jsonBodyWithoutSecurity)!;
+        }
+        else
+        {
         bodyNode["email-smtp-username"] = smtpConfiguration.Username;
         bodyNode["email-smtp-password"] = smtpConfiguration.Password;
+        }
+
+        bodyNode["email-smtp-security"] = security;
         bodyNode["email-smtp-host"] = smtpConfiguration.Host;
         bodyNode["email-smtp-port"] = smtpConfiguration.Port.ToString();
 
         return MapResponseToStatusCode(
-            await httpClient.PutAsync("/email", JsonContent.Create(bodyNode)),
+            await httpClient.PutAsync(CreateAbsoluteApiUrl("/email"), JsonContent.Create(bodyNode)),
             new Error(ErrorGroup + ".ConfiguringSmtpFailed", "Failed to configure smtp settings."));
     }
 
     /// <inheritdoc/>
     public async Task<Result> DeleteDefaultTokenAsync() => MapResponseToStatusCode(
-            await httpClient.DeleteAsync("/api-key/1"),
+            await httpClient.DeleteAsync(CreateAbsoluteApiUrl("/api-key/1")),
             new Error(ErrorGroup + ".DeletionOfDefaultTokenFailed", "Failed to delete the default api token."));
 
     private static Result MapResponseToStatusCode(HttpResponseMessage response, Error error)
@@ -203,10 +222,31 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         }
     }
 
+    private string CreateAbsoluteApiUrl(string relativeUrl) => metabaseRootApiUrl + relativeUrl;
+
     public void Dispose()
     {
         // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
         Dispose(disposing: true);
         GC.SuppressFinalize(this);
+    }
+
+    public async Task<Result> WaitForMetabaseToStartResponding(int timeout = 300)
+    {
+        var startTime = DateTime.Now;
+        var elapsedTime = TimeSpan.Zero;
+
+        while (elapsedTime.TotalSeconds < timeout)
+        {
+            if ((await httpClient.GetAsync(CreateAbsoluteApiUrl("/user"))).IsSuccessStatusCode)
+            {
+                return Result.Success();
+            }
+
+            elapsedTime = DateTime.Now - startTime;
+            await Task.Delay(3000); // Add a delay of 3 seconds
+        }
+
+        return Result.Failure(new Error(ErrorGroup + ".MetabaseNotResponding", "Metabase did not start responding within the specified timeout."));
     }
 }

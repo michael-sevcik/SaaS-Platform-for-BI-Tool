@@ -10,6 +10,13 @@ namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 public interface IPreconfiguredMetabaseClient : IDisposable
 {
     /// <summary>
+    /// Waits for the Metabase to start responding.
+    /// </summary>
+    /// <param name="timeout">Timeout in seconds for metabase to start responding</param>
+    /// <returns>A task representing the asynchronous operation.</returns>
+    Task<Result> WaitForMetabaseToStartResponding(int timeout = 300);
+
+    /// <summary>
     /// Changes the default admin email.
     /// </summary>
     /// <param name="email">The new email address.</param>
