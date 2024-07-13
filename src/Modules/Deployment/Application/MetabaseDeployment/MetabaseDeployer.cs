@@ -21,7 +21,8 @@ internal class MetabaseDeployer(
     ILogger<MetabaseDeployer> logger,
     IMetabaseDeploymentRepository deploymentRepository,
     IKubernetes kubernetesClient,
-    IMetabaseConfigurator metabaseConfigurator) : IMetabaseDeployer
+    IMetabaseConfigurator metabaseConfigurator,
+    IIntegrationNotifier integrationNotifier) : IMetabaseDeployer
 {
     // TODO: USE ENVIRONMENT VARIABLES
     private const string HostUrl = "localhost";
@@ -30,7 +31,7 @@ internal class MetabaseDeployer(
     private const string Image = "michaelsevcik/preconfigured-metabase:1.0.0";
 
     /// <inheritdoc/>
-    public async Task<Result> DeployMetabaseAsync(string customerId, DefaultAdminSettings defaultAdminSettings)
+    public async Task<Result<string>> DeployMetabaseAsync(string customerId, DefaultAdminSettings defaultAdminSettings)
     {
         // deploy on random secret url and configure it with the client, then change the url to the desired public one
         string instanceName = $"metabase-{customerId}";
@@ -48,7 +49,7 @@ internal class MetabaseDeployer(
         var result = await deploymentRepository.SaveDeploymentAsync(deployment);
         if (result.IsFailure)
         {
-            return result;
+            return Result.Failure<string>(result.Error);
         }
 
         var metabaseId = deployment.Id;
@@ -67,7 +68,7 @@ internal class MetabaseDeployer(
         if (result.IsFailure)
         {
             logger.LogError("Failed to deploy Metabase for Customer {CustomerId}", customerId);
-            return result;
+            return Result.Failure<string>(result.Error);
         }
 
         deployment.UrlPath = publicUrlPath;
@@ -75,13 +76,16 @@ internal class MetabaseDeployer(
         if (result.IsFailure)
         {
             logger.LogError("Failed to update Metabase deployment information; CustomerId: {customerId}", customerId);
-            return Result.Failure(new(
+            return Result.Failure<string>(new(
                 "Deployment.MetabaseDeployer.MetabaseDeploymentFailed",
                 "Failed to update Metabase deployment information"));
         }
 
         logger.LogInformation("Metabase for Customer {CustomerId} deployed on {urlPart}", customerId, publicUrlPath);
-        return Result.Success();
+
+        var publicAbsoluteMetabaseUrl = BaseUrl + publicUrlPath; // TODO: use configuration for this
+        await integrationNotifier.SentMetabaseDeployedNotification(customerId, publicAbsoluteMetabaseUrl);
+        return Result.Success(publicAbsoluteMetabaseUrl);
     }
 
     private async Task<Result> ChangeIngressPathAsync(string instanceName, string newPath)

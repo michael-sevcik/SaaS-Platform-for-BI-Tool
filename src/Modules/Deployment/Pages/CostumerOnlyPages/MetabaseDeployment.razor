@@ -1,20 +1,24 @@
 ﻿@using BIManagement.Modules.DataIntegration.Api
+@using BIManagement.Modules.Deployment.Application.MetabaseDeployment
 @using BIManagement.Modules.Deployment.Application.ViewDeployment
 @using BIManagement.Modules.Users.Api
+@using BIManagement.Common.Components
 @using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Components.Web
 @* Not using @page directive to utilize static routes class *@
 
 @inject IDataIntegrationService dataIntegrationService
 @inject IUserAccessor UserAccessor
 @inject IHttpContextAccessor HttpContextAccessor
 @inject IDatabaseViewDeployer DatabaseViewDeployer
+@inject IMetabaseDeployer MetabaseDeployer
 
 @rendermode @(new InteractiveServerRenderMode(false))
 @attribute [Route(Routes.MetabaseDeployment)]
 
 <PageTitle>Deployment</PageTitle>
 
-<BIManagement.Common.Components.StatusMessage Message="@message" IsError="@isError" />
+<StatusMessage Message="@message" IsError="@isError" />
 
 <div class="container">
     <h3>Deployment</h3>
@@ -146,6 +150,9 @@
         message = "Views deployed successfully.";
 
         // TODO: deploy Metabase
+        var result = MetabaseDeployer.DeployMetabaseAsync(CustomerId, new("admin@admin.cz", "Metabase123*"));
+        // TODO: display link or error message
+
 
         
     }

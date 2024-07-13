@@ -1,7 +1,7 @@
 ﻿namespace BIManagement.Modules.Deployment.Api;
 
 /// <summary>
-/// Represents a service that integrates the deployment module with other services.
+/// Represents a service that integrates the deployment module with other modules.
 /// </summary>
 public interface IIntegrationService
 {
@@ -10,5 +10,5 @@ public interface IIntegrationService
     /// </summary>
     /// <param name="userId">Id of the deleted user</param>
     /// <returns>Task object that represents the asynchronous operation.</returns>
-    Task HandleCustomerDeletionAsync(string userId);
+    Task HandleCustomerDeletionAsync(string customerId);
 }
