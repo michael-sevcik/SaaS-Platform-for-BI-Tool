@@ -18,13 +18,24 @@ namespace BIManagement.Modules.DataIntegration.Application;
 /// <param name="dbConnectionConfigurationRepository">Repository for db connection configurations.</param>
 internal class DataIntegrationService(
     ISchemaMappingRepository schemaMappingRepository,
+    ITargetDbTableRepository targetDbTableRepository,
     ICustomerDbConnectionConfigurationRepository dbConnectionConfigurationRepository) : IDataIntegrationService, ITransient
 {
     /// <inheritdoc />
     public async Task<Result<string[]>> GenerateSqlViewsForCustomer(string customerId)
     {
+
         List<string> views = new();
-        foreach (var sm in await schemaMappingRepository.GetSchemaMappings(customerId))
+        var mappings = await schemaMappingRepository.GetSchemaMappings(customerId);
+        var targetTables = await targetDbTableRepository.GetTargetDbTables();
+        if (mappings.Count != targetTables.Count || mappings.Any(mapping => !mapping.IsComplete))
+        {
+            return Result.Failure<string[]>(new(
+                "DataIntegration.GeneratingSQLView.IncompleteMapping",
+                "Incomplete mapping found. Finish mapping first"));
+        }
+
+        foreach (var sm in mappings)
         {
             var entityMapping = JsonSerializer.Deserialize<EntityMapping>(sm.Mapping, MappingJsonOptions.CreateOptions());
             if (entityMapping is null)
