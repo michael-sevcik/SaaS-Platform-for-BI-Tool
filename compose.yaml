@@ -15,26 +15,26 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - instance
+      - server-db
       - smtp
     environment:
       ASPNETCORE_ENVIRONMENT: Development
-      DOTNET_ConnectionStrings__DefaultConnection: Data Source=sql-server-2022,2222;Initial Catalog=SaaSPlatform;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
-      ASPNETCORE_Modules__Notifications__Mail__BaseUrl : https://localhost:7268/ # TODO:
-      ASPNETCORE_Modules__Notifications__Mail__SenderEmail : app@example.com
-      ASPNETCORE_Modules__Notifications__Mail__SmtpServer : smtp
-      ASPNETCORE_Modules__Notifications__Mail__SmtpPort : smtp
-      ASPNETCORE_Modules__Notifications__Mail__SmtpUsername : app@example.com
-      ASPNETCORE_Modules__Notifications__Mail__SmtpPassword : password
-      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Host : metabase@example.com
-      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Port : 5025
-      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Security : None
-      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Username : metabase@example.com
-      ASPNETCORE_Modules__Deployment__MetabaseSmtpSettings__Password : password 
-      ASPNETCORE_Modules__Deployment__KubeConfigPath : TODO # TODO: add the 
+      ConnectionStrings__DefaultConnection: Server=server-db,1433;Database=SaaSPlatform;User Id=sa;password=password123!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
+      Modules__Notifications__Mail__BaseUrl : https://localhost:7268/ # TODO:
+      Modules__Notifications__Mail__SenderEmail : app@example.com
+      Modules__Notifications__Mail__SmtpServer : smtp
+      Modules__Notifications__Mail__SmtpPort : smtp
+      Modules__Notifications__Mail__SmtpUsername : app@example.com
+      Modules__Notifications__Mail__SmtpPassword : password
+      Modules__Deployment__MetabaseSmtpSettings__Host : metabase@example.com
+      Modules__Deployment__MetabaseSmtpSettings__Port : 5025
+      Modules__Deployment__MetabaseSmtpSettings__Security : None
+      Modules__Deployment__MetabaseSmtpSettings__Username : metabase@example.com
+      Modules__Deployment__MetabaseSmtpSettings__Password : password 
+      Modules__Deployment__KubeConfigPath : TODO # TODO: add the 
 
-  instance:
-    container_name: sql-server-2022
+  server-db:
+    container_name: server-db
     image: mcr.microsoft.com/mssql/server:2022-latest
     restart: unless-stopped
     environment:
@@ -48,11 +48,11 @@ services:
       interval: 10s
       timeout: 3s
       retries: 10
-      start_period: 10s
+      start_period: 30s
     volumes:
       - mssql:/var/opt/mssql
-    networks:
-      - internal
+    # networks:
+    #   - internal
 
   smtp:
     image: reachfive/fake-smtp-server
@@ -60,12 +60,12 @@ services:
     ports:
       - 5025:1025
       - 5080:1080
-    networks:
-      - internal
+    # networks:
+    #   - internal
 
-networks:
-  internal:
-    driver: bridge
+# networks:
+#   internal:
+#     driver: bridge
 
 volumes:
   mssql:
