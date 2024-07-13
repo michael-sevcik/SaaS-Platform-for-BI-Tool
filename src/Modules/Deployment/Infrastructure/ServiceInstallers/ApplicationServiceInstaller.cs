@@ -2,7 +2,6 @@
 using BIManagement.Common.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using BIManagement.Modules.Deployment.Application;
 using k8s;
 
 namespace BIManagement.Modules.Deployment.Infrastructure.ServiceInstallers;
