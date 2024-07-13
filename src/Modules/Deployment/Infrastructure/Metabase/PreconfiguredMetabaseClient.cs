@@ -138,7 +138,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         var detailsNode = bodyNode["details"]!;
 
         // TODO: Check whether the host in cluster is different from the host in the local environment
-        detailsNode["host"] = databaseSettings.Host;
+        //detailsNode["host"] = databaseSettings.Host; // TODO:
         detailsNode["db"] = databaseSettings.DatabaseName;
         detailsNode["port"] = databaseSettings.Port;
         detailsNode["user"] = databaseSettings.Username;
@@ -157,7 +157,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
               "email-smtp-security":"ssl", 
               "email-smtp-username":"example2@example.com",
               "email-smtp-password":"",
-              "email-smtp-host":"smtp.example.com",
+              "email-smtp-host":"host.docker.internal",
               "email-smtp-port":"587"
             }
             """;
@@ -165,7 +165,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         var jsonBodyWithoutSecurity = """
             {
               "email-smtp-security":"ssl",
-              "email-smtp-host":"smtp.example.com",
+              "email-smtp-host":"host.docker.internal",
               "email-smtp-port":"587"
             }
             """;
@@ -191,7 +191,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         }
 
         bodyNode["email-smtp-security"] = security;
-        bodyNode["email-smtp-host"] = smtpConfiguration.Host;
+        //bodyNode["email-smtp-host"] = smtpConfiguration.Host; // TODO:
         bodyNode["email-smtp-port"] = smtpConfiguration.Port.ToString();
 
         return MapResponseToStatusCode(

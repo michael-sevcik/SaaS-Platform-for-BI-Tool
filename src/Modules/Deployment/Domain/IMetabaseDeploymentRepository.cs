@@ -15,6 +15,12 @@ public interface IMetabaseDeploymentRepository
     Task<MetabaseDeployment?> GetAsync(string customerId);
 
     /// <summary>
+    /// Retrieves all Metabase deployments asynchronously.
+    /// </summary>
+    /// <returns>The retrieved Metabase deployments.</returns>
+    Task<IReadOnlyList<MetabaseDeployment>> GetAsync();
+
+    /// <summary>
     /// Asynchronously adds or updates the given instance of <see cref="MetabaseDeployment"/>.
     /// </summary>
     /// <param name="deployment">The Metabase deployment to create.</param>

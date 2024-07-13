@@ -43,5 +43,5 @@ internal class CustomerDbModelRepository(ILogger<CustomerDbModelRepository> logg
     /// <inheritdoc/>
 
     public async Task<IReadOnlyList<CustomerDbModel>> GetAsync()
-        => await entities.ToListAsync();
+        => await entities.AsNoTracking().ToListAsync();
 }

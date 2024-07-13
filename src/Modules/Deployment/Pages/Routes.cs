@@ -31,7 +31,7 @@ public static class Routes
     /// <summary>
     /// Represents a route template for the all deployments info page.
     /// </summary>
-    public const string DeploymetsInfo = $"{Deployments}/{{id}}";
+    public const string DeploymentsInfo = $"{Deployments}/{{id}}";
 
     /// <summary>
     /// Gets a route to the page displaying details about a deployment for a given customer with <paramref name="customerId"/>.

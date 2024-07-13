@@ -81,4 +81,7 @@ IScoped
 
         return result;
     }
+
+    public async Task<IReadOnlyList<MetabaseDeployment>> GetAsync()
+        => await entities.AsNoTracking().ToListAsync();
 }
