@@ -18,9 +18,16 @@ public interface ISchemaMappingRepository
     Task<IReadOnlyList<SchemaMapping>> GetSchemaMappings(string customerId);
 
     /// <summary>
+    /// Deletes the schema mapping of a given customer.
+    /// </summary>
+    /// <param name="customerId">Id of the respective customer</param>
+    /// <returns>Task object that represents the asynchronous operation.</returns>
+    Task DeleteSchemaMappings(string customerId);
+
+    /// <summary>
     /// Gets a schema mapping of a given customer and target database table.
     /// </summary>
-    /// <param name="customerId">Id of the respective customer </param>
+    /// <param name="customerId">Id of the respective customer</param>
     /// <param name="targetDbTableId">Id of the respective table from the target database.</param>
     /// <returns>
     /// Task object that represents the asynchronous operation.

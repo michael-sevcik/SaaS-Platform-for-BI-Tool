@@ -28,6 +28,13 @@ public interface ICustomerDbModelRepository
     Task<IReadOnlyList<CustomerDbModel>> GetAsync();
 
     /// <summary>
+    /// Deletes a <see cref="CustomerDbModel"/> by its <paramref name="customerId"/>.
+    /// </summary>
+    /// <param name="customerId">Id of the respective customer</param>
+    /// <returns>Task object that represents the asynchronous operation.</returns>
+    Task DeleteAsync(string customerId);
+
+    /// <summary>
     /// Asynchronously adds or updates the given instance of <see cref="CustomerDbModel"/>.
     /// </summary>
     /// <param name="customerDbModel">The model to save.</param>
@@ -37,6 +44,4 @@ public interface ICustomerDbModelRepository
     /// of the operation.
     /// </returns>
     Task<Result> SaveAsync(CustomerDbModel customerDbModel);
-
-
 }

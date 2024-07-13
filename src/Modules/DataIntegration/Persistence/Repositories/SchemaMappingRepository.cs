@@ -43,5 +43,11 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Repositories
         /// <inheritdoc/>
         public async Task<SchemaMapping?> GetSchemaMapping(string customerId, int targetDbTableId)
             => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == customerId && model.TargetDbTableId == targetDbTableId);
+
+        /// <inheritdoc/>
+        public async Task DeleteSchemaMappings(string customerId)
+        {
+            await entities.Where(mapping => mapping.CustomerId == customerId).ExecuteDeleteAsync();
+        }
     }
 }

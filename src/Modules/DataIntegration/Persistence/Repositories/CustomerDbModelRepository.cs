@@ -41,7 +41,10 @@ internal class CustomerDbModelRepository(ILogger<CustomerDbModelRepository> logg
         => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == customerId);
 
     /// <inheritdoc/>
-
     public async Task<IReadOnlyList<CustomerDbModel>> GetAsync()
         => await entities.AsNoTracking().ToListAsync();
+    /// <inheritdoc/>
+
+    public Task DeleteAsync(string customerId)
+        => entities.Where(model => model.CustomerId == customerId).ExecuteDeleteAsync();
 }

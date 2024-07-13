@@ -120,6 +120,12 @@ internal sealed class UserManager(
     /// <inheritdoc/>
     public async Task<Result> DeleteUserAsync(ApplicationUser user)
     {
+        bool sendNotification = false;
+        if (await userManager.IsInRoleAsync(user, Roles.Customer))
+        {
+            sendNotification = true;
+        }
+
         var result = await userManager.DeleteAsync(user);
 
         if (!result.Succeeded)
@@ -128,7 +134,7 @@ internal sealed class UserManager(
             return Result.Failure(UserErrors.UserDeletionFailed);
         }
 
-        if (await userManager.IsInRoleAsync(user, Roles.Customer))
+        if (sendNotification)
         {
             await integrationNotifier.SentCustomerDeletionNotification(user.Id);
         }
