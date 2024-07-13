@@ -47,7 +47,6 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
                 .AddSignInManager()
                 .AddDefaultTokenProviders();
 
-            // TODO: consider using only the notification email sender
             services.AddSingleton<IEmailSender<ApplicationUser>, Identity.IdentityEmailSender>();
             services.AddHostedService<SeedingStartupTask>();
         }
