@@ -15,9 +15,7 @@ internal class CustomerDbConnectionConfigurationRepository(DataIntegrationDbCont
 
     /// <inheritdoc/>
     public Task DeleteAsync(string userId)
-    {
-        throw new NotImplementedException();
-    }
+        => databaseConnectionConfigurations.Where(x => x.CustomerId == userId).ExecuteDeleteAsync();
 
     /// <inheritdoc/>
     public async Task<CustomerDbConnectionConfiguration?> GetAsync(string userId)
