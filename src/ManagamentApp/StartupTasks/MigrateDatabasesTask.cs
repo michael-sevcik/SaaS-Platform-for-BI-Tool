@@ -1,5 +1,8 @@
 ﻿using BIManagement.Modules.Users.Persistence;
+using k8s.KubeConfigModels;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
+using System.Configuration;
 
 namespace BIManagement.ManagementApp.StartupTasks;
 
@@ -11,7 +14,7 @@ namespace BIManagement.ManagementApp.StartupTasks;
 /// </remarks>
 /// <param name="environment">The environment.</param>
 /// <param name="serviceProvider">The service provider.</param>
-internal sealed class MigrateDatabasesTask(IHostEnvironment environment, IServiceProvider serviceProvider, ILogger<MigrateDatabasesTask> looger) : BackgroundService
+internal sealed class MigrateDatabasesTask(IHostEnvironment environment, IServiceProvider serviceProvider, ILogger<MigrateDatabasesTask> logger, IConfiguration configuration) : BackgroundService
 {
     /// <inheritdoc />
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -20,11 +23,16 @@ internal sealed class MigrateDatabasesTask(IHostEnvironment environment, IServic
         {
             return;
         }
-        looger.LogInformation("Migrating databases...");
+        logger.LogInformation("Migrating databases...");
         using IServiceScope scope = serviceProvider.CreateScope();
 
+        // TODO: DELETE
+        var connectionString = configuration.GetConnectionString("DefaultConnection");
+        logger.LogInformation("Connection string: {connectionString}", connectionString);
+
         await MigrateDatabaseAsync<UsersContext>(scope, stoppingToken);
-        looger.LogInformation("Migration done.");
+
+        logger.LogInformation("Migration done.");
     }
 
     private static async Task MigrateDatabaseAsync<TDbContext>(IServiceScope scope, CancellationToken cancellationToken)
