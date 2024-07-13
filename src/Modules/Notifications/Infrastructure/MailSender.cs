@@ -67,7 +67,7 @@ sealed internal class EmailSender : IEmailSender, IScoped
         BodyBuilder bodyBuilder = new()
         {
             HtmlBody = "Click the link below to accept the invitation to the Metabase SaaS platform: <br />" +
-                $"<a href=\"{encodedLink}\">{encodedLink}</a> <br />" +
+                $"<a href=\"{encodedLink}\">here</a> <br />" +
                 "If you have any questions, please contact the support team. <br />" +
                 "Best regards, <br />" +
                 "The SaaS platform team."
@@ -102,14 +102,14 @@ sealed internal class EmailSender : IEmailSender, IScoped
         var encodedLink = HtmlEncoder.Default.Encode(absoluteLink.ToString());
 
         MimeMessage mimeMessage = new();
-        mimeMessage.Subject = "Metabase SaaS platform invitation link";
+        mimeMessage.Subject = "Metabase SaaS platform password reset link";
         mimeMessage.To.Add(MailboxAddress.Parse(email));
 
         // Create body
         BodyBuilder bodyBuilder = new()
         {
             HtmlBody = "Click the link below to reset your password to the Metabase SaaS platform: <br />" +
-                $"<a href=\"{encodedLink}\">{encodedLink}</a> <br />" +
+                $"<a href=\"{encodedLink}\">click</a> <br />" +
                 "If you have any questions, please contact the support team. <br />" +
                 "Best regards, <br />" +
                 "The SaaS platform team."
