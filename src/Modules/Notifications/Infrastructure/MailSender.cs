@@ -39,6 +39,7 @@ sealed internal class EmailSender : IEmailSender, IScoped
     {
         MimeMessage mimeMessage = new();
         mimeMessage.Subject = subject;
+        mimeMessage.To.Add(MailboxAddress.Parse(email));
 
         // Create body
         BodyBuilder bodyBuilder = new()
@@ -59,6 +60,8 @@ sealed internal class EmailSender : IEmailSender, IScoped
 
         MimeMessage mimeMessage = new();
         mimeMessage.Subject = "Metabase SaaS platform invitation link";
+        mimeMessage.To.Add(MailboxAddress.Parse(email));
+
 
         // Create body
         BodyBuilder bodyBuilder = new()
@@ -79,6 +82,7 @@ sealed internal class EmailSender : IEmailSender, IScoped
     {
         MimeMessage mimeMessage = new();
         mimeMessage.Subject = "Metabase SaaS platform Reset Code"; ;
+        mimeMessage.To.Add(MailboxAddress.Parse(email));
 
         // Create body
         BodyBuilder bodyBuilder = new()
@@ -99,6 +103,7 @@ sealed internal class EmailSender : IEmailSender, IScoped
 
         MimeMessage mimeMessage = new();
         mimeMessage.Subject = "Metabase SaaS platform invitation link";
+        mimeMessage.To.Add(MailboxAddress.Parse(email));
 
         // Create body
         BodyBuilder bodyBuilder = new()
