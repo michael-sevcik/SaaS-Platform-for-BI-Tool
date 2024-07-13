@@ -1,17 +1,36 @@
 ﻿using BIManagement.Common.Application.ServiceLifetimes;
 using BIManagement.Modules.Deployment.Api;
+using BIManagement.Modules.Deployment.Application.MetabaseDeployment;
+using BIManagement.Modules.Deployment.Domain;
+using Microsoft.Extensions.Logging;
 
 namespace BIManagement.Modules.Deployment.Application;
 
-// TODO: Implement the integration service AND update documentation.
 /// <summary>
-/// No op integration service
+/// Represents an integration service for handling customer deletions.
 /// </summary>
-public class IntegrationService : IIntegrationService, ISingleton
+/// <param name="logger">The logger instance.</param>
+/// <param name="deploymentRepository">The deployment repository.</param>
+/// <param name="metabaseDeployer">The metabase deployer.</param>
+public class IntegrationService(ILogger<IntegrationService> logger, IMetabaseDeploymentRepository deploymentRepository, IMetabaseDeployer metabaseDeployer) : IIntegrationService, IScoped
 {
-    public Task HandleCustomerDeletionAsync(string userId)
+    /// <inheritdoc/>
+    public async Task HandleCustomerDeletionAsync(string userId)
     {
-        // TODO: IMPLEMENT HandleUserDeletionAsync
-        return Task.CompletedTask;
+        var deployment = await deploymentRepository.GetAsync(userId);
+        if (deployment is null)
+        {
+            return;
+        }
+
+        var result = await metabaseDeployer.DeleteDeploymentAsync(userId);
+        if (result.IsFailure)
+        {
+            logger.LogError("Failed to delete deployment for user {UserId}", userId);
+        }
+        else
+        {
+            logger.LogInformation("Deleted deployment for user {UserId}", userId);
+        }
     }
 }
