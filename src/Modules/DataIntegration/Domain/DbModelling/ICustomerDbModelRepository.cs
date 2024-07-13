@@ -19,6 +19,15 @@ public interface ICustomerDbModelRepository
     Task<CustomerDbModel?> GetAsync(string customerId);
 
     /// <summary>
+    /// Asynchronously gets all <see cref="CustomerDbModel"/>s.
+    /// </summary>
+    /// <returns>
+    /// Task object that represents the asynchronous operation.
+    /// The Value property returns list of <see cref="CustomerDbModel"/> on success.
+    /// </returns>
+    Task<IReadOnlyList<CustomerDbModel>> GetAsync();
+
+    /// <summary>
     /// Asynchronously adds or updates the given instance of <see cref="CustomerDbModel"/>.
     /// </summary>
     /// <param name="customerDbModel">The model to save.</param>
@@ -28,4 +37,6 @@ public interface ICustomerDbModelRepository
     /// of the operation.
     /// </returns>
     Task<Result> SaveAsync(CustomerDbModel customerDbModel);
+
+
 }

@@ -39,4 +39,9 @@ internal class CustomerDbModelRepository(ILogger<CustomerDbModelRepository> logg
     /// <inheritdoc/>
     public async Task<CustomerDbModel?> GetAsync(string customerId)
         => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == customerId);
+
+    /// <inheritdoc/>
+
+    public async Task<IReadOnlyList<CustomerDbModel>> GetAsync()
+        => await entities.ToListAsync();
 }
