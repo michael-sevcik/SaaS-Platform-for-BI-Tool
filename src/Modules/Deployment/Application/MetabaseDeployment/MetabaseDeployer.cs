@@ -5,8 +5,10 @@ using BIManagement.Modules.Deployment.Domain.Configuration;
 using k8s;
 using k8s.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System.Runtime.CompilerServices;
 
+// used for testing
 [assembly:InternalsVisibleTo("BIManagement.Test.Modules.Deployment.Application")]
 [assembly: InternalsVisibleTo("DynamicProxyGenAssembly2, PublicKey=0024000004800000940000000602000000240000525341310004000001000100c547cac37abd99c8db225ef2f6c8a3602f3b3606cc9891605d02baa56104f4cfc0734aa39b93bf7852f7d9266654753cc297e7d2edfe0bac1cdcf9f717241550e0a7b191195b7667bb4f64bcb8e2121380fd1d9d46ad2d92d2d15605093924cceaf74c4861eff62abf69b9291ed0a340e113be11e6a7d3113e92484cf7045cc7")]
 namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
@@ -24,13 +26,12 @@ internal class MetabaseDeployer(
     IMetabaseDeploymentRepository deploymentRepository,
     IKubernetes kubernetesClient,
     IMetabaseConfigurator metabaseConfigurator,
-    IIntegrationNotifier integrationNotifier) : IMetabaseDeployer, IScoped
+    IIntegrationNotifier integrationNotifier,
+    IOptions<KubernetesPublicUrlOption> kubernetesPublicUrlOption) : IMetabaseDeployer, IScoped
 {
-    // TODO: USE ENVIRONMENT VARIABLES
-    private const string HostUrl = "localhost";
-    private const string BaseUrl = "http://localhost"; // TODO: REPLACE localhost with configuration
     private const string DefaultNamespace = "default";
     private const string Image = "michaelsevcik/preconfigured-metabase:1.0.0";
+    private readonly string baseClusterHostUrl = kubernetesPublicUrlOption.Value.Url;
 
     /// <inheritdoc/>
     public async Task<Result<string>> DeployMetabaseAsync(string customerId, DefaultAdminSettings defaultAdminSettings)
@@ -43,7 +44,7 @@ internal class MetabaseDeployer(
         {
             CustomerId = customerId,
             Image = Image,
-            UrlPath = tempUrlPath,
+            UrlPath = baseClusterHostUrl + tempUrlPath,
             InstanceName = instanceName
         };
 
@@ -56,15 +57,17 @@ internal class MetabaseDeployer(
 
         var metabaseId = deployment.Id;
         var publicUrlPath = $"/metabase-{metabaseId}";
-        deployment.UrlPath = publicUrlPath;
+        var publicAbsoluteMetabaseUrl = baseClusterHostUrl + publicUrlPath; // TODO: use configuration for this
+        deployment.UrlPath = publicAbsoluteMetabaseUrl;
         deployment.InstanceName = instanceName;
 
-        var metabaseV1K8sDeployment = CreateDeployment(instanceName, Image, BaseUrl + publicUrlPath);
+
+        var metabaseV1K8sDeployment = CreateDeployment(instanceName, Image, publicAbsoluteMetabaseUrl);
         var service = CreateService(instanceName);
         var ingress = CreateIngress(instanceName, tempUrlPath);
         result = await DeployMetabase(customerId, metabaseV1K8sDeployment, service, ingress)
-            .Bind(() => WaitForDeploymentToBeReady(deployment.InstanceName, DefaultNamespace))
-            .Bind(() => metabaseConfigurator.ConfigureMetabase(customerId, BaseUrl + tempUrlPath, defaultAdminSettings))
+            .Bind(() => WaitForDeploymentToBeReady(instanceName, DefaultNamespace))
+            .Bind(() => metabaseConfigurator.ConfigureMetabase(customerId, baseClusterHostUrl + tempUrlPath, defaultAdminSettings))
             .Bind(() => ChangeIngressPathAsync(instanceName, publicUrlPath));
 
         if (result.IsFailure)
@@ -73,7 +76,7 @@ internal class MetabaseDeployer(
             return Result.Failure<string>(result.Error);
         }
 
-        deployment.UrlPath = publicUrlPath;
+        deployment.UrlPath = publicAbsoluteMetabaseUrl;
         result = await deploymentRepository.SaveDeploymentAsync(deployment);
         if (result.IsFailure)
         {
@@ -83,9 +86,8 @@ internal class MetabaseDeployer(
                 "Failed to update Metabase deployment information"));
         }
 
-        logger.LogInformation("Metabase for Customer {CustomerId} deployed on {urlPart}", customerId, publicUrlPath);
+        logger.LogInformation("Metabase for Customer {CustomerId} deployed on {urlPart}", customerId, publicAbsoluteMetabaseUrl);
 
-        var publicAbsoluteMetabaseUrl = BaseUrl + publicUrlPath; // TODO: use configuration for this
         await integrationNotifier.SentMetabaseDeployedNotification(customerId, publicAbsoluteMetabaseUrl);
         return Result.Success(publicAbsoluteMetabaseUrl);
     }

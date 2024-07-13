@@ -13,6 +13,8 @@ internal class InfrastructureServiceInstaller : IServiceInstaller
 {
     /// <inheritdoc/>
     public static void Install(IServiceCollection services, IConfiguration configuration)
-        => services.ConfigureOptions<SmtpSettingsOptionsSetup>()
+        => services
+            .ConfigureOptions<SmtpSettingsOptionsSetup>()
+            .ConfigureOptions<KubernetesPublicUrlOptionSetup>()
             .AddServicesWithLifetimeAsMatchingInterfaces(AssemblyReference.Assembly);
 }
