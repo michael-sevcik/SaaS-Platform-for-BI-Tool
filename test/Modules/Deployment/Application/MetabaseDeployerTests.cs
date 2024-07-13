@@ -21,11 +21,16 @@ public class MetabaseDeployerTests
     private Mock<ILogger<MetabaseDeployer>> mockLogger;
     private Mock<IMetabaseDeploymentRepository> mockDeploymentRepository;
     private Mock<IMetabaseConfigurator> mockMetabaseConfigurator;
+    private Mock<IIntegrationNotifier> mockIntegrationNotifier;
     private K3sContainer k3sContainer;
     private IKubernetes kubernetesClient;
 
-    [SetUp]
-    public async Task SetUp()
+    /// <summary>
+    /// Method that is called once before all tests in the fixture are run.
+    /// </summary>
+    /// <remarks>This could take several minutes to complete.</remarks>
+    [OneTimeSetUp]
+    public async Task OneTimeSetUp()
     {
         this.mockRepository = new MockRepository(MockBehavior.Default);
 
@@ -48,7 +53,19 @@ public class MetabaseDeployerTests
         var k8sConfig = await KubernetesClientConfiguration.LoadKubeConfigAsync(memoryStream);
         var k8sClientConfig = KubernetesClientConfiguration.BuildConfigFromConfigObject(k8sConfig);
         kubernetesClient = new Kubernetes(k8sClientConfig);
+    }
 
+    [OneTimeTearDown]
+    public async Task OneTimeTearDown()
+    {
+        await k3sContainer.StopAsync();
+        await k3sContainer.DisposeAsync();
+        kubernetesClient.Dispose();
+    }
+
+    [SetUp]
+    public async Task SetUp()
+    {
         this.mockLogger = this.mockRepository.Create<ILogger<MetabaseDeployer>>();
         this.mockLogger.Setup(x => x.Log(
             It.IsAny<LogLevel>(),
@@ -60,17 +77,12 @@ public class MetabaseDeployerTests
 
         this.mockDeploymentRepository = this.mockRepository.Create<IMetabaseDeploymentRepository>();
         this.mockMetabaseConfigurator = this.mockRepository.Create<IMetabaseConfigurator>();
+        this.mockIntegrationNotifier = this.mockRepository.Create<IIntegrationNotifier>();
     }
 
-    [TearDown]
-    public async Task TearDown()
-    {
-        await k3sContainer.StopAsync();
-        await k3sContainer.DisposeAsync();
-        kubernetesClient.Dispose();
-    }
 
     [Test]
+    [Order(1)]
     public async Task DeployMetabaseInstance_Should_DeployMetabase()
     {
         var customerId = "customer5";
@@ -89,31 +101,45 @@ public class MetabaseDeployerTests
             .ReturnsAsync(Result.Success())
             .Verifiable();
 
+        this.mockIntegrationNotifier.Setup(x => x.SentMetabaseDeployedNotification(customerId, It.IsAny<string>()))
+            .Returns(Task.CompletedTask)
+            .Verifiable();
+
         var deployer = new MetabaseDeployer(
             mockLogger.Object,
             mockDeploymentRepository.Object,
             kubernetesClient,
-            mockMetabaseConfigurator.Object);
+            mockMetabaseConfigurator.Object,
+            mockIntegrationNotifier.Object);
 
 
         var result = await deployer.DeployMetabaseAsync(customerId, defaultAdminSettings);
 
         Assert.That(result.IsSuccess, result.Error.Message);
         this.mockMetabaseConfigurator.Verify();
+        this.mockIntegrationNotifier.Verify();
         var pods = await this.kubernetesClient.CoreV1.ListNamespacedPodAsync("default");
         Assert.That(pods.Items.Count, Is.EqualTo(1));
     }
 
+    /// <summary>
+    /// Tests deleting Metabase instance using <see cref="MetabaseDeployer"/>.
+    /// </summary>
+    /// <remarks>
+    /// This test is not supposed to run solely, but only with <see cref="DeployMetabaseInstance_Should_DeployMetabase"/>.
+    /// This test deletes what the deploy test creates.
+    /// </remarks>
     [Test]
+    [Order(2)]
     public async Task DeleteMetabaseInstance_Should_DeleteMetabaseInstance()
     {
-        var customerId = "Customer2";
+        var customerId = "customer5";
         this.mockDeploymentRepository.Setup(x => x.GetAsync(customerId))
             .Returns(Task.FromResult<MetabaseDeployment?>(new MetabaseDeployment() 
             { 
                 CustomerId = customerId,
-                Id = 15,
-                InstanceName = "metabase-customer3",
+                Id = 11,
+                InstanceName = $"metabase-{customerId}",
             }))
             .Verifiable();
 
@@ -125,11 +151,14 @@ public class MetabaseDeployerTests
             mockLogger.Object,
             mockDeploymentRepository.Object,
             kubernetesClient,
-            mockMetabaseConfigurator.Object);
+            mockMetabaseConfigurator.Object,
+            mockIntegrationNotifier.Object);
 
         var result = await deployer.DeleteDeploymentAsync(customerId);
 
         Assert.That(result.IsSuccess, result.Error.Message);
         Mock.Verify(mockDeploymentRepository, mockDeploymentRepository);
+        var pods = await this.kubernetesClient.CoreV1.ListNamespacedPodAsync("default");
+        Assert.That(pods.Items.Count, Is.EqualTo(0));
     }
 }

@@ -4,7 +4,7 @@ using DotNet.Testcontainers.Containers;
 
 
 
-namespace Infrastructure;
+namespace BIManagement.Test.Modules.Deployment.Infrastructure;
 
 /// <summary>
 /// Encapsulates tests for <see cref="PreconfiguredMetabaseClient"/>.
