@@ -150,9 +150,16 @@
         message = "Views deployed successfully.";
 
         // TODO: deploy Metabase
-        var result = MetabaseDeployer.DeployMetabaseAsync(CustomerId, new("admin@admin.cz", "Metabase123*"));
+        var result = await MetabaseDeployer.DeployMetabaseAsync(CustomerId, new("admin@admin.cz", "Metabase123*"));
         // TODO: display link or error message
+        if (result.IsFailure)
+        {
+            message = result.Error.Message;
+            isError = true;
+            return;
+        }
 
+        message = "Metabase deployed successfully. url: " + result.Value;
 
         
     }
