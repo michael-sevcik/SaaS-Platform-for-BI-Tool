@@ -19,7 +19,7 @@
         /// <param name="email">The recipient's email address.</param>
         /// <param name="relativeResetLink">The link to follow to reset the user password. Do not double encode this.</param>
         /// <returns>Task object representing the asynchronous operation.</returns>
-        Task SendPasswrodResetLinkAsync(string email, string relativeResetLink);
+        Task SendPasswordResetLinkAsync(string email, string relativeResetLink);
 
         /// <summary>
         /// Sends a password reset code to the user.

@@ -1,7 +1,6 @@
 ﻿using BIManagement.Common.Shared.Results;
-using BIManagement.Modules.Users.Domain;
 
-namespace BIManagement.Modules.Users.Application.UserManagement;
+namespace BIManagement.Modules.Users.Domain;
 
 /// <summary>
 /// Represents the user manager interface.
@@ -69,7 +68,7 @@ public interface IUserManager
     /// </returns>
     Task<IList<ApplicationUser>> GetUsersByRoleAsync(Role role);
 
-    /// <summary>Asynchronously gets an user of role Admin with the specified email.</summary>
+    /// <summary>Asynchronously gets an user of role Admin with the id.</summary>
     /// <param name="id">The id of the desired user.</param>
     /// <returns>    
     /// Task object representing the asynchronous operation
@@ -78,7 +77,7 @@ public interface IUserManager
     /// </returns>
     Task<Result<ApplicationUser>> GetAdmin(string id);
 
-    /// <summary>Asynchronously gets an user of role Customer with the specified email.</summary>
+    /// <summary>Asynchronously gets an user of role Customer with the id.</summary>
     /// <param name="id">The id of the desired user.</param>
     /// <returns>    
     /// Task object representing the asynchronous operation
@@ -86,6 +85,15 @@ public interface IUserManager
     /// The result object contains either the user or an error.
     /// </returns>
     Task<Result<ApplicationUser>> GetCustomer(string id);
+
+    /// <summary>Asynchronously gets an user with the specified id.</summary>
+    /// <param name="id">The id of the desired user.</param>
+    /// <returns>    
+    /// Task object representing the asynchronous operation
+    /// with <see cref="Result{ApplicationUser}"/> as its value.
+    /// The result object contains either the user or an error.
+    /// </returns>
+    Task<Result<ApplicationUser>> GetUser(string id);
 
     /// <summary>Asynchronously gets user with the specified email.</summary>
     /// <param name="email">The email address of the desired user.</param>

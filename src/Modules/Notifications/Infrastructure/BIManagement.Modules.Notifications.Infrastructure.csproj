@@ -5,6 +5,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="MailKit" Version="4.7.1" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Infrastructure\BIManagement.Common.Infrastructure.csproj" />
     <ProjectReference Include="..\Api\BIManagement.Modules.Notifications.Api.csproj" />
     <ProjectReference Include="..\Application\BIManagement.Modules.Notifications.Application.csproj" />

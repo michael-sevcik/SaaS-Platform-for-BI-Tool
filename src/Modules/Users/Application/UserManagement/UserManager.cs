@@ -26,7 +26,7 @@ internal sealed class UserManager(
     ILogger<UserManager> logger
     ) : IUserManager, IScoped
 {
-    private async Task<Result<ApplicationUser>> GetUser(string Id)
+    public async Task<Result<ApplicationUser>> GetUser(string Id)
        => await userManager.FindByIdAsync(Id) switch
        {
            null => Result.Failure<ApplicationUser>(UserErrors.UserNotFoundById),
@@ -160,5 +160,4 @@ internal sealed class UserManager(
     /// <inheritdoc/>
     public async Task<ApplicationUser?> GetUserByEmail(string email)
         => await userManager.FindByEmailAsync(email);
-
 }

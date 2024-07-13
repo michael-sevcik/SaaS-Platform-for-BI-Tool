@@ -1,5 +1,4 @@
-﻿using BIManagement.Modules.Users.Application.UserManagement;
-using BIManagement.Modules.Users.Domain;
+﻿using BIManagement.Modules.Users.Domain;
 using BIManagement.Modules.Users.Infrastructure.Options.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
