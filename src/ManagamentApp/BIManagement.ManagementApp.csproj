@@ -14,12 +14,12 @@
     <ProjectReference Include="..\Common\Persistence\BIManagement.Common.Persistence.csproj" />
     <ProjectReference Include="..\Common\Shared\BIManagement.Common.Shared.csproj" />
     <ProjectReference Include="..\Modules\DataIntegration\Infrastructure\BIManagement.Modules.DataIntegration.Infrastructure.csproj" />
-    <ProjectReference Include="..\Modules\DataIntegration\MapperPages\BIManagement.Modules.DataIntegration.MapperComponent.csproj" />
     <ProjectReference Include="..\Modules\DataIntegration\Pages\BIManagement.Modules.DataIntegration.Pages.csproj" />
     <ProjectReference Include="..\Modules\Deployment\Infrastructure\BIManagement.Modules.Deployment.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Deployment\Pages\BIManagement.Modules.Deployment.Pages.csproj" />
     <ProjectReference Include="..\Modules\Notifications\Infrastructure\BIManagement.Modules.Notifications.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Notifications\Pages\BIManagement.Modules.Notifications.Pages.csproj" />
+    <ProjectReference Include="..\Modules\Users\Api\BIManagement.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\Modules\Users\Infrastructure\BIManagement.Modules.Users.Infrastructure.csproj" />
     <ProjectReference Include="..\Modules\Users\Pages\BIManagement.Modules.Users.Pages.csproj" />
     <ProjectReference Include="..\Modules\Users\Persistence\BIManagement.Modules.Users.Persistence.csproj" />
