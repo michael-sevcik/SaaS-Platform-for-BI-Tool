@@ -1,4 +1,5 @@
-﻿using BIManagement.Common.Shared.Results;
+﻿using BIManagement.Common.Application.ServiceLifetimes;
+using BIManagement.Common.Shared.Results;
 using BIManagement.Modules.Deployment.Domain;
 using BIManagement.Modules.Deployment.Domain.Configuration;
 using k8s;
@@ -22,7 +23,7 @@ internal class MetabaseDeployer(
     IMetabaseDeploymentRepository deploymentRepository,
     IKubernetes kubernetesClient,
     IMetabaseConfigurator metabaseConfigurator,
-    IIntegrationNotifier integrationNotifier) : IMetabaseDeployer
+    IIntegrationNotifier integrationNotifier) : IMetabaseDeployer, IScoped
 {
     // TODO: USE ENVIRONMENT VARIABLES
     private const string HostUrl = "localhost";
