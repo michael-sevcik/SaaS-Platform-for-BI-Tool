@@ -17,7 +17,8 @@ namespace BIManagement.Modules.Deployment.Application.MetabaseDeployment;
 /// <param name="logger">The logger instance.</param>
 /// <param name="deploymentRepository">The repository for Metabase deployments.</param>
 /// <param name="kubernetesClient">The Kubernetes client.</param>
-/// <param name="metabaseClientFactory">The factory for creating preconfigured Metabase clients.</param>
+/// <param name="metabaseConfigurator">The configurator for Metabase.</param>
+/// <param name="integrationNotifier">The notifier used for sending metabase deployed notifications.</param>
 internal class MetabaseDeployer(
     ILogger<MetabaseDeployer> logger,
     IMetabaseDeploymentRepository deploymentRepository,
