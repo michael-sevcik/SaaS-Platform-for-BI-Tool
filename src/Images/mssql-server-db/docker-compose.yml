@@ -1,0 +1,12 @@
+
+services:
+  mssql_server:
+    build: .
+    ports:
+        - 1433:1433
+    healthcheck:
+      test: ["CMD-SHELL", "cat /tmp/initialized | grep -q Initialized"]
+      interval: 10s
+      timeout: 30s
+      retries: 5
+      start_period: 10s
