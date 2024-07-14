@@ -23,6 +23,10 @@ services:
         condition: service_healthy
       cluster:
         condition: service_healthy
+      customer-db-1:
+        condition: service_healthy
+      customer-db-2:
+        condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: Server=server-db,1433;Database=SaaSPlatform;User Id=sa;password=password123!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
@@ -37,7 +41,7 @@ services:
       Modules__Deployment__MetabaseSmtpSettings__Security : None
       Modules__Deployment__MetabaseSmtpSettings__Username : ''
       Modules__Deployment__MetabaseSmtpSettings__Password : '' 
-      Modules__Deployment__KubeConfigPath : TODO # TODO: add the 
+      KUBECONFIG : /cluster-config/kubeconfig.yaml
 
   server-db:
     build: ./src/Images/mssql-server-db/
@@ -48,14 +52,44 @@ services:
       - 2222:1433
     healthcheck:
       test: cat /usr/src/app/initialized | grep -q Initialized && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
-      interval: 10s
+      interval: 30s
       timeout: 30s
       retries: 5
-      start_period: 10s
+      start_period: 30s
     volumes:
-      - mssql:/var/opt/mssql
-    # networks:
-    #   - internal
+      - server-db:/var/opt/mssql
+
+  customer-db-1:
+    build: ./src/Images/mssql-example-customer-db/
+    # restart: unless-stopped
+    environment:
+      SA_PASSWORD: password123!
+    ports:
+      - 2223:1433
+    healthcheck:
+      test: cat /usr/src/app/initialized | grep -q Initialized && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
+      interval: 30s
+      timeout: 30s
+      retries: 7
+      start_period: 360s
+    volumes:
+      - customer-db-1:/var/opt/mssql
+
+  customer-db-2:
+    build: ./src/Images/mssql-example-customer-db/
+    # restart: unless-stopped
+    environment:
+      SA_PASSWORD: password123!
+    ports:
+      - 2224:1433
+    healthcheck:
+      test: cat /usr/src/app/initialized | grep -q Initialized && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
+      interval: 30s
+      timeout: 30s
+      retries: 7
+      start_period: 360s
+    volumes:
+      - customer-db-2:/var/opt/mssql
 
   smtp:
     image: reachfive/fake-smtp-server
@@ -66,9 +100,7 @@ services:
     # networks:
     #   - internal
 
-# networks:
-#   internal:
-#     driver: bridge
+  # source: https://github.com/k3s-io/k3s/blob/master/docker-compose.yml
   cluster:
     build: ./src/Images/ingress-nginx-k3s/
     tmpfs:
@@ -103,5 +135,7 @@ services:
 
 volumes:
   cluster-config: {}
-  mssql: {}
+  server-db: {}
+  customer-db-1: {}
+  customer-db-2: {}
   k3s-server: {}
