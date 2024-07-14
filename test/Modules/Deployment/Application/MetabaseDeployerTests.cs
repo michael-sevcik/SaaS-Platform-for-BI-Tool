@@ -37,7 +37,7 @@ public class MetabaseDeployerTests
         this.mockRepository = new MockRepository(MockBehavior.Default);
 
         k3sContainer = new K3sBuilder()
-          .WithImage("ingress-nginx-k3s:latest")
+          .WithImage("michaelsevcik/ingress-nginx-k3s:latest")
           .WithWaitStrategy(Wait.ForUnixContainer()
             .UntilMessageIsLogged("Ingress NGINX is running successfully!"))
           //.WithPortBinding(80, true)
