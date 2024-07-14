@@ -9,6 +9,7 @@ using DotNet.Testcontainers.Builders;
 using k8s;
 using k8s.Models;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Moq;
 using Testcontainers.K3s;
 
@@ -22,6 +23,7 @@ public class MetabaseDeployerTests
     private Mock<IMetabaseDeploymentRepository> mockDeploymentRepository;
     private Mock<IMetabaseConfigurator> mockMetabaseConfigurator;
     private Mock<IIntegrationNotifier> mockIntegrationNotifier;
+    private Mock<IOptions<KubernetesPublicUrlOption>> mockKubernetesOption;
     private K3sContainer k3sContainer;
     private IKubernetes kubernetesClient;
 
@@ -78,6 +80,8 @@ public class MetabaseDeployerTests
         this.mockDeploymentRepository = this.mockRepository.Create<IMetabaseDeploymentRepository>();
         this.mockMetabaseConfigurator = this.mockRepository.Create<IMetabaseConfigurator>();
         this.mockIntegrationNotifier = this.mockRepository.Create<IIntegrationNotifier>();
+        this.mockKubernetesOption = this.mockRepository.Create<IOptions<KubernetesPublicUrlOption>>();
+        mockKubernetesOption.Setup(x => x.Value).Returns(new KubernetesPublicUrlOption() { Url = "http://localhost" });
     }
 
 
@@ -110,7 +114,8 @@ public class MetabaseDeployerTests
             mockDeploymentRepository.Object,
             kubernetesClient,
             mockMetabaseConfigurator.Object,
-            mockIntegrationNotifier.Object);
+            mockIntegrationNotifier.Object,
+            mockKubernetesOption.Object);
 
 
         var result = await deployer.DeployMetabaseAsync(customerId, defaultAdminSettings);
@@ -152,7 +157,8 @@ public class MetabaseDeployerTests
             mockDeploymentRepository.Object,
             kubernetesClient,
             mockMetabaseConfigurator.Object,
-            mockIntegrationNotifier.Object);
+            mockIntegrationNotifier.Object,
+            mockKubernetesOption.Object);
 
         var result = await deployer.DeleteDeploymentAsync(customerId);
 
