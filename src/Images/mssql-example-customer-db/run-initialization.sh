@@ -10,6 +10,8 @@ if [ -f /usr/src/app/initialized ] && [ "$(cat /usr/src/app/initialized)" = "Ini
     exit 0
 fi
 
+echo "Initializing database..."
+
 sleep 5s
 # Wait until the test passes
 while ! /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "$SA_PASSWORD" -Q "SELECT 1" -b -o /dev/null; do
