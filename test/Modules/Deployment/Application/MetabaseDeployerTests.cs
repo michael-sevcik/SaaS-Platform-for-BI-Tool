@@ -164,6 +164,9 @@ public class MetabaseDeployerTests
 
         Assert.That(result.IsSuccess, result.Error.Message);
         Mock.Verify(mockDeploymentRepository, mockDeploymentRepository);
+
+        // Give some time for the pod to be deleted and check if it is really deleted
+        await Task.Delay(6000);
         var pods = await this.kubernetesClient.CoreV1.ListNamespacedPodAsync("default");
         Assert.That(pods.Items.Count, Is.EqualTo(0));
     }
