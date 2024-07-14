@@ -5,12 +5,12 @@
 # Author: Michael Ševčík
 #
 
+echo "Initializing database..."
+
 if [ -f /usr/src/app/initialized ] && [ "$(cat /usr/src/app/initialized)" = "Initialized" ]; then
     echo "Already initialized"
     exit 0
 fi
-
-echo "Initializing database..."
 
 
 sleep 5s
