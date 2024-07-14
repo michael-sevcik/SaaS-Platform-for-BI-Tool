@@ -81,7 +81,7 @@ public class MetabaseDeployerTests
         this.mockMetabaseConfigurator = this.mockRepository.Create<IMetabaseConfigurator>();
         this.mockIntegrationNotifier = this.mockRepository.Create<IIntegrationNotifier>();
         this.mockKubernetesOption = this.mockRepository.Create<IOptions<KubernetesPublicUrlOption>>();
-        mockKubernetesOption.Setup(x => x.Value).Returns(new KubernetesPublicUrlOption() { Url = "http://localhost" });
+        mockKubernetesOption.Setup(x => x.Value).Returns(new KubernetesPublicUrlOption() { PublicUrl = "http://localhost" });
     }
 
 
