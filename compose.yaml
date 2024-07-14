@@ -98,7 +98,7 @@ services:
       interval: 30s
       timeout: 30s
       retries: 5
-      start_period: 100s
+      start_period: 130s
 
 
 volumes:
