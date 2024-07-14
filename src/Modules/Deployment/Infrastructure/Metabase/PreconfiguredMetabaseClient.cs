@@ -138,7 +138,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         var detailsNode = bodyNode["details"]!;
 
         // TODO: Check whether the host in cluster is different from the host in the local environment
-        //detailsNode["host"] = databaseSettings.Host; // TODO:
+        detailsNode["host"] = databaseSettings.Host;
         detailsNode["db"] = databaseSettings.DatabaseName;
         detailsNode["port"] = databaseSettings.Port;
         detailsNode["user"] = databaseSettings.Username;
@@ -191,7 +191,7 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         }
 
         bodyNode["email-smtp-security"] = security;
-        //bodyNode["email-smtp-host"] = smtpConfiguration.Host; // TODO:
+        bodyNode["email-smtp-host"] = smtpConfiguration.Host;
         bodyNode["email-smtp-port"] = smtpConfiguration.Port.ToString();
 
         return MapResponseToStatusCode(
