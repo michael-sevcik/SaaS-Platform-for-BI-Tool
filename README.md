@@ -62,6 +62,7 @@ Open http://localhost:8080/
 3. Open the invitation email and click on the invitation link.
 4. Enter a password, e.g. Customer123*, and click `Set password`. Now you should be logged in as a customer.
 5. Go to Data Integation -> Database connection configuration and fill in following details:
+```
 	Database connection configuration:
 		Select your database provider: SqlServer
 		Data Source: 10.5.0.3,1433
@@ -72,11 +73,13 @@ Open http://localhost:8080/
 		Encrypt: false
 		Trust Server Certificate: true
 		Multi Subnet Failover: false
+```
+
 6. Click Save, you should see a message: Connection established successfully
 7. Click `Create model`, you should see a message: Model created successfully.
 8. Navigate to Data Integration -> Mapper, You should see a green message:
 	Please map the target entities one by one, don't forget to save your progress after each entity mapped. Fully mapped entities are marked with ✅, othrerwise ❌. After mapping all entities and saving each mapping, Continu button will appear
-9. Close the message if you want to.
+9.  Close the message if you want to.
 10. Move the Workplaces entity to the right side by dragging its header.
 11. Click `Add source table` and pick `TabCisZam`, click `Continue`.
 12. Map columns of `TabCisZam` to columns of  target table`Employees` by clicking on columns of the source table and dragging them on the target columns:
@@ -108,8 +111,11 @@ Open http://localhost:8080/
 	
 22. Click `Add custom query`
 23. Fill in custom query details:
+```
 	Unique name: WorkReportTypeCustomQuery
 	Query:
+```
+
 ```sql
 SELECT [TabPrikazMzdyAZmetky].ID as TabPrikazMzdyAZmetkyID,
 	CAST(
@@ -125,6 +131,7 @@ SELECT [TabPrikazMzdyAZmetky].ID as TabPrikazMzdyAZmetkyID,
 	LEFT JOIN [TabKmenZbozi]
 	ON TabPrikazMzdyAZmetky.IDTabKmen = [TabKmenZbozi].ID LEFT JOIN [TabKmenZbozi_EXT] ON TabPrikazMzdyAZmetky.IDTabKmen = [TabKmenZbozi_EXT].ID
 ```
+```
 		Selected columns:
 			name: TabPrikazMzdyAZmetkyID
 			type: Integer
@@ -134,18 +141,19 @@ SELECT [TabPrikazMzdyAZmetky].ID as TabPrikazMzdyAZmetkyID,
 			type: nvchar(lenght)
 			Is nullable: false
 			lenght: 100
-24. Click `Continue`, `Join definition` modal should pop up
-25. Enter join details:
+```
+24.  Click `Continue`, `Join definition` modal should pop up
+25.  Enter join details:
 	Left column: TabPrikazMzdyAZmetky_ID
 	Operator: Equals
 	Right column: WorkReportTypeCustomQuery_TabPrikazMzdyAZmetkyID
-26. Click `Continue`, `WorkReportTypeCustomQuery` source entity should appear.
-27. Drag the entity to a free space
-28. Map `ProductType` source column to `ProductType` target column
-29. Click `Save`, now you mapping should be complete and a `Continue to deployment` button should appear in a upper part of the page.
-30. Click `Continue to deployment`. You should be redirected to page http://localhost:8080/Deployment/DeployMetabase
-31. (optional) Click `Generate Views` to see what SQL commands will be executed to deploy database views.
-32. Click `Automatically deploy views`, you should see a message: `Views deployed successfully.`
+26.  Click `Continue`, `WorkReportTypeCustomQuery` source entity should appear.
+27.  Drag the entity to a free space
+28.  Map `ProductType` source column to `ProductType` target column
+29.  Click `Save`, now you mapping should be complete and a `Continue to deployment` button should appear in a upper part of the page.
+30.  Click `Continue to deployment`. You should be redirected to page http://localhost:8080/Deployment/DeployMetabase
+31.  (optional) Click `Generate Views` to see what SQL commands will be executed to deploy database views.
+32.  Click `Automatically deploy views`, you should see a message: `Views deployed successfully.`
 33. Enter Metabase Admin credentials, random email and strong password, e.g.:
 	Email used to log in to metabase: customer@example.cz
 	Password: Customer123*
@@ -153,15 +161,15 @@ SELECT [TabPrikazMzdyAZmetky].ID as TabPrikazMzdyAZmetkyID,
 		This could take several minutes. You can close this page and you will be notified when the metabase is successfully deployed.
 	This operation should not take more than 10 minutes, around 1 GB needs to be downloaded for the first deployment.
 35. Either wait for the spinner to finish or you can keep checking http://localhost:5080/ for an email with link
-36. Follow the link to Metabase and use the entered Metabase Admin credentials to log in.
-	After logging in you should see dashboard with graphs. If nothing is displayed, try refreshing the page
+36. Follow the link to Metabase and use the entered Metabase Admin credentials to log in. After logging in you should see dashboard with graphs. If nothing is displayed, try refreshing the page
 37. From there you can start using your own preconfigured instance of Metabase
 	
 
-Deploying second metabase for second customer
+### Deploying second metabase for second customer
 - The process is the same with the different data source in `Database connection configuration`:
 
 Database connection configuration 2:
+```
 		Select your database provider: SqlServer
 		Data Source: 10.5.0.7,1433
 		Initial Catalog: CostumerExampleData
@@ -171,10 +179,11 @@ Database connection configuration 2:
 		Encrypt: false
 		Trust Server Certificate: true
 		Multi Subnet Failover: false
+```
 - The second deployment of Metabase should not take more than 2 minutes. On average one minute.
 
 	
-Deleting customer
+### Deleting customer
 1. Log in as a Admin
 2. Navigate to Users -> Customers and click on ID of a customer you want to delete.
 3. Click `Delete` and confirm you intention by clicking `Confirm`
