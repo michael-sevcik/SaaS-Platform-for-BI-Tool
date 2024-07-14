@@ -8,5 +8,10 @@ public class KubernetesPublicUrlOption
     /// <summary>
     /// Gets or sets the URL for the Kubernetes public URL option.
     /// </summary>
-    public string Url { get; set; } = string.Empty;
+    public string PublicUrl { get; set; } = string.Empty;
+
+    /// <summary>
+    /// Gets or sets the URL for the Kubernetes internal URL option. Used for development.
+    /// </summary>
+    public string InternalUrl { get; set; } = string.Empty;
 }

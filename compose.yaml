@@ -41,6 +41,9 @@ services:
       Modules__Deployment__MetabaseSmtpSettings__Security : None
       Modules__Deployment__MetabaseSmtpSettings__Username : ''
       Modules__Deployment__MetabaseSmtpSettings__Password : '' 
+      Modules__Deployment__KubernetesHost : cluster 
+      Modules__Deployment__KubernetesPublicUrl : http://localhost
+      Modules__Deployment__KubernetesInternalUrl : http://cluster
       KUBECONFIG : /cluster-config/kubeconfig.yaml
 
   server-db:

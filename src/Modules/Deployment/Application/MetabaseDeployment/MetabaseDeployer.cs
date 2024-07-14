@@ -31,7 +31,8 @@ internal class MetabaseDeployer(
 {
     private const string DefaultNamespace = "default";
     private const string Image = "michaelsevcik/preconfigured-metabase:1.0.0";
-    private readonly string baseClusterHostUrl = kubernetesPublicUrlOption.Value.Url;
+    private readonly string baseClusterHostUrl = kubernetesPublicUrlOption.Value.PublicUrl;
+    private readonly string internalBaseClusterHostUrl = kubernetesPublicUrlOption.Value.InternalUrl;
 
     /// <inheritdoc/>
     public async Task<Result<string>> DeployMetabaseAsync(string customerId, DefaultAdminSettings defaultAdminSettings)
@@ -67,7 +68,7 @@ internal class MetabaseDeployer(
         var ingress = CreateIngress(instanceName, tempUrlPath);
         result = await DeployMetabase(customerId, metabaseV1K8sDeployment, service, ingress)
             .Bind(() => WaitForDeploymentToBeReady(instanceName, DefaultNamespace))
-            .Bind(() => metabaseConfigurator.ConfigureMetabase(customerId, baseClusterHostUrl + tempUrlPath, defaultAdminSettings))
+            .Bind(() => metabaseConfigurator.ConfigureMetabase(customerId, internalBaseClusterHostUrl + tempUrlPath, defaultAdminSettings))
             .Bind(() => ChangeIngressPathAsync(instanceName, publicUrlPath));
 
         if (result.IsFailure)

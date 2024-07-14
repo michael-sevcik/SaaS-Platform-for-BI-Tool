@@ -3,7 +3,6 @@ using BIManagement.Common.Infrastructure.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using k8s;
-using System.Text.Json;
 
 namespace BIManagement.Modules.Deployment.Infrastructure.ServiceInstallers;
 
@@ -16,8 +15,8 @@ internal class ApplicationServiceInstaller : IServiceInstaller
     public static void Install(IServiceCollection services, IConfiguration configuration)
     {
         var config = KubernetesClientConfiguration.BuildDefaultConfig();
+        config.Host = configuration.GetSection("Modules:Deployment:KubernetesHost").Value;
         var kubernetesClient = new Kubernetes(config);
-        Console.WriteLine(config.ClientCertificateData);
 
         services.AddSingleton<IKubernetes>(kubernetesClient);
 
