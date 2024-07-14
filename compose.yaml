@@ -14,41 +14,44 @@ services:
       target: final
     ports:
       - 8080:8080
+    volumes:
+      - cluster-config:/cluster-config
     depends_on:
-      - server-db
-      - smtp
+      smtp:
+        condition: service_started
+      server-db : 
+        condition: service_healthy
+      cluster:
+        condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: Server=server-db,1433;Database=SaaSPlatform;User Id=sa;password=password123!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
-      Modules__Notifications__Mail__BaseUrl : https://localhost:7268/ # TODO:
+      Modules__Notifications__Mail__BaseUrl : http://localhost:8080/ # TODO:
       Modules__Notifications__Mail__SenderEmail : app@example.com
       Modules__Notifications__Mail__SmtpServer : smtp
-      Modules__Notifications__Mail__SmtpPort : smtp
-      Modules__Notifications__Mail__SmtpUsername : app@example.com
-      Modules__Notifications__Mail__SmtpPassword : password
-      Modules__Deployment__MetabaseSmtpSettings__Host : metabase@example.com
-      Modules__Deployment__MetabaseSmtpSettings__Port : 5025
+      Modules__Notifications__Mail__SmtpPort : 1025
+      Modules__Notifications__Mail__SmtpUsername : ''
+      Modules__Notifications__Mail__SmtpPassword : ''
+      Modules__Deployment__MetabaseSmtpSettings__Host : smtp
+      Modules__Deployment__MetabaseSmtpSettings__Port : 1025
       Modules__Deployment__MetabaseSmtpSettings__Security : None
-      Modules__Deployment__MetabaseSmtpSettings__Username : metabase@example.com
-      Modules__Deployment__MetabaseSmtpSettings__Password : password 
+      Modules__Deployment__MetabaseSmtpSettings__Username : ''
+      Modules__Deployment__MetabaseSmtpSettings__Password : '' 
       Modules__Deployment__KubeConfigPath : TODO # TODO: add the 
 
   server-db:
-    container_name: server-db
-    image: mcr.microsoft.com/mssql/server:2022-latest
-    restart: unless-stopped
+    build: ./src/Images/mssql-server-db/
+    # restart: unless-stopped
     environment:
-      ACCEPT_EULA: Y
       SA_PASSWORD: password123!
-      MSSQL_PID: Express
     ports:
       - 2222:1433
     healthcheck:
-      test: /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
+      test: cat /usr/src/app/initialized | grep -q Initialized && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
       interval: 10s
-      timeout: 3s
-      retries: 10
-      start_period: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 10s
     volumes:
       - mssql:/var/opt/mssql
     # networks:
@@ -66,6 +69,39 @@ services:
 # networks:
 #   internal:
 #     driver: bridge
+  cluster:
+    build: ./src/Images/ingress-nginx-k3s/
+    tmpfs:
+    - /run
+    - /var/run
+    ports:
+      - 80:80
+      - 443:443
+      - 6443:6443
+    ulimits:  
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    privileged: true
+
+    environment:
+      # - K3S_TOKEN=${K3S_TOKEN:?err}
+      - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+      - K3S_KUBECONFIG_MODE=644
+    volumes:
+    - k3s-server:/var/lib/rancher/k3s
+    # This is just so that we get the kubeconfig file out
+    - cluster-config:/output
+    healthcheck:
+      test: kubectl get --raw='/readyz' | grep -q 'ok' && kubectl get --raw='/healthz' | grep -q 'ok' && cat /usr/local/bin/initialized | grep -q Initialized
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 100s
+
 
 volumes:
-  mssql:
+  cluster-config: {}
+  mssql: {}
+  k3s-server: {}
