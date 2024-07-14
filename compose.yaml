@@ -36,7 +36,7 @@ services:
       Modules__Notifications__Mail__SmtpPort : 1025
       Modules__Notifications__Mail__SmtpUsername : ''
       Modules__Notifications__Mail__SmtpPassword : ''
-      Modules__Deployment__MetabaseSmtpSettings__Host : smtp
+      Modules__Deployment__MetabaseSmtpSettings__Host : 10.5.0.4
       Modules__Deployment__MetabaseSmtpSettings__Port : 1025
       Modules__Deployment__MetabaseSmtpSettings__Security : None
       Modules__Deployment__MetabaseSmtpSettings__Username : ''
@@ -45,6 +45,9 @@ services:
       Modules__Deployment__KubernetesPublicUrl : http://localhost
       Modules__Deployment__KubernetesInternalUrl : http://cluster
       KUBECONFIG : /cluster-config/kubeconfig.yaml
+    networks:
+      custom_net:
+        ipv4_address: 10.5.0.6
 
   server-db:
     build: ./src/Images/mssql-server-db/
@@ -61,6 +64,9 @@ services:
       start_period: 30s
     volumes:
       - server-db:/var/opt/mssql
+    networks:
+      custom_net:
+        ipv4_address: 10.5.0.2
 
   customer-db-1:
     build: ./src/Images/mssql-example-customer-db/
@@ -77,6 +83,9 @@ services:
       start_period: 360s
     volumes:
       - customer-db-1:/var/opt/mssql
+    networks:
+      custom_net:
+        ipv4_address: 10.5.0.3
 
   customer-db-2:
     build: ./src/Images/mssql-example-customer-db/
@@ -93,6 +102,9 @@ services:
       start_period: 360s
     volumes:
       - customer-db-2:/var/opt/mssql
+    networks:
+      custom_net:
+        ipv4_address: 10.5.0.7
 
   smtp:
     image: reachfive/fake-smtp-server
@@ -100,8 +112,9 @@ services:
     ports:
       - 5025:1025
       - 5080:1080
-    # networks:
-    #   - internal
+    networks:
+      custom_net:
+        ipv4_address: 10.5.0.4
 
   # source: https://github.com/k3s-io/k3s/blob/master/docker-compose.yml
   cluster:
@@ -134,6 +147,9 @@ services:
       timeout: 30s
       retries: 5
       start_period: 130s
+    networks:
+      custom_net:
+        ipv4_address: 10.5.0.5
 
 
 volumes:
@@ -142,3 +158,11 @@ volumes:
   customer-db-1: {}
   customer-db-2: {}
   k3s-server: {}
+
+networks:
+  custom_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.5.0.0/16
+          gateway: 10.5.0.1
