@@ -1,0 +1,327 @@
+{
+  "name": "WorkReports",
+  "schema": "dbo",
+  "mappingData": [
+    [
+      {
+        "$id": "1",
+        "type": "sourceTable",
+        "name": "TabPrikazMzdyAZmetky",
+        "schema": "dbo",
+        "selectedColumns": [
+          {
+            "name": "kusy_zmet_opr",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Numeric",
+              "type": "simple"
+            },
+            "$id": "18"
+          },
+          {
+            "name": "kusy_zmet_neopr",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Numeric",
+              "type": "simple"
+            },
+            "$id": "17"
+          },
+          {
+            "name": "kusy_odv",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Numeric",
+              "type": "simple"
+            },
+            "$id": "16"
+          },
+          {
+            "name": "datum",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Datetime",
+              "type": "simple"
+            },
+            "$id": "15"
+          },
+          {
+            "name": "Zamestnanec",
+            "description": null,
+            "dataType": {
+              "isNullable": true,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "14"
+          },
+          {
+            "name": "UhradaZmetku",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Numeric",
+              "type": "simple"
+            },
+            "$id": "13"
+          },
+          {
+            "name": "Sk_cas",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Numeric",
+              "type": "simple"
+            },
+            "$id": "12"
+          },
+          {
+            "name": "PlatitMzduZaZmetky",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Boolean",
+              "type": "simple"
+            },
+            "$id": "11"
+          },
+          {
+            "name": "Nor_cas",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Numeric",
+              "type": "simple"
+            },
+            "$id": "10"
+          },
+          {
+            "name": "Kusy_zmet_opravene",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Numeric",
+              "type": "simple"
+            },
+            "$id": "9"
+          },
+          {
+            "name": "IDTabKmen",
+            "description": null,
+            "dataType": {
+              "isNullable": true,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "8"
+          },
+          {
+            "name": "IDPrikaz",
+            "description": null,
+            "dataType": {
+              "isNullable": true,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "7"
+          },
+          {
+            "name": "IDPracoviste",
+            "description": null,
+            "dataType": {
+              "isNullable": true,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "6"
+          },
+          {
+            "name": "IDPohyb",
+            "description": null,
+            "dataType": {
+              "isNullable": true,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "5"
+          },
+          {
+            "name": "ID",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "4"
+          },
+          {
+            "name": "DokladPrPostup",
+            "description": null,
+            "dataType": {
+              "isNullable": true,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "3"
+          },
+          {
+            "name": "DatPorizeni",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Datetime",
+              "type": "simple"
+            },
+            "$id": "2"
+          }
+        ]
+      },
+      {
+        "$id": "19",
+        "type": "customQuery",
+        "name": "WorkReportTypeCustomQuery",
+        "query": "SELECT [TabPrikazMzdyAZmetky].ID as TabPrikazMzdyAZmetkyID,\n\tCAST(\n\t\tCASE\n\t\t-- Forbidden prefixes for [TabKmenZbozi].RegCis \"17\", \"18\", \"37\", \"38\" -- and [TabKmenZbozi_EXT]._pracoviste_filtr equals one of: \"R\", \"R+cell\", \"R+podia\", \"T+R\", \"R+Přípraváři\"\n\t\tWHEN ([TabKmenZbozi].RegCis LIKE '17%' OR [TabKmenZbozi].RegCis LIKE '18%' OR [TabKmenZbozi].RegCis LIKE '37%' OR [TabKmenZbozi].RegCis LIKE '38%') AND [TabKmenZbozi_EXT]._pracoviste_filtr IN ('R', 'R+cell', 'R+podia', 'T+R', 'R+Přípraváři')\n\t\tTHEN 'Type1'\n\t\t-- Forbidden prefixes for [TabKmenZbozi].RegCis \"17\", \"18\", \"37\", \"38\" -- and [TabKmenZbozi_EXT]._pracoviste_filtr equals one of: \"TR\", \"TR+podia\", \"T+R\", \"TR+Přípraváři\"\n\t\tWHEN ([TabKmenZbozi].RegCis LIKE '17%' OR [TabKmenZbozi].RegCis LIKE '18%' OR [TabKmenZbozi].RegCis LIKE '37%' OR [TabKmenZbozi].RegCis LIKE '38%') AND [TabKmenZbozi_EXT]._pracoviste_filtr IN ('TR', 'TR+podia', 'T+R', 'TR+Přípraváři')\n\t\tTHEN 'Type2' ELSE 'Other' END AS nvarchar(100) \n\t) AS ProductType\n\tFROM [CostumerExampleData].[dbo].[TabPrikazMzdyAZmetky]\n\tLEFT JOIN [TabKmenZbozi]\n\tON TabPrikazMzdyAZmetky.IDTabKmen = [TabKmenZbozi].ID LEFT JOIN [TabKmenZbozi_EXT] ON TabPrikazMzdyAZmetky.IDTabKmen = [TabKmenZbozi_EXT].ID",
+        "selectedColumns": [
+          {
+            "name": "ProductType",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "length": 100,
+              "type": "nVarChar"
+            },
+            "$id": "21"
+          },
+          {
+            "name": "TabPrikazMzdyAZmetkyID",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "20"
+          }
+        ]
+      },
+      {
+        "$id": "0",
+        "type": "join",
+        "name": "join_TabPrikazMzdyAZmetky_WorkReportTypeCustomQuery",
+        "joinType": "inner",
+        "leftSourceEntity": {
+          "$ref": "1"
+        },
+        "rightSourceEntity": {
+          "$ref": "19"
+        },
+        "joinCondition": {
+          "relation": "equals",
+          "leftColumn": {
+            "$ref": "4"
+          },
+          "rightColumn": {
+            "$ref": "20"
+          },
+          "linkedCondition": null
+        },
+        "selectedColumns": [
+          {
+            "$ref": "2"
+          },
+          {
+            "$ref": "3"
+          },
+          {
+            "$ref": "4"
+          },
+          {
+            "$ref": "5"
+          },
+          {
+            "$ref": "6"
+          },
+          {
+            "$ref": "7"
+          },
+          {
+            "$ref": "8"
+          },
+          {
+            "$ref": "9"
+          },
+          {
+            "$ref": "10"
+          },
+          {
+            "$ref": "11"
+          },
+          {
+            "$ref": "12"
+          },
+          {
+            "$ref": "13"
+          },
+          {
+            "$ref": "14"
+          },
+          {
+            "$ref": "15"
+          },
+          {
+            "$ref": "16"
+          },
+          {
+            "$ref": "17"
+          },
+          {
+            "$ref": "18"
+          },
+          {
+            "$ref": "20"
+          },
+          {
+            "$ref": "21"
+          }
+        ]
+      }
+    ],
+    {
+      "$ref": "0"
+    },
+    {
+      "ID": {
+        "$ref": "4"
+      },
+      "OrderId": {
+        "$ref": "7"
+      },
+      "ProductionOperationId": {
+        "$ref": "3"
+      },
+      "Quantity": {
+        "$ref": "16"
+      },
+      "ExpectedTime": {
+        "$ref": "10"
+      },
+      "DateTime": {
+        "$ref": "15"
+      },
+      "ProductType": {
+        "$ref": "21"
+      },
+      "WorkerId": {
+        "$ref": "14"
+      },
+      "WorkPlaceId": {
+        "$ref": "6"
+      }
+    }
+  ]
+}

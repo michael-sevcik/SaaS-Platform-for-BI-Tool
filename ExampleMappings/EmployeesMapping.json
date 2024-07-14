@@ -1,0 +1,96 @@
+{
+  "name": "Employees",
+  "schema": "dbo",
+  "mappingData": [
+    [
+      {
+        "$id": "0",
+        "type": "sourceTable",
+        "name": "TabCisZam",
+        "schema": "dbo",
+        "selectedColumns": [
+          {
+            "name": "ID",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "6"
+          },
+          {
+            "name": "Cislo",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "5"
+          },
+          {
+            "name": "Jmeno",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "length": 100,
+              "type": "nVarChar"
+            },
+            "$id": "4"
+          },
+          {
+            "name": "Prijmeni",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "length": 100,
+              "type": "nVarChar"
+            },
+            "$id": "3"
+          },
+          {
+            "name": "Pohlavi",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "SmallInteger",
+              "type": "simple"
+            },
+            "$id": "2"
+          },
+          {
+            "name": "DatPorizeni",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Datetime",
+              "type": "simple"
+            },
+            "$id": "1"
+          }
+        ]
+      }
+    ],
+    {
+      "$ref": "0"
+    },
+    {
+      "Id": {
+        "$ref": "6"
+      },
+      "PersonalID": {
+        "$ref": "5"
+      },
+      "ExternalId": {
+        "$ref": "6"
+      },
+      "FirstName": {
+        "$ref": "4"
+      },
+      "Lastname": {
+        "$ref": "3"
+      }
+    }
+  ]
+}
