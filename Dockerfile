@@ -17,9 +17,9 @@ FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/nightly/sdk:9.0-preview-
 # Install Node.js and npm from the default repository
 RUN apk add --update nodejs npm
 
-COPY . /source
+COPY ./src /source
 
-WORKDIR /source/src/ManagamentApp
+WORKDIR /source/ManagamentApp
 
 # This is the architecture you’re building for, which is passed in by the builder.
 # Placing it here allows the previous steps to be cached across architectures.
