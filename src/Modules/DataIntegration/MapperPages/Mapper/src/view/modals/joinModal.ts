@@ -49,7 +49,7 @@ export class JoinModal extends BaseModal{
         this.rightColumnPicker = new SearchableDropdown(
             pickColumnsDiv,
             () => rightColumns.map(JoinModal.getColumnDescription),
-            'Left column',
+            'Right column',
             (optionIndex) => this.rightColumn = rightColumns[optionIndex]);
     
         this.modalContent.appendChild(pickColumnsDiv);
