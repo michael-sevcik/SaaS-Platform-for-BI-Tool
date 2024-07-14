@@ -4,6 +4,7 @@ using BIManagement.Modules.Notifications.Api;
 using BIManagement.Modules.Notifications.Domain;
 using MailKit.Net.Smtp;
 using MailKit.Security;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using MimeKit;
 using System.Text.Encodings.Web;
@@ -17,15 +18,17 @@ sealed internal class EmailSender : IEmailSender, IScoped
 {
     private readonly EmailOptions emailOptions;
     private readonly Uri baseUri;
+    private readonly ILogger<EmailSender> logger;
 
     /// <summary>
     /// Initializes a new instance of the <see cref="EmailSender"/> class.
     /// </summary>
     /// <param name="options">The email options.</param>
     /// <exception cref="InvalidConfigurationException">Thrown when the provided base URL is not absolute.</exception>
-    public EmailSender(IOptions<EmailOptions> options)
+    public EmailSender(IOptions<EmailOptions> options, ILogger<EmailSender> logger)
     {
         emailOptions = options.Value;
+        this.logger = logger;
 
         baseUri = new Uri(emailOptions.BaseUrl);
         if (!baseUri.IsAbsoluteUri)
@@ -132,14 +135,23 @@ sealed internal class EmailSender : IEmailSender, IScoped
         // Send the message
         using var smtp = new SmtpClient();
 
-        await smtp.ConnectAsync(emailOptions.SmtpServer, this.emailOptions.SmtpPort, SecureSocketOptions.None);
-
-        if (emailOptions.SmtpUsername != string.Empty && emailOptions.SmtpPassword != string.Empty)
+        try
         {
-            await smtp.AuthenticateAsync(this.emailOptions.SmtpUsername, this.emailOptions.SmtpPassword);
+            await smtp.ConnectAsync(emailOptions.SmtpServer, this.emailOptions.SmtpPort, SecureSocketOptions.None);
+
+            if (emailOptions.SmtpUsername != string.Empty && emailOptions.SmtpPassword != string.Empty)
+            {
+                await smtp.AuthenticateAsync(this.emailOptions.SmtpUsername, this.emailOptions.SmtpPassword);
+            }
+
+            await smtp.SendAsync(message);
+            await smtp.DisconnectAsync(true);
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "Failed to send email.");
+            throw;
         }
 
-        await smtp.SendAsync(message);
-        await smtp.DisconnectAsync(true);
     }
 }
