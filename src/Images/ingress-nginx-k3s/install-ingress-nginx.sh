@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# check if /usr/local/bin/initialized equals "Initialized"
+if [ "$(cat /usr/local/bin/initialized)" = "Initialized" ]; then
+  echo "Ingress NGINX is running successfully!"
+  exit 0
+fi
+
 # function to check the status of the Ingress NGINX deployment
 check_ingress_nginx() {
   kubectl get pods -n ingress-nginx -l app.kubernetes.io/component=controller
@@ -21,5 +27,10 @@ until check_ingress_nginx | grep -q "Running"; do
   sleep 5
 done
 
+echo "Waiting 70 seconds for Ingress NGINX to be fully ready..."
 sleep 70
+
+echo "Initialized" > /usr/local/bin/initialized
 echo "Ingress NGINX is running successfully!"
+
+
