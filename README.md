@@ -35,7 +35,9 @@ Tento repozitář zatím obsahuje:
 - a komponentu [mapper](Mapper), která složí pro vytvoření mapování mezi zdrojovou a cílovou databází.
 
 ## Running the application
+If you want to run this on windows, git before cloning the repository needs to be set to not convert LF to CRLF (`git config --global core.autocrlf false`), otherwise it will discrupt shell scripts. 
 
+Run in the repository root directory:
 
 ```sh
 docker-compose up --build
