@@ -40,7 +40,7 @@ If you want to run this on windows, git before cloning the repository needs to b
 Run in the repository root directory:
 
 ```sh
-docker-compose up --build
+docker compose up --build
 ```
 
 This could take sevarl minutes, but not much more than 20, depending on your computer power and internet connection speed.
