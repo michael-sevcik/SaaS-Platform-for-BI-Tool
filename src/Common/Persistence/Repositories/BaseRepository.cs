@@ -23,7 +23,7 @@ public abstract class BaseRepository<TDerived, TEntity, TContext>(ILogger<TDeriv
     protected ILogger<TDerived> Logger => logger;
 
     /// <summary>
-    /// The dbset for the entities of type <typeparamref name="TEntity"/>.
+    /// The <see cref="DbSet{TEntity}"/> for the entities of type <typeparamref name="TEntity"/>.
     /// </summary>
     protected readonly DbSet<TEntity> entities = dbContext.Set<TEntity>();
 

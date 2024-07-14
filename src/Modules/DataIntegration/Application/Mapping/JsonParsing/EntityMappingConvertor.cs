@@ -47,7 +47,7 @@ internal class EntityMappingConvertor : JsonConverter<EntityMapping>
             ?? throw new JsonException("Property \"sourceEntities\" is missing or has invalid type");
 
         var rootSourceEntity = JsonSerializer.Deserialize<ISourceEntity>(plainRootSourceEntity, options);
-        var targetColumnMappings = JsonSerializer.Deserialize<Dictionary<string, SourceColumn>>(plainTargetColumnMappings, options)
+        var targetColumnMappings = JsonSerializer.Deserialize<Dictionary<string, SourceColumn?>>(plainTargetColumnMappings, options)
             ?? throw new JsonException("Property \"targetColumnMappings\" is missing or has invalid type");
 
         return new(name, schema, sourceEntities, rootSourceEntity, targetColumnMappings, description);

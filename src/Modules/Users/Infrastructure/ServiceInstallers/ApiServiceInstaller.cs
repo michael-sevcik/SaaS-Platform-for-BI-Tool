@@ -1,6 +1,5 @@
 ﻿using BIManagement.Common.Infrastructure.Configuration;
 using BIManagement.Common.Infrastructure.Extensions;
-using BIManagement.Modules.Users.Api;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

@@ -103,7 +103,7 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddSigletonAsMatchingInterfaces(this IServiceCollection services, Assembly assembly) =>
         services.Scan(scan =>
             scan.FromAssemblies(assembly)
-                .AddClasses(filter => filter.AssignableTo<ISigleton>(), false)
+                .AddClasses(filter => filter.AssignableTo<ISingleton>(), false)
                 .UsingRegistrationStrategy(RegistrationStrategy.Throw)
                 .AsMatchingInterface()
                 .WithSingletonLifetime());

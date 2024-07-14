@@ -1,9 +1,36 @@
-﻿@* Not using @ page directive to utilize static routes class *@
+﻿@using BIManagement.Modules.DataIntegration.Domain.DbModelling
+@using Microsoft.AspNetCore.Components.Routing
+@* Not using @ page directive to utilize static routes class *@
 @attribute [Route(Routes.MappingProjects)]
+@inject ICustomerDbModelRepository DbModelRepository
 <PageTitle>Mapping projects</PageTitle>
 
 <h3>Mapping projects</h3>
 
+@if (IdsOfCustomersWithDbModel.Count == 0)
+{
+    <p>No mapping projects found.</p>
+}
+else
+{
+    <ul>
+        @foreach (var id in IdsOfCustomersWithDbModel)
+        {
+            <li>
+                <NavLink href="@Routes.GetMappingProjectInfo(id)">
+                    @id
+                </NavLink>
+            </li>
+        }
+    </ul>
+}
+
 @code {
+    List<string> IdsOfCustomersWithDbModel = new();
+    
+    protected override async Task OnInitializedAsync()
+    {
+        IdsOfCustomersWithDbModel = (await DbModelRepository.GetAsync()).Select(model => model.CustomerId).ToList();
+    }
 
 }

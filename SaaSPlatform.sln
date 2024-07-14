@@ -39,8 +39,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIn
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.Api", "src\Modules\DataIntegration\Api\BIManagement.Modules.DataIntegration.Api.csproj", "{36F2E87F-D422-42B1-8307-DE117398B6F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.DataIntegration.SqlViewGenerator", "src\Modules\DataIntegration\SqlViewGenerator\BIManagement.Modules.DataIntegration.SqlViewGenerator.csproj", "{548C6D6E-A458-4F7F-A0A4-9357FD2EAA76}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Users.Pages", "src\Modules\Users\Pages\BIManagement.Modules.Users.Pages.csproj", "{2822F624-13C6-493D-8A83-A55A59839AE5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Modules", "Modules", "{0942116F-2CC1-4A97-A0D8-BF6A052449F9}"
@@ -92,6 +90,14 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Test.Modules.DataIntegration.DbModelling", "test\Modules\DataIntegration\DbModelling\BIManagement.Test.Modules.DataIntegration.DbModelling.csproj", "{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Test.Modules.DataIntegration.Domain", "test\Modules\DataIntegration\Domain\BIManagement.Test.Modules.DataIntegration.Domain.csproj", "{152BDE62-5D56-46F6-B6AC-EE17BBF5F6FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Deployment", "Deployment", "{8251EA7D-B193-4115-B1ED-74F853EC76EB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Test.Modules.Deployment.Application", "test\Modules\Deployment\Application\BIManagement.Test.Modules.Deployment.Application.csproj", "{E529BF96-33BE-4FC6-9EE2-7C71060A6F76}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Modules.Deployment.Domain", "src\Modules\Deployment\Domain\BIManagement.Modules.Deployment.Domain.csproj", "{361DFA2D-EF47-44F8-A9C0-6AB7A47D31E2}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BIManagement.Test.Modules.Deployment.Infrastructure", "test\Modules\Deployment\Infrastructure\BIManagement.Test.Modules.Deployment.Infrastructure.csproj", "{4FA60EBF-3489-4F04-894D-61CEE2F63743}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,10 +153,6 @@ Global
 		{36F2E87F-D422-42B1-8307-DE117398B6F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{36F2E87F-D422-42B1-8307-DE117398B6F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{36F2E87F-D422-42B1-8307-DE117398B6F7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{548C6D6E-A458-4F7F-A0A4-9357FD2EAA76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{548C6D6E-A458-4F7F-A0A4-9357FD2EAA76}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{548C6D6E-A458-4F7F-A0A4-9357FD2EAA76}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{548C6D6E-A458-4F7F-A0A4-9357FD2EAA76}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2822F624-13C6-493D-8A83-A55A59839AE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2822F624-13C6-493D-8A83-A55A59839AE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2822F624-13C6-493D-8A83-A55A59839AE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -239,6 +241,18 @@ Global
 		{152BDE62-5D56-46F6-B6AC-EE17BBF5F6FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{152BDE62-5D56-46F6-B6AC-EE17BBF5F6FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{152BDE62-5D56-46F6-B6AC-EE17BBF5F6FD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E529BF96-33BE-4FC6-9EE2-7C71060A6F76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E529BF96-33BE-4FC6-9EE2-7C71060A6F76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E529BF96-33BE-4FC6-9EE2-7C71060A6F76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E529BF96-33BE-4FC6-9EE2-7C71060A6F76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{361DFA2D-EF47-44F8-A9C0-6AB7A47D31E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{361DFA2D-EF47-44F8-A9C0-6AB7A47D31E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{361DFA2D-EF47-44F8-A9C0-6AB7A47D31E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{361DFA2D-EF47-44F8-A9C0-6AB7A47D31E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FA60EBF-3489-4F04-894D-61CEE2F63743}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FA60EBF-3489-4F04-894D-61CEE2F63743}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FA60EBF-3489-4F04-894D-61CEE2F63743}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FA60EBF-3489-4F04-894D-61CEE2F63743}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -260,7 +274,6 @@ Global
 		{B1706391-8805-498B-9523-BA48E21F1B7F} = {B7FD84A2-BF89-48CC-9700-72B6D912B0FC}
 		{BC15D466-B253-46AA-9C6A-A19E774D296D} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
 		{36F2E87F-D422-42B1-8307-DE117398B6F7} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
-		{548C6D6E-A458-4F7F-A0A4-9357FD2EAA76} = {22D402DD-1D61-4EDE-8F79-5EA1CB3A5662}
 		{2822F624-13C6-493D-8A83-A55A59839AE5} = {B7FD84A2-BF89-48CC-9700-72B6D912B0FC}
 		{0942116F-2CC1-4A97-A0D8-BF6A052449F9} = {C1BBA08F-C8AA-41C5-9467-44C2259E700E}
 		{C3DE0035-ADCD-48D9-9D34-D7B51BDD8BFA} = {0942116F-2CC1-4A97-A0D8-BF6A052449F9}
@@ -287,6 +300,10 @@ Global
 		{70AD50EE-EDED-45E2-8416-0F03C0ABF768} = {83EFAECF-9F4D-43E5-93D3-A962F34448AB}
 		{F8D6BFA1-ED86-4DB7-B039-862C9C9BA59B} = {C3DE0035-ADCD-48D9-9D34-D7B51BDD8BFA}
 		{152BDE62-5D56-46F6-B6AC-EE17BBF5F6FD} = {C3DE0035-ADCD-48D9-9D34-D7B51BDD8BFA}
+		{8251EA7D-B193-4115-B1ED-74F853EC76EB} = {0942116F-2CC1-4A97-A0D8-BF6A052449F9}
+		{E529BF96-33BE-4FC6-9EE2-7C71060A6F76} = {8251EA7D-B193-4115-B1ED-74F853EC76EB}
+		{361DFA2D-EF47-44F8-A9C0-6AB7A47D31E2} = {83EFAECF-9F4D-43E5-93D3-A962F34448AB}
+		{4FA60EBF-3489-4F04-894D-61CEE2F63743} = {8251EA7D-B193-4115-B1ED-74F853EC76EB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1954CCB7-4EB5-4651-9A8A-1FE50A343FE4}

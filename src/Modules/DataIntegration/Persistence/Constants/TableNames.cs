@@ -10,14 +10,14 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Constants;
 internal static class TableNames
 {
     /// <summary>
-    /// The table name for the database connection configurations - <see cref="CostumerDbConnectionConfiguration"/>.
+    /// The table name for the database connection configurations - <see cref="CustomerDbConnectionConfiguration"/>.
     /// </summary>
     public const string DatabaseConnectionConfigurations = "DatabaseConnectionConfigurations";
 
     /// <summary>
-    /// The table name for the database models of customers - <see cref="CostumerDbModel"/>.
+    /// The table name for the database models of customers - <see cref="CustomerDbModel"/>.
     /// </summary>
-    public const string CostumerDbModels = "CostumerDbModels";
+    public const string CustomerDbModels = "CustomerDbModels";
 
     /// <summary>
     /// The table name for the schema mappings - <see cref="SchemaMapping"/>.

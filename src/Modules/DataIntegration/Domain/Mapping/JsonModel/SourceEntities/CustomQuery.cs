@@ -6,23 +6,37 @@ using System.Threading.Tasks;
 
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities
 {
-    public class CustomQuery(string name, string query, SourceColumn[] selectedColumns) : ISourceEntity
+    public class CustomQuery : ISourceEntity
     {
         public const string TypeDiscriminator = "customQuery";
 
+        public CustomQuery()
+        {
+            this.SelectedColumns = Array.Empty<SourceColumn>();
+            this.Name = string.Empty;
+            this.Query = string.Empty;
+        }
+
+        public CustomQuery(string name, string query, SourceColumn[] selectedColumns)
+        {
+            Name = name;
+            Query = query;
+            SelectedColumns = selectedColumns;
+        }
+
         /// <inheritdoc/>
-        public string Name { get; } = name;
+        public string Name { get; set; }
 
         /// <summary>
         /// The query to execute.
         /// </summary>
-        public string Query { get; } = query;
+        public string Query { get; set; }
 
         /// <inheritdoc/>
         public bool HasDependency => false;
 
         /// <inheritdoc/>
-        public SourceColumn[] SelectedColumns { get; } = selectedColumns;
+        public SourceColumn[] SelectedColumns { get; set; }
 
         /// <inheritdoc/>
         public void Accept(IVisitor visitor)

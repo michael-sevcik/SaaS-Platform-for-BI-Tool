@@ -16,22 +16,17 @@ internal static class Routes
     /// </summary>
     public const string DataIntegration = "/Data-integration";
 
+    #region CustomersPages
+
     /// <summary>
     /// Represents a route to the mapper.
     /// </summary>
     public const string Mapper = $"{DataIntegration}/Mapper";
 
     /// <summary>
-    /// Represents a route to the database schema loading page.
+    /// Represents a route to the customer's database configuration.
     /// </summary>
-    public const string LoadDatabaseSchema= $"{DataIntegration}/LoadDatabaseSchema";
-
-    #region CostumersPages
-
-    /// <summary>
-    /// Represents a route to the costumer's database configuration.
-    /// </summary>
-    public const string CostumersConfigureDbConnction = $"{DataIntegration}/Configure-db-connection";
+    public const string CustomersConfigureDbConnection = $"{DataIntegration}/Configure-db-connection";
 
     #endregion
 

@@ -20,6 +20,6 @@ public class UsersContext(DbContextOptions<UsersContext> options) : IdentityDbCo
         // TODO: CREATE A SEEDING SERVICE to create an admin user
         builder.Entity<ApplicationUser>().Property(p => p.Name).IsRequired().HasMaxLength(ApplicationUser.NameMaxLength);
 
-        //builder.Entity<IdentityRole>().HasData(new IdentityRole(Domain.Roles.Admin), new IdentityRole(Domain.Roles.Costumer));
+        //builder.Entity<IdentityRole>().HasData(new IdentityRole(Domain.Roles.Admin), new IdentityRole(Domain.Roles.Customer));
     }
 }

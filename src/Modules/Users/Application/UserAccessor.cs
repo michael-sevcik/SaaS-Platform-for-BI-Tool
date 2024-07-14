@@ -12,7 +12,7 @@ namespace BIManagement.Modules.Users.Application;
 /// </summary>
 internal class UserAccessor(UserManager<ApplicationUser> userManager) : IUserAccessor, IScoped
 {
-    public async Task<Result<string>> GetCostumerId(HttpContext context)
+    public async Task<Result<string>> GetCustomerId(HttpContext context)
     {
         var user = await GetUser(context);
 
@@ -21,7 +21,7 @@ internal class UserAccessor(UserManager<ApplicationUser> userManager) : IUserAcc
             return Result.Failure<string>(IUserAccessor.UserNotIdentifiableError);
         }
 
-        if (!await userManager.IsInRoleAsync(user, Roles.Costumer))
+        if (!await userManager.IsInRoleAsync(user, Roles.Customer))
         {
             return Result.Failure<string>(IUserAccessor.NotCustomerError);
         }

@@ -1,6 +1,5 @@
 ﻿using BIManagement.Common.Infrastructure.Configuration;
-using BIManagement.Modules.Notifications.Api;
-using BIManagement.Modules.Notifications.Application;
+using BIManagement.Common.Infrastructure.Extensions;
 using BIManagement.Modules.Notifications.Infrastructure.Email;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,5 +14,5 @@ internal sealed class InfrastructureServiceInstallers : IServiceInstaller
     /// <inheritdoc />
     public static void Install(IServiceCollection services, IConfiguration configuration)
         => services.ConfigureOptions<EmailOptionsSetup>()
-            .AddSingleton<IEmailSender, NoOpEmailSender>();
+        .AddServicesWithLifetimeAsMatchingInterfaces(AssemblyReference.Assembly);
 }

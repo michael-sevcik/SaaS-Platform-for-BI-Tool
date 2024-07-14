@@ -70,7 +70,7 @@ public sealed class NoOpEmailSender : IEmailSender
         return Task.CompletedTask;
     }
 
-    public Task SendPasswrodResetLinkAsync(string email, string resetLink)
+    public Task SendPasswordResetLinkAsync(string email, string resetLink)
     {
         Messages.Add($"""
             Email: {email}

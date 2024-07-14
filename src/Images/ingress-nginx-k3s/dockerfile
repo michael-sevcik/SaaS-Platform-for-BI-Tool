@@ -1,0 +1,12 @@
+FROM rancher/k3s:latest
+
+# add a script to install Ingress NGINX
+COPY install-ingress-nginx.sh /usr/local/bin/install-ingress-nginx.sh
+RUN chmod +x /usr/local/bin/install-ingress-nginx.sh
+
+# custom entrypoint script
+COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+CMD ["server", "--disable=traefik"]

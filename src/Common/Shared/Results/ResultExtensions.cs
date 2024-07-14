@@ -35,19 +35,29 @@ public static class ResultExtensions
     /// <param name="result">The result.</param>
     /// <param name="func">The mapping function.</param>
     /// <returns>The mapped result.</returns>
-    public static Result<TOut> Map<TIn, TOut>(this Result<TIn> result, Func<TIn, TOut> func) =>
-        result.IsSuccess ? func(result.Value) : Result.Failure<TOut>(result.Error);
+    public static async Task<Result> Map<TIn>(this Result<TIn> result, Func<TIn, Task<Result>> func) =>
+        result.IsSuccess ? (await func(result.Value)) : Result.Failure(result.Error);
 
     /// <summary>
     /// Maps the success result based on the specified mapping function, otherwise returns a failure result.
     /// </summary>
     /// <typeparam name="TIn">The input type.</typeparam>
     /// <typeparam name="TOut">The output type.</typeparam>
+    /// <param name="result">The result.</param>
+    /// <param name="func">The mapping function.</param>
+    /// <returns>The mapped result.</returns>
+    public static Result<TOut> Map<TIn, TOut>(this Result<TIn> result, Func<TIn, Result<TOut>> func) =>
+        result.IsSuccess ? func(result.Value) : Result.Failure<TOut>(result.Error);
+
+    /// <summary>
+    /// Maps the success result based on the specified mapping function, otherwise returns a failure result.
+    /// </summary>
+    /// <typeparam name="TIn">The input type.</typeparam>
     /// <param name="resultTask">The result task.</param>
     /// <param name="func">The mapping function.</param>
     /// <returns>The mapped result.</returns>
-    public static async Task<Result<TOut>> Map<TIn, TOut>(this Task<Result<TIn>> resultTask, Func<TIn, TOut> func) =>
-        (await resultTask).Map(func);
+    public static async Task<Result> Map<TIn>(this Task<Result<TIn>> resultTask, Func<TIn, Task<Result>> func) =>
+        await (await resultTask).Map<TIn>(func);
 
     /// <summary>
     /// Maps the failure result based on the specified error function, otherwise returns a success result.
@@ -86,7 +96,27 @@ public static class ResultExtensions
     /// <param name="result">The result.</param>
     /// <param name="func">The binding function.</param>
     /// <returns>The bound result.</returns>
-    public static async Task<Result> Bind<TIn>(this Task<Result<TIn>> result, Func<TIn, Result> func) =>
+    public static Result Bind<TIn>(this Result<TIn> result, Func<Result> func) =>
+        result.IsSuccess ? func() : Result.Failure(result.Error);
+
+    /// <summary>
+    /// Binds the success result based on the specified binding function, otherwise returns a failure result.
+    /// </summary>
+    /// <typeparam name="TIn">The input type.</typeparam>
+    /// <param name="result">The result.</param>
+    /// <param name="func">The binding function.</param>
+    /// <returns>The bound result.</returns>
+    public static async Task<Result> Bind<TIn>(this Task<Result<TIn>> result, Func<Task<Result>> func) =>
+        await (await result).Bind(func);
+
+    /// <summary>
+    /// Binds the success result based on the specified binding function, otherwise returns a failure result.
+    /// </summary>
+    /// <typeparam name="TIn">The input type.</typeparam>
+    /// <param name="result">The result.</param>
+    /// <param name="func">The binding function.</param>
+    /// <returns>The bound result.</returns>
+    public static async Task<Result> Bind<TIn>(this Task<Result<TIn>> result, Func<Result> func) =>
         (await result).Bind(func);
 
     /// <summary>
@@ -131,6 +161,14 @@ public static class ResultExtensions
     public static async Task<Result<TOut>> Bind<TOut>(this Result result, Func<Task<Result<TOut>>> func) =>
         result.IsSuccess ? await func() : Result.Failure<TOut>(result.Error);
 
+    /// Binds the success result based on the specified binding function, otherwise returns a failure result.
+    /// </summary>
+    /// <param name="result">The result.</param>
+    /// <param name="func">The binding function.</param>
+    /// <returns>The bound result.</returns>
+    public static async Task<Result> Bind(this Result result, Func<Task<Result>> func) =>
+        result.IsSuccess ? await func() : result;
+
     /// <summary>
     /// Binds the success result based on the specified binding function, otherwise returns a failure result.
     /// </summary>
@@ -151,6 +189,25 @@ public static class ResultExtensions
     /// <param name="func">The binding function.</param>
     /// <returns>The bound result.</returns>
     public static async Task<Result<TOut>> Bind<TIn, TOut>(this Task<Result<TIn>> resultTask, Func<TIn, Task<Result<TOut>>> func) =>
+        await (await resultTask).Bind(func);
+
+    /// <summary>
+    /// Binds the success result based on the specified binding function, otherwise returns a failure result.
+    /// </summary>
+    /// <param name="resultTask">The result task.</param>
+    /// <param name="func">The binding function.</param>
+    /// <returns>The bound result.</returns>
+    public static async Task<Result> Bind(this Task<Result> resultTask, Func<Task<Result>> func) =>
+        await (await resultTask).Bind(func);
+
+    /// <summary>
+    /// Binds the success result based on the specified binding function, otherwise returns a failure result.
+    /// </summary>
+    /// <typeparam name="TOut">The output type.</typeparam>
+    /// <param name="resultTask">The result task.</param>
+    /// <param name="func">The binding function.</param>
+    /// <returns>The bound result.</returns>
+    public static async Task<Result<TOut>> Bind<TOut>(this Task<Result> resultTask, Func<Task<Result<TOut>>> func) =>
         await (await resultTask).Bind(func);
 
     /// <summary>

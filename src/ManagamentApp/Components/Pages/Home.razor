@@ -1,6 +1,6 @@
-﻿@using BIManagement.Modules.DataIntegration.MapperComponent
-@using System.Linq;
+﻿@using System.Linq;
 @using System.Reflection;
+@using BIManagement.Modules.Users.Api.Authorization.Views
 @using Microsoft.AspNetCore.Authorization
 
 @page "/"
@@ -8,6 +8,35 @@
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<AuthorizeAdminView>
+    <Authorized>
+        <h1>Welcome Admin</h1>
+        <p>
+            Use the side bar to navigate through the application.
+        </p>
+    </Authorized>
+    <NotAuthorized>
+        <h1>
+            Log in to see more
+        </h1>
+    </NotAuthorized>
+</AuthorizeAdminView>
+
+
+<AuthorizeCustomerView>
+    <Authorized>
+        <h1>Welcome to Metabase SaaS platform</h1>
+        <p>
+            To deploy Metabase, start in Data integration by configuring connection to your database - Database connection configuration.
+            Specify the connection details and create database model.
+            Continue to Mapper to map the database model to Metabase model.
+        </p>
+        <p>
+            Then, deploy the views in the section Deployment, link Metabase Deployment.
+            Finally deploy Metabase on the same page along with configuring the default admin credentials for Metabase.
+
+        </p>
+
+    </Authorized>
+</AuthorizeCustomerView>

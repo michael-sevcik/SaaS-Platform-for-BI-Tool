@@ -34,7 +34,7 @@ namespace BIManagement.Test.Modules.DataIntegration.DbModelling
 
             // Arrange
             var mSSQLDbModelBuilder = this.CreateMSSQLDbModelBuilder();
-            CostumerDbConnectionConfiguration configuration = new()
+            CustomerDbConnectionConfiguration configuration = new()
             {
                 //ConnectionString =  "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=WebScraper;" +
                 //                    "Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server" +
@@ -42,7 +42,7 @@ namespace BIManagement.Test.Modules.DataIntegration.DbModelling
                 ConnectionString = "Data Source=localhost;Initial Catalog=WebScraper;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False",
                 //ConnectionString = "Data Source=127.0.0.1,32770;Initial Catalog=CostumerExampleData2;User ID=sa;Password=password123!;Connect Timeout=30;" +
                 //                    "Encrypt=True;Trust Server Certificate=True;Application Intent=ReadWrite;Multi Subnet Failover=False",
-                CostumerId = "1",
+                CustomerId = "1",
                 Provider = DatabaseProvider.SqlServer,
             };
 

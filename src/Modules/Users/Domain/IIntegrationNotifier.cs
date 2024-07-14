@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace BIManagement.Modules.Users.Domain;
 
-namespace BIManagement.Modules.Users.Domain;
-
+/// <summary>
+/// Represents a service that notifies other modules about the user deletion.
+/// </summary>
 public interface IIntegrationNotifier
 {
     /// <summary>
@@ -13,5 +10,5 @@ public interface IIntegrationNotifier
     /// </summary>
     /// <param name="userId">Id of the deleted user.</param>
     /// <returns>Task object representing the asynchronous operation.</returns>
-    Task SentCostumerDeletionNotification(string userId);
+    Task SentCustomerDeletionNotification(string userId);
 }

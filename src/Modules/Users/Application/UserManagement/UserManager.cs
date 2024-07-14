@@ -26,7 +26,7 @@ internal sealed class UserManager(
     ILogger<UserManager> logger
     ) : IUserManager, IScoped
 {
-    private async Task<Result<ApplicationUser>> GetUser(string Id)
+    public async Task<Result<ApplicationUser>> GetUser(string Id)
        => await userManager.FindByIdAsync(Id) switch
        {
            null => Result.Failure<ApplicationUser>(UserErrors.UserNotFoundById),
@@ -40,8 +40,8 @@ internal sealed class UserManager(
 
 
     /// <inheritdoc/>
-    public async Task<Result<ApplicationUser>> GetCostumer(string Id)
-        => await GetUser(Id).Bind(async user => await CheckThatUserIsInRole(user, Roles.Costumer));
+    public async Task<Result<ApplicationUser>> GetCustomer(string Id)
+        => await GetUser(Id).Bind(async user => await CheckThatUserIsInRole(user, Roles.Customer));
 
     /// <inheritdoc/>
     public async Task<Result<ApplicationUser>> GetAdmin(string Id)
@@ -53,8 +53,8 @@ internal sealed class UserManager(
         => await CreateUser(email, name, Roles.Admin);
 
     /// <inheritdoc/>
-    public async Task<Result<ApplicationUser>> CreateCostumerAsync(string email, string name)
-        => await CreateUser(email, name, Roles.Costumer);
+    public async Task<Result<ApplicationUser>> CreateCustomerAsync(string email, string name)
+        => await CreateUser(email, name, Roles.Customer);
 
     /// <summary>
     /// Creates an user with the given email, name and role.
@@ -120,6 +120,12 @@ internal sealed class UserManager(
     /// <inheritdoc/>
     public async Task<Result> DeleteUserAsync(ApplicationUser user)
     {
+        bool sendNotification = false;
+        if (await userManager.IsInRoleAsync(user, Roles.Customer))
+        {
+            sendNotification = true;
+        }
+
         var result = await userManager.DeleteAsync(user);
 
         if (!result.Succeeded)
@@ -128,9 +134,9 @@ internal sealed class UserManager(
             return Result.Failure(UserErrors.UserDeletionFailed);
         }
 
-        if (await userManager.IsInRoleAsync(user, Roles.Costumer))
+        if (sendNotification)
         {
-            await integrationNotifier.SentCostumerDeletionNotification(user.Id);
+            await integrationNotifier.SentCustomerDeletionNotification(user.Id);
         }
 
         return Result.Success();
@@ -160,5 +166,4 @@ internal sealed class UserManager(
     /// <inheritdoc/>
     public async Task<ApplicationUser?> GetUserByEmail(string email)
         => await userManager.FindByEmailAsync(email);
-
 }

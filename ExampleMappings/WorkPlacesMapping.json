@@ -1,0 +1,60 @@
+{
+  "name": "Workplaces",
+  "schema": "dbo",
+  "mappingData": [
+    [
+      {
+        "$id": "0",
+        "type": "sourceTable",
+        "name": "TabCPraco",
+        "schema": "dbo",
+        "selectedColumns": [
+          {
+            "name": "Pracoviste",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "length": 10,
+              "type": "nVarChar"
+            },
+            "$id": "3"
+          },
+          {
+            "name": "Nazev",
+            "description": null,
+            "dataType": {
+              "isNullable": true,
+              "length": 40,
+              "type": "nVarChar"
+            },
+            "$id": "2"
+          },
+          {
+            "name": "ID",
+            "description": null,
+            "dataType": {
+              "isNullable": false,
+              "simpleType": "Integer",
+              "type": "simple"
+            },
+            "$id": "1"
+          }
+        ]
+      }
+    ],
+    {
+      "$ref": "0"
+    },
+    {
+      "Id": {
+        "$ref": "1"
+      },
+      "Label": {
+        "$ref": "3"
+      },
+      "Name": {
+        "$ref": "2"
+      }
+    }
+  ]
+}

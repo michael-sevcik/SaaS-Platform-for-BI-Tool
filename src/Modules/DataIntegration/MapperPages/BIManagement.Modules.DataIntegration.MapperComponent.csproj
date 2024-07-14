@@ -2,60 +2,45 @@
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <TypeScriptTarget>ES2020</TypeScriptTarget>
   </PropertyGroup>
-
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
     <TypeScriptTarget>ES2020</TypeScriptTarget>
   </PropertyGroup>
-
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <TypeScriptModuleKind>none</TypeScriptModuleKind>
-	<ShouldRunNpmInstall>true</ShouldRunNpmInstall>
-	<ShouldRunNpmBuildScript>true</ShouldRunNpmBuildScript>
-	<AccelerateBuildsInVisualStudio>false</AccelerateBuildsInVisualStudio>
-	<MvcBuildViews>true</MvcBuildViews>
-
+    <ShouldRunNpmInstall>true</ShouldRunNpmInstall>
+    <ShouldRunNpmBuildScript>true</ShouldRunNpmBuildScript>
+    <AccelerateBuildsInVisualStudio>false</AccelerateBuildsInVisualStudio>
+    <MvcBuildViews>true</MvcBuildViews>
   </PropertyGroup>
-
-    <Target Name="CleanNPM" BeforeTargets="Clean">
-		<Exec Command="npm install" />
-		<Exec Command="npm run clean" />
-    </Target>
-
-	<Target Name="InstallNPM" AfterTargets="Restore">
-		<Exec Command="npm install" />
-	</Target>
-
-	<Target Name="BuildNPM" BeforeTargets="BeforeBuild">
-		<Exec Command="npm install" />
-		<Exec Command="npm run build" />
-	</Target>
-	
-
+  <Target Name="CleanNPM" BeforeTargets="Clean">
+    <Exec Command="npm install" />
+    <Exec Command="npm run clean" />
+  </Target>
+  <Target Name="InstallNPM" AfterTargets="Restore">
+    <Exec Command="npm install" />
+  </Target>
+  <Target Name="BuildNPM" BeforeTargets="BeforeBuild">
+    <Exec Command="npm install" />
+    <Exec Command="npm run build" />
+  </Target>
   <ItemGroup>
     <SupportedPlatform Include="browser" />
   </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.6" />
-    <!--<PackageReference Include="Microsoft.TypeScript.MSBuild" Version="5.4.4">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>-->
-  </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Components\BIManagement.Common.Components.csproj" />
+    <ProjectReference Include="..\..\Deployment\Api\BIManagement.Modules.Deployment.Api.csproj" />
     <ProjectReference Include="..\..\Users\Api\BIManagement.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\Domain\BIManagement.Modules.DataIntegration.Domain.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Content Update="wwwroot\mapperJsInteropBridge.js">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0-preview.5.24306.11" />
+  </ItemGroup>
 </Project>

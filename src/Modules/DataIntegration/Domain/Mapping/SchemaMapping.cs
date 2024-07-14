@@ -3,14 +3,14 @@
 namespace BIManagement.Modules.DataIntegration.Domain.Mapping;
 
 /// <summary>
-/// Encapsulates the <see cref="Mapping"/> of a given <see cref="TargetDbTable"/> to tables from database of costumer with <see cref="CostumerId"/>.
+/// Encapsulates the <see cref="Mapping"/> of a given <see cref="TargetDbTable"/> to tables from database of customer with <see cref="CustomerId"/>.
 /// </summary>
 public class SchemaMapping
 {
     /// <summary>
-    /// Gets or sets the identifier of a costumer.
+    /// Gets or sets the identifier of a customer.
     /// </summary>
-    [Required] public string CostumerId { get; set; } = string.Empty;
+    [Required] public string CustomerId { get; set; } = string.Empty;
 
     /// <summary>
     /// Gets or sets the identifier of a <see cref="TargetDbTable"/>.
@@ -26,7 +26,7 @@ public class SchemaMapping
     [Required] public bool IsComplete { get; set; }
 
     /// <summary>
-    /// Gets or sets the mapping of a <see cref="TargetDbTable"/> to tables from database of costumer with <see cref="CostumerId"/>.
+    /// Gets or sets the mapping of a <see cref="TargetDbTable"/> to tables from database of customer with <see cref="CustomerId"/>.
     /// </summary>
     [Required] public string Mapping { get; set; } = string.Empty;
 }

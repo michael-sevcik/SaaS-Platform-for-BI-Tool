@@ -8,12 +8,12 @@ namespace BIManagement.Modules.Users.Api.ExternalCommunication;
 /// </summary>
 internal class IntegrationNotifier(
     DataIntegration.Api.IIntegrationService DIIntegrationService,
-    Deployment.Api.IIntegrationService DeploymentIntegrationService) : IIntegrationNotifier, ISigleton
+    Deployment.Api.IIntegrationService DeploymentIntegrationService) : IIntegrationNotifier, IScoped
 {
     /// <inheritdoc/>
-    public async Task SentCostumerDeletionNotification(string userId)
+    public async Task SentCustomerDeletionNotification(string userId)
     {
-        await DIIntegrationService.HandleCostumerDeletionAsync(userId);
-        await DeploymentIntegrationService.HandleCostumerDeletionAsync(userId);
+        await DIIntegrationService.HandleCustomerDeletionAsync(userId);
+        await DeploymentIntegrationService.HandleCustomerDeletionAsync(userId);
     }
 }

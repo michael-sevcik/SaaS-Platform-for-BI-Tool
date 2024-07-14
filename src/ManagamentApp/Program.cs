@@ -4,7 +4,6 @@ using BIManagement.Common.Infrastructure.Extensions;
 using BIManagement.ManagementApp.Components.Layout;
 using BIManagement.Common.Components.Layout;
 using BIManagement.ManagementApp.StartupTasks;
-using BIManagement.ManagementApp;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,7 +25,7 @@ Assembly[] infrastructureAssemblies = [
 
 builder.Services.InstallServicesFromAssemblies(
     builder.Configuration,
-    AssemblyReference.Assembly,
+    BIManagement.ManagementApp.AssemblyReference.Assembly,
     BIManagement.Common.Persistence.AssemblyReference.Assembly
 );
 

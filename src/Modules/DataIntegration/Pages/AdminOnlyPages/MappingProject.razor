@@ -1,7 +1,12 @@
-﻿@* Not using @page directive to utilize static routes class *@
+﻿@* TODO: Provide authorization *@
+@* Not using @page directive to utilize static routes class *@
 @attribute [Route(Routes.MappingProjectInfo)]
-<PageTitle>Mapping Project</PageTitle>
-<h3>Mapping Project</h3>
+
+
+<PageTitle>Mapper</PageTitle>
+
+<BIManagement.Modules.DataIntegration.MapperComponent.Mapper CustomerId=@id />
+
 
 @code {
     [Parameter]

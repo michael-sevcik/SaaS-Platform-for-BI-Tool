@@ -1,0 +1,257 @@
+﻿@using BIManagement.Modules.DataIntegration.Api
+@using BIManagement.Modules.Deployment.Application.MetabaseDeployment
+@using BIManagement.Modules.Deployment.Application.ViewDeployment
+@using BIManagement.Modules.Deployment.Domain
+@using BIManagement.Modules.Deployment.Domain.Configuration
+@using BIManagement.Modules.Users.Api
+@using BIManagement.Common.Components
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Http
+@using Microsoft.AspNetCore.Components.Web
+@using System.ComponentModel.DataAnnotations
+@* Not using @page directive to utilize static routes class *@
+
+@inject IDataIntegrationService dataIntegrationService
+@inject IUserAccessor UserAccessor
+@inject IHttpContextAccessor HttpContextAccessor
+@inject IDatabaseViewDeployer DatabaseViewDeployer
+@inject IMetabaseDeployer MetabaseDeployer
+@inject IMetabaseDeploymentRepository MetabaseDeploymentRepository
+
+@rendermode @(new InteractiveServerRenderMode(false))
+@attribute [Route(Routes.MetabaseDeployment)]
+
+<PageTitle>Deployment</PageTitle>
+
+<StatusMessage Message="@message" IsError="@isError" />
+
+<div class="container">
+    <h3>Deployment</h3>
+
+
+    @if (CustomerId is not null && metabaseLink is null)
+    {
+        <p>
+            You can either generate the SQL needed for deploying the database views or automatically deploy them.
+        </p>
+
+        <div class="row">
+            <div class="col-md-6">
+                <button class="btn btn-primary" @onclick="GenerateViews">Generate Views</button>
+                @if (views != null){
+                        @foreach (var view in views)
+                        {
+                            <textarea disabled class="form-control">
+                                @view
+                            </textarea>
+                        }
+                    }
+            </div>
+
+            <div class="col-md-6">
+                <button class="btn btn-primary" @onclick="DeployViews">Automatically deploy views</button>
+
+                @if (deploymentResult != null)
+                {
+                    <p>@deploymentResult</p>
+                }
+            </div>
+        </div>
+
+        <div class="row" style="margin-top: 10px;">
+            <div class="col-md-6">
+                <div style="border: 1px solid #ccc; padding: 10px;">
+                    <EditForm Model="Input" FormName="@FormName" OnValidSubmit="DeployMetabase" method="post">
+                        <DataAnnotationsValidator />
+                        <ValidationSummary class="text-danger" role="alert" />
+                        <div class="form-floating mb-3">
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label" for="email">Email used to log in to metabase:</label>
+                                <div class="col-sm-10">
+
+                                    <InputText type="text" class="form-control" id="email" @bind-Value="@Input.Email" title="Email used to access the metabase." />
+                                    <ValidationMessage For="() => Input.Email" class="text-danger" />
+
+                                </div>
+                            </div>
+
+                            <div class="form-group row">
+                                <label class="col-sm-2 col-form-label" for="password">Password:</label>
+                                <div class="col-sm-10">
+
+                                    <InputText type="text" class="form-control" id="password" @bind-Value="@Input.Password" title="Password used to access the metabase." />
+                                    <ValidationMessage For="() => Input.Password" class="text-danger" />
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-md btn-primary">Deploy Metabase</button>
+                    </EditForm>
+                </div>
+            </div>
+        </div>
+    }
+
+    @if (metabaseLink != null)
+    {
+        <p>Metabase is Deployed. </p>
+        <a href="@metabaseLink" target="_blank">Click here to open Metabase</a>
+    }
+    else if (showSpinner) {
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+            </div>
+        </div>
+        <div class="d-flex justify-content-center">
+            <span class="sr-only">
+                This could take several minutes.
+                You can close this page and you will be notified when the metabase is successfully deployed.
+            </span>
+        </div>
+    }
+</div>
+
+@code {
+    private const string FormName = "AdminCredentialsForm";
+    private string[]? views;
+    private string? deploymentResult;
+    private string? metabaseLink;
+    private string? message;
+    private bool isError;
+    private bool showSpinner = false;
+
+    [SupplyParameterFromForm(FormName = FormName)]
+    public AdminCredentials Input { get; set; } = new AdminCredentials();
+
+    private string? CustomerId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        var httpContext = HttpContextAccessor.HttpContext;
+
+        if (httpContext is null)
+        {
+            message = "User cannot be identified.";
+            return;
+        }
+
+        var customerIdResult = await UserAccessor.GetCustomerId(httpContext);
+        if (customerIdResult.IsFailure)
+        {
+            message = customerIdResult.Error.Message;
+            isError = true;
+            return;
+        }
+
+        var metabaseDeployment = await MetabaseDeploymentRepository.GetAsync(customerIdResult.Value);
+        if (metabaseDeployment is not null)
+        {
+            metabaseLink = metabaseDeployment.UrlPath;
+        }
+
+        CustomerId = customerIdResult.Value;
+    }
+
+    private async Task GenerateViews()
+    {
+        if (CustomerId is null)
+        {
+            return;
+        }
+
+        views = await GetViewsAsync();
+    }
+
+    private async ValueTask<string[]?> GetViewsAsync()
+    {
+        if (CustomerId is null)
+        {
+            return null;
+        }
+
+        var viewsResult = await dataIntegrationService.GenerateSqlViewsForCustomer(CustomerId);
+        if (viewsResult.IsFailure)
+        {
+            message = viewsResult.Error.Message;
+            isError = true;
+            return null;
+        }
+
+        return viewsResult.Value;
+    }
+
+    private async Task DeployViews()
+    {
+        if (CustomerId is null)
+        {
+            return;
+        }
+
+        var views = await GetViewsAsync();
+        if (views is null)
+        {
+            return;
+        }
+
+        var dbConfiguration = await dataIntegrationService.GetCustomerDbConnectionString(CustomerId);
+        if (dbConfiguration is null)
+        {
+            message = "The customer's database configuration is not yet set.";
+            isError = true;
+            return;
+        }
+
+        var (databaseProvider, connectionString) = dbConfiguration.Value;
+
+        var deploymentResult = await DatabaseViewDeployer.DeployViewsAsync(databaseProvider, connectionString, views);
+
+        this.deploymentResult = deploymentResult.IsFailure ? deploymentResult.Error.Message : "Views deployed successfully.";
+        if (deploymentResult.IsFailure)
+        {
+            message = deploymentResult.Error.Message;
+            isError = true;
+            return;
+        }
+
+        message = "Views deployed successfully.";
+
+    }
+
+    private async Task DeployMetabase()
+    {
+        if (CustomerId is null)
+        {
+            return;
+        }
+
+        showSpinner = true;
+        DefaultAdminSettings defaultAdminSettings = new(Input.Email, Input.Password);
+        var result = await MetabaseDeployer.DeployMetabaseAsync(CustomerId, defaultAdminSettings);
+        showSpinner = false;
+
+        if (result.IsFailure)
+        {
+            message = result.Error.Message;
+            isError = true;
+            return;
+        }
+
+        metabaseLink = result.Value;
+        message = "Metabase deployed successfully. url: " + result.Value;
+    }
+
+
+    public class AdminCredentials
+    {
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Email is not valid.")]
+        public string Email { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(255, ErrorMessage = "Must be between 5 and 255 characters", MinimumLength = 5)]
+        [DataType(DataType.Password)]
+        public string Password { get; set; } = string.Empty;
+    }
+}

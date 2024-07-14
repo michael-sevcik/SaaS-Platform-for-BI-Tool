@@ -1,0 +1,375 @@
+﻿@using BIManagement.Modules.DataIntegration.Domain.DbModelling
+@using BIManagement.Modules.Users.Api
+@using BIManagement.Modules.DataIntegration.Domain.DatabaseConnection;
+@using BlazorBootstrap
+@using Microsoft.AspNetCore.Components.Forms
+@using Microsoft.AspNetCore.Http
+@using System.ComponentModel.DataAnnotations
+@using Microsoft.Data.SqlClient
+@using Microsoft.Extensions.Logging
+@inject ILogger<DatabaseConnectionConfigurationForm> Logger
+@inject IUserAccessor UserAccessor
+@inject IHttpContextAccessor HttpContextAccessor
+@inject NavigationManager NavigationManager
+@inject ICustomerDbConnectionConfigurationRepository CustomerDatabaseConnectionConfigurationManager
+@inject ICustomerDbModelManager CustomerDbModelManager
+@rendermode @(new InteractiveServerRenderMode(prerender: false))
+
+
+@* Not using @page directive to utilize static routes class *@
+@attribute [Route(Routes.CustomersConfigureDbConnection)]
+
+<PageTitle>Database Connection Configuration</PageTitle>
+
+<h3>Database Connection Configuration</h3>
+
+
+<BIManagement.Common.Components.StatusMessage Message="@Message" IsError="@isError" />
+@if (CustomerId is not null)
+{
+    <EditForm Model="Input" FormName="@FormName" OnValidSubmit="OnValidSubmitAsync" method="post">
+        <DataAnnotationsValidator />
+        <ValidationSummary class="text-danger" role="alert" />
+        <div class="form-floating mb-3">
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="body">Select your database provider: </label>
+                <div class="col-sm-10">
+                    <InputSelect class="form-control" @bind-Value="@Input!.DatabaseType" DisplayName="Database provider selection">
+                        @foreach (var country in Enum.GetValues(typeof(DatabaseProvider)))
+                        {
+                            <option value="@country">@country</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="@(() => Input.DatabaseType)" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="dataSource">Data Source:</label>
+                <div class="col-sm-10">
+
+                    <InputText type="text" class="form-control" id="dataSource" @bind-Value="@Input.DataSource" title="Input Data source in form of SERVER_ADDRESS,PORT port is not mandatory."/>
+                    <ValidationMessage For="() => Input.DataSource" class="text-danger" />
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="initialCatalog">Initial Catalog:</label>
+                <div class="col-sm-10">
+                    <InputText type="text" class="form-control" placeholder="Leave blank if not applicable." id="initialCatalog" @bind-Value="@Input.InitialCatalog" />
+                    <ValidationMessage For="() => Input.InitialCatalog" class="text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="user-name">User name:</label>
+                <div class="col-sm-10">
+                    <InputText type="text" class="form-control" placeholder="sa" id="user-name" @bind-Value="@Input.UserName" />
+                    <ValidationMessage For="() => Input.InitialCatalog" class="text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="password">Password:</label>
+                <div class="col-sm-10">
+                    <InputText type="password" class="form-control" id="password" @bind-Value="@Input.Password" aria-required="true" placeholder="password" />
+                    <ValidationMessage For="() => Input.InitialCatalog" class="text-danger" />
+                </div>
+            </div>
+
+@*             <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="integratedSecurity">Integrated Security:</label>
+                <div class="col-sm-10">
+                    <InputCheckbox type="checkbox" class="form-check-input" id="integratedSecurity" @bind-Value="@Input.IntegratedSecurity" />
+                    <ValidationMessage For="() => Input.IntegratedSecurity" class="text-danger" />
+                </div>
+            </div> *@
+
+
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="connectTimeout">Connect Timeout:</label>
+                <div class="col-sm-10">
+                    <InputNumber type="text" class="form-control" id="connectTimeout" @bind-Value="@Input.ConnectTimeout" />
+                    <ValidationMessage For="() => Input.ConnectTimeout" class="text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="encrypt">Encrypt:</label>
+                <div class="col-sm-10">
+                    <InputCheckbox type="checkbox" class="form-check-input" id="encrypt" @bind-Value="@Input.Encrypt" />
+                    <ValidationMessage For="() => Input.Encrypt" class="text-danger" />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="trustServerCertificate">Trust Server Certificate:</label>
+                <div class="col-sm-10">
+                    <InputCheckbox type="checkbox" class="form-check-input" id="trustServerCertificate" @bind-Value="@Input.TrustServerCertificate" />
+                    <ValidationMessage For="() => Input.TrustServerCertificate" class="text-danger" />
+                </div>
+            </div>
+
+@*             <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="applicationIntent">Application Intent:</label>
+                <div class="col-sm-10">
+                    <InputText type="text" class="form-control" id="applicationIntent" @bind-Value="@Input.ApplicationIntent" />
+                    <ValidationMessage For="() => Input.ApplicationIntent" class="text-danger" />
+                </div>
+            </div> *@
+
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="multiSubnetFailover">Multi Subnet Failover:</label>
+                <div class="col-sm-10">
+                    <InputCheckbox type="checkbox" class="form-check-input" id="multiSubnetFailover" @bind-Value="@Input.MultiSubnetFailover" />
+                    <ValidationMessage For="() => Input.MultiSubnetFailover" class="text-danger" />
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-lg btn-primary">Save</button>
+    </EditForm>
+}
+
+@if (showContinueButton)
+{
+    @* <a class="btn btn-primary" >Create model</a> *@
+    @* <BlazorBootstrap.Button id="CreateModelButton" @onclick="CreateModelAsync">Create model</BlazorBootstrap.Button> *@
+    <button class="btn btn-primary" @onclick="CreateModelAsync">Create model</button>
+}
+
+@if (showSpinner)
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+        </div>
+    </div>
+    <div class="d-flex justify-content-center">
+        <span class="sr-only">Loading...</span>
+    </div>
+}
+
+
+
+@code {
+    private const string FormName = nameof(DatabaseConnectionConfigurationForm);
+    private enum Action
+    {
+        Update,
+        Add
+    }
+
+    private Action formAction;
+
+    // initialized by the OnInitializedAsync method
+    private CustomerDbConnectionConfiguration dbConnectionConfiguration { get; set; } = default!;
+    private bool showContinueButton = false;
+    private string? CustomerId { get; set; }
+
+    private string? Message { get; set; }
+    private bool isError = false;
+
+    private bool showSpinner = false;
+
+    [SupplyParameterFromForm(FormName = FormName)]
+    private InputModel? Input { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        Message = null;
+        isError = false;
+        CustomerId = null;
+        showContinueButton = false;
+
+        var httpContext = HttpContextAccessor.HttpContext;
+
+        if (httpContext is null)
+        {
+            Message = "User cannot be identified.";
+            return;
+        }
+
+        var customerIdResult = await UserAccessor.GetCustomerId(httpContext);
+        if (customerIdResult.IsFailure)
+        {
+            Message = customerIdResult.Error.Message;
+            isError = true;
+            return;
+        }
+
+        CustomerId = customerIdResult.Value;
+
+        var returnedConnectionConfiguration = await CustomerDatabaseConnectionConfigurationManager.GetAsync(CustomerId);
+        if (returnedConnectionConfiguration is null)
+        {
+            dbConnectionConfiguration = new()
+            {
+                CustomerId = this.CustomerId,
+            };
+
+            formAction = Action.Add;
+            Input ??= new();
+            return;
+        }
+
+        dbConnectionConfiguration = returnedConnectionConfiguration;
+        formAction = Action.Update;
+
+        // Initialize the Input model with the values from the database connection configuration if it's not already submitted.
+        if (Input is null)
+        {
+            SqlConnectionStringBuilder connectionStringBuilder = new(dbConnectionConfiguration.ConnectionString);
+
+            Input = new()
+            {
+                DatabaseType = dbConnectionConfiguration.Provider,
+                DataSource = connectionStringBuilder.DataSource,
+                InitialCatalog = connectionStringBuilder.InitialCatalog,
+                UserName = connectionStringBuilder.UserID,
+                Password = connectionStringBuilder.Password,
+                ConnectTimeout = connectionStringBuilder.ConnectTimeout,
+                Encrypt = connectionStringBuilder.Encrypt,
+                TrustServerCertificate = connectionStringBuilder.TrustServerCertificate,
+                ApplicationIntent = connectionStringBuilder.ApplicationIntent.ToString(), // TODO: use enum instead of string
+                MultiSubnetFailover = connectionStringBuilder.MultiSubnetFailover,
+            };            
+        }
+    }
+
+    private async Task CreateModelAsync()
+    {
+        isError = false;
+        Message = null;
+        bool spinnerStatus = showSpinner;
+        showSpinner = true;
+        var dbModelResult = await CustomerDbModelManager.CreateDbModelAsync(dbConnectionConfiguration);
+        if (dbModelResult.IsFailure)
+        {
+            Message = dbModelResult.Error.Message;
+            isError = true;
+        }
+        else
+        {
+            Message = "Model created successfully.";
+        }
+
+        showSpinner = spinnerStatus;
+    }
+
+    private async Task OnValidSubmitAsync()
+    {
+        if (Input is null)
+        {
+            throw new InvalidOperationException("Form should be initialized.");
+        }
+
+        // TODO: ENSURE client can't connect to the main DB.
+        Message = null;
+        isError = false;
+        showContinueButton = false;
+
+        // Create and fill the connection string builder
+        Microsoft.Data.SqlClient.SqlConnectionStringBuilder builder = new();
+        builder.DataSource = Input.DataSource;
+        if (Input.InitialCatalog.Length != 0)
+        {
+            builder.InitialCatalog = Input.InitialCatalog;
+        }
+
+        builder.UserID = Input.UserName;
+        builder.Password = Input.Password;
+        builder.ConnectTimeout = Input.ConnectTimeout;
+        builder.Encrypt = Input.Encrypt ?
+            SqlConnectionEncryptOption.Mandatory
+            : SqlConnectionEncryptOption.Optional;
+
+        builder.TrustServerCertificate = Input.TrustServerCertificate;
+        builder.ApplicationIntent = Input.ApplicationIntent == "ReadOnly" ?
+            ApplicationIntent.ReadOnly
+            : ApplicationIntent.ReadWrite;
+
+        // TODO: CHANGE THE FORM TO FIT USER WITH PASSWORD
+        builder.MultiSubnetFailover = Input.MultiSubnetFailover;
+
+        // test the connection
+        using SqlConnection sqlConnection = new(builder.ConnectionString);
+        try
+        {
+            await sqlConnection.OpenAsync();
+        }
+        catch (InvalidOperationException)
+        {
+            Message = "Cannot open a connection without specifying a data source or server.";
+            isError = true;
+            return;
+        }
+        catch (SqlException)
+        {
+            Message = "There was a problem establishing a connection with the specified user name and password.";
+            isError = true;
+            return;
+        }
+        catch (System.Configuration.ConfigurationErrorsException)
+        {
+            Message = "There was a problem establishing a connection with the specified user name and password.";
+            isError = true;
+            return;
+        }
+
+        switch (sqlConnection.State)
+        {
+            case System.Data.ConnectionState.Open:
+                Message = "Connection established successfully.";
+                break;
+        }
+
+        dbConnectionConfiguration.Provider = Input.DatabaseType;
+        dbConnectionConfiguration.ConnectionString = builder.ConnectionString;
+
+        // CustomersId in not null because the form is only shown if it's not null
+        switch (formAction)
+        {
+            case Action.Update:
+                await CustomerDatabaseConnectionConfigurationManager.UpdateAsync(dbConnectionConfiguration);
+                break;
+            case Action.Add:
+                await CustomerDatabaseConnectionConfigurationManager.AddAsync(dbConnectionConfiguration);
+                break;
+        }
+
+        Message = "Connection saved successfully.";
+        showContinueButton = true;
+        // TODO: In case of customer redirect to mapper
+    }
+
+    // TODO: REMOVE defaults
+    internal sealed class InputModel
+    {
+        [Display(Name = "Database Type")]
+        public DatabaseProvider DatabaseType { get; set; } = DatabaseProvider.SqlServer;
+
+        [Required(ErrorMessage = "Data Source is required.")]
+        [MinLength(1, ErrorMessage = "Data Source must be at least 1 character long.")]
+        // TODO: USE __INTERNAL__ in internally deployed databases to prevent client from connecting to them.
+        [RegularExpression("^(?!.*__INTERNAL__).+$", ErrorMessage = "Data Source cannot contain '__INTERNAL__', or new line characters.")]
+        public string DataSource { get; set; } = "(localdb)\\MSSQLLocalDB";
+
+        public string InitialCatalog { get; set; } = "SaaSPlatform";
+
+        public string UserName { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+
+        [Range(0, 7200, ErrorMessage = "Connect Timeout must be a non-negative integer smaller than or equal to 7200.")]
+        public int ConnectTimeout { get; set; } = 30;
+
+        public bool Encrypt { get; set; } = false;
+        public bool TrustServerCertificate { get; set; } = false;
+
+        // [Required(ErrorMessage = "Application Intent is required.")]
+        public string ApplicationIntent { get; set; } = "ReadOnly";
+
+        public bool MultiSubnetFailover { get; set; } = false;
+    }
+}

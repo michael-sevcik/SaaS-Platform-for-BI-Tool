@@ -1,84 +1,79 @@
 ﻿using BIManagement.Modules.DataIntegration.Application.Mapping.JsonParsing;
+using BIManagement.Modules.DataIntegration.Domain.DbModelling;
 using BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.SourceEntities;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization
+namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelDeserialization;
+
+[TestFixture]
+public class ISourceEntitiyDeserializetion : BaseModelDeserializationTests
 {
-    [TestFixture]
-    public class ISourceEntitiyDeserializetion : BaseModelDeserializationTests
+    [Test]
+    public void TestISourceEntityDeserialization()
     {
-        [Test]
-        public void TestISourceEntityDeserialization()
+        var jsonText = """
         {
-            var outputColumns = new string[] { "ZamestnanecId", "OdpracHod", "IdObdobi" };
-            var jsonText = """
+            "$id": "0",
+            "type": "sourceTable",
+            "name": "TabMzdList",
+            "schema": null,
+            "selectedColumns": [
             {
-                "$id" : "1",
-                "type" : "sourceTable",
-                "name" : "TabMzdList",
-                "selectedColumns" : [
-                    "ZamestnanecId", "OdpracHod", "IdObdobi"
-                ]
+                "name": "ZamestnanecId",
+                "description": null,
+                "dataType": {
+                "isNullable": false,
+                "simpleType": "Integer",
+                "type": "simple"
+                },
+                "$id": "4"
+            },
+            {
+                "name": "OdpracHod",
+                "description": null,
+                "dataType": {
+                "isNullable": false,
+                "simpleType": "Decimal",
+                "type": "simple"
+                },
+                "$id": "3"
+            },
+            {
+                "name": "HodSaz",
+                "description": null,
+                "dataType": {
+                "isNullable": false,
+                "simpleType": "Decimal",
+                "type": "simple"
+                },
+                "$id": "2"
+            },
+            {
+                "name": "IdObdobi",
+                "description": null,
+                "dataType": {
+                "isNullable": false,
+                "simpleType": "Integer",
+                "type": "simple"
+                },
+                "$id": "1"
             }
-            """;
-
-            // Action
-            var deserialized = JsonSerializer.Deserialize<ISourceEntity>(jsonText, MappingJsonOptions.CreateOptions());
-
-            // Assertion
-            Assert.That(deserialized, Is.Not.Null);
-            Assert.Multiple(() =>
-            {
-                Assert.That(deserialized.Name, Is.EqualTo("TabMzdList"));
-                Assert.That(deserialized.SelectedColumns, Is.EquivalentTo(outputColumns));
-            });
+            ]
         }
+        """;
 
-        public class X
-        {
-            public required string Name { get; set; }
+        SourceColumn[] sourceColumns = [
+            new("ZamestnanecId", new SimpleType(SimpleType.Types.Integer, false)),
+            new("OdpracHod", new SimpleType(SimpleType.Types.Decimal, false)),
+            new("HodSaz", new SimpleType(SimpleType.Types.Decimal, false)),
+            new("IdObdobi", new SimpleType(SimpleType.Types.Integer, false)),
+        ];
 
-            public X? SomeX { get; set; }
-            public X? NextX { get; set; }
-        }
+        SourceTable sourceTable = new("TabMzdList", null, sourceColumns);
 
-        [Test]
-        public void TestReferenceHandlingOnSerialization()
-        {
-            var x = new X() { Name = "str", };
-            var x1 = new X() { Name = "str", NextX = x, SomeX = x };
-            var serialized = JsonSerializer.Serialize(x1, MappingJsonOptions.CreateOptions());
-            Assert.That(serialized, Is.Not.Null);
-        }
-
-        // TODO: consider removing
-        [Test]
-        public void TestReferenceHandlingOnDeserialization()
-        {
-            var jsonText = """
-                {
-                  "$id": "1",
-                  "name": "str",
-                  "someX": {
-                    "$id": "2",
-                    "name": "str2",
-                    "someX": null,
-                    "nextX": null
-                  },
-                  "nextX": {
-                    "$ref": "2"
-                  }
-                }
-                """;
-
-            var deserialized = JsonSerializer.Deserialize<X>(jsonText, new JsonSerializerOptions(JsonSerializerDefaults.Web) 
-            { 
-                ReferenceHandler = ReferenceHandler.Preserve,
-                
-            });
-
-            Assert.That(deserialized, Is.Not.Null);
-        }
+        var deserialized = JsonSerializer.Deserialize<ISourceEntity>(jsonText, MappingJsonOptions.CreateOptions());
+        Assert.That(deserialized, Is.Not.Null);
+        AreEqualByJson(sourceTable, deserialized);
     }
 }

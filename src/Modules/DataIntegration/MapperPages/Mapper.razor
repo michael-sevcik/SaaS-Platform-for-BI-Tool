@@ -1,7 +1,7 @@
 ﻿@using static Microsoft.AspNetCore.Components.Web.RenderMode;
 @rendermode @(new InteractiveServerRenderMode(false))
 
-@* TODO: INJECT CostumerDbModelManager, get the db Model and pass it to the mapper. Also we need to call create model somewhere*@
+@* TODO: INJECT CustomerDbModelManager, get the db Model and pass it to the mapper. Also we need to call create model somewhere*@
 
 @using BIManagement.Common.Components.InteractiveAlerts
 @using BIManagement.Modules.DataIntegration.Domain.DbModelling
@@ -14,7 +14,9 @@
 @* If all entities are mapped enable continuing to deployment.*@
 @if (mappingStates is not null && mappingStates.All(state => state))
 {
-    <button class="btn btn-primary" href="" >Continue to deployment</button> @* TODO: Add the link to the deployment page *@
+    <a class="btn btn-primary" href="@Deployment.Api.PublicModuleRoutes.CustomerMetabaseDeployment" >
+        Continue to deployment
+    </a>
 }
 
 <div class="embed-responsive">

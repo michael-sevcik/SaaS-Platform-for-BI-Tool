@@ -15,7 +15,7 @@ public sealed partial class Mapper : IAsyncDisposable
     IJSRuntime JSRuntime { get; set; } = default!;
 
     [Inject]
-    ICostumerDbModelManager CostumerDbModelManager { get; set; } = default!;
+    ICustomerDbModelManager CustomerDbModelManager { get; set; } = default!;
 
     [Inject]
     IUserAccessor UserAccessor { get; set; } = default!;
@@ -44,7 +44,7 @@ public sealed partial class Mapper : IAsyncDisposable
 
     private MapperJsInterop? mapperJSInterop;
     private int currentTargetTableIndex = 0;
-    private DbModel? costumerDbModel;
+    private DbModel? customerDbModel;
     private IReadOnlyList<TargetDbTable>? targetTables;
     private bool[]? mappingStates;
     private TargetDbTable? targetDbTable;
@@ -53,34 +53,41 @@ public sealed partial class Mapper : IAsyncDisposable
     private string? message;
 
     /// <summary>
-    /// The Costumer id to use for the component.
-    /// Initialized either by the parent component or by the user id of the current Costumer.
+    /// The Customer id to use for the component.
+    /// Initialized either by the parent component or by the user id of the current Customer.
     /// </summary>
     [Parameter]
-    public string? CostumerId { get; set; }
+    public string? CustomerId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
-        if (CostumerId == null)
+        if (CustomerId == null)
         {
-            var userIdResult = await UserAccessor.GetCostumerId(
+            var userIdResult = await UserAccessor.GetCustomerId(
                 HttpContextAccessor.HttpContext ?? throw new InvalidOperationException("Http context is not accesible."));
             if (userIdResult.IsFailure)
             {
                 throw new InvalidOperationException(userIdResult.Error.Message);
             }
 
-            CostumerId = userIdResult.Value;
+            CustomerId = userIdResult.Value;
         }
 
-        costumerDbModel = await CostumerDbModelManager.GetAsync(CostumerId);
+        customerDbModel = await CustomerDbModelManager.GetAsync(CustomerId);
+        if (customerDbModel is null)
+        {
+            message = "You have to create a database model first. Use Database connection configuration for that";
+            errorAlert?.Show();
+            return;
+        }
+
         targetTables = await TargetDbTableRepository.GetTargetDbTables();
         if (targetTables.Count <= 0)
         {
             throw new InvalidOperationException("Mapper expects at least one target db table.");
         }
 
-        var schemaMappingsByTargetTableId = (await SchemaMappingRepository.GetSchemaMappings(CostumerId))
+        var schemaMappingsByTargetTableId = (await SchemaMappingRepository.GetSchemaMappings(CustomerId))
             .ToDictionary(m => m.TargetDbTableId);
         mappingStates = targetTables.Select(table =>
         {
@@ -97,7 +104,7 @@ public sealed partial class Mapper : IAsyncDisposable
         message = IntroductionMessage;
         successAlert?.Show();
         isInitialized = true;
-        Logger.LogDebug("Mapper component initialized for Costumer with id: {CostumerId}.", CostumerId);
+        Logger.LogDebug("Mapper component initialized for Customer with id: {customerId}.", CustomerId);
     }
 
     /// <inheritdoc/>
@@ -116,8 +123,8 @@ public sealed partial class Mapper : IAsyncDisposable
 
         if (mapperJSInterop is null)
         {
-            mapperJSInterop = new(JSRuntime, MapperLogger, costumerDbModel
-                ?? throw new InvalidOperationException("CostumerDbModel is not initialized.")); // TODO: Exception can be omitted.
+            mapperJSInterop = new(JSRuntime, MapperLogger, customerDbModel
+                ?? throw new InvalidOperationException("CustomerDbModel is not initialized.")); // TODO: Exception can be omitted.
             await DisplayMapping();
         }
 
@@ -135,7 +142,7 @@ public sealed partial class Mapper : IAsyncDisposable
 
         var schemaMapping = new SchemaMapping()
         {
-            CostumerId = CostumerId!,
+            CustomerId = CustomerId!,
             TargetDbTableId = targetDbTable.Id,
             Mapping = serializedMapping,
             IsComplete = isComplete,
@@ -174,13 +181,13 @@ public sealed partial class Mapper : IAsyncDisposable
 
     private async ValueTask DisplayMapping()
     {
-        if (CostumerId is null)
+        if (CustomerId is null)
         {
-            Logger.LogWarning("DisplayMapping called with null CostumerId.");
+            Logger.LogWarning("DisplayMapping called with null CustomerId.");
             return;
         }
 
-        var currentMapping = await SchemaMappingRepository.GetSchemaMapping(CostumerId, targetDbTable.Id);
+        var currentMapping = await SchemaMappingRepository.GetSchemaMapping(CustomerId, targetDbTable.Id);
         if (currentMapping is not null)
         {
             await mapperJSInterop!.LoadEntityMapping(currentMapping.Mapping, targetDbTable);

@@ -16,8 +16,8 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Repositories
     IScoped
     {
         /// <inheritdoc/>
-        public async Task<IReadOnlyList<SchemaMapping>> GetSchemaMappings(string costumerId)
-            => await entities.AsNoTracking().Where(mapping => mapping.CostumerId == costumerId).ToListAsync();
+        public async Task<IReadOnlyList<SchemaMapping>> GetSchemaMappings(string customerId)
+            => await entities.AsNoTracking().Where(mapping => mapping.CustomerId == customerId).ToListAsync();
 
         /// <inheritdoc/>
         public async Task<Result> SaveAsync(SchemaMapping schemaMapping)
@@ -25,7 +25,7 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Repositories
             Result result;
 
             // check if it exists and update it
-            if (entities.Any(model => model.CostumerId == schemaMapping.CostumerId
+            if (entities.Any(model => model.CustomerId == schemaMapping.CustomerId
                 && model.TargetDbTableId == schemaMapping.TargetDbTableId))
             {
                 result = await UpdateAsync(schemaMapping);
@@ -41,7 +41,13 @@ namespace BIManagement.Modules.DataIntegration.Persistence.Repositories
         }
 
         /// <inheritdoc/>
-        public async Task<SchemaMapping?> GetSchemaMapping(string costumerId, int targetDbTableId)
-            => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CostumerId == costumerId && model.TargetDbTableId == targetDbTableId);
+        public async Task<SchemaMapping?> GetSchemaMapping(string customerId, int targetDbTableId)
+            => await entities.AsNoTracking().SingleOrDefaultAsync(model => model.CustomerId == customerId && model.TargetDbTableId == targetDbTableId);
+
+        /// <inheritdoc/>
+        public async Task DeleteSchemaMappings(string customerId)
+        {
+            await entities.Where(mapping => mapping.CustomerId == customerId).ExecuteDeleteAsync();
+        }
     }
 }
