@@ -6,6 +6,11 @@ WORKDIR /usr/src/app
 
 # Copy initialization scripts
 COPY . /usr/src/app
+
+USER root
+
+RUN chmod +x ./entrypoint.sh
+RUN chmod +x ./run-initialization.sh
              
 # Set environment variables, not have to write them with the docker run command
 # Note: make sure that your password matches what is in the run-initialization script 
@@ -17,7 +22,6 @@ ENV MSSQL_PID=Express
 # Expose port externally from docker-compose.yml
 EXPOSE 1433
 
-USER root
 # Run Microsoft SQL Server and initialization script (at the same time)
 CMD /bin/bash ./entrypoint.sh
 
