@@ -1,0 +1,19 @@
+@startuml
+class Join {
+    + <<const>> TypeDiscriminator : string = "join"
+    + Name : string <<get>> <<set>>
+    + selectedColumns:SourceColumn[] <<get>> <<set>>
+    + joinType:Type <<get>> <<set>>
+}
+enum Type {
+    left,
+    right,
+    inner,
+    full,
+}
+Join --> "LeftSourceEntity" ISourceEntity
+Join --> "RightSourceEntity" ISourceEntity
+Join --> "JoinType" Type
+Join --> "JoinCondition" JoinCondition
+Join +-- Type
+@enduml

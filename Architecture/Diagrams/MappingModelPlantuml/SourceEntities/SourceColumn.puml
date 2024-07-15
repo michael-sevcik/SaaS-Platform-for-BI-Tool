@@ -1,0 +1,7 @@
+@startuml
+class SourceColumn {
+    + Name : string <<get>> <<set>>
+}
+SourceColumn --> "Owner" ISourceEntity
+SourceColumn --> "DataType" DataTypeBase
+@enduml

@@ -1,0 +1,11 @@
+@startuml mapping-model-diagram
+skinparam linetype polyline
+!include ./home/m/222-sevcik-michael/src/Modules/DataIntegration/Domain/Mapping/JsonModel/EntityMapping.puml
+!include ./SourceEntities/SourceTable.puml
+!include ./SourceEntities/ISourceEntity.puml
+!include ./SourceEntities/SourceColumn.puml
+!include ./SourceEntities/CustomQuery.puml
+!include ./SourceEntities/Agregators/Join.puml
+!include ./SourceEntities/Agregators/Conditions/ConditionLink.puml
+!include ./SourceEntities/Agregators/Conditions/Condition.puml
+@enduml

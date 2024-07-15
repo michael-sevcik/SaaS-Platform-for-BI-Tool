@@ -1,0 +1,9 @@
+@startuml
+class SourceTable {
+    + <<const>> TypeDiscriminator : string = "sourceTable"
+    + selectedColumns:SourceColumn[] <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + Schema : string? <<get>> <<set>>
+}
+ISourceEntity <|-- SourceTable
+@enduml

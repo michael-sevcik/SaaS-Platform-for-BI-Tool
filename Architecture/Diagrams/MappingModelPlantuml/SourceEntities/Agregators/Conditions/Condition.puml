@@ -1,0 +1,19 @@
+@startuml
+class JoinCondition {
+    + relation:Operator <<get>> <<set>>
+    + leftColumn:SourceColumn <<get>> <<set>>
+    + rightColumn:SourceColumn <<get>> <<set>>
+    + linkedCondition:ConditionLink? <<get>> <<set>>
+}
+enum Operator {
+    equals,
+    notEquals,
+    greaterThan,
+    lessThan,
+}
+JoinCondition --> "Relation" Operator
+JoinCondition --> "LeftColumn" SourceColumn
+JoinCondition --> "RightColumn" SourceColumn
+JoinCondition --> "LinkedCondition" ConditionLink
+JoinCondition +-- Operator
+@enduml

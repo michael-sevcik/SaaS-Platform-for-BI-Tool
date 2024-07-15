@@ -1,0 +1,9 @@
+@startuml
+class CustomQuery {
+    + <<const>> TypeDiscriminator : string = "customQuery"
+    + selectedColumns:SourceColumn[] <<get>> <<set>>
+    + Name : string <<get>> <<set>>
+    + Query : string <<get>> <<set>>
+}
+ISourceEntity <|-- CustomQuery
+@enduml

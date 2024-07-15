@@ -1,0 +1,14 @@
+@startuml
+class ConditionLink {
+    + relation:LinkRelation <<get>> <<set>>
+    + condition:JoinCondition <<get>> <<set>>
+}
+enum LinkRelation {
+    And,
+    Or,
+}
+IVisitable <|-- ConditionLink
+ConditionLink --> "Relation" LinkRelation
+ConditionLink --> "Condition" JoinCondition
+ConditionLink +-- LinkRelation
+@enduml

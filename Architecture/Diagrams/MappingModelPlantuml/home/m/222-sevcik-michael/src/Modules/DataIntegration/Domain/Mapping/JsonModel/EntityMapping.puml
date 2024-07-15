@@ -1,0 +1,10 @@
+@startuml
+class EntityMapping {
+    + Name : string <<get>>
+    + Schema : string? <<get>>
+    + Description : string? <<get>>
+    + ColumnMappings : Dictionary<string,SourceColumn?>
+}
+
+EntityMapping o-> "SourceEntity" ISourceEntity
+@enduml
