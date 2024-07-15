@@ -17,6 +17,7 @@ ENV MSSQL_PID=Express
 # Expose port externally from docker-compose.yml
 EXPOSE 1433
 
+USER root
 # Run Microsoft SQL Server and initialization script (at the same time)
 CMD /bin/bash ./entrypoint.sh
 
