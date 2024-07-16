@@ -25,11 +25,6 @@ internal sealed class MigrateDatabasesTask(IHostEnvironment environment, IServic
         }
         logger.LogInformation("Migrating databases...");
         using IServiceScope scope = serviceProvider.CreateScope();
-
-        // TODO: DELETE
-        var connectionString = configuration.GetConnectionString("DefaultConnection");
-        logger.LogInformation("Connection string: {connectionString}", connectionString);
-
         await MigrateDatabaseAsync<UsersContext>(scope, stoppingToken);
 
         logger.LogInformation("Migration done.");

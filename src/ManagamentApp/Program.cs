@@ -3,7 +3,6 @@ using System.Reflection;
 using BIManagement.Common.Infrastructure.Extensions;
 using BIManagement.ManagementApp.Components.Layout;
 using BIManagement.Common.Components.Layout;
-using BIManagement.ManagementApp.StartupTasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,8 +12,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddHttpContextAccessor();
 
-builder.Services.AddSingleton<INavMenuContentProvider, NavMenuContentProvider>() // TODO: use the service technique to provide the NavMenuContentProvider
-    .AddHostedService<MigrateDatabasesTask>();
+builder.Services.AddSingleton<INavMenuContentProvider, NavMenuContentProvider>();
 
 Assembly[] infrastructureAssemblies = [
     BIManagement.Modules.DataIntegration.Infrastructure.AssemblyReference.Assembly,
