@@ -7,7 +7,6 @@
     <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\Common\Domain\BIManagement.Common.Domain.csproj" />
     <ProjectReference Include="..\..\..\Common\Shared\BIManagement.Common.Shared.csproj" />
   </ItemGroup>
   <ItemGroup>
