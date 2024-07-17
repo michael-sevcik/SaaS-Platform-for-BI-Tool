@@ -10,14 +10,18 @@ namespace BIManagement.Common.Infrastructure.Configuration;
 public interface IModuleInstaller
 {
     /// <summary>
-    /// Installs the module using the specified service collection.
+    /// Installs the module using the given service collection.
     /// </summary>
     /// <param name="services">The service collection.</param>
     /// <param name="configuration">The configuration.</param>
     static abstract void Install(IServiceCollection services, IConfiguration configuration);
 
+    /// <summary>
+    /// Adds the module's endpoints to the given endpoint route builder.
+    /// </summary>
+    /// <param name="endpoints">The endpoint route builder.</param>
     static virtual void AddEndpoints(IEndpointRouteBuilder endpoints)
     {
-        // Do nothing
+        // Do nothing, override if needed.
     }
 }

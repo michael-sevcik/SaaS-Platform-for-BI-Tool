@@ -18,7 +18,7 @@ internal class CustomerDbModelManager(IDbModelBuilderAccessor modelBuilderAccess
         switch (configuration.Provider)
         {
             case DatabaseProvider.SqlServer:
-                modelBuilder = modelBuilderAccessor.GetMSSQLDbModelBuilder(); // TODO: REGISTER THIS SERVICE
+                modelBuilder = modelBuilderAccessor.GetMSSQLDbModelBuilder();
                 break;
             default:
                 throw new NotImplementedException();

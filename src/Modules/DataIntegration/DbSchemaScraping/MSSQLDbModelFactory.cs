@@ -156,7 +156,6 @@ public class MSSQLDbModelFactory(ILogger<MSSQLDbModelFactory> logger) : IDbModel
 
 
     #region CreationOfEfCoreModelFactory
-    // TODO: use classic DI instead of this
     private static ServiceProvider CreateDesignTimeServiceProvider()
     {
         // Source: https://learn.microsoft.com/en-us/ef/core/cli/services
