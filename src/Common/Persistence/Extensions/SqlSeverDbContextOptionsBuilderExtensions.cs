@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace BIManagement.Common.Persistence.Extensions;
 
 
-// TODO: IS needed?
 /// <summary>
 /// Contains extension method for the <see cref="SqlServerDbContextOptionsBuilder"/> class.
 /// </summary>

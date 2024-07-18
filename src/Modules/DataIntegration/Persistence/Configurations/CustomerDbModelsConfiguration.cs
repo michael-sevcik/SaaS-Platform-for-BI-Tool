@@ -24,7 +24,7 @@ internal sealed class CustomerDbModelsConfiguration : IEntityTypeConfiguration<C
         builder.Property(x => x.DbModel)
             .HasConversion(
                 v => JsonSerializer.Serialize(v, SerializationOptions.Default),
-                v => JsonSerializer.Deserialize<DbModel>(v, SerializationOptions.Default) // TODO: HANDLE NULL
+                v => JsonSerializer.Deserialize<DbModel>(v, SerializationOptions.Default)
             );
     }
 }

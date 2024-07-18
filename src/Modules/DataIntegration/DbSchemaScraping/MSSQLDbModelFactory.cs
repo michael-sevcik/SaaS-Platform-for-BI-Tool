@@ -10,7 +10,6 @@ using System.Reflection;
 
 namespace BIManagement.Modules.DataIntegration.DbSchemaScraping;
 
-// TODO: Refactor throwing exceptions to using Result<T> instead
 /// <summary>
 /// Implementation of <see cref="IDbModelFactory"/> for building a model of a MSSQL database.
 /// </summary>

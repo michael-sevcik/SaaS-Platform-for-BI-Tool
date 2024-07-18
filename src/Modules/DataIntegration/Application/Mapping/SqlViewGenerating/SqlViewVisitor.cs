@@ -9,7 +9,6 @@ using static BIManagement.Modules.DataIntegration.Domain.Mapping.JsonModel.Sourc
 
 namespace BIManagement.Modules.DataIntegration.Application.Mapping.SqlViewGenerating;
 
-// TODO: REMOVE ALL AppendLine() calls
 
 /// <summary>
 /// Represents a visitor for generating SQL views based on JSON model.
@@ -93,6 +92,7 @@ public class SqlViewVisitor(string tableNamePrefix = "") : IVisitor
         sb.Append(')');
     }
 
+    /// <inheritdoc/>
     public void ProcessConditionLink(Join join, ConditionLink link)
     {
         sb.Append(' ')

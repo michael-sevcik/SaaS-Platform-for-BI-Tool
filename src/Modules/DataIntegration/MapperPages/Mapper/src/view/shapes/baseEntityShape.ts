@@ -75,11 +75,6 @@ export abstract class BaseEntityShape extends dia.Element {
     }
 
     public addPropertyPort(column: Column) : PropertyPort {
-        // TODO: DELETE
-        // if (!this.canAddPort(this.groupName)) {
-        //     console.log('Cannot add more ports');
-        //     return;
-        // }
 
         const port = new PropertyPort(column, this.groupName);
         this.addPort(port);

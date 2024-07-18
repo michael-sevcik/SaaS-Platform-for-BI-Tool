@@ -232,7 +232,7 @@
                 ConnectTimeout = connectionStringBuilder.ConnectTimeout,
                 Encrypt = connectionStringBuilder.Encrypt,
                 TrustServerCertificate = connectionStringBuilder.TrustServerCertificate,
-                ApplicationIntent = connectionStringBuilder.ApplicationIntent.ToString(), // TODO: use enum instead of string
+                ApplicationIntent = connectionStringBuilder.ApplicationIntent.ToString(),
                 MultiSubnetFailover = connectionStringBuilder.MultiSubnetFailover,
             };            
         }
@@ -265,7 +265,7 @@
             throw new InvalidOperationException("Form should be initialized.");
         }
 
-        // TODO: ENSURE client can't connect to the main DB.
+
         Message = null;
         isError = false;
         showContinueButton = false;
@@ -290,7 +290,6 @@
             ApplicationIntent.ReadOnly
             : ApplicationIntent.ReadWrite;
 
-        // TODO: CHANGE THE FORM TO FIT USER WITH PASSWORD
         builder.MultiSubnetFailover = Input.MultiSubnetFailover;
 
         // test the connection
@@ -341,10 +340,8 @@
 
         Message = "Connection saved successfully.";
         showContinueButton = true;
-        // TODO: In case of customer redirect to mapper
     }
 
-    // TODO: REMOVE defaults
     internal sealed class InputModel
     {
         [Display(Name = "Database Type")]
@@ -352,7 +349,6 @@
 
         [Required(ErrorMessage = "Data Source is required.")]
         [MinLength(1, ErrorMessage = "Data Source must be at least 1 character long.")]
-        // TODO: USE __INTERNAL__ in internally deployed databases to prevent client from connecting to them.
         [RegularExpression("^(?!.*__INTERNAL__).+$", ErrorMessage = "Data Source cannot contain '__INTERNAL__', or new line characters.")]
         public string DataSource { get; set; } = "(localdb)\\MSSQLLocalDB";
 

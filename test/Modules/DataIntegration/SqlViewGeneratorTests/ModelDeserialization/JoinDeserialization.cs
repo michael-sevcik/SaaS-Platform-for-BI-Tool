@@ -10,7 +10,6 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests.ModelD
 [TestFixture]
 public class JoinDeserialization : BaseModelDeserializationTests
 {
-    // TODO:  
     [Test]
     public void TestJoinDeserialization()
     {

@@ -18,12 +18,7 @@ public sealed class UsersModuleInstaller : IModuleInstaller
         //services.AddSingleton<IEmailSender<ApplicationUser>, IdentityNoOpEmailSender>();
         services.InstallServicesFromAssemblies(configuration,
             AssemblyReference.Assembly
-            //  TODO: ADD all ADDITIONAL ASSEMBLIES
             );
-
-
-        // TODO: FINISH installer
-        //throw new NotImplementedException();
     }
 
     /// <inheritdoc />

@@ -9,7 +9,6 @@ import type { SourceEntity } from "../../sourceEntities/sourceEntity";
 import { CustomQuery } from "../../sourceEntities/customQuery";
 
 
-// TODO: check NESTED JOIN VISITATION
 
 /**
  * This class is used to convert a SourceEntity to a plain JS object
@@ -132,7 +131,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
 
             return { 
                 $id: id,
-                type: Join.typeDescriptor, // TODO: move this to a map to constatns or something
+                type: Join.typeDescriptor,
                 name: join.name,
                 joinType: join.type,
                 leftSourceEntity: plainLeftSourceEntity,
@@ -189,7 +188,7 @@ export class MappingToPlainConverterVisiter extends MappingVisitor {
 
             return { 
                 $id: id,
-                type: SourceTable.typeDescriptor, // TODO: move this to a map to constants or something
+                type: SourceTable.typeDescriptor,
                 name: sourceTable.name,
                 schema: sourceTable.schema,
                 selectedColumns: plainColumns,

@@ -124,7 +124,7 @@ public sealed partial class Mapper : IAsyncDisposable
         if (mapperJSInterop is null)
         {
             mapperJSInterop = new(JSRuntime, MapperLogger, customerDbModel
-                ?? throw new InvalidOperationException("CustomerDbModel is not initialized.")); // TODO: Exception can be omitted.
+                ?? throw new InvalidOperationException("CustomerDbModel is not initialized.")); 
             await DisplayMapping();
         }
 

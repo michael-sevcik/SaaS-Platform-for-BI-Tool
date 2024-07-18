@@ -11,7 +11,7 @@ namespace BIManagement.Test.Modules.DataIntegration.SqlViewGeneratorTests;
 public class SqlViewVisitorTests
 {
     [Test]
-    public void TestJoinProcessing()    // TODO: Test different join types and join condition operators
+    public void TestJoinProcessing() 
     {
         SourceColumn[] sourceColumns = [
                    new("MzdObd_DatumOd", new SimpleType(SimpleType.Types.Date, false)),
@@ -57,12 +57,10 @@ public class SqlViewVisitorTests
 
     }
 
-    // TODO:
 
     [Test]
     public void TestEntityMappingProcessing()
     {
-        // TODO: the view entity must generate the named view
         SourceColumn[] sourceColumns = [
             new("MzdObd_DatumOd", new SimpleType(SimpleType.Types.Date, false)),
             new("MzdObd_DatumDo", new SimpleType(SimpleType.Types.Date, false)),

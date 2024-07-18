@@ -14,8 +14,6 @@ export const LINE_WIDTH = 2;
 export const HEADER_ICON_SIZE = 50;
 export const HEADER_HEIGHT = 80;
 
-// TODO: DELETE
-// export const DATABASE_ENTITY_MAX_PORT_COUNT = 20;
 export const SOURCE_DATABASE_ENTITY_GROUP_NAME = 'sourceDbEntity';
 export const DEFAULT_SOURCE_ENTITY_DESCRIPTION = 'Represents a table from the source database.';
 export const DEFAULT_CUSTOM_QUERY_DESCRIPTION = 'Represents a custom query.';

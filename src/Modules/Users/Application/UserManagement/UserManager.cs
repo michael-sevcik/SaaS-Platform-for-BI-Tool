@@ -10,7 +10,6 @@ using System.Text;
 
 namespace BIManagement.Modules.Users.Application.UserManagement;
 
-// TODO: put the error messages in the resources.
 /// <summary>
 /// 
 /// </summary>
@@ -71,7 +70,6 @@ internal sealed class UserManager(
     {
         ApplicationUser user = new();
 
-        // TODO: consider using the cancellation tokens
         // create a new user
         await userStore.SetUserNameAsync(user, email, CancellationToken.None);
         var emailStore = GetEmailStore();

@@ -1,6 +1,5 @@
 ﻿namespace BIManagement.Modules.Notifications.Domain;
 
-// TODO: USE
 /// <summary>
 /// Represents the options for mailing configuration.
 /// </summary>
@@ -11,7 +10,6 @@ public sealed class EmailOptions
     /// </summary>
     public string BaseUrl { get; init; } = string.Empty;
 
-    // TODO: IS THIS NEEDED?
     /// <summary>
     /// Gets the sender email.
     /// </summary>

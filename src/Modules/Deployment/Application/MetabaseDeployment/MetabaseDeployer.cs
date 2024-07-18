@@ -58,7 +58,7 @@ internal class MetabaseDeployer(
 
         var metabaseId = deployment.Id;
         var publicUrlPath = $"/metabase-{metabaseId}";
-        var publicAbsoluteMetabaseUrl = baseClusterHostUrl + publicUrlPath; // TODO: use configuration for this
+        var publicAbsoluteMetabaseUrl = baseClusterHostUrl + publicUrlPath;
         deployment.UrlPath = publicAbsoluteMetabaseUrl;
         deployment.InstanceName = instanceName;
 

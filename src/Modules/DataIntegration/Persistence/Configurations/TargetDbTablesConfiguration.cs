@@ -22,7 +22,7 @@ internal sealed class TargetDbTablesConfiguration : IEntityTypeConfiguration<Tar
         builder.Property(x => x.TableModel)
             .HasConversion(
                 v => JsonSerializer.Serialize(v, SerializationOptions.Default),
-                v => JsonSerializer.Deserialize<Table>(v, SerializationOptions.Default) // TODO: HANDLE NULL
+                v => JsonSerializer.Deserialize<Table>(v, SerializationOptions.Default)
             );
 
         List<TargetDbTable> targetTables = new();

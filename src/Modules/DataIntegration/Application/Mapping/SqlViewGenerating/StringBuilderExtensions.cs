@@ -50,29 +50,6 @@ internal static class StringBuilderExtensions
     public static StringBuilder AppendSourceColumnWithRenaming(this StringBuilder sb, SourceColumn column)
         => sb.AppendSourceColumn(column).Append(" AS ").AppendRenamedSourceColumn(column);
 
-
-    /// <summary>
-    /// Appends the selected columns to the string builder.
-    /// </summary>
-    /// <param name="sb">The string builder that should be appended.</param>
-    /// <param name="columns">The array of source columns to be appended.</param>
-    /// <returns>The appended instance of the string builder passed as <paramref name="sb"/>.</returns>
-    public static StringBuilder AppendSelectedColumns(this StringBuilder sb, SourceColumn[] columns)
-    {
-        // TODO: DELELE IF NOT USED
-        for (int i = 0; i < columns.Length - 1; ++i)
-        {
-            sb.AppendSourceColumn(columns[i]).Append(", ");
-        }
-
-        if (columns.Length > 0)
-        {
-            sb.AppendSourceColumn(columns[^1]);
-        }
-
-        return sb;
-    }
-
     /// <summary>
     /// Appends the child column reference to the string builder - ENTITY_NAME.ENTITY_NAME__COLUMN_NAME.
     /// </summary>

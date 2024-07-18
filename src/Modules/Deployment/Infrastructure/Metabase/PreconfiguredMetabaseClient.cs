@@ -137,7 +137,6 @@ sealed class PreconfiguredMetabaseClient : IPreconfiguredMetabaseClient
         var bodyNode = JsonNode.Parse(jsonBody)!;
         var detailsNode = bodyNode["details"]!;
 
-        // TODO: Check whether the host in cluster is different from the host in the local environment
         detailsNode["host"] = databaseSettings.Host;
         detailsNode["db"] = databaseSettings.DatabaseName;
         detailsNode["port"] = databaseSettings.Port;

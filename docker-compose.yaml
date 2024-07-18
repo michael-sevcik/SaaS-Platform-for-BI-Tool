@@ -32,7 +32,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: Server=server-db,1433;Database=SaaSPlatform;User Id=sa;password=password123!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
-      Modules__Notifications__Mail__BaseUrl : http://localhost:8080/ # TODO:
+      Modules__Notifications__Mail__BaseUrl : http://localhost:8080/ 
       Modules__Notifications__Mail__SenderEmail : app@example.com
       Modules__Notifications__Mail__SmtpServer : smtp
       Modules__Notifications__Mail__SmtpPort : 1025

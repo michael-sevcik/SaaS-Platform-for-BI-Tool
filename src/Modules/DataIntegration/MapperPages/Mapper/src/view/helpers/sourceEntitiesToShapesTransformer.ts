@@ -25,7 +25,6 @@ export class SourceEntitiesToShapesTransformer extends SourceEntityVisitor {
 
     public constructor(sourceTables: Table[]) {
         super();
-        // TODO: Consider using also the schema name as a key
         sourceTables.forEach((table) =>
             this.sourceTablesByName.set(table.fullName, table)
         );

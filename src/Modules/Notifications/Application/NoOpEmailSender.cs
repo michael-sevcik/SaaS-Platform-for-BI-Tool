@@ -45,7 +45,6 @@ public sealed class NoOpEmailSender : IEmailSender
 
         Uri absoluteLink = new(baseUri, relativeLink);
 
-        // TODO: USE for final implementation
         var encodedLink = HtmlEncoder.Default.Encode(absoluteLink.ToString());
 
         Messages.Add($"""

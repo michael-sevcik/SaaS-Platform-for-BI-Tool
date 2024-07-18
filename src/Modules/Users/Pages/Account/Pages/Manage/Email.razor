@@ -88,7 +88,6 @@
             NavigationManager.ToAbsoluteUri("Account/ConfirmEmailChange").AbsoluteUri,
             new Dictionary<string, object?> { ["userId"] = userId, ["email"] = Input.NewEmail, ["code"] = code });
 
-        // TODO: MOVE THIS TO USER MANAGER
         await EmailSender.SendConfirmationLinkAsync(user, Input.NewEmail, callbackUrl);
 
         message = "Confirmation link to change email sent. Please check your email.";

@@ -13,10 +13,6 @@ import { JoinCondition, Operator } from './mappingModel/sourceEntities/aggregato
 import { Join, JoinType } from './mappingModel/sourceEntities/aggregators/join';
 
 
-// TODO:
-//const mappingEditor = new MappingEditor(sourceDb, targetDb);
-//mappingEditor.loadEntityMapping(deserializedEntityMapping);
-
 
 // We need to get model of source db and entity to map
 // We have the model prepared

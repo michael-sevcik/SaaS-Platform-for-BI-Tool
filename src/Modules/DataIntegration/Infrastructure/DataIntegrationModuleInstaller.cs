@@ -18,7 +18,6 @@ public class DataIntegrationModuleInstaller : IModuleInstaller
     {
         services.InstallServicesFromAssemblies(configuration,
             AssemblyReference.Assembly
-            //  TODO: ADD all ADDITIONAL ASSEMBLIES
             );
     }
 }
