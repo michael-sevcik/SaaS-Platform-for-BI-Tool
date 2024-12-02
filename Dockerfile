@@ -53,6 +53,7 @@ WORKDIR /app
 RUN apk add icu-libs
 ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
 
+RUN apk add --update nodejs npm
 
 # Copy everything needed to run the app from the "build" stage.
 COPY --from=build /app .
@@ -60,6 +61,6 @@ COPY --from=build /app .
 # Switch to a non-privileged user (defined in the base image) that the app will run under.
 # See https://docs.docker.com/go/dockerfile-user-best-practices/
 # and https://github.com/dotnet/dotnet-docker/discussions/4764
-USER $APP_UID
+# USER $APP_UID
 
 ENTRYPOINT ["dotnet", "BIManagement.ManagementApp.dll"]
