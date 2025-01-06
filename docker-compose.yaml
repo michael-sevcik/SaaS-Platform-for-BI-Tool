@@ -89,25 +89,6 @@ services:
       custom_net:
         ipv4_address: 10.5.0.3
 
-  customer-db-2:
-    build: ./src/Images/mssql-example-customer-db/
-    # restart: unless-stopped
-    environment:
-      SA_PASSWORD: password123!
-    ports:
-      - 2224:1433
-    healthcheck:
-      test: cat /usr/src/app/initialized | grep -q Initialized && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
-      interval: 50s
-      timeout: 30s
-      retries: 10
-      start_period: 400s
-    volumes:
-      - customer-db-2:/var/opt/mssql
-    networks:
-      custom_net:
-        ipv4_address: 10.5.0.7
-
   smtp:
     image: reachfive/fake-smtp-server
     restart: unless-stopped
@@ -153,8 +134,42 @@ services:
       custom_net:
         ipv4_address: 10.5.0.5
 
+  keycloak_web:
+    image: keycloak/keycloak
+    container_name: keycloak_web
+    environment:
+      KC_DB: postgres
+      KC_DB_URL: jdbc:postgresql://keycloakdb:5432/keycloak
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+
+      KC_HOSTNAME: localhost
+      KC_HOSTNAME_PORT: 8080
+      KC_HOSTNAME_STRICT: false
+      KC_HOSTNAME_STRICT_HTTPS: false
+
+      KC_LOG_LEVEL: info
+      KC_METRICS_ENABLED: true
+      KC_HEALTH_ENABLED: true
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    command: start-dev
+    depends_on:
+      - keycloakdb
+    ports:
+      - 8080:8080
+
+  keycloakdb:
+    image: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
 
 volumes:
+  postgres_data: {}
   cluster-config: {}
   server-db: {}
   customer-db-1: {}
