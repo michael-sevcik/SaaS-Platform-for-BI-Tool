@@ -15,7 +15,7 @@ services:
       context: .
       target: final
     ports:
-      - 8080:8080
+      - 8081:8080
     volumes:
       - cluster-config:/cluster-config
     depends_on:
@@ -23,16 +23,14 @@ services:
         condition: service_started
       server-db : 
         condition: service_healthy
-      cluster:
-        condition: service_healthy
-      customer-db-1:
-        condition: service_healthy
-      customer-db-2:
-        condition: service_healthy
+      # cluster:
+      #   condition: service_healthy
+      # customer-db-1:
+      #   condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       ConnectionStrings__DefaultConnection: Server=server-db,1433;Database=SaaSPlatform;User Id=sa;password=password123!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
-      Modules__Notifications__Mail__BaseUrl : http://localhost:8080/ 
+      Modules__Notifications__Mail__BaseUrl : http://localhost:8081/ 
       Modules__Notifications__Mail__SenderEmail : app@example.com
       Modules__Notifications__Mail__SmtpServer : smtp
       Modules__Notifications__Mail__SmtpPort : 1025
@@ -46,6 +44,8 @@ services:
       Modules__Deployment__KubernetesHost : 'https://cluster:6443'
       Modules__Deployment__KubernetesPublicUrl : http://localhost
       Modules__Deployment__KubernetesInternalUrl : http://cluster
+      Modules__Users__Keycloak__Authority : 'https://localhost:8080/auth'
+      Modules__Users__Keycloak__ClientSecret : UXfmFFu6Rsr9TNtWttfDWnSAwbrY2dfe
       KUBECONFIG : /cluster-config/kubeconfig.yaml
     networks:
       custom_net:
@@ -70,24 +70,24 @@ services:
       custom_net:
         ipv4_address: 10.5.0.2
 
-  customer-db-1:
-    build: ./src/Images/mssql-example-customer-db/
-    # restart: unless-stopped
-    environment:
-      SA_PASSWORD: password123!
-    ports:
-      - 2223:1433
-    healthcheck:
-      test: cat /usr/src/app/initialized | grep -q Initialized && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
-      interval: 50s
-      timeout: 30s
-      retries: 10
-      start_period: 400s
-    volumes:
-      - customer-db-1:/var/opt/mssql
-    networks:
-      custom_net:
-        ipv4_address: 10.5.0.3
+  # customer-db-1:
+  #   build: ./src/Images/mssql-example-customer-db/
+  #   # restart: unless-stopped
+  #   environment:
+  #     SA_PASSWORD: password123!
+  #   ports:
+  #     - 2223:1433
+  #   healthcheck:
+  #     test: cat /usr/src/app/initialized | grep -q Initialized && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
+  #     interval: 50s
+  #     timeout: 30s
+  #     retries: 10
+  #     start_period: 400s
+  #   volumes:
+  #     - customer-db-1:/var/opt/mssql
+  #   networks:
+  #     custom_net:
+  #       ipv4_address: 10.5.0.3
 
   smtp:
     image: reachfive/fake-smtp-server
@@ -100,39 +100,39 @@ services:
         ipv4_address: 10.5.0.4
 
   # source: https://github.com/k3s-io/k3s/blob/master/docker-compose.yml
-  cluster:
-    build: ./src/Images/ingress-nginx-k3s/
-    tmpfs:
-    - /run
-    - /var/run
-    ports:
-      - 80:80
-      - 443:443
-      - 6443:6443
-    ulimits:  
-      nproc: 65535
-      nofile:
-        soft: 65535
-        hard: 65535
-    privileged: true
+  # cluster:
+  #   build: ./src/Images/ingress-nginx-k3s/
+  #   tmpfs:
+  #   - /run
+  #   - /var/run
+  #   ports:
+  #     - 80:80
+  #     - 443:443
+  #     - 6443:6443
+  #   ulimits:  
+  #     nproc: 65535
+  #     nofile:
+  #       soft: 65535
+  #       hard: 65535
+  #   privileged: true
 
-    environment:
-      # - K3S_TOKEN=${K3S_TOKEN:?err}
-      - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
-      - K3S_KUBECONFIG_MODE=644
-    volumes:
-    - k3s-server:/var/lib/rancher/k3s
-    # This is just so that we get the kubeconfig file out
-    - cluster-config:/output
-    healthcheck:
-      test: kubectl get --raw='/readyz' | grep -q 'ok' && kubectl get --raw='/healthz' | grep -q 'ok' && cat /usr/local/bin/initialized | grep -q Initialized
-      interval: 30s
-      timeout: 30s
-      retries: 5
-      start_period: 130s
-    networks:
-      custom_net:
-        ipv4_address: 10.5.0.5
+  #   environment:
+  #     # - K3S_TOKEN=${K3S_TOKEN:?err}
+  #     - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+  #     - K3S_KUBECONFIG_MODE=644
+  #   volumes:
+  #   - k3s-server:/var/lib/rancher/k3s
+  #   # This is just so that we get the kubeconfig file out
+  #   - cluster-config:/output
+  #   healthcheck:
+  #     test: kubectl get --raw='/readyz' | grep -q 'ok' && kubectl get --raw='/healthz' | grep -q 'ok' && cat /usr/local/bin/initialized | grep -q Initialized
+  #     interval: 30s
+  #     timeout: 30s
+  #     retries: 5
+  #     start_period: 130s
+  #   networks:
+  #     custom_net:
+  #       ipv4_address: 10.5.0.5
 
   keycloak_web:
     image: keycloak/keycloak
