@@ -45,8 +45,8 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
                     
                     // dev only
                     options.RequireHttpsMetadata = false;
-                    options.GetClaimsFromUserInfoEndpoint = true;
 
+                    options.GetClaimsFromUserInfoEndpoint = true;
                     options.Scope.Add("openid");
                     options.Scope.Add("profile");
                     options.Scope.Add("email");
