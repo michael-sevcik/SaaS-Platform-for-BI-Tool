@@ -45,9 +45,10 @@ services:
       Modules__Deployment__KubernetesPublicUrl : http://localhost
       Modules__Deployment__KubernetesInternalUrl : http://cluster
       Modules__Users__Keycloak__Authority : 'http://localhost:8085/realms/bi-platform/auth'
-      Modules__Users__Keycloak__MetadataAddress : 'http://localhost:8085/realms/bi-platform/.well-known/openid-configuration'
+      Modules__Users__Keycloak__MetadataAddress : 'http://10.5.0.7:8080/realms/bi-platform/.well-known/openid-configuration'
       Modules__Users__Keycloak__ClientId : bi-platform
       Modules__Users__Keycloak__ClientSecret : pfuzYLvIKiU13HG43xEkixUTSHmnnH5G
+      Modules__Users__Keycloak__ValidIssuer: 'http://localhost:8085/realms/bi-platform'
       KUBECONFIG : /cluster-config/kubeconfig.yaml
     networks:
       custom_net:
@@ -156,6 +157,9 @@ services:
     restart: always
     ports:
       - 8085:8080
+    networks:
+      custom_net:
+        ipv4_address: 10.5.0.7
 
 volumes:
   cluster-config: {}
