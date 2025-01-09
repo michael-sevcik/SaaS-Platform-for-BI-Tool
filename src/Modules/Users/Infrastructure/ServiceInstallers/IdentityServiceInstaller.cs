@@ -52,6 +52,7 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
                     options.Scope.Add("email");
                     options.Scope.Add("roles");
                     options.TokenValidationParameters.RoleClaimType = "role";
+                    options.TokenValidationParameters.ValidIssuer = keycloackConfig["ValidIssuer"];
 
 
                     options.Events = new OpenIdConnectEvents
