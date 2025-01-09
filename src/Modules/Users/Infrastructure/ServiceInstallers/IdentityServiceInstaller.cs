@@ -1,6 +1,5 @@
 ﻿using BIManagement.Common.Infrastructure.Configuration;
 using BIManagement.Common.Persistence.Options;
-//using BIManagement.Common.Persistence.Constants;
 using BIManagement.Modules.Users.Domain;
 using BIManagement.Modules.Users.Infrastructure.Identity;
 using BIManagement.Modules.Users.Pages.Account;
@@ -15,6 +14,7 @@ using BIManagement.Common.Persistence.Extensions;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Microsoft.IdentityModel.Tokens;
+using System.Security.Claims;
 
 namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
 {
@@ -41,7 +41,7 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
                     options.ClientSecret = keycloackConfig["ClientSecret"];
                     options.ResponseType = OpenIdConnectResponseType.Code;
                     options.SaveTokens = true;
-                    options.MetadataAddress = $"{options.Authority}/.well-known/openid-configuration";
+                    options.MetadataAddress = keycloackConfig["MetadataAddress"];
                     
                     // dev only
                     options.RequireHttpsMetadata = false;
@@ -51,11 +51,31 @@ namespace BIManagement.Modules.Users.Infrastructure.ServiceInstallers
                     options.Scope.Add("profile");
                     options.Scope.Add("email");
                     options.Scope.Add("roles");
+                    options.TokenValidationParameters.RoleClaimType = "role";
 
-                    //options.TokenValidationParameters = new TokenValidationParameters
-                    //{
-                    //    ValidateIssuer = true
-                    //};
+
+                    options.Events = new OpenIdConnectEvents
+                    {
+                        OnTokenValidated = context =>
+                        {
+                            // Add roles to the principal
+                            if (context.Principal is not null) { 
+                                var claimsIdentity = context.Principal.Identity;
+                                var accessToken = context.SecurityToken;
+                                if (accessToken != null)
+                                {
+                                    var roles = accessToken.Claims.Where(c => c.Type == "role");
+
+                                    foreach (var role in roles)
+                                    {
+                                        context.Principal.Identities.First().AddClaim(new Claim(ClaimTypes.Role, role.Value));
+                                    }
+                                }
+                            }
+
+                            return Task.CompletedTask;
+                        },
+                    };
                 })
                 .AddIdentityCookies();
                 
