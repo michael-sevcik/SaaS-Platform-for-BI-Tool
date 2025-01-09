@@ -10,12 +10,19 @@
 # https://github.com/docker/awesome-compose
 # version: '2'
 services:
+  localhost:
+    image: alpine:latest
+    command: sleep infinity
+    ports:
+      - "6080:6080"
+      - "8080:8080"
+
+
   server:
     build:
       context: .
       target: final
-    ports:
-      - 8081:8080
+    network_mode: "service:localhost"
     volumes:
       - cluster-config:/cluster-config
     depends_on:
@@ -29,8 +36,14 @@ services:
       #   condition: service_healthy
     environment:
       ASPNETCORE_ENVIRONMENT: Development
+      ASPNETCORE_URLS: http://*:6080/
+      
+      Logging__LogLevel__Default: Trace
+      Logging__LogLevel__Microsoft: Trace
+      Logging__LogLevel__Microsoft.Identity: Trace  
+      IdentityModelEventSource_ShowPII: true
       ConnectionStrings__DefaultConnection: Server=server-db,1433;Database=SaaSPlatform;User Id=sa;password=password123!;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False
-      Modules__Notifications__Mail__BaseUrl : http://localhost:8081/ 
+      Modules__Notifications__Mail__BaseUrl : http://localhost:6080/ 
       Modules__Notifications__Mail__SenderEmail : app@example.com
       Modules__Notifications__Mail__SmtpServer : smtp
       Modules__Notifications__Mail__SmtpPort : 1025
@@ -44,15 +57,12 @@ services:
       Modules__Deployment__KubernetesHost : 'https://cluster:6443'
       Modules__Deployment__KubernetesPublicUrl : http://localhost
       Modules__Deployment__KubernetesInternalUrl : http://cluster
-      Modules__Users__Keycloak__Authority : 'http://localhost:8085/realms/bi-platform/auth'
-      Modules__Users__Keycloak__MetadataAddress : 'http://10.5.0.7:8080/realms/bi-platform/.well-known/openid-configuration'
+      Modules__Users__Keycloak__Authority : 'http://localhost:8080/realms/bi-platform/auth'
+      Modules__Users__Keycloak__MetadataAddress : 'http://localhost:8080/realms/bi-platform/.well-known/openid-configuration'
       Modules__Users__Keycloak__ClientId : bi-platform
       Modules__Users__Keycloak__ClientSecret : pfuzYLvIKiU13HG43xEkixUTSHmnnH5G
-      Modules__Users__Keycloak__ValidIssuer: 'http://localhost:8085/realms/bi-platform'
+      Modules__Users__Keycloak__ValidIssuer: 'http://localhost:8080/realms/bi-platform'
       KUBECONFIG : /cluster-config/kubeconfig.yaml
-    networks:
-      custom_net:
-        ipv4_address: 10.5.0.6
 
   server-db:
     build: ./src/Images/mssql-server-db/
@@ -69,28 +79,6 @@ services:
       start_period: 30s
     volumes:
       - server-db:/var/opt/mssql
-    networks:
-      custom_net:
-        ipv4_address: 10.5.0.2
-
-  # customer-db-1:
-  #   build: ./src/Images/mssql-example-customer-db/
-  #   # restart: unless-stopped
-  #   environment:
-  #     SA_PASSWORD: password123!
-  #   ports:
-  #     - 2223:1433
-  #   healthcheck:
-  #     test: cat /usr/src/app/initialized | grep -q Initialized && /opt/mssql-tools/bin/sqlcmd -S localhost -U sa -P "password123!" -Q "SELECT 1" -b -o /dev/null
-  #     interval: 50s
-  #     timeout: 30s
-  #     retries: 10
-  #     start_period: 400s
-  #   volumes:
-  #     - customer-db-1:/var/opt/mssql
-  #   networks:
-  #     custom_net:
-  #       ipv4_address: 10.5.0.3
 
   smtp:
     image: reachfive/fake-smtp-server
@@ -98,9 +86,6 @@ services:
     ports:
       - 5025:1025
       - 5080:1080
-    networks:
-      custom_net:
-        ipv4_address: 10.5.0.4
 
   # source: https://github.com/k3s-io/k3s/blob/master/docker-compose.yml
   cluster:
@@ -133,18 +118,15 @@ services:
       timeout: 30s
       retries: 5
       start_period: 130s
-    networks:
-      custom_net:
-        ipv4_address: 10.5.0.5
 
   keycloak:
     image: keycloak/keycloak
     # container_name: keycloak_web
     environment:
       KC_HOSTNAME: localhost
-      KC_HOSTNAME_PORT: 8085
+      KC_HOSTNAME_PORT: 8080
       KC_HOSTNAME_STRICT: false
-      KC_HOSTNAME_STRICT_HTTPS: false
+      KC_HOSTNAME_STRICT_BACKCHANNEL: "true"
 
       KC_LOG_LEVEL: info
       KC_METRICS_ENABLED: true
@@ -155,11 +137,7 @@ services:
     volumes:
       - ./.containers/keycloak:/opt/keycloak/data/
     restart: always
-    ports:
-      - 8085:8080
-    networks:
-      custom_net:
-        ipv4_address: 10.5.0.7
+    network_mode: "service:localhost"
 
 volumes:
   cluster-config: {}
@@ -167,11 +145,3 @@ volumes:
   customer-db-1: {}
   customer-db-2: {}
   k3s-server: {}
-
-networks:
-  custom_net:
-    driver: bridge
-    ipam:
-      config:
-        - subnet: 10.5.0.0/16
-          gateway: 10.5.0.1
