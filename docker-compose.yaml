@@ -44,8 +44,10 @@ services:
       Modules__Deployment__KubernetesHost : 'https://cluster:6443'
       Modules__Deployment__KubernetesPublicUrl : http://localhost
       Modules__Deployment__KubernetesInternalUrl : http://cluster
-      Modules__Users__Keycloak__Authority : 'https://localhost:8080/auth'
-      Modules__Users__Keycloak__ClientSecret : UXfmFFu6Rsr9TNtWttfDWnSAwbrY2dfe
+      Modules__Users__Keycloak__Authority : 'http://localhost:8085/realms/bi-platform/auth'
+      Modules__Users__Keycloak__MetadataAddress : 'http://localhost:8085/realms/bi-platform/.well-known/openid-configuration'
+      Modules__Users__Keycloak__ClientId : bi-platform
+      Modules__Users__Keycloak__ClientSecret : pfuzYLvIKiU13HG43xEkixUTSHmnnH5G
       KUBECONFIG : /cluster-config/kubeconfig.yaml
     networks:
       custom_net:
@@ -100,51 +102,46 @@ services:
         ipv4_address: 10.5.0.4
 
   # source: https://github.com/k3s-io/k3s/blob/master/docker-compose.yml
-  # cluster:
-  #   build: ./src/Images/ingress-nginx-k3s/
-  #   tmpfs:
-  #   - /run
-  #   - /var/run
-  #   ports:
-  #     - 80:80
-  #     - 443:443
-  #     - 6443:6443
-  #   ulimits:  
-  #     nproc: 65535
-  #     nofile:
-  #       soft: 65535
-  #       hard: 65535
-  #   privileged: true
+  cluster:
+    build: ./src/Images/ingress-nginx-k3s/
+    tmpfs:
+    - /run
+    - /var/run
+    ports:
+      - 80:80
+      - 443:443
+      - 6443:6443
+    ulimits:  
+      nproc: 65535
+      nofile:
+        soft: 65535
+        hard: 65535
+    privileged: true
 
-  #   environment:
-  #     # - K3S_TOKEN=${K3S_TOKEN:?err}
-  #     - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
-  #     - K3S_KUBECONFIG_MODE=644
-  #   volumes:
-  #   - k3s-server:/var/lib/rancher/k3s
-  #   # This is just so that we get the kubeconfig file out
-  #   - cluster-config:/output
-  #   healthcheck:
-  #     test: kubectl get --raw='/readyz' | grep -q 'ok' && kubectl get --raw='/healthz' | grep -q 'ok' && cat /usr/local/bin/initialized | grep -q Initialized
-  #     interval: 30s
-  #     timeout: 30s
-  #     retries: 5
-  #     start_period: 130s
-  #   networks:
-  #     custom_net:
-  #       ipv4_address: 10.5.0.5
-
-  keycloak_web:
-    image: keycloak/keycloak
-    container_name: keycloak_web
     environment:
-      KC_DB: postgres
-      KC_DB_URL: jdbc:postgresql://keycloakdb:5432/keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: password
+      # - K3S_TOKEN=${K3S_TOKEN:?err}
+      - K3S_KUBECONFIG_OUTPUT=/output/kubeconfig.yaml
+      - K3S_KUBECONFIG_MODE=644
+    volumes:
+    - k3s-server:/var/lib/rancher/k3s
+    # This is just so that we get the kubeconfig file out
+    - cluster-config:/output
+    healthcheck:
+      test: kubectl get --raw='/readyz' | grep -q 'ok' && kubectl get --raw='/healthz' | grep -q 'ok' && cat /usr/local/bin/initialized | grep -q Initialized
+      interval: 30s
+      timeout: 30s
+      retries: 5
+      start_period: 130s
+    networks:
+      custom_net:
+        ipv4_address: 10.5.0.5
 
+  keycloak:
+    image: keycloak/keycloak
+    # container_name: keycloak_web
+    environment:
       KC_HOSTNAME: localhost
-      KC_HOSTNAME_PORT: 8080
+      KC_HOSTNAME_PORT: 8085
       KC_HOSTNAME_STRICT: false
       KC_HOSTNAME_STRICT_HTTPS: false
 
@@ -154,22 +151,13 @@ services:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     command: start-dev
-    depends_on:
-      - keycloakdb
-    ports:
-      - 8080:8080
-
-  keycloakdb:
-    image: postgres
     volumes:
-      - postgres_data:/var/lib/postgresql/data
-    environment:
-      POSTGRES_DB: keycloak
-      POSTGRES_USER: keycloak
-      POSTGRES_PASSWORD: password
+      - ./.containers/keycloak:/opt/keycloak/data/
+    restart: always
+    ports:
+      - 8085:8080
 
 volumes:
-  postgres_data: {}
   cluster-config: {}
   server-db: {}
   customer-db-1: {}
