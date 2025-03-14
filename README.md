@@ -26,16 +26,8 @@ Níže je základní přehled témat, s kterými jsem se setkal při práci na t
 - Generické nástěnky
 - Deploy BI nástroje v Kubernets
 
-## Obsah repozitáře
-
-Tento repozitář zatím obsahuje:
-
-- toto readme,
-- [log](log.txt) využívaný jako prostor pro uchovávání různých poznámek a odkazů souvisejících s vývojem. Obsah není struktovaný, ani příliš okomentovaný, slouží pouze pro interní organizaci práce
-- a komponentu [mapper](Mapper), která složí pro vytvoření mapování mezi zdrojovou a cílovou databází.
-
 ## Running the application
-If you want to run this on windows, git before cloning the repository needs to be set to not convert LF to CRLF (`git config --global core.autocrlf false`), otherwise it will discrupt shell scripts. 
+If you want to run this application on windows, you need to set git before cloning the repository to not convert LF to CRLF (`git config --global core.autocrlf false`), otherwise it will discrupt shell scripts. 
 
 Run in the repository root directory:
 
