@@ -20,10 +20,10 @@
     <SupportedPlatform Include="browser" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Blazor.Bootstrap" Version="3.0.0-preview.2" />
-    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0-preview.5.24306.11" />
-    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0-preview.5.24306.7" />
+    <PackageReference Include="Blazor.Bootstrap" Version="3.2.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.0" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="9.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\Components\BIManagement.Common.Components.csproj" />
