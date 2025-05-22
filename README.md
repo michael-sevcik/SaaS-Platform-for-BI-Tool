@@ -1,30 +1,30 @@
-# 222-Sevcik-Michael
+# Repository description
 
-Repozitář obsahuje soubory související s ročníkovým projektem a bakalářskou prací na téma tvorba podnikového online reporting nástroje s důrazem na jednoduchost nasazení u středních až větších firem zabývajících se výrobou.
+The repository contains files related to the term project and bachelor's thesis on the topic of developing an enterprise online reporting tool with an emphasis on ease of deployment for medium to large manufacturing companies.
 
-## Přiblížení projektu
+## Project Overview
 
-Výše zmíněné firmy již většinou používají nějaký ERP systém, ale často nevyužívají plného potenciálu dat v něm se skrývajících. Zde vyvíjený BI nástroj si klade za cíl poskytnout generický pohled (datový model) na tyto data a pomocí něj umožnit velmi rychlou vizualizaci různých výrobních a ekonomických metrik, mimo to nástroj provede základní kontrolu importovaných dat a upozorní na výskyt některých častých druhů chyb.
+The aforementioned companies usually already use some ERP system, but often do not utilize the full potential of the data it contains. The BI tool being developed here aims to provide a generic view (data model) of this data and enable very fast visualization of various production and economic metrics. In addition, the tool performs a basic check of the imported data and warns about the occurrence of some common types of errors.
 
-## Tématické okruhy související s vývojem tohoto projektu
+## Thematic Areas Related to the Development of This Project
 
-Níže je základní přehled témat, s kterými jsem se setkal při práci na tomto projektu, či se jim v brzké budoucnosti budu věnovat:
+Below is a basic overview of the topics I have encountered while working on this project, or will be addressing in the near future:
 
-- Srovnání nástrojů pro vizualizaci
-    - Vybrán metabase
-- Srovnání možností importu dat s důrazem na jednoduchost
-    - ETL nástroje
-    - Vlastní mapper a ETL infrastruktura
-    - Pravděpodobně vlastní řešení s ohledeme na jednoduchost použití. 
-- Generický datový model výrobce
-    - Datové modely zákazníků
-    - Generalizace
-- Vlastní mapper
-    - Knihovny pro mapování
-    - Implementace
-- Kontrola dat - spíše implementace
-- Generické nástěnky
-- Deploy BI nástroje v Kubernets
+- Comparison of visualization tools  
+    - Metabase selected  
+- Comparison of data import options with an emphasis on simplicity  
+    - ETL tools  
+    - Custom mapper and ETL infrastructure  
+    - Likely a custom solution with regard to ease of use  
+- Generic manufacturer data model  
+    - Customer data models  
+    - Generalization  
+- Custom mapper  
+    - Libraries for mapping  
+    - Implementation  
+- Data validation – mostly implementation  
+- Generic dashboards  
+- Deploying the BI tool in Kubernetes
 
 ## Running the application
 If you want to run this application on windows, you need to set git before cloning the repository to not convert LF to CRLF (`git config --global core.autocrlf false`), otherwise it will discrupt shell scripts. 
